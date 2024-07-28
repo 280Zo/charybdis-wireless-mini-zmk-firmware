@@ -1,0 +1,147 @@
+#include <behaviors/mouse_keys.dtsi>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/mouse.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define U_TAPPING_TERM 200
+
+/ {
+    chosen { zmk,matrix_transform = &default_transform; };
+};
+
+/ {
+    hm: homerow_mod {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "tap-preferred";
+        tapping-term-ms = <250>;
+        quick-tap-ms = <150>;
+        require-prior-idle-ms = <125>;
+        bindings = <&kp>, <&kp>;
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        Delete {
+            bindings = <&kp DELETE>;
+            key-positions = <8 9>;
+        };
+
+        CapsWord {
+            bindings = <&caps_word>;
+            key-positions = <17 18>;
+        };
+
+        Layer_7 {
+            bindings = <&mo 7>;
+            key-positions = <38 39>;
+        };
+    };
+
+    macros {
+        VSplit: VSplit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
+            label = "VSPLIT";
+        };
+
+        HSplit: HSplit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(S) &kp LS(P) &kp RET>;
+            label = "HSPLIT";
+        };
+    };
+
+    behaviors {
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        Base {
+            bindings = <
+&kp C_AC_SEARCH  &kp Q           &kp W                     &kp F                         &kp P             &kp B           &kp J         &kp L             &kp U                             &kp Y                          &kp APOS         &to 5
+&hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT R            &hm LCTRL S                   &hm LEFT_SHIFT T  &kp G           &kp M         &hm LEFT_SHIFT N  &hm RCTRL E                       &hm RIGHT_ALT I                &hm LEFT_META O  &kp DEL
+&kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp D             &kp V           &kp K         &kp H             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH         &to 6
+                                                           &hm LC(F10) C_PLAY_PAUSE      &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
+            >;
+        };
+
+        Num {
+            bindings = <
+&none  &none  &none  &none  &none          &none    &kp SLASH  &hm F7 N7  &hm F8 N8  &hm F9 N9  &hm F10 MINUS  &none
+&none  &none  &none  &none  &kp BACKSPACE  &none    &kp ASTRK  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &none
+&none  &none  &none  &none  &none          &none    &kp DOT    &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 EQUAL  &none
+                     &none  &none          &none    &kp N0     &none
+            >;
+        };
+
+        Nav {
+            bindings = <
+&none   &none   &none   &none   &none   &none     &none    &kp LS(LC(H))   &kp LS(LC(J))  &kp LS(LC(K))  &kp LS(LC(L))    &none
+&trans  &trans  &trans  &trans  &trans  &trans    &VSplit  &kp LEFT_ARROW  &kp DOWN       &kp UP         &kp RIGHT_ARROW  &none
+&none   &none   &none   &none   &none   &none     &HSplit  &kp HOME        &kp PG_DN      &kp PG_UP      &kp END          &none
+                        &none   &none   &trans    &trans   &trans
+            >;
+        };
+
+        Sym {
+            bindings = <
+&none      &kp SQT                    &kp CARET        &kp PLUS      &kp MINUS             &kp BSLH     &kp GRAVE      &kp TILDE             &kp LEFT_BRACE  &kp RIGHT_BRACE    &kp AMPS     &none
+&kp PRCNT  &hm LEFT_META EXCLAMATION  &hm LEFT_ALT LT  &hm LCTRL GT  &hm LEFT_SHIFT SPACE  &kp SLASH    &kp COLON      &mt LEFT_SHIFT SPACE  &hm LCTRL LPAR  &hm LEFT_ALT RPAR  &kp HASH     &none
+&none      &kp DQT                    &kp DLLR         &kp EQUAL     &kp ASTRK             &kp PIPE     &kp SEMICOLON  &kp UNDERSCORE        &kp LBKT        &kp RBKT           &kp AT_SIGN  &none
+                                                       &trans        &trans                &trans       &none          &trans
+            >;
+        };
+
+        Mouse {
+            bindings = <
+&none  &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
+&none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
+&none  &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &none
+                                       &tog 8          &mkp LCLK        &mkp RCLK          &none  &none
+            >;
+        };
+
+        Game {
+            bindings = <
+&kp N1  &kp TAB    &kp Q  &kp W  &kp E      &kp R           &none  &none  &none  &none  &none  &to 0
+&kp N2  &kp LCTRL  &kp A  &kp S  &kp D      &kp F           &none  &none  &none  &none  &none  &none
+&kp N3  &kp LSHFT  &kp Z  &kp X  &kp C      &kp V           &none  &none  &none  &none  &none  &none
+                          &none  &kp SPACE  &kp LEFT_ALT    &none  &none
+            >;
+        };
+
+        Photos {
+            bindings = <
+&trans          &kp LA(LC(LS(Z)))  &kp LA(LC(LS(E)))  &kp LA(LC(LS(A)))  &kp LA(LC(LS(S)))  &kp LA(LC(LS(B)))    &none   &none   &none  &none  &none  &none
+&kp LC(LA(E))   &kp LEFT           &kp DOWN           &kp UP             &kp RIGHT          &kp LCTRL            &none   &none   &none  &none  &none  &none
+&kp LS(DELETE)  &kp LA(LS(A))      &kp LA(KP_N1)      &kp LA(KP_N2)      &kp LA(KP_N3)      &none                &none   &none   &none  &none  &none  &to 0
+                                                      &none              &none              &trans               &trans  &trans
+            >;
+        };
+
+        Extras {
+            bindings = <
+&kp C_SLEEP  &none  &none  &none  &none  &kp C_BRIGHTNESS_MAXIMUM    &bt BT_SEL 0     &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3  &bt BT_CLR  &kp C_AL_COFFEE
+&kp C_POWER  &none  &none  &none  &none  &kp C_BRIGHTNESS_INC        &out OUT_TOG     &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_STOP    &kp C_NEXT  &none
+&bootloader  &none  &none  &none  &none  &kp C_BRIGHTNESS_DEC        &kp PRINTSCREEN  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp K_MUTE    &none       &bootloader
+                           &none  &none  &none                       &none            &none
+            >;
+        };
+
+        slow_mouse {
+            bindings = <
+&none  &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
+&none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
+&none  &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &none
+                                       &tog 8          &mkp LCLK        &mkp RCLK          &none  &none
+            >;
+        };
+    };
+};
