@@ -45,13 +45,6 @@
             bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(S) &kp LS(P) &kp RET>;
             label = "HSPLIT";
         };
-
-        Hyper: Hyper {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp LEFT_ALT &kp LEFT_SHIFT &kp LCTRL &kp LEFT_META>;
-            label = "HYP";
-        };
     };
 
     keymap {
@@ -59,10 +52,10 @@
 
         Base {
             bindings = <
-&kp C_AC_SEARCH        &kp Q           &kp W                     &kp F        &kp P             &kp B           &kp J         &kp L             &kp U                    &kp Y                            &kp APOS         &to 5
-&kp C_AL_FILE_BROWSER  &mt LEFT_GUI A  &mt LEFT_ALT R            &mt LCTRL S  &mt LEFT_SHIFT T  &kp G           &kp M         &mt LEFT_SHIFT N  &mt RCTRL E              &mt RIGHT_ALT I                  &mt RIGHT_GUI O  &kp DEL
-&kp LA(LC(T))          &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &Hyper       &kp D             &kp V           &kp K         &kp H             &mt LA(LS(LCTRL)) COMMA  &mt LC(LA(LS(LEFT_GUI))) PERIOD  &kp FSLH         &to 6
-                                                                 &kp TAB      &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
+&kp C_AC_SEARCH  &kp Q           &kp W                     &kp F                         &kp P             &kp B           &kp J         &kp L             &kp U                             &kp Y                          &kp APOS         &to 5
+&kp LG(E)        &mt LEFT_GUI A  &mt LEFT_ALT R            &mt LCTRL S                   &mt LEFT_SHIFT T  &kp G           &kp M         &mt LEFT_SHIFT N  &mt RCTRL E                       &mt RIGHT_ALT I                &mt RIGHT_GUI O  &kp DEL
+&kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp D             &kp V           &kp K         &kp H             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH         &to 6
+                                                           &kp TAB                       &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
             >;
         };
 
