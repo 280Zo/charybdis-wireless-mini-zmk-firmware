@@ -45,6 +45,13 @@
             bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(S) &kp LS(P) &kp RET>;
             label = "HSPLIT";
         };
+
+        Hyper: Hyper {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_ALT &kp LEFT_SHIFT &kp LCTRL &kp LEFT_META>;
+            label = "HYP";
+        };
     };
 
     keymap {
@@ -52,10 +59,10 @@
 
         Base {
             bindings = <
-&kp C_AC_SEARCH        &kp Q           &kp W                &kp F                       &kp P             &kp B           &kp J         &kp L             &kp U                    &kp Y                            &kp APOS         &to 5
-&kp C_AL_FILE_BROWSER  &mt LEFT_GUI A  &mt LEFT_ALT R       &mt LCTRL S                 &mt LEFT_SHIFT T  &kp G           &kp M         &mt LEFT_SHIFT N  &mt RCTRL E              &mt RIGHT_ALT I                  &mt RIGHT_GUI O  &kp DEL
-&kp LA(LC(T))          &kp Z           &mt LA(LS(LCTRL)) X  &mt LC(LA(LS(LEFT_GUI))) C  &kp D             &kp V           &kp K         &kp H             &mt LA(LS(LCTRL)) COMMA  &mt LC(LA(LS(LEFT_GUI))) PERIOD  &kp FSLH         &to 6
-                                                            &kp TAB                     &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
+&kp C_AC_SEARCH        &kp Q           &kp W                     &kp F        &kp P             &kp B           &kp J         &kp L             &kp U                    &kp Y                            &kp APOS         &to 5
+&kp C_AL_FILE_BROWSER  &mt LEFT_GUI A  &mt LEFT_ALT R            &mt LCTRL S  &mt LEFT_SHIFT T  &kp G           &kp M         &mt LEFT_SHIFT N  &mt RCTRL E              &mt RIGHT_ALT I                  &mt RIGHT_GUI O  &kp DEL
+&kp LA(LC(T))          &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &Hyper       &kp D             &kp V           &kp K         &kp H             &mt LA(LS(LCTRL)) COMMA  &mt LC(LA(LS(LEFT_GUI))) PERIOD  &kp FSLH         &to 6
+                                                                 &kp TAB      &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
             >;
         };
 
@@ -90,7 +97,7 @@
             bindings = <
 &none  &msc MOVE_LEFT  &msc MOVE_DOWN  &mmv MOVE_UP    &msc MOVE_UP     &msc MOVE_RIGHT    &none  &none            &none      &none         &none           &none
 &none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp RIGHT_META  &none
-&none  &kp K_UNDO      &kp K_CUT       &kp K_COPY      &kp K_PASTE      &kp PRINTSCREEN    &none  &none            &none      &none         &none           &none
+&none  &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &kp PRINTSCREEN    &none  &none            &none      &none         &none           &none
                                        &mkp MCLK       &mkp LCLK        &mkp RCLK          &none  &none
             >;
         };
