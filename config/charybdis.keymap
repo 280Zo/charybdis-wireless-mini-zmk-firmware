@@ -52,10 +52,10 @@
 
         Base {
             bindings = <
-&kp C_AC_SEARCH  &kp Q           &kp W                &kp F                       &kp P             &kp B           &kp J         &kp L             &kp U                    &kp Y                            &kp APOS         &to 5
-&kp TAB          &mt LEFT_GUI A  &mt LEFT_ALT R       &mt LCTRL S                 &mt LEFT_SHIFT T  &kp G           &kp M         &mt LEFT_SHIFT N  &mt RCTRL E              &mt RIGHT_ALT I                  &mt RIGHT_GUI O  &kp DEL
-&kp LA(LC(T))    &kp Z           &mt LA(LS(LCTRL)) X  &mt LC(LA(LS(LEFT_GUI))) C  &kp D             &kp V           &kp K         &kp H             &mt LA(LS(LCTRL)) COMMA  &mt LC(LA(LS(LEFT_GUI))) PERIOD  &kp FSLH         &to 6
-                                                      &kp C_PLAY_PAUSE            &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
+&kp C_AC_SEARCH        &kp Q           &kp W                &kp F                       &kp P             &kp B           &kp J         &kp L             &kp U                    &kp Y                            &kp APOS         &to 5
+&kp C_AL_FILE_BROWSER  &mt LEFT_GUI A  &mt LEFT_ALT R       &mt LCTRL S                 &mt LEFT_SHIFT T  &kp G           &kp M         &mt LEFT_SHIFT N  &mt RCTRL E              &mt RIGHT_ALT I                  &mt RIGHT_GUI O  &kp DEL
+&kp LA(LC(T))          &kp Z           &mt LA(LS(LCTRL)) X  &mt LC(LA(LS(LEFT_GUI))) C  &kp D             &kp V           &kp K         &kp H             &mt LA(LS(LCTRL)) COMMA  &mt LC(LA(LS(LEFT_GUI))) PERIOD  &kp FSLH         &to 6
+                                                            &kp TAB                     &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
             >;
         };
 
@@ -88,10 +88,10 @@
 
         Mouse {
             bindings = <
-&none  &msc MOVE_LEFT    &msc MOVE_DOWN  &mmv MOVE_UP    &msc MOVE_UP     &msc MOVE_RIGHT        &none  &none            &none      &none         &none           &none
-&none  &mkp MB4          &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5               &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp RIGHT_META  &none
-&none  &kp K_UNDO        &kp K_CUT       &kp K_COPY      &kp K_PASTE      &kp PRINTSCREEN        &none  &none            &none      &none         &none           &none
-                                 &mkp MCLK       &mkp LCLK        &mkp RCLK    &none  &none
+&none  &msc MOVE_LEFT  &msc MOVE_DOWN  &mmv MOVE_UP    &msc MOVE_UP     &msc MOVE_RIGHT    &none  &none            &none      &none         &none           &none
+&none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp RIGHT_META  &none
+&none  &kp K_UNDO      &kp K_CUT       &kp K_COPY      &kp K_PASTE      &kp PRINTSCREEN    &none  &none            &none      &none         &none           &none
+                                       &mkp MCLK       &mkp LCLK        &mkp RCLK          &none  &none
             >;
         };
 
@@ -115,9 +115,9 @@
 
         Extras {
             bindings = <
-&kp C_SLEEP  &none  &none  &none  &none  &kp C_BRIGHTNESS_MAXIMUM    &bt BT_CLR       &bt BT_SEL 1       &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4  &kp K_COFFEE
-&kp C_POWER  &none  &none  &none  &none  &kp C_BRIGHTNESS_INC        &out OUT_TOG     &kp C_PREVIOUS     &kp C_STOP       &kp C_PLAY_PAUSE  &kp C_NEXT    &none
-&bootloader  &none  &none  &none  &none  &kp C_BRIGHTNESS_DEC        &kp PRINTSCREEN  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP  &kp K_MUTE        &none         &bootloader
+&kp C_SLEEP  &none  &none  &none  &none  &kp C_BRIGHTNESS_MAXIMUM    &bt BT_CLR       &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3  &bt BT_SEL 4  &kp C_AL_COFFEE
+&kp C_POWER  &none  &none  &none  &none  &kp C_BRIGHTNESS_INC        &out OUT_TOG     &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_STOP    &kp C_NEXT    &none
+&bootloader  &none  &none  &none  &none  &kp C_BRIGHTNESS_DEC        &kp PRINTSCREEN  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp K_MUTE    &none         &bootloader
                            &none  &none  &none                       &none            &none
             >;
         };
