@@ -102,7 +102,7 @@
 
         Mouse {
             bindings = <
-&none  &msc MOVE_LEFT  &msc SCROLL 0 -15  &mmv MOVE_UP    &msc SCROLL 0 10  &msc MOVE_RIGHT    &none  &none            &none      &none         &none           &none
+&none  &msc MOVE_LEFT  &msc SCROLL <0 -15>  &mmv MOVE_UP    &msc SCROLL <0 10>  &msc MOVE_RIGHT    &none  &none            &none      &none         &none           &none
 &none  &mkp MB4        &mmv MOVE_LEFT     &mmv MOVE_DOWN  &mmv MOVE_RIGHT   &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp RIGHT_META  &none
 &none  &kp C_AC_UNDO   &kp C_AC_CUT       &kp C_AC_COPY   &kp C_AC_PASTE    &kp PRINTSCREEN    &none  &none            &none      &none         &none           &none
                                           &mkp MCLK       &mkp LCLK         &mkp RCLK          &none  &none
