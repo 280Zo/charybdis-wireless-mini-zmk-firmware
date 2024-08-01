@@ -58,15 +58,18 @@
         };
     };
 
+    behaviors {
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         Base {
             bindings = <
-&kp C_AC_SEARCH  &kp Q           &kp W                     &kp F                         &kp P             &kp B           &kp J         &kp L             &kp U                             &kp Y                          &kp APOS         &to 5
-&kp LG(E)        &hm LEFT_GUI A  &hm LEFT_ALT R            &hm LCTRL S                   &hm LEFT_SHIFT T  &kp G           &kp M         &hm LEFT_SHIFT N  &hm RCTRL E                       &hm RIGHT_ALT I                &hm RIGHT_GUI O  &kp DEL
-&kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp D             &kp V           &kp K         &kp H             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH         &to 6
-                                                           &hm C_AC_DESKTOP_SHOW_ALL TAB                       &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
+&kp C_AC_SEARCH  &kp Q           &kp W                     &kp F                                  &kp P             &kp B           &kp J         &kp L             &kp U                             &kp Y                          &kp APOS         &to 5
+&kp LG(E)        &hm LEFT_GUI A  &hm LEFT_ALT R            &hm LCTRL S                            &hm LEFT_SHIFT T  &kp G           &kp M         &hm LEFT_SHIFT N  &hm RCTRL E                       &hm RIGHT_ALT I                &hm RIGHT_GUI O  &kp DEL
+&kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C           &kp D             &kp V           &kp K         &kp H             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH         &to 6
+                                                           &hm C_AC_DESKTOP_SHOW_ALL_WINDOWS TAB  &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
             >;
         };
 
