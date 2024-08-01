@@ -66,15 +66,15 @@
 &kp C_AC_SEARCH  &kp Q           &kp W                     &kp F                         &kp P             &kp B           &kp J         &kp L             &kp U                             &kp Y                          &kp APOS         &to 5
 &kp LG(E)        &hm LEFT_GUI A  &hm LEFT_ALT R            &hm LCTRL S                   &hm LEFT_SHIFT T  &kp G           &kp M         &hm LEFT_SHIFT N  &hm RCTRL E                       &hm RIGHT_ALT I                &hm RIGHT_GUI O  &kp DEL
 &kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp D             &kp V           &kp K         &kp H             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH         &to 6
-                                                           &kp TAB                       &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
+                                                           &hm C_AC_DESKTOP_SHOW_ALL TAB                       &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
             >;
         };
 
         Num {
             bindings = <
-&none  &none  &none  &none  &none          &none    &kp SLASH  &mt F7 N7  &mt F8 N8  &mt F9 N9  &mt F10 MINUS  &none
-&none  &none  &none  &none  &kp BACKSPACE  &none    &kp ASTRK  &mt F4 N4  &mt F5 N5  &mt F6 N6  &mt F11 PLUS   &none
-&none  &none  &none  &none  &none          &none    &kp DOT    &mt F1 N1  &mt F2 N2  &mt F3 N3  &mt F12 EQUAL  &none
+&none  &none  &none  &none  &none          &none    &kp SLASH  &hm F7 N7  &hm F8 N8  &hm F9 N9  &hm F10 MINUS  &none
+&none  &none  &none  &none  &kp BACKSPACE  &none    &kp ASTRK  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &none
+&none  &none  &none  &none  &none          &none    &kp DOT    &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 EQUAL  &none
                      &none  &none          &none    &kp N0     &none
             >;
         };
