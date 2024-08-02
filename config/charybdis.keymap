@@ -92,10 +92,10 @@
 
         Sym {
             bindings = <
-&none  &kp DOLLAR   &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp AMPERSAND              &kp BSLH           &none     &kp COLON              &kp TILDE            &kp FSLH                       &kp PIPE             &none
-&none  &kp ASTRK    &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &mt LEFT_SHIFT UNDERSCORE  &kp AT_SIGN        &kp SEMI  &mt RIGHT_SHIFT SPACE  &mt LCTRL LESS_THAN  &mt LS(LEFT_ALT) GREATER_THAN  &mt LEFT_META EQUAL  &none
-&none  &kp PERCENT  &kp LBKT              &kp RBKT               &kp CARET                  &kp EXCLAMATION    &none     &kp GRAVE              &kp HASH             &kp MINUS                      &kp PLUS             &none
-                                          &trans                 &trans                     &trans             &none     &trans
+&none      &kp SQT                    &kp CARET        &kp PLUS      &kp MINUS             &kp BSLH     &kp GRAVE      &kp TILDE             &kp LEFT_BRACE  &kp RIGHT_BRACE    &kp AMPS     &none
+&kp PRCNT  &hm LEFT_META EXCLAMATION  &hm LEFT_ALT LT  &hm LCTRL GT  &hm LEFT_SHIFT SPACE  &kp SLASH    &kp COLON      &mt LEFT_SHIFT SPACE  &hm LCTRL LPAR  &hm LEFT_ALT RPAR  &kp HASH     &none
+&none      &kp DQT                    &kp DLLR         &kp EQUAL     &kp ASTRK             &kp PIPE     &kp SEMICOLON  &kp UNDERSCORE        &kp LBKT        &kp RBKT           &kp AT_SIGN  &none
+                                                       &trans        &trans                &trans       &none          &trans
             >;
         };
 
