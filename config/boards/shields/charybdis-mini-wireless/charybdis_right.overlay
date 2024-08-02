@@ -52,7 +52,7 @@
         irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
          /*   optional features   */
         snipe-layers = <8>;
-        scroll-layers = <2 5 6>;
+        scroll-layers = <1 2 5 6>;
         automouse-layer = <4>;
     };
 };
