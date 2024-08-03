@@ -18,7 +18,6 @@ jobs:
           # Add any dependencies here
 
       - name: Generate QWERTY keymap
-        working-directory: scripts
         run: |
           python scripts/generate_qwerty.py
 
