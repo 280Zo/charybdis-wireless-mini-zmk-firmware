@@ -13,13 +13,14 @@ jobs:
           python-version: "3.x"
 
       - name: Install dependencies
-        working-directory: ./config/boards/shields/charybdis-mini-wireless/keymaps
         run: |
+        working-directory:
+          ./scripts
           python -m pip install --upgrade pip
           # Add any dependencies here
 
       - name: Generate QWERTY keymap
-        working-directory: ./config/boards/shields/charybdis-mini-wireless/keymaps
+        working-directory: ./scripts
         run: |
           python scripts/generate_qwerty.py
 

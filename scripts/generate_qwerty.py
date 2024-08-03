@@ -49,7 +49,7 @@ def format_columns(text):
 
 
 # Read the content of the input file
-# os.chdir('../config/boards/shields/charybdis-mini-wireless/keymaps')
+os.chdir('../config/boards/shields/charybdis-mini-wireless/keymaps')
 with open(colemak_file, 'r') as file:
     content = file.read()
 
