@@ -13,14 +13,17 @@ jobs:
           python-version: "3.x"
 
       - name: Install dependencies
+        working-directory: ./config/boards/shields/charybdis-mini-wireless/keymaps
         run: |
           python -m pip install --upgrade pip
           # Add any dependencies here
 
       - name: Generate QWERTY keymap
+        working-directory: ./config/boards/shields/charybdis-mini-wireless/keymaps
         run: |
           python scripts/generate_qwerty.py
 
   build:
+    needs: create-qwerty-keymap
     uses: ./.github/workflows/user_config_build.yaml
     # uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
