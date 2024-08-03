@@ -66,7 +66,7 @@
         Base {
             bindings = <
 &kp C_AC_SEARCH  &kp Q           &kp W                     &kp F                         &kp P             &kp B           &kp J         &kp L             &kp U                             &kp Y                          &kp APOS         &to 5
-&hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT R            &hm LCTRL S                   &hm LEFT_SHIFT T  &kp G           &kp M         &hm LEFT_SHIFT N  &hm RCTRL E                       &hm RIGHT_ALT I                &hm RIGHT_GUI O  &kp DEL
+&hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT R            &hm LCTRL S                   &hm LEFT_SHIFT T  &kp G           &kp M         &hm LEFT_SHIFT N  &hm RCTRL E                       &hm RIGHT_ALT I                &hm LEFT_META O  &kp DEL
 &kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp D             &kp V           &kp K         &kp H             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH         &to 6
                                                            &hm LC(F10) C_PLAY_PAUSE      &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
             >;
@@ -92,18 +92,18 @@
 
         Sym {
             bindings = <
-&none  &kp DOLLAR   &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp AMPERSAND              &kp BSLH           &none     &kp COLON              &kp TILDE            &kp FSLH                       &kp PIPE              &none
-&none  &kp ASTRK    &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &mt LEFT_SHIFT UNDERSCORE  &kp AT_SIGN        &kp SEMI  &mt RIGHT_SHIFT SPACE  &mt LCTRL LESS_THAN  &mt LS(LEFT_ALT) GREATER_THAN  &mt RIGHT_META EQUAL  &none
-&none  &kp PERCENT  &kp LBKT              &kp RBKT               &kp CARET                  &kp EXCLAMATION    &none     &kp GRAVE              &kp HASH             &kp MINUS                      &kp PLUS              &none
-                                          &trans                 &trans                     &trans             &none     &trans
+&none      &kp SQT                    &kp CARET        &kp PLUS      &kp MINUS             &kp BSLH     &kp GRAVE      &kp TILDE             &kp LEFT_BRACE  &kp RIGHT_BRACE    &kp AMPS     &none
+&kp PRCNT  &hm LEFT_META EXCLAMATION  &hm LEFT_ALT LT  &hm LCTRL GT  &hm LEFT_SHIFT SPACE  &kp SLASH    &kp COLON      &mt LEFT_SHIFT SPACE  &hm LCTRL LPAR  &hm LEFT_ALT RPAR  &kp HASH     &none
+&none      &kp DQT                    &kp DLLR         &kp EQUAL     &kp ASTRK             &kp PIPE     &kp SEMICOLON  &kp UNDERSCORE        &kp LBKT        &kp RBKT           &kp AT_SIGN  &none
+                                                       &trans        &trans                &trans       &none          &trans
             >;
         };
 
         Mouse {
             bindings = <
-&none  &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none           &none
-&none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp RIGHT_META  &none
-&none  &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none           &none
+&none  &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
+&none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
+&none  &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &none
                                        &tog 8          &mkp LCLK        &mkp RCLK          &none  &none
             >;
         };
@@ -137,9 +137,9 @@
 
         slow_mouse {
             bindings = <
-&none  &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none           &none
-&none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp RIGHT_META  &none
-&none  &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none           &none
+&none  &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
+&none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
+&none  &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &none
                                        &tog 8          &mkp LCLK        &mkp RCLK          &none  &none
             >;
         };
