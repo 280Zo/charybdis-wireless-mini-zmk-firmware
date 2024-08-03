@@ -1,30 +1,56 @@
 import re
+import os
 
 # Define the file paths
-# colemak_path = '/config/boards/shields/charybdis-mini-wireless/keymaps/charybdis_colemak_path_dh.keymap'
-# qwerty_path  = '/config/boards/shields/charybdis-mini-wireless/keymaps/charybdis_qwerty.keymap'
-
-colemak_path = 'in.keymap'
-qwerty_path  = 'out.keymap'
+colemak_file = 'charybdis_colemak_dh.keymap'
+qwerty_file  = 'charybdis_qwerty.keymap'
 
 # Define the Colemak DH to QWERTY mapping
 colemak_to_qwerty = {
     # Top row (numbers and symbols are not included in this example)
     'Q': 'Q', 'W': 'W', 'F': 'E', 'P': 'R', 'B': 'T', 'J': 'Y', 'L': 'U', 'U': 'I', 'Y': 'O', 'APOS': 'P',
-
     # Home row
     'A': 'A', 'R': 'S', 'S': 'D', 'D': 'F', 'G': 'G', 'M': 'H', 'N': 'J', 'E': 'K', 'I': 'L', 'O': ';',
-
     # Bottom row
     'Z': 'Z', 'X': 'X', 'C': 'C', 'V': 'V', 'K': 'B', 'H': 'N',
-
     # Special keys (not row-specific)
     'TAB': 'TAB', 'DEL': 'DEL', 'BACKSPACE': 'BACKSPACE', 'ESCAPE': 'ESCAPE', 'RETURN': 'RETURN', 'SPACE': 'SPACE'
 }
 
+def format_columns(text):    
+    zmk_behavior = r'(&\w{2})'
+
+    # Split the input text into lines
+    lines = text.strip().split('\n')
+    print(lines)
+    
+    # Split each line into columns
+    split_lines = [re.split(zmk_behavior,line) for line in lines]
+    print(split_lines)
+    
+    # Determine the number of columns
+    num_columns = max(len(line) for line in split_lines)
+    
+    # Calculate the maximum width for each column
+    column_widths = [0] * num_columns
+    for line in split_lines:
+        for i, item in enumerate(line):
+            column_widths[i] = max(column_widths[i], len(item))
+    
+    # Format each line with the calculated column widths
+    formatted_lines = []
+    for line in split_lines:
+        formatted_line = ''.join(f"{item:<{column_widths[i] + 1}}" for i, item in enumerate(line))
+        formatted_lines.append(formatted_line)
+    
+    # Join all formatted lines
+    formatted_text = '\n'.join(formatted_lines)
+    return formatted_text
+
 
 # Read the content of the input file
-with open(colemak_path, 'r') as file:
+os.chdir('../config/boards/shields/charybdis-mini-wireless/keymaps')
+with open(colemak_file, 'r') as file:
     content = file.read()
 
 # Find and replace the 'Base' keymap layout
@@ -67,12 +93,12 @@ def convert_colemak_to_qwerty(keymap_content):
             
             # Join new parts for the line and add to new_lines
             new_lines.append(' '.join(new_parts))
-            print(new_lines)
 
         # Join new lines to form the new keymap content
         new_keymap = '\n'.join(new_lines)
-        print(f"Generated QWERTY map \n{new_keymap}")
-        return before_keymap + new_keymap + after_keymap
+        print("")
+        print(f"Generated QWERTY map \n{format_columns(new_keymap)}")
+        return before_keymap + format_columns(new_keymap) + after_keymap
 
     # Apply regex substitution to convert keymap
     new_content = base_keymap_pattern.sub(replace_keymap, keymap_content)
@@ -83,50 +109,7 @@ def convert_colemak_to_qwerty(keymap_content):
 qwerty_map = convert_colemak_to_qwerty(content)
 
 # Write the new content to the output file
-with open(qwerty_path, 'w') as file:
+with open(qwerty_file, 'w') as file:
     file.write(qwerty_map)
 
-print(f"Updated keymap written to {qwerty_path}")
-
-
-
-
-
-# zmk_behaviors = [
-#     # Key Press Behaviors
-#     '&kp <key>',     # Key Press
-#     '&kpr <key>',    # Key Press Repeat
-#     '&kpt <key>',    # Key Press Toggle
-
-#     # Modifier Behaviors
-#     '&mt <modifier><key>',  # Modifier + Tap
-#     '&hm <modifier><key>',  # Hold Modifier
-#     '&mo <layer>',          # Momentary Layer
-
-#     # Layer Behaviors
-#     '&to <layer>',          # Layer Toggle
-#     '&lt <layer>',          # Layer Tap
-
-#     # Custom Actions
-#     '&ca <action>',         # Custom Action
-
-#     # Function Key Behaviors
-#     '&fn <key>',            # Function Key
-
-#     # Key Release Behaviors
-#     '&kl <key>',            # Key Release
-
-#     # Special Key Behaviors
-#     '&caps_word',           # Caps Word
-#     '&reset',               # Reset
-#     '&debug',               # Debug
-
-#     # Media and Control Keys
-#     '&mute',                # Mute
-#     '&vol_up',              # Volume Up
-#     '&vol_down',            # Volume Down
-#     '&play_pause'           # Play/Pause
-    
-#     # Custom
-#     '&hr'                   # Home Row Modifier
-# ]
+print(f"\nUpdated keymap written to {os.getcwd()+'/'+qwerty_file}")
