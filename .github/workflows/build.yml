@@ -1,6 +1,28 @@
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
+  create-qwerty-keymap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Add any dependencies here
+
+      - name: Generate QWERTY keymap
+        run: |
+          python scripts/generate_qwerty.py
+
+jobs:
   build:
     uses: ./.github/workflows/user_config_build.yaml
     # uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    
