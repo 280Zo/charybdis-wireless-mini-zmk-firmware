@@ -15,12 +15,12 @@ jobs:
       - name: Install dependencies
         run: |
         working-directory:
-          ./scripts
+          scripts
           python -m pip install --upgrade pip
           # Add any dependencies here
 
       - name: Generate QWERTY keymap
-        working-directory: ./scripts
+        working-directory: scripts
         run: |
           python scripts/generate_qwerty.py
 
