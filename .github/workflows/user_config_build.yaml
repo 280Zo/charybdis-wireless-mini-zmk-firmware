@@ -10,12 +10,12 @@ on:
         type: string
       config_path:
         description: "Path to the config directory"
-        default: "config"
+        default: "${GITHUB_WORKSPACE}/config"
         required: false
         type: string
       keymap_path:
         description: "Path to the keymap directory"
-        default: "config/boards/shields/charybdis-mini-wireless/keymaps"
+        default: "${GITHUB_WORKSPACE}/config/boards/shields/charybdis-mini-wireless/keymaps"
         required: false
         type: string
       fallback_binary:
