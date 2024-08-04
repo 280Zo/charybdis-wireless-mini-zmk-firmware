@@ -47,10 +47,9 @@ def format_columns(text):
 
 
 # Read the content of the input file
-# gh_workspace  = os.getenv('GITHUB_WORKSPACE')
-# relative_path = 'config/boards/shields/charybdis-mini-wireless/keymaps'
-# absolute_path = os.path.join(gh_workspace, relative_path)
-absolute_path = os.getenv('GITHUB_WORKSPACE')
+gh_workspace  = os.getenv('GITHUB_WORKSPACE')
+relative_path = 'config/boards/shields/charybdis-mini-wireless/keymaps'
+absolute_path = os.path.join(gh_workspace, relative_path)
 os.chdir(absolute_path)
 with open(colemak_file, 'r') as file:
     content = file.read()
@@ -111,6 +110,7 @@ def convert_colemak_to_qwerty(keymap_content):
 qwerty_map = convert_colemak_to_qwerty(content)
 
 # Write the new content to the output file
+os.chdir(os.getenv('GITHUB_WORKSPACE'))
 with open(qwerty_file, 'w') as file:
     file.write(qwerty_map)
 
