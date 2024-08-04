@@ -46,16 +46,6 @@ def main():
     print(f"out_file:....{out_file}")
     print("#####################################################################")
 
-    converted_map = convert_keymap(keymap_contents)
-
-    # Write the new keymap_contents to the output file
-    with open(out_full_path, 'w') as file:
-        file.write(converted_map)
-    
-    print("#####################################################################")
-    print(f"Updated keymap written to {out_full_path}")
-    print("#####################################################################")
-
     #####################################################################
     # Define conversions
     #####################################################################
@@ -172,5 +162,15 @@ def main():
         formatted_text = '\n'.join(formatted_lines)
         return formatted_text
 
+
+    converted_map = convert_keymap(keymap_contents)
+
+    # Write the new keymap_contents to the output file
+    with open(out_full_path, 'w') as file:
+        file.write(converted_map)
+    
+    print("#####################################################################")
+    print(f"Updated keymap written to {out_full_path}")
+    print("#####################################################################")
 if __name__ == "__main__":
     main()
