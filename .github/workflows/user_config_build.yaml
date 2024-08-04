@@ -13,11 +13,11 @@ on:
         default: "config"
         required: false
         type: string
-      keymap_path:
-        description: "Path to the keymap directory"
-        default: "${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
-        required: false
-        type: string
+      # keymap_path:
+      #   description: "Path to the keymap directory"
+      #   default: "${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
+      #   required: false
+      #   type: string
       fallback_binary:
         description: "Fallback binary format, if no *.uf2 file was built"
         default: "bin"
@@ -86,17 +86,19 @@ jobs:
           echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"}${zmk_load_arg}" >> $GITHUB_ENV
           echo "display_name=${shield:+$shield - }${board} - ${keymap}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk-${keymap}}" >> $GITHUB_ENV
-      - name Set keymap_path
-        run: echo "KEYMAP_PATH="${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps" >> $GITHUB_ENV
+
       - name: Copy config files to isolated temporary directory
         run: |
+          keymap_path="${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
+          echo "keymap_path=${keymap_path}" >> $GITHUB_ENV
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
             cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
             find .
             pwd
-            ls -hal $KEYMAP_PATH
-            cp -R $KEYMAP_PATH/${{ matrix.keymap }}.keymap \
+            ls -hal $keymap_path
+            ls -hal "${{ env.base_dir }}/${{ inputs.config_path }}"
+            cp -R $keymap_path/${{ matrix.keymap }}.keymap \
               "${{ env.base_dir }}/${{ inputs.config_path }}/charybdis.keymap"
           fi
 
