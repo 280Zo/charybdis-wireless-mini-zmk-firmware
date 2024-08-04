@@ -100,6 +100,9 @@ jobs:
 
             mkdir "$base_config_path"
             cp -R "${{ inputs.config_path }}/*" "$base_config_path"/
+
+            # List directory contents
+            ls -hlR "${{ github.workspace }}""
             
             # Remove existing keyfiles in config and board dir
             rm -f "$base_config_path/*.keymap"
