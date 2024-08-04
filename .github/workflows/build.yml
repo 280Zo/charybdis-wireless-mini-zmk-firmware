@@ -17,6 +17,10 @@ jobs:
       - name: Generate QWERTY keymap
         run: |
           python scripts/generate_qwerty.py
+      - uses: actions/upload-artifact@master
+        with:
+          name: charybdis_qwerty.keymap
+          path: $GITHUB_WORKSPACE/charybdis_qwerty.keymap
 
   build:
     needs: create-qwerty-keymap

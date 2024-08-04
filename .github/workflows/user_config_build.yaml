@@ -87,6 +87,11 @@ jobs:
           echo "display_name=${shield:+$shield - }${board} - ${keymap}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk-${keymap}}" >> $GITHUB_ENV
 
+      - uses: actions/download-artifact@master
+        with:
+          name: charybdis_qwerty.keymap
+          path: "${GITHUB_WORKSPACE}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
+
       - name: Copy config files to isolated temporary directory
         run: |
           keymap_path="${GITHUB_WORKSPACE}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
