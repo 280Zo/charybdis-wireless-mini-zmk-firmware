@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        configuratoin:
+        configuration:
           - board: nice_nano_v2
             shield: charybdis_left
             keymap: charybdis_colemak_dh
@@ -55,7 +55,7 @@ jobs:
           pwd
           tree .
           rm -rf $DEFAULT_KM_PATH/*.keymap
-          cp -r $KEYMAP_PATH/"${{ matrix.keymap }}".keymap \
+          cp -r $KEYMAP_PATH/${{ matrix.configuration.keymap }}.keymap \
             "$DEFAULT_KM_PATH/charybdis.keymap"
 
   build:
