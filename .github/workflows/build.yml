@@ -42,9 +42,8 @@ jobs:
           echo "build_matrix=$(yaml2json '${{ inputs.build_matrix_path }}' | jq -c .)" >> $GITHUB_ENV
           yaml2json "${{ inputs.build_matrix_path }}" | jq
 
-  build:
+  prepare_files:
     needs: [create-qwerty-keymap, fetch-build-matrix]
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -53,14 +52,6 @@ jobs:
       keymap_path: "config/boards/shields/charybdis-mini-wireless/keymaps"
       default_km_path: "config/boards/shields/charybdis-mini-wireless"
     steps:
-      #   - name: Prepare variables
-      #     shell: sh -x {0}
-      #     env:
-      #       board: ${{ matrix.board }}
-      #       shield: ${{ matrix.shield }}
-      #       keymap: ${{ matrix.keymap }}
-      #       artifact_name: ${{ matrix.artifact-name }}
-
       - name: Copy keymap to isolated temporary directory
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
@@ -71,23 +62,28 @@ jobs:
             cp -R ${{ keymap_path }}/${{ matrix.keymap }}.keymap \
               "${{ env.default_km_path }}/charybdis.keymap"
           fi
-
-  merge:
+  build:
+    needs: [prepare_files]
     runs-on: ubuntu-latest
-    needs: build
-    name: Merge Output Artifacts
-    steps:
-      - name: Merge QWERTY Artifacts
-        uses: actions/upload-artifact/merge@v4
-        with:
-          name: "qwerty-firmware"
-          pattern: artifact-charybdis_QWERTY*
-          delete-merged: true
-      - name: Merge Colemak DH Artifacts
-        uses: actions/upload-artifact/merge@v4
-        with:
-          name: "colemak-dh-firmware"
-          pattern: artifact-charybdis_colemak*
+    name: Run default ZMK build workflow
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+
+    merge:
+      runs-on: ubuntu-latest
+      needs: build
+      name: Merge Output Artifacts
+      steps:
+        - name: Merge QWERTY Artifacts
+          uses: actions/upload-artifact/merge@v4
+          with:
+            name: "qwerty-firmware"
+            pattern: artifact-charybdis_QWERTY*
+            delete-merged: true
+        - name: Merge Colemak DH Artifacts
+          uses: actions/upload-artifact/merge@v4
+          with:
+            name: "colemak-dh-firmware"
+            pattern: artifact-charybdis_colemak*
           delete-merged: true
 # on: [push, pull_request, workflow_dispatch]
 
