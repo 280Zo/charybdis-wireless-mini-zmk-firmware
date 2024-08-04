@@ -97,19 +97,19 @@ jobs:
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             base_confg_path="${{ env.base_dir }}/${{ inputs.config_path }}"
-            
+
             mkdir "$base_config_path"
-            cp -R ${{ inputs.config_path }}/* "$base_config_path"/
+            cp -R "${{ inputs.config_path }}/*" "$base_config_path"/
             
             # Remove existing keyfiles in config and board dir
-            rm -f "$base_config_path"/*.keymap
+            rm -f "$base_config_path/*.keymap"
 
             # Copy keymaps to the keymaps directory
-            cp -Rv "${{ github.workspace }}/config/*.keymap" "$base_config_path"/boards/shields/charybdis-mini-wireless/keymaps/
+            cp -Rv "${{ github.workspace }}/config/*.keymap" "$base_config_path/boards/shields/charybdis-mini-wireless/keymaps/""
 
             # Copy move matrix.keymap to the config directory
             cp -Rv "$base_config_path/boards/shields/charybdis-mini-wireless/keymaps/${{ matrix.keymap }}.keymap" \
-                "$base_config_path/""
+                "$base_config_path/"
           fi
           echo "Build files list:"
           ls -R "${{ env.base_dir }}"
