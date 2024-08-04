@@ -1,5 +1,3 @@
-name: Build and Merge Keymaps
-
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
@@ -20,91 +18,7 @@ jobs:
         run: |
           python scripts/generate_qwerty.py
 
-  prepare_files:
-    needs: create-qwerty-keymap
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        configuration:
-          - board: nice_nano_v2
-            shield: charybdis_left
-            keymap: charybdis_colemak_dh
-            artifact-name: charybdis_colemak_left
-          - board: nice_nano_v2
-            shield: charybdis_right
-            keymap: charybdis_colemak_dh
-            artifact-name: charybdis_colemak_right
-          - board: nice_nano_v2
-            shield: charybdis_left
-            keymap: charybdis_qwerty
-            artifact-name: charybdis_QWERTY_left
-          - board: nice_nano_v2
-            shield: charybdis_right
-            keymap: charybdis_qwerty
-            artifact-name: charybdis_QWERTY_right
-    env:
-      CONFIG_PATH: "config"
-      KEYMAP_PATH: "config/boards/shields/charybdis-mini-wireless/keymaps"
-      DEFAULT_KM_PATH: "config/boards/shields/charybdis-mini-wireless"
-    steps:
-      - name: Copy keymap to Config directory
-        run: |
-          # COPY FROM KEYMAP DIR TO CONFIG WHICH WILL BE COPIED TO THE FOLDER
-          # MIGHT NEED TO REMOVE EXTRA keymap FILES
-          # cp -R $CONFIG_PATH/* "env.base_dir/$CONFIG_PATH/"
-          pwd
-          tree .
-          rm -rf $DEFAULT_KM_PATH/*.keymap
-          cp -r $KEYMAP_PATH/${{ matrix.configuration.keymap }}.keymap \
-            "$DEFAULT_KM_PATH/charybdis.keymap"
-
   build:
-    needs: prepare_files
-    name: Run default ZMK build workflow
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-
-    # merge:
-    #   runs-on: ubuntu-latest
-    #   needs: build
-    #   name: Merge Output Artifacts
-    #   steps:
-    #     - name: Merge QWERTY Artifacts
-    #       uses: actions/upload-artifact/merge@v4
-    #       with:
-    #         name: "qwerty-firmware"
-    #         pattern: artifact-charybdis_QWERTY*
-    #         delete-merged: true
-    #     - name: Merge Colemak DH Artifacts
-    #       uses: actions/upload-artifact/merge@v4
-    #       with:
-    #         name: "colemak-dh-firmware"
-    #         pattern: artifact-charybdis_colemak*
-    #       delete-merged: true
-# on: [push, pull_request, workflow_dispatch]
-
-# jobs:
-#   create-qwerty-keymap:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
-
-#       - name: Set up Python
-#         uses: actions/setup-python@v4
-#         with:
-#           python-version: "3.x"
-
-#       - name: Install dependencies
-#         run: |
-#           python -m pip install --upgrade pip
-#           # Add any dependencies here
-
-#       - name: Generate QWERTY keymap
-#         run: |
-#           python scripts/generate_qwerty.py
-
-#   build:
-#     needs: create-qwerty-keymap
-#     uses: ./.github/workflows/user_config_build.yaml
-#     # uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-
+    needs: create-qwerty-keymap
+    uses: ./.github/workflows/user_config_build.yaml
+    # uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
