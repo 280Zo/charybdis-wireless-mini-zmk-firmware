@@ -13,11 +13,11 @@ on:
         default: "config"
         required: false
         type: string
-      # keymap_path:
-      #   description: "Path to the keymap directory"
-      #   default: "${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
-      #   required: false
-      #   type: string
+      keymap_path:
+        description: "Path to the keymap directory"
+        default: "config/boards/shields/charybdis-mini-wireless/keymaps"
+        required: false
+        type: string
       fallback_binary:
         description: "Fallback binary format, if no *.uf2 file was built"
         default: "bin"
@@ -87,20 +87,19 @@ jobs:
           echo "display_name=${shield:+$shield - }${board} - ${keymap}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk-${keymap}}" >> $GITHUB_ENV
 
-      - uses: actions/download-artifact@master
+      - name: Copy qwerty file to keymap directory
+        uses: actions/download-artifact@master
         with:
           name: charybdis_qwerty.keymap
-          path: ${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps
+          path: ${{ inputs.keymap_path }}
 
       - name: Copy config files to isolated temporary directory
         run: |
-          keymap_path="${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
-          echo "keymap_path=${keymap_path}" >> $GITHUB_ENV
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
             cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
-            cp -R $keymap_path/${{ matrix.keymap }}.keymap \
-              "${{ env.base_dir }}/${{ inputs.config_path }}/charybdis.keymap"
+            cp -R "${{ env.base_dir }}/${{ inputs.keymap_path }}/${{ matrix.keymap }}.keymap \
+              "${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/charybdis.keymap"
           fi
           echo "Build files list:"
           ls -R "${{ env.base_dir }}"
