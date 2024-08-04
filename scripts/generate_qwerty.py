@@ -45,7 +45,6 @@ def format_columns(text):
     formatted_text = '\n'.join(formatted_lines)
     return formatted_text
 
-
 # Read the content of the input file
 gh_workspace  = os.getenv('GITHUB_WORKSPACE')
 relative_path = 'config/boards/shields/charybdis-mini-wireless/keymaps'
