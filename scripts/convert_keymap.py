@@ -34,12 +34,8 @@ def main():
     if conversion_type not in ['q2c','c2q']:
         print("Error: Invalid conversion type selected.")
         sys.exit(1)
-    
-    if not full_path:
-        print("Error: Full path must be specified.")
-        sys.exit(1)
 
-    path, in_file = os.path.split({full_path})
+    path, in_file = os.path.split(full_path)
     out_file = 'charybdis_qwerty.keymap' if conversion_type == 'q2c' else 'charybdis_colemak_dh.keymap'
     out_full_path = os.path.join(path, out_file)
 
