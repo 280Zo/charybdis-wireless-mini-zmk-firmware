@@ -36,7 +36,7 @@ def main():
         sys.exit(1)
 
     path, in_file = os.path.split(full_path)
-    out_file = 'charybdis_qwerty.keymap' if conversion_type == 'q2c' else 'charybdis_colemak_dh.keymap'
+    out_file = 'charybdis_qwerty.keymap' if conversion_type == 'c2q' else 'charybdis_colemak_dh.keymap'
     out_full_path = os.path.join(path, out_file)
 
     print("#####################################################################")
