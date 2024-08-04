@@ -96,10 +96,11 @@ jobs:
         run: |
           keymap_path="${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
           echo "keymap_path=${keymap_path}" >> $GITHUB_ENV
+          ls -R ${{ inputs.config_path }}
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
             cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
-            ls -r .
+            ls -R $keymap_path
             cp -R $keymap_path/${{ matrix.keymap }}.keymap \
               "${{ env.base_dir }}/${{ inputs.config_path }}/charybdis.keymap"
           fi
