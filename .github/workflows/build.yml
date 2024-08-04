@@ -43,7 +43,7 @@ jobs:
           yaml2json "${{ inputs.build_matrix_path }}" | jq
 
   prepare_files:
-    needs: [create-qwerty-keymap, fetch-build-matrix]
+    needs: create-qwerty-keymap
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
