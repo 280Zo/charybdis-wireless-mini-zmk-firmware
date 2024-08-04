@@ -9,8 +9,7 @@ def main():
     #####################################################################
     
     # Create the parser
-    parser = argparse.ArgumentParser(description="A script that converts keymap files from qwerty > Colemak DH or colemak DH to QWERTY")
-        
+    parser = argparse.ArgumentParser(description="A script that converts ZMK keymap files from QWERTY <|> Colemak DH")
     # Define flags and parameters
     parser.add_argument(
         '-c', '--convert', 
@@ -19,84 +18,90 @@ def main():
         default='q2c',
         help="Specify the conversion: 'q2c' will convert QWERTY to Colemak DH, 'c2q' will convert Colemak DH to QWERTY (default: 'q2c')"
     )
-    
+    parser.add_argument(
+        '--in-path',
+        type=str,
+        required=True,
+        help="Path to the input keymap file. This is the path where the ouitput will be stored as well"
+    )
     # Parse the arguments
     args = parser.parse_args()
-    
     # Set the variable for the chosen option
     conversion_type = args.convert
-
+    full_path = args.in_path
+    
     # Check argument values and convert keymap
-    output_file = ""
-    if conversion_type == 'q2c':
-        input_file  = 'charybdis_qwerty.keymap'
-        output_file = 'charybdis_colemak_dh.keymap'
-    elif conversion_type == 'c2q':
-        input_file  = 'charybdis_colemak_dh.keymap'
-        output_file = 'charybdis_qwerty.keymap'
-    else:
+    if conversion_type not in ['q2c','c2q']:
         print("Error: Invalid conversion type selected.")
         sys.exit(1)
-        
+    
+    if not full_path:
+        print("Error: Full path must be specified.")
+        sys.exit(1)
+
+    path, in_file = os.path.split({full_path})
+    out_file = 'charybdis_qwerty.keymap' if conversion_type == 'q2c' else 'charybdis_colemak_dh.keymap'
+    out_full_path = os.path.join(path, out_file)
+
+    print("#####################################################################")
     print(f"Selected conversion type: {conversion_type}")
+    print(f"path:........" {path})
+    print(f"input_file:.." {in_file})
+    print(f"out_file:...." {out_file})
+    print("#####################################################################")
+
     converted_map = convert_keymap(keymap_contents)
 
     # Write the new keymap_contents to the output file
-    os.chdir(os.getenv('GITHUB_WORKSPACE'))
-    with open(output_file, 'w') as file:
+    with open(out_full_path, 'w') as file:
         file.write(converted_map)
     
-    print(f"\nUpdated keymap written to {os.getcwd()+'/'+qwerty_file}")
-    
+    print("#####################################################################")
+    print(f"Updated keymap written to {out_full_path}")
+    print("#####################################################################")
+
     #####################################################################
     # Define conversions
     #####################################################################
-
-    # Define the QWERTY to Colemak DH mapping
-    qwerty_to_colemak = {
-        # Top row (numbers and symbols are not included in this example)
-        'Q': 'Q', 'W': 'W', 'E': 'F', 'R': 'P', 'T': 'B', 'Y': 'J', 'U': 'L', 'I': 'U', 'O': 'Y', 'P': 'APOS',
-        # Home row
-        'A': 'A', 'S': 'R', 'D': 'S', 'F': 'D', 'G': 'G', 'H': 'M', 'J': 'N', 'K': 'E', 'L': 'I', 'SEMICOLON': 'O',
-        # Bottom row
-        'Z': 'Z', 'X': 'X', 'C': 'C', 'V': 'V', 'B': 'K', 'N': 'H',
-        # Special keys (not row-specific)
-        'TAB': 'TAB', 'DEL': 'DEL', 'BACKSPACE': 'BACKSPACE', 'ESCAPE': 'ESCAPE', 'RETURN': 'RETURN', 'SPACE': 'SPACE'
-    }
     
-    # Define the Colemak DH to QWERTY mapping
-    colemak_to_qwerty = {
-        # Top row (numbers and symbols are not included in this example)
-        'Q': 'Q', 'W': 'W', 'F': 'E', 'P': 'R', 'B': 'T', 'J': 'Y', 'L': 'U', 'U': 'I', 'Y': 'O', 'APOS': 'P',
-        # Home row
-        'A': 'A', 'R': 'S', 'S': 'D', 'D': 'F', 'G': 'G', 'M': 'H', 'N': 'J', 'E': 'K', 'I': 'L', 'O': 'SEMICOLON',
-        # Bottom row
-        'Z': 'Z', 'X': 'X', 'C': 'C', 'V': 'V', 'K': 'B', 'H': 'N',
-        # Special keys (not row-specific)
-        'TAB': 'TAB', 'DEL': 'DEL', 'BACKSPACE': 'BACKSPACE', 'ESCAPE': 'ESCAPE', 'RETURN': 'RETURN', 'SPACE': 'SPACE'
-    }
+    if conversion_type == 'q2c':
+        initial_keymap = {
+            # Top row (numbers and symbols are not included in this example)
+            'Q': 'Q', 'W': 'W', 'E': 'F', 'R': 'P', 'T': 'B', 'Y': 'J', 'U': 'L', 'I': 'U', 'O': 'Y', 'P': 'APOS',
+            # Home row
+            'A': 'A', 'S': 'R', 'D': 'S', 'F': 'D', 'G': 'G', 'H': 'M', 'J': 'N', 'K': 'E', 'L': 'I', 'SEMICOLON': 'O',
+            # Bottom row
+            'Z': 'Z', 'X': 'X', 'C': 'C', 'V': 'V', 'B': 'K', 'N': 'H',
+            # Special keys (not row-specific)
+            'TAB': 'TAB', 'DEL': 'DEL', 'BACKSPACE': 'BACKSPACE', 'ESCAPE': 'ESCAPE', 'RETURN': 'RETURN', 'SPACE': 'SPACE'
+        }
+    else:
+        initial_keymap = {
+            # Top row (numbers and symbols are not included in this example)
+            'Q': 'Q', 'W': 'W', 'F': 'E', 'P': 'R', 'B': 'T', 'J': 'Y', 'L': 'U', 'U': 'I', 'Y': 'O', 'APOS': 'P',
+            # Home row
+            'A': 'A', 'R': 'S', 'S': 'D', 'D': 'F', 'G': 'G', 'M': 'H', 'N': 'J', 'E': 'K', 'I': 'L', 'O': 'SEMICOLON',
+            # Bottom row
+            'Z': 'Z', 'X': 'X', 'C': 'C', 'V': 'V', 'K': 'B', 'H': 'N',
+            # Special keys (not row-specific)
+            'TAB': 'TAB', 'DEL': 'DEL', 'BACKSPACE': 'BACKSPACE', 'ESCAPE': 'ESCAPE', 'RETURN': 'RETURN', 'SPACE': 'SPACE'
+        }
     
     #####################################################################
     # Read and store input keymap 
     #####################################################################
 
     # Read the content of the keymap_contents
-    gh_workspace  = os.getenv('GITHUB_WORKSPACE')
-    relative_path = 'config/boards/shields/charybdis-mini-wireless/keymaps'
-    absolute_path = os.path.join(gh_workspace, relative_path)
-    os.chdir(absolute_path)
-    with open(input_file, 'r') as keymap_file:
+    with open(full_path, 'r') as keymap_file:
         keymap_contents = keymap_file.read()
-
-    # Define regex pattern to find the 'Base' keymap section
-    base_keymap_pattern = re.compile(r'(Base\s*\{\s*bindings\s*=\s*<\s*)(.*?)(\s*>;)', re.DOTALL)
     
     #####################################################################
     # Functions
     #####################################################################
 
-    # Convert keymap
-    def convert_keymap(keymap_contents):        
+    def convert_keymap(keymap_contents):   
+        # Define regex pattern to find the 'Base' keymap section
+        base_keymap_pattern = re.compile(r'(Base\s*\{\s*bindings\s*=\s*<\s*)(.*?)(\s*>;)', re.DOTALL)     
         # Apply regex substitution to convert keymap
         new_keymap_contents = base_keymap_pattern.sub(replace_keymap, keymap_contents)
         return new_keymap_contents
@@ -114,7 +119,7 @@ def main():
 
         # Process each line
         new_lines = []
-        print("Processing keys")
+        print("Converting letter keys")
         for line in lines:
             # Split the line by spaces or other delimiters
             parts = line.split()
@@ -124,10 +129,10 @@ def main():
                 if not part.startswith('&'):
                     # Extract key (removing ZMK behavior commands)
                     key = part.split()[1] if len(part.split()) > 1 else part
-                    # Map the key to QWERTY if applicable
-                    if key.upper() in qwerty_to_colemak:
+                    # Map the key to the conversion type if applicable
+                    if key.upper() in initial_keymap:
                         print(key.upper(),end=":")
-                        new_key = qwerty_to_colemak[key]
+                        new_key = initial_keymap[key]
                         print(new_key)
                         new_parts.append(part.replace(key, new_key))
                     else:
@@ -140,8 +145,7 @@ def main():
 
         # Join new lines to form the new keymap keymap_contents
         new_keymap = '\n'.join(new_lines)
-        print("")
-        print(f"Generated QWERTY map \n{format_columns(new_keymap)}")
+        print(f"\nGenerated {out_file} \n{format_columns(new_keymap)}")
         return before_keymap + format_columns(new_keymap) + after_keymap
     
     def format_columns(text):    

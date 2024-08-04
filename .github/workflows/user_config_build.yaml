@@ -87,19 +87,29 @@ jobs:
           echo "display_name=${shield:+$shield - }${board} - ${keymap}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk-${keymap}}" >> $GITHUB_ENV
 
-      - name: Copy qwerty keymap to keymap directory
-        uses: actions/download-artifact@master
-        with:
-          name: charybdis_qwerty.keymap
-          path: ${{ inputs.keymap_path }}
+      # - name: Copy keymap files to keymap directory
+      #   uses: actions/download-artifact@master
+      #   with:
+      #     name: charybdis_qwerty.keymap
+      #     path: ${{ inputs.keymap_path }}
 
       - name: Copy config files to isolated temporary directory
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
-            mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
-            cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
-            cp -R "${{ env.base_dir }}/${{ inputs.keymap_path }}/${{ matrix.keymap }}.keymap" \
-              "${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/charybdis.keymap"
+            base_confg_path="${{ env.base_dir }}/${{ inputs.config_path }}"
+            
+            mkdir "$base_config_path"
+            cp -R ${{ inputs.config_path }}/* "$base_config_path"/
+            
+            # Remove existing keyfiles in config and board dir
+            rm -f "$base_config_path"/*.keymap
+
+            # Copy keymaps to the keymaps directory
+            cp -Rv "${{ github.workspace }}/config/*.keymap" "$base_config_path"/boards/shields/charybdis-mini-wireless/keymaps/
+
+            # Copy move matrix.keymap to the config directory
+            cp -Rv "$base_config_path/boards/shields/charybdis-mini-wireless/keymaps/${{ matrix.keymap }}.keymap" \
+                "$base_config_path/""
           fi
           echo "Build files list:"
           ls -R "${{ env.base_dir }}"
@@ -197,12 +207,12 @@ jobs:
           name: "colemak-dh-firmware"
           pattern: artifact-charybdis_colemak*
           delete-merged: true
-  # cleanup:
-  #   runs-on: ubuntu-latest
-  #   needs: merge
-  #   name: Delete unneeded artifacts
-  #   steps:
-  #     - uses: geekyeggo/delete-artifact@v5
-  #       with:
-  #         name: charybdis_qwerty.keymap
-  #         failOnError: false
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: merge
+    name: Delete unneeded artifacts
+    steps:
+      - uses: geekyeggo/delete-artifact@v5
+        with:
+          name: charybdis_qwerty.keymap
+          failOnError: false

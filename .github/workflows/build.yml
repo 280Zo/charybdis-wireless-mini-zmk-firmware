@@ -3,7 +3,7 @@ name: ZMK Firmware Build
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  create-qwerty-keymap:
+  create-colemak-keymap:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -16,13 +16,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           # Add any dependencies here
-      - name: Generate QWERTY keymap
+      - name: Generate Cokemak DH keymap
         run: |
-          python scripts/generate_qwerty.py
+          python scripts/convert_keymap.py -c q2c --in-path "${{ github.workspace }}/config/charybdis_qwerty.keymap
       - uses: actions/upload-artifact@master
         with:
-          name: charybdis_qwerty.keymap
-          path: "${{ github.workspace }}/charybdis_qwerty.keymap"
+          name: Keymap files
+          path: "${{ github.workspace }}/config/*.keymap"
 
   build:
     needs: create-qwerty-keymap
