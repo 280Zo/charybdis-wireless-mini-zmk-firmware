@@ -1,3 +1,5 @@
+[![.github/workflows/build.yml](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions/workflows/build.yml/badge.svg)](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions/workflows/build.yml)
+
 # Intro
 
 This repository outlines most of the steps needed to build/modify the ZMK firmware for a Wireless Charybdis keyboard.
