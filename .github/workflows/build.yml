@@ -51,14 +51,14 @@ jobs:
       config_path: "config"
       keymap_path: "config/boards/shields/charybdis-mini-wireless/keymaps"
       default_km_path: "config/boards/shields/charybdis-mini-wireless"
-    # steps:
-    #   - name: Prepare variables
-    #     shell: sh -x {0}
-    #     env:
-    #       board: ${{ matrix.board }}
-    #       shield: ${{ matrix.shield }}
-    #       keymap: ${{ matrix.keymap }}
-    #       artifact_name: ${{ matrix.artifact-name }}
+    steps:
+      #   - name: Prepare variables
+      #     shell: sh -x {0}
+      #     env:
+      #       board: ${{ matrix.board }}
+      #       shield: ${{ matrix.shield }}
+      #       keymap: ${{ matrix.keymap }}
+      #       artifact_name: ${{ matrix.artifact-name }}
 
       - name: Copy keymap to isolated temporary directory
         run: |
