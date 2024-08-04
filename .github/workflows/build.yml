@@ -27,7 +27,6 @@
 #     # uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
 
 
-name: Build and Merge Keymaps
 
 on: [push, pull_request, workflow_dispatch]
   workflow_call:
