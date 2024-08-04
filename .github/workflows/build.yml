@@ -1,4 +1,57 @@
+# on: [push, pull_request, workflow_dispatch]
+
+# jobs:
+#   create-qwerty-keymap:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Set up Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: "3.x"
+
+#       - name: Install dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           # Add any dependencies here
+
+#       - name: Generate QWERTY keymap
+#         run: |
+#           python scripts/generate_qwerty.py
+
+#   build:
+#     needs: create-qwerty-keymap
+#     uses: ./.github/workflows/user_config_build.yaml
+#     # uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+
+
+name: Build and Merge Keymaps
+
 on: [push, pull_request, workflow_dispatch]
+  workflow_call:
+    inputs:
+      build_matrix_path:
+        description: "Path to the build matrix file"
+        default: "build.yaml"
+        required: false
+        type: string
+      config_path:
+        description: "Path to the config directory"
+        default: "config"
+        required: false
+        type: string
+      keymap_path:
+        description: "Path to the keymap directory"
+        default: "config/boards/shields/charybdis-mini-wireless/keymaps"
+        required: false
+        type: string
+      default_km_path:
+        description: "Destination path for the default keymap"
+        default: "config/boards/shields/charybdis-mini-wireless"
+        required: false
+        type: string
 
 jobs:
   create-qwerty-keymap:
@@ -21,7 +74,62 @@ jobs:
         run: |
           python scripts/generate_qwerty.py
 
+  matrix:
+    runs-on: ubuntu-latest
+    name: Fetch Build Keyboards
+    outputs:
+      build_matrix: ${{ env.build_matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yaml2json
+        run: python3 -m pip install remarshal
+
+      - name: Fetch Build Matrix
+        run: |
+          echo "build_matrix=$(yaml2json '${{ inputs.build_matrix_path }}' | jq -c .)" >> $GITHUB_ENV
+          yaml2json "${{ inputs.build_matrix_path }}" | jq
+
   build:
     needs: create-qwerty-keymap
-    uses: ./.github/workflows/user_config_build.yaml
-    # uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare variables
+        shell: sh -x {0}
+        env:
+          board:  ${{ matrix.board }}
+          shield: ${{ matrix.shield }}
+          keymap: ${{ matrix.keymap }}
+          artifact_name: ${{ matrix.artifact-name }}
+
+      - name: Copy keymap to isolated temporary directory
+        run: |
+          if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
+            mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
+            # COPY FROM KEYMAP DIR TO CONFIG WHICH WILL BE COPIED TO THE FOLDER
+            # MIGHT NEED TO REMOVE EXTRA keymap FILES
+            # cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
+            cp -R ${{ inputs.keymap_path }}/${{ matrix.keymap }}.keymap \
+              "${{ env.default_km_path }}/charybdis.keymap"
+          fi
+      - name: Run default ZMK build workflow
+        uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+        
+  merge:
+    runs-on: ubuntu-latest
+    needs: build
+    name: Merge Output Artifacts
+    steps:
+      - name: Merge QWERTY Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: "qwerty-firmware"
+          pattern: artifact-charybdis_QWERTY*
+          delete-merged: true
+      - name: Merge Colemak DH Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: "colemak-dh-firmware"
+          pattern: artifact-charybdis_colemak*
+          delete-merged: true

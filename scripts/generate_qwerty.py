@@ -22,11 +22,9 @@ def format_columns(text):
 
     # Split the input text into lines
     lines = text.strip().split('\n')
-    print(lines)
     
     # Split each line into columns
     split_lines = [re.split(zmk_behavior,line) for line in lines]
-    print(split_lines)
     
     # Determine the number of columns
     num_columns = max(len(line) for line in split_lines)
