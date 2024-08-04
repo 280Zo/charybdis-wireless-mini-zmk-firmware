@@ -49,7 +49,10 @@ def format_columns(text):
 
 
 # Read the content of the input file
-os.chdir('../config/boards/shields/charybdis-mini-wireless/keymaps')
+gh_workspace  = os.getenv('GITHUB_WORKSPACE')
+relative_path = 'config/boards/shields/charybdis-mini-wireless/keymaps'
+absolute_path = os.path.join(gh_workspace, relative_path)
+os.chdir(absolute_path)
 with open(colemak_file, 'r') as file:
     content = file.read()
 
