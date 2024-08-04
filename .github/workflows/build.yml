@@ -51,14 +51,14 @@ jobs:
       config_path: "config"
       keymap_path: "config/boards/shields/charybdis-mini-wireless/keymaps"
       default_km_path: "config/boards/shields/charybdis-mini-wireless"
-    steps:
-      - name: Prepare variables
-        shell: sh -x {0}
-        env:
-          board: ${{ matrix.board }}
-          shield: ${{ matrix.shield }}
-          keymap: ${{ matrix.keymap }}
-          artifact_name: ${{ matrix.artifact-name }}
+    # steps:
+    #   - name: Prepare variables
+    #     shell: sh -x {0}
+    #     env:
+    #       board: ${{ matrix.board }}
+    #       shield: ${{ matrix.shield }}
+    #       keymap: ${{ matrix.keymap }}
+    #       artifact_name: ${{ matrix.artifact-name }}
 
       - name: Copy keymap to isolated temporary directory
         run: |
@@ -66,8 +66,8 @@ jobs:
             mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
             # COPY FROM KEYMAP DIR TO CONFIG WHICH WILL BE COPIED TO THE FOLDER
             # MIGHT NEED TO REMOVE EXTRA keymap FILES
-            # cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
-            cp -R ${{ inputs.keymap_path }}/${{ matrix.keymap }}.keymap \
+            # cp -R ${{ config_path }}/* "${{ env.base_dir }}/${{ config_path }}/"
+            cp -R ${{ keymap_path }}/${{ matrix.keymap }}.keymap \
               "${{ env.default_km_path }}/charybdis.keymap"
           fi
       - name: Run default ZMK build workflow
