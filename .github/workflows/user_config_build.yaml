@@ -90,17 +90,15 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: charybdis_qwerty.keymap
-          path: "${{ github.workspace }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
+          path: ${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
 
       - name: Copy config files to isolated temporary directory
         run: |
-          keymap_path="${{ github.workspace }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
+          keymap_path="${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
           echo "keymap_path=${keymap_path}" >> $GITHUB_ENV
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
             cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
-            ls -hal $keymap_path
-            ls -hal "${{ env.base_dir }}/${{ inputs.config_path }}"
             cp -R $keymap_path/${{ matrix.keymap }}.keymap \
               "${{ env.base_dir }}/${{ inputs.config_path }}/charybdis.keymap"
           fi
