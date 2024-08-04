@@ -89,13 +89,11 @@ jobs:
 
       - name: Copy config files to isolated temporary directory
         run: |
-          keymap_path="${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
+          keymap_path="${GITHUB_WORKSPACE}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
           echo "keymap_path=${keymap_path}" >> $GITHUB_ENV
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
             cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
-            find .
-            pwd
             ls -hal $keymap_path
             ls -hal "${{ env.base_dir }}/${{ inputs.config_path }}"
             cp -R $keymap_path/${{ matrix.keymap }}.keymap \
