@@ -45,9 +45,9 @@ def main():
 
     print("#####################################################################")
     print(f"Selected conversion type: {conversion_type}")
-    print(f"path:........" {path})
-    print(f"input_file:.." {in_file})
-    print(f"out_file:...." {out_file})
+    print(f"path:........{path}")
+    print(f"input_file:..{in_file}")
+    print(f"out_file:....{out_file}")
     print("#####################################################################")
 
     converted_map = convert_keymap(keymap_contents)
