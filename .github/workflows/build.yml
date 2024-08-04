@@ -1,3 +1,5 @@
+name: Build and Merge Keymaps
+
 on: [push, pull_request, workflow_dispatch]
   workflow_call:
     inputs:
@@ -61,13 +63,19 @@ jobs:
           yaml2json "${{ inputs.build_matrix_path }}" | jq
 
   build:
-    needs: create-qwerty-keymap
+    needs: [create-qwerty-keymap, fetch-build-matrix]
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    # env:
+    #   config_path: "config"
+    #   keymap_path: "config/boards/shields/charybdis-mini-wireless/keymaps"
+    #   default_km_path: "config/boards/shields/charybdis-mini-wireless"
     steps:
       - name: Prepare variables
         shell: sh -x {0}
         env:
-          board:  ${{ matrix.board }}
+          board: ${{ matrix.board }}
           shield: ${{ matrix.shield }}
           keymap: ${{ matrix.keymap }}
           artifact_name: ${{ matrix.artifact-name }}
@@ -103,6 +111,10 @@ jobs:
           pattern: artifact-charybdis_colemak*
           delete-merged: true
 
+
+
+
+
 # on: [push, pull_request, workflow_dispatch]
 
 # jobs:
@@ -130,5 +142,4 @@ jobs:
 #     needs: create-qwerty-keymap
 #     uses: ./.github/workflows/user_config_build.yaml
 #     # uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-
 
