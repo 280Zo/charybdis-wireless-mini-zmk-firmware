@@ -87,7 +87,7 @@ jobs:
           echo "display_name=${shield:+$shield - }${board} - ${keymap}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk-${keymap}}" >> $GITHUB_ENV
 
-      - name: Copy qwerty file to keymap directory
+      - name: Copy qwerty keymap to keymap directory
         uses: actions/download-artifact@master
         with:
           name: charybdis_qwerty.keymap
