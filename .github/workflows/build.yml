@@ -20,7 +20,8 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: charybdis_qwerty.keymap
-          path: "${GITHUB_WORKSPACE}"
+          path: "${GITHUB_WORKSPACE}/charybdis_qwerty.keymap"
+
   build:
     needs: create-qwerty-keymap
     uses: ./.github/workflows/user_config_build.yaml
