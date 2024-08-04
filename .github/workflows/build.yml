@@ -48,23 +48,20 @@ jobs:
     strategy:
       fail-fast: false
     env:
-      config_path: "config"
-      keymap_path: "config/boards/shields/charybdis-mini-wireless/keymaps"
-      default_km_path: "config/boards/shields/charybdis-mini-wireless"
+      CONFIG_PATH: "config"
+      KEYMAP_PATH: "config/boards/shields/charybdis-mini-wireless/keymaps"
+      DEFAULT_KM_PATH: "config/boards/shields/charybdis-mini-wireless"
     steps:
       - name: Copy keymap to isolated temporary directory
         run: |
-          if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
-            mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
-            # COPY FROM KEYMAP DIR TO CONFIG WHICH WILL BE COPIED TO THE FOLDER
-            # MIGHT NEED TO REMOVE EXTRA keymap FILES
-            # cp -R ${{ config_path }}/* "${{ env.base_dir }}/${{ config_path }}/"
-            cp -R ${{ keymap_path }}/${{ matrix.keymap }}.keymap \
-              "${{ env.default_km_path }}/charybdis.keymap"
-          fi
+          # COPY FROM KEYMAP DIR TO CONFIG WHICH WILL BE COPIED TO THE FOLDER
+          # MIGHT NEED TO REMOVE EXTRA keymap FILES
+          # cp -R ${{ $CONFIG_PATH }}/* "${{ env.base_dir }}/${{ $CONFIG_PATH }}/"
+          rm -rf ${{ $DEFAULT_KM_PATH }}/*.keymap
+          cp -R ${{ $KEYMAP_PATH }}/${{ matrix.keymap }}.keymap \
+            "${{ $DEFAULT_KM_PATH }}/charybdis.keymap"
+
   build:
-    needs: [prepare_files]
-    runs-on: ubuntu-latest
     name: Run default ZMK build workflow
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
 
