@@ -20,7 +20,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: charybdis_qwerty.keymap
-          path: "${GITHUB_WORKSPACE}/charybdis_qwerty.keymap"
+          path: "${{ github.workspace }}/charybdis_qwerty.keymap"
 
   build:
     needs: create-qwerty-keymap
