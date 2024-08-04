@@ -16,9 +16,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           # Add any dependencies here
-      - name: Generate Cokemak DH keymap
+      - name: Generate Colemak DH keymap
         run: |
-          python scripts/convert_keymap.py -c q2c --in-path "${{ github.workspace }}/config/charybdis_qwerty.keymap
+          python scripts/convert_keymap.py -c q2c --in-path "${{ github.workspace }}/config/charybdis_qwerty.keymap"
       - uses: actions/upload-artifact@master
         with:
           name: Keymap files
