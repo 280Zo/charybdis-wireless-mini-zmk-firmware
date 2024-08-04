@@ -55,7 +55,7 @@ jobs:
           pwd
           tree .
           rm -rf $DEFAULT_KM_PATH/*.keymap
-          cp -R $KEYMAP_PATH/"${{ matrix.configuration.keymap }}".keymap \
+          cp -r $KEYMAP_PATH/"${{ matrix.keymap }}".keymap \
             "$DEFAULT_KM_PATH/charybdis.keymap"
 
   build:
