@@ -6,9 +6,8 @@ This repository outlines most of the steps needed to build/modify the ZMK firmwa
 
 ## Pre Built Firmware
 
-If you'd like to skip all the configuration steps and use something prebuilt, the firmware files for qwerty and colemak dh can be found in the Actions tab of this repo. There are a few things to note about how I've chosen to configure things.
+If you'd like to skip all the configuration steps and use something prebuilt, the firmware files for qwerty and colemak dh can be found in the [Actions Workflows](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions?query=is%3Acompleted+branch%3Amain). Just click the link, select the latest run that passed on the main branch, and download the qwerty or colemak firmware. There are a few things to note about how I've chosen to configure things.
 
-- The main branch builds the firmware with the colemak dh layout, and the layouts/qwerty branch builds the qwerty firmware.
 - The keyboard name is Charybdis. This is what will show up when you connect to it with bluetooth.
 - ZMK has terms for each side of a split keyboard. Central is the half that sends keyboard outputs over USB or advertises to other devices over bluetooth. Peripheral is the half that will only send keystrokes to the central once they are paired and connected through bluetooth. I have chosen the right side as central because it fits my desk layout better.
 - To add support for the PMW3610 sensor, [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file) is included in the firmware.
@@ -24,7 +23,7 @@ There are a few options available to update the keymaps with the chosen behavior
 
 ### Edit Code Directly
 
-You can edit the charybdis.keymap file directly to match any configuration you want by using the behavior and codes from above.
+You can edit the keymap file directly to match any configuration you want by using the behavior and codes from above.
 
 ### Use a GUI
 
@@ -74,4 +73,4 @@ There are a lot of resources available to create key map images. Keymap Editor a
 ZMK is actively being developed and there are a few features I'll be adding to my builds as soon as they are released.
 
 - Mouse Pointer & Scrolling - [PR in review](https://github.com/zmkfirmware/zmk/pull/2027)
-- Layer Locks - [Layer locks will become standard soon.](https://github.com/zmkfirmware/zmk/pull/1984)
+- Layer Locks - [Layer locks will hopefully get merged in](https://github.com/zmkfirmware/zmk/pull/1984)
