@@ -95,14 +95,13 @@ jobs:
 
       - name: Copy config files to isolated temporary directory
         run: |
+          # List directory contents
+          ls -hlR "${{ github.workspace }}"
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
 
             mkdir "$base_config_path"
             cp -R "${{ inputs.config_path }}/*" "$base_config_path"/
-
-            # List directory contents
-            ls -hlR "${{ github.workspace }}"
             
             # Remove existing keyfiles in config and board dir
             rm -f "$base_config_path/*.keymap"
