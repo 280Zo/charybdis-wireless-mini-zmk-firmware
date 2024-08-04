@@ -90,7 +90,7 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: charybdis_qwerty.keymap
-          path: ${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps"
+          path: ${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/keymaps
 
       - name: Copy config files to isolated temporary directory
         run: |
