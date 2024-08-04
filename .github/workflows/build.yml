@@ -25,6 +25,6 @@ jobs:
           path: "${{ github.workspace }}/config/*.keymap"
 
   build:
-    needs: create-qwerty-keymap
+    needs: create-colemak-keymap
     uses: ./.github/workflows/user_config_build.yaml
     # uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
