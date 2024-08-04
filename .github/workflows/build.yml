@@ -8,60 +8,58 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.x"
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           # Add any dependencies here
-
       - name: Generate QWERTY keymap
         run: |
           python scripts/generate_qwerty.py
-
-  matrix:
-    runs-on: ubuntu-latest
-    env:
-      build_matrix_path: "build.yaml"
-    name: Fetch Build Keyboards
-    outputs:
-      build_matrix: ${{ env.build_matrix }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install yaml2json
-        run: python3 -m pip install remarshal
-
-      - name: Fetch Build Matrix
-        run: |
-          echo "build_matrix=$(yaml2json '${{ inputs.build_matrix_path }}' | jq -c .)" >> $GITHUB_ENV
-          yaml2json "${{ inputs.build_matrix_path }}" | jq
 
   prepare_files:
     needs: create-qwerty-keymap
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      matrix:
+        configuratoin:
+          - board: nice_nano_v2
+            shield: charybdis_left
+            keymap: charybdis_colemak_dh
+            artifact-name: charybdis_colemak_left
+          - board: nice_nano_v2
+            shield: charybdis_right
+            keymap: charybdis_colemak_dh
+            artifact-name: charybdis_colemak_right
+          - board: nice_nano_v2
+            shield: charybdis_left
+            keymap: charybdis_qwerty
+            artifact-name: charybdis_QWERTY_left
+          - board: nice_nano_v2
+            shield: charybdis_right
+            keymap: charybdis_qwerty
+            artifact-name: charybdis_QWERTY_right
     env:
       CONFIG_PATH: "config"
       KEYMAP_PATH: "config/boards/shields/charybdis-mini-wireless/keymaps"
       DEFAULT_KM_PATH: "config/boards/shields/charybdis-mini-wireless"
     steps:
-      - name: Copy keymap to isolated temporary directory
+      - name: Copy keymap to Config directory
         run: |
           # COPY FROM KEYMAP DIR TO CONFIG WHICH WILL BE COPIED TO THE FOLDER
           # MIGHT NEED TO REMOVE EXTRA keymap FILES
           # cp -R $CONFIG_PATH/* "env.base_dir/$CONFIG_PATH/"
+          pwd
+          tree .
           rm -rf $DEFAULT_KM_PATH/*.keymap
-          cp -R $KEYMAP_PATH/matrix.keymap.keymap \
+          cp -R $KEYMAP_PATH/${{ matrix.configuration.keymap }}.keymap \
             "$DEFAULT_KM_PATH/charybdis.keymap"
 
   build:
+    needs: prepare_files
     name: Run default ZMK build workflow
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
 
