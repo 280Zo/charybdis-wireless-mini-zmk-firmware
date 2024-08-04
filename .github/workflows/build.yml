@@ -44,6 +44,7 @@ jobs:
 
   build:
     needs: [create-qwerty-keymap, fetch-build-matrix]
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -70,8 +71,6 @@ jobs:
             cp -R ${{ keymap_path }}/${{ matrix.keymap }}.keymap \
               "${{ env.default_km_path }}/charybdis.keymap"
           fi
-      - name: Run default ZMK build workflow
-        uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
 
   merge:
     runs-on: ubuntu-latest
