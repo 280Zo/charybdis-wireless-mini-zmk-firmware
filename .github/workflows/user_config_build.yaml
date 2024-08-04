@@ -197,12 +197,12 @@ jobs:
           name: "colemak-dh-firmware"
           pattern: artifact-charybdis_colemak*
           delete-merged: true
-  cleanup:
-    runs-on: ubuntu-latest
-    needs: merge
-    name: Delete unneeded artifacts
-    steps:
-      - uses: geekyeggo/delete-artifact@v5
-        with:
-          name: charybdis_qwerty.keymap
-          failOnError: false
+  # cleanup:
+  #   runs-on: ubuntu-latest
+  #   needs: merge
+  #   name: Delete unneeded artifacts
+  #   steps:
+  #     - uses: geekyeggo/delete-artifact@v5
+  #       with:
+  #         name: charybdis_qwerty.keymap
+  #         failOnError: false

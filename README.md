@@ -6,7 +6,7 @@ This repository outlines most of the steps needed to build/modify the ZMK firmwa
 
 ## Pre Built Firmware
 
-If you'd like to skip all the configuration steps and use something prebuilt, the firmware files for qwerty and colemak dh can be found in the [Actions Workflows](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions?query=is%3Acompleted+branch%3Amain). Just click the link, select the latest run that passed on the main branch, and download the qwerty or colemak firmware. There are a few things to note about how I've chosen to configure things.
+If you'd like to skip all the configuration steps and use something prebuilt, the firmware files for qwerty and colemak dh can be found in the [Actions Workflows](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions?query=is%3Acompleted+branch%3Amain). Just click the link, select the latest run that passed on the main branc, and download the qwerty or colemak firmware. There are a few things to note about how I've chosen to configure things.
 
 - The keyboard name is Charybdis. This is what will show up when you connect to it with bluetooth.
 - ZMK has terms for each side of a split keyboard. Central is the half that sends keyboard outputs over USB or advertises to other devices over bluetooth. Peripheral is the half that will only send keystrokes to the central once they are paired and connected through bluetooth. I have chosen the right side as central because it fits my desk layout better.
