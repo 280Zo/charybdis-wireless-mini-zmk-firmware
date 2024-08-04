@@ -10,12 +10,12 @@ on:
         type: string
       config_path:
         description: "Path to the config directory"
-        default: "${GITHUB_WORKSPACE}/config"
+        default: "config"
         required: false
         type: string
       keymap_path:
         description: "Path to the keymap directory"
-        default: "${GITHUB_WORKSPACE}/config/boards/shields/charybdis-mini-wireless/keymaps"
+        default: "config/boards/shields/charybdis-mini-wireless/keymaps"
         required: false
         type: string
       fallback_binary:
@@ -92,6 +92,10 @@ jobs:
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
             cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
+            tree .
+            pwd
+            ls -hal "${{ inputs.keymap_path }}""
+            ls -hal "${{ env.base_dir }}/${{ inputs.config_path }}""
             cp -R ${{ inputs.keymap_path }}/${{ matrix.keymap }}.keymap \
               "${{ env.base_dir }}/${{ inputs.config_path }}/charybdis.keymap"
           fi
