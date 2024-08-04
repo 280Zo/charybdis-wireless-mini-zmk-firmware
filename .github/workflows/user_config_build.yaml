@@ -98,7 +98,7 @@ jobs:
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
             cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
-            cp -R "${{ env.base_dir }}/${{ inputs.keymap_path }}/${{ matrix.keymap }}.keymap \
+            cp -R "${{ env.base_dir }}/${{ inputs.keymap_path }}/${{ matrix.keymap }}.keymap" \
               "${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/charybdis.keymap"
           fi
           echo "Build files list:"
