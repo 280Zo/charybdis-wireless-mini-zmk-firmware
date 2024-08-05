@@ -21,7 +21,7 @@ jobs:
           python scripts/convert_keymap.py \
           -c q2c \
           --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: keymap_files
           path: ${{ github.workspace }}/config/*.keymap
