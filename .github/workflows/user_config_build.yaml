@@ -95,7 +95,7 @@ jobs:
 
       - name: Move keymaps to keymap directory
         run: |
-          rm -f "$GITHUB_WORKSPACE/config/*.keymap
+          rm -f $GITHUB_WORKSPACE/config/*.keymap
           mkdir -p "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
           cd "$GITHUB_WORKSPACE"
           mv *.keymap "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
