@@ -1,6 +1,6 @@
 name: ZMK Firmware Build
 
-on: [push, pull_request, workflow_dispatch]
+on: [push, workflow_dispatch]
 
 jobs:
   create-colemak-keymap:
@@ -21,10 +21,10 @@ jobs:
           python scripts/convert_keymap.py \
           -c q2c \
           --in-path "$GITHUB_WORKSPACE/config/charybdis_qwerty.keymap"
-      - uses: actions/upload-artifact@master
+      - uses: actions/upload-artifact@v3
         with:
           name: Keymap files
-          path: "$GITHUB_WORKSPACE"/config/*.keymap
+          path: $GITHUB_WORKSPACE/config/*.keymap
 
   build:
     needs: create-colemak-keymap
