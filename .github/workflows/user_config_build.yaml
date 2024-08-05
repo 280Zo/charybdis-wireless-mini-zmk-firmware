@@ -100,11 +100,9 @@ jobs:
           cd "$GITHUB_WORKSPACE"
           mv *.keymap "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
           ls -lR "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
-          ls -lR "$GITHUB_WORKSPACE/config/"
 
       - name: Copy config files to isolated temporary directory
         run: |
-          # List directory contents
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
             mkdir "$base_config_path"
@@ -201,13 +199,13 @@ jobs:
       - name: Merge QWERTY Artifacts
         uses: actions/upload-artifact/merge@v4
         with:
-          name: "qwerty-firmware"
+          name: "firmware-charybdis-nanov2-qwerty"
           pattern: artifact-charybdis_QWERTY*
           delete-merged: true
       - name: Merge Colemak DH Artifacts
         uses: actions/upload-artifact/merge@v4
         with:
-          name: "colemak-dh-firmware"
+          name: "firmware-charybdis-nanov2-colemakdh"
           pattern: artifact-charybdis_colemak*
           delete-merged: true
   cleanup:
