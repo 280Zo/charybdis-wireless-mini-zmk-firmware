@@ -84,22 +84,34 @@ jobs:
           echo "zephyr_version=${ZEPHYR_VERSION}" >> $GITHUB_ENV
           echo "extra_west_args=${extra_west_args}" >> $GITHUB_ENV
           echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"}${zmk_load_arg}" >> $GITHUB_ENV
-          echo "display_name=${shield:+$shield - }${board} - ${keymap}" >> $GITHUB_ENV
-          echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk-${keymap}}" >> $GITHUB_ENV
+          echo "display_name=${shield:+$shield - }${board}" >> $GITHUB_ENV
+          echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk}" >> $GITHUB_ENV
 
-      - name: Copy qwerty keymap to keymap directory
-        uses: actions/download-artifact@master
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
         with:
-          name: charybdis_qwerty.keymap
-          path: ${{ inputs.keymap_path }}
+          name: keymap_files
+          path: "${{ github.workspace }}/"
+
+      - name: Move keymaps to keymap directory
+        run: |
+          rm -f $GITHUB_WORKSPACE/config/*.keymap
+          mkdir -p "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
+          cd "$GITHUB_WORKSPACE"
+          mv charybdis.keymap charybdis_qwerty.keymap
+          mv *.keymap "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
+          ls -lR "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
 
       - name: Copy config files to isolated temporary directory
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
-            mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
-            cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
-            cp -R "${{ env.base_dir }}/${{ inputs.keymap_path }}/${{ matrix.keymap }}.keymap" \
-              "${{ env.base_dir }}/${{ inputs.config_path }}/boards/shields/charybdis-mini-wireless/charybdis.keymap"
+            base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
+            mkdir "$base_config_path"
+            cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
+            echo "base installed"
+            # Copy active keymap to the board directory
+            cp -Rv "$base_config_path/boards/shields/charybdis-mini-wireless/keymaps/${{ matrix.keymap }}.keymap" \
+                "$base_config_path/boards/shields/charybdis-mini-wireless/charybdis.keymap"
           fi
           echo "Build files list:"
           ls -R "${{ env.base_dir }}"
@@ -188,14 +200,14 @@ jobs:
       - name: Merge QWERTY Artifacts
         uses: actions/upload-artifact/merge@v4
         with:
-          name: "qwerty-firmware"
-          pattern: artifact-charybdis_QWERTY*
+          name: "firmware-charybdis-nanov2-qwerty"
+          pattern: artifact-qwerty*
           delete-merged: true
       - name: Merge Colemak DH Artifacts
         uses: actions/upload-artifact/merge@v4
         with:
-          name: "colemak-dh-firmware"
-          pattern: artifact-charybdis_colemak*
+          name: "firmware-charybdis-nanov2-colemakdh"
+          pattern: artifact-colemak*
           delete-merged: true
   cleanup:
     runs-on: ubuntu-latest
