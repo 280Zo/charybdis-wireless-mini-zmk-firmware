@@ -98,6 +98,7 @@ jobs:
           rm -f $GITHUB_WORKSPACE/config/*.keymap
           mkdir -p "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
           cd "$GITHUB_WORKSPACE"
+          mv charybdis.keymap charybdis_qwerty.keymap
           mv *.keymap "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
           ls -lR "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
 
