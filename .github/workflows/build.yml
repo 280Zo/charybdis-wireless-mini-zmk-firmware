@@ -27,7 +27,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: Keymap files
-          path: $GITHUB_WORKSPACE/config/*.keymap
+          path: ${{ github.workspace }}/config/*.keymap
 
   build:
     needs: create-colemak-keymap
