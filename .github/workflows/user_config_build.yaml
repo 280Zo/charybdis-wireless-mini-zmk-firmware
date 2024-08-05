@@ -100,13 +100,16 @@ jobs:
           cd "$GITHUB_WORKSPACE"
           mv *.keymap "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
           ls -lR "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
+          ls -lR "$GITHUB_WORKSPACE/config/"
+
       - name: Copy config files to isolated temporary directory
         run: |
           # List directory contents
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
             mkdir "$base_config_path"
-            cp -R "${{ inputs.config_path }}/*" "$base_config_path"/
+            cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
+            echo "base installed"
             # Copy active keymap to the config directory
             cp -Rv "$base_config_path/boards/shields/charybdis-mini-wireless/keymaps/${{ matrix.keymap }}.keymap" \
                 "$base_config_path/"
