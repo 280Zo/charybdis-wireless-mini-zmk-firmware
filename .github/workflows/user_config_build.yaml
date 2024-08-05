@@ -91,8 +91,15 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: Keymap files
-          path: "${{ github.workspace }}/config/boards/shields/charybdis-mini-wireless/keymaps/"
+          path: "${{ github.workspace }}/"
 
+      - name: Move keymaps to keymap directory
+        run: |
+          rm -f "$GITHUB_WORKSPACE/config/*.keymap
+          mkdir -p "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
+          cd "$GITHUB_WORKSPACE"
+          mv *.keymap "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
+          ls -lR "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
       - name: Copy config files to isolated temporary directory
         run: |
           # List directory contents
@@ -100,9 +107,7 @@ jobs:
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
             mkdir "$base_config_path"
             cp -R "${{ inputs.config_path }}/*" "$base_config_path"/
-            # Remove existing keyfiles in config and board dir
-            rm -f "$base_config_path/*.keymap"
-            # Copy move active keymap to the config directory
+            # Copy active keymap to the config directory
             cp -Rv "$base_config_path/boards/shields/charybdis-mini-wireless/keymaps/${{ matrix.keymap }}.keymap" \
                 "$base_config_path/"
           fi

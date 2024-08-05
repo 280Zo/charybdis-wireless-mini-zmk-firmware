@@ -18,17 +18,13 @@ jobs:
           # Add any dependencies here
       - name: Generate Colemak DH keymap
         run: |
-          python scripts/convert_keymap.py -c q2c --in-path "$GITHUB_WORKSPACE/config/charybdis_qwerty.keymap"
-      - name: Move keymaps to the keymap directory
-        run: |
-          ls -lR "$GITHUB_WORKSPACE"
-          cd "$GITHUB_WORKSPACE/config/"
-          mv *.keymap "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
-          ls -lR "$GITHUB_WORKSPACE"
+          python scripts/convert_keymap.py \
+          -c q2c \
+          --in-path "$GITHUB_WORKSPACE/config/charybdis_qwerty.keymap"
       - uses: actions/upload-artifact@master
         with:
           name: Keymap files
-          path: "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/*"
+          path: "$GITHUB_WORKSPACE"/config/*.keymap
 
   build:
     needs: create-colemak-keymap
