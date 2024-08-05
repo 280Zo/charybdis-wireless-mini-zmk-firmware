@@ -21,6 +21,7 @@ jobs:
           python scripts/convert_keymap.py -c q2c --in-path "$GITHUB_WORKSPACE/config/charybdis_qwerty.keymap"
       - name: Move keymaps to the keymap directory
         run: |
+          ls -lR "$GITHUB_WORKSPACE"
           cd "$GITHUB_WORKSPACE/config/"
           mv *.keymap "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
           ls -lR "$GITHUB_WORKSPACE"
