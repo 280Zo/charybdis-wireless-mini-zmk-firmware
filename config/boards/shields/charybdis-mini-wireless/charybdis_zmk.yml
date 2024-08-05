@@ -9,5 +9,5 @@ features:
   - pointer
   - colemak DH
 siblings:
-  - charybdis_left
-  - charybdis_right
+  - left
+  - right

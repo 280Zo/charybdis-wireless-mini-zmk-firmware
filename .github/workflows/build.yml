@@ -3,7 +3,7 @@ name: ZMK Firmware Build
 on: [push, workflow_dispatch]
 
 jobs:
-  create-colemak-keymap:
+  convert-and-store-keymap:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,9 +21,6 @@ jobs:
           python scripts/convert_keymap.py \
           -c q2c \
           --in-path "$GITHUB_WORKSPACE/config/charybdis_qwerty.keymap"
-      - name: List files
-        run: |
-          ls -hRl $GITHUB_WORKSPACE
       - uses: actions/upload-artifact@v3
         with:
           name: keymap_files
