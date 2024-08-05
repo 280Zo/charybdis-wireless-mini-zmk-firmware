@@ -21,6 +21,9 @@ jobs:
           python scripts/convert_keymap.py \
           -c q2c \
           --in-path "$GITHUB_WORKSPACE/config/charybdis_qwerty.keymap"
+      - name: List files
+        run: |
+          ls -hRl $GITHUB_WORKSPACE
       - uses: actions/upload-artifact@v3
         with:
           name: Keymap files
