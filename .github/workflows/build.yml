@@ -1,4 +1,4 @@
-name: ZMK Firmware Build
+name: ZMK Firmware
 
 on: [push, workflow_dispatch]
 
