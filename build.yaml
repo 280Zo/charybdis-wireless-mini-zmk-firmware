@@ -21,16 +21,16 @@ include:
   - board: nice_nano_v2
     shield: charybdis_left
     keymap: charybdis_colemak_dh
-    artifact-name: charybdis_colemak_left
+    artifact-name: colemak_left
   - board: nice_nano_v2
     shield: charybdis_right
     keymap: charybdis_colemak_dh
-    artifact-name: charybdis_colemak_right
+    artifact-name: colemak_right
   - board: nice_nano_v2
     shield: charybdis_left
     keymap: charybdis_qwerty
-    artifact-name: charybdis_QWERTY_left
+    artifact-name: QWERTY_left
   - board: nice_nano_v2
     shield: charybdis_right
     keymap: charybdis_qwerty
-    artifact-name: charybdis_QWERTY_right
+    artifact-name: QWERTY_right
