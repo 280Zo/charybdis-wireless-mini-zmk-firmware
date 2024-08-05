@@ -12,10 +12,49 @@
 };
 
 / {
+    hm: homerow_mod {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "tap-preferred";
+        tapping-term-ms = <250>;
+        quick-tap-ms = <150>;
+        require-prior-idle-ms = <125>;
+        bindings = <&kp>, <&kp>;
+    };
+
     combos {
+        compatible = "zmk,combos";
+
+        Delete {
+            bindings = <&kp DELETE>;
+            key-positions = <8 9>;
+        };
+
+        CapsWord {
+            bindings = <&caps_word>;
+            key-positions = <17 18>;
+        };
+
+        Layer_7 {
+            bindings = <&mo 7>;
+            key-positions = <38 39>;
+        };
     };
 
     macros {
+        VSplit: VSplit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
+            label = "VSPLIT";
+        };
+
+        HSplit: HSplit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(S) &kp LS(P) &kp RET>;
+            label = "HSPLIT";
+        };
     };
 
     behaviors {
