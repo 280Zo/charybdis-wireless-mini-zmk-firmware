@@ -90,7 +90,7 @@ jobs:
       - name: Copy keymap files to keymap directory
         uses: actions/download-artifact@master
         with:
-          name: Keymap files
+          name: keymap_files
           path: "${{ github.workspace }}/"
 
       - name: Move keymaps to keymap directory

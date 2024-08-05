@@ -26,7 +26,7 @@ jobs:
           ls -hRl $GITHUB_WORKSPACE
       - uses: actions/upload-artifact@v3
         with:
-          name: Keymap files
+          name: keymap_files
           path: ${{ github.workspace }}/config/*.keymap
 
   build:
