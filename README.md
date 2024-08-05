@@ -25,6 +25,8 @@ There are a few options available to update the keymaps with the chosen behavior
 
 You can edit the keymap file directly to match any configuration you want by using the behavior and codes from above.
 
+The convert_keymap script can convert keymap files between layouts (colemak > qwerty or qwerty > colemak). In the pipeline it will convert the charybdis.keymap from QWERTY to Colemak DH.
+
 ### Use a GUI
 
 Using a GUI to generate the keymap file content is the easiest option. There are multiple mappers out there that will generate keymap files for ZMK. The two I found most helpful are tammingaj's [Keymapper](https://www.keymapper.dev/code) and nickcoutsos' [keymap editor](https://nickcoutsos.github.io/keymap-editor/). I chose to use the latter for my project.

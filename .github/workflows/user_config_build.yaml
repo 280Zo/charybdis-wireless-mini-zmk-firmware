@@ -201,11 +201,11 @@ jobs:
         uses: actions/upload-artifact/merge@v4
         with:
           name: "firmware-charybdis-nanov2-qwerty"
-          pattern: artifact-qwerty*
+          pattern: artifact-charybdis_qwerty*
           delete-merged: true
       - name: Merge Colemak DH Artifacts
         uses: actions/upload-artifact/merge@v4
         with:
           name: "firmware-charybdis-nanov2-colemakdh"
-          pattern: artifact-colemak*
+          pattern: artifact-charybdis_colemak*
           delete-merged: true
