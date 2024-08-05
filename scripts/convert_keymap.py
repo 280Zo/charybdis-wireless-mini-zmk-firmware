@@ -162,7 +162,6 @@ def main():
         formatted_text = '\n'.join(formatted_lines)
         return formatted_text
 
-
     converted_map = convert_keymap(keymap_contents)
 
     # Write the new keymap_contents to the output file
