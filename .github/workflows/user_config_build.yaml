@@ -87,10 +87,10 @@ jobs:
           echo "display_name=${shield:+$shield - }${board} - ${keymap}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk-${keymap}}" >> $GITHUB_ENV
 
-      - name: Copy keymap files to keymap directory
+      - name: Download artifacts
         uses: actions/download-artifact@master
         with:
-          name: keymap_files
+          name: keymap_files.zip
           path: "${{ github.workspace }}/"
 
       - name: Move keymaps to keymap directory
