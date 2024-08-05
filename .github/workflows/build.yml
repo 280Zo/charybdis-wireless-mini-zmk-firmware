@@ -18,6 +18,7 @@ jobs:
           # Add any dependencies here
       - name: Generate Colemak DH keymap
         run: |
+          ls -Rl $GITHUB_WORKSPACE
           python scripts/convert_keymap.py \
           -c q2c \
           --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
