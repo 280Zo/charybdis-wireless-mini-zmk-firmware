@@ -55,22 +55,18 @@ def main():
             # Top row (numbers and symbols are not included in this example)
             'Q': 'Q', 'W': 'W', 'E': 'F', 'R': 'P', 'T': 'B', 'Y': 'J', 'U': 'L', 'I': 'U', 'O': 'Y', 'P': 'APOS',
             # Home row
-            'A': 'A', 'S': 'R', 'D': 'S', 'F': 'D', 'G': 'G', 'H': 'M', 'J': 'N', 'K': 'E', 'L': 'I', 'SEMICOLON': 'O',
+            'A': 'A', 'S': 'R', 'D': 'S', 'F': 'T', 'G': 'G', 'H': 'M', 'J': 'N', 'K': 'E', 'L': 'I', 'SEMICOLON': 'O',
             # Bottom row
-            'Z': 'Z', 'X': 'X', 'C': 'C', 'V': 'V', 'B': 'K', 'N': 'H',
-            # Special keys (not row-specific)
-            'TAB': 'TAB', 'DEL': 'DEL', 'BACKSPACE': 'BACKSPACE', 'ESCAPE': 'ESCAPE', 'RETURN': 'RETURN', 'SPACE': 'SPACE'
+            'Z': 'Z', 'X': 'X', 'C': 'C', 'V': 'D', 'B': 'V', 'N': 'K', 'M': 'H',
         }
     else:
         initial_keymap = {
             # Top row (numbers and symbols are not included in this example)
             'Q': 'Q', 'W': 'W', 'F': 'E', 'P': 'R', 'B': 'T', 'J': 'Y', 'L': 'U', 'U': 'I', 'Y': 'O', 'APOS': 'P',
             # Home row
-            'A': 'A', 'R': 'S', 'S': 'D', 'D': 'F', 'G': 'G', 'M': 'H', 'N': 'J', 'E': 'K', 'I': 'L', 'O': 'SEMICOLON',
+            'A': 'A', 'R': 'S', 'S': 'D', 'T': 'F', 'G': 'G', 'M': 'H', 'N': 'J', 'E': 'K', 'I': 'L', 'O': 'SEMICOLON',
             # Bottom row
-            'Z': 'Z', 'X': 'X', 'C': 'C', 'V': 'V', 'K': 'B', 'H': 'N',
-            # Special keys (not row-specific)
-            'TAB': 'TAB', 'DEL': 'DEL', 'BACKSPACE': 'BACKSPACE', 'ESCAPE': 'ESCAPE', 'RETURN': 'RETURN', 'SPACE': 'SPACE'
+            'Z': 'Z', 'X': 'X', 'C': 'C', 'D': 'V', 'V': 'B', 'K': 'N', 'H': 'M'
         }
     
     #####################################################################
