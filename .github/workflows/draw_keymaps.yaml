@@ -15,7 +15,7 @@ on:
         type: string
       west_config_path:
         description: "Path to the folder containing west.yml, e.g. `config`. If specified, west will be initialized to fetch modules defined in west.yml"
-        default: "./config/west.yml"
+        default: "${{ github.workspace }}/config/west.yml"
         required: false
         type: string
       output_folder:
