@@ -128,7 +128,9 @@ jobs:
 
       - name: West Init
         if: inputs.west_config_path != ''
-        run: west init -l ${{ inputs.west_config_path }}
+        run: |
+          ls -Rhl $GITHUB_WORKSPACE
+          west init -l ${{ inputs.west_config_path }}
 
       - name: West Update
         if: inputs.west_config_path != ''
