@@ -27,5 +27,7 @@ jobs:
 
   keymap_images:
     # needs: build
+    permissions:
+      contents: write
     uses: ./.github/workflows/draw_keymaps.yaml
     # credit to https://github.com/caksoylar/keymap-drawer
