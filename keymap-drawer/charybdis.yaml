@@ -1,0 +1,386 @@
+layers:
+  Base:
+  - AC SEARCH
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - {t: Game, h: toggle}
+  - {t: TAB, h: Gui+ E}
+  - {t: A, h: LEFT GUI}
+  - {t: S, h: LEFT ALT}
+  - {t: D, h: LCTRL}
+  - {t: F, h: LEFT SHIFT}
+  - G
+  - H
+  - {t: J, h: LEFT SHIFT}
+  - {t: K, h: RCTRL}
+  - {t: L, h: RIGHT ALT}
+  - {t: ;, h: LEFT META}
+  - DEL
+  - Alt+Ctl+ T
+  - Z
+  - {t: X, h: Ctl+Alt+ LEFT SHIFT}
+  - {t: C, h: Alt+Ctl+Gui+ LEFT SHIFT}
+  - V
+  - B
+  - N
+  - M
+  - {t: ',', h: Alt+Ctl+Gui+ LEFT SHIFT}
+  - {t: ., h: Ctl+Alt+ LEFT SHIFT}
+  - /
+  - {t: Photos, h: toggle}
+  - {t: PLAY PAUSE, h: Ctl+ F10}
+  - {t: BACKSPACE, h: Num}
+  - {t: ESCAPE, h: Nav}
+  - {t: RETURN, h: Mouse}
+  - {t: SPACE, h: Sym}
+  Num:
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - /
+  - {t: '7', h: F7}
+  - {t: '8', h: F8}
+  - {t: '9', h: F9}
+  - {t: '-', h: F10}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - BACKSPACE
+  - ''
+  - '*'
+  - {t: '4', h: F4}
+  - {t: '5', h: F5}
+  - {t: '6', h: F6}
+  - {t: +, h: F11}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - .
+  - {t: '1', h: F1}
+  - {t: '2', h: F2}
+  - {t: '3', h: F3}
+  - {t: '=', h: F12}
+  - ''
+  - ''
+  - {type: held}
+  - ''
+  - '0'
+  - ''
+  Nav:
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Sft+Ctl+ H
+  - Sft+Ctl+ J
+  - Sft+Ctl+ K
+  - Sft+Ctl+ L
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&VSplit'
+  - LEFT ARROW
+  - DOWN
+  - UP
+  - RIGHT ARROW
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '&HSplit'
+  - HOME
+  - PG DN
+  - PG UP
+  - END
+  - ''
+  - ''
+  - ''
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  Sym:
+  - ''
+  - ''''
+  - ^
+  - +
+  - '-'
+  - \
+  - '`'
+  - '~'
+  - '{'
+  - '}'
+  - '&'
+  - ''
+  - '%'
+  - {t: '!', h: LEFT META}
+  - {t: <, h: LEFT ALT}
+  - {t: '>', h: LCTRL}
+  - {t: SPACE, h: LEFT SHIFT}
+  - /
+  - ':'
+  - {t: SPACE, h: LEFT SHIFT}
+  - {t: (, h: LCTRL}
+  - {t: ), h: LEFT ALT}
+  - '#'
+  - ''
+  - ''
+  - '"'
+  - $
+  - '='
+  - '*'
+  - '|'
+  - ;
+  - _
+  - '['
+  - ']'
+  - '@'
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - {type: held}
+  Mouse:
+  - ''
+  - '&msc MOVE_LEFT'
+  - '&msc MOVE_UP'
+  - '&mmv MOVE_UP'
+  - '&msc MOVE_DOWN'
+  - '&msc MOVE_RIGHT'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '&mkp MB4'
+  - '&mmv MOVE_LEFT'
+  - '&mmv MOVE_DOWN'
+  - '&mmv MOVE_RIGHT'
+  - '&mkp MB5'
+  - ''
+  - RIGHT SHIFT
+  - RCTRL
+  - LEFT ALT
+  - LEFT META
+  - ''
+  - ''
+  - AC UNDO
+  - AC CUT
+  - AC COPY
+  - AC PASTE
+  - '&mkp MCLK'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: slow_mouse, h: toggle}
+  - '&mkp LCLK'
+  - '&mkp RCLK'
+  - {type: held}
+  - ''
+  Game:
+  - '1'
+  - TAB
+  - Q
+  - W
+  - E
+  - R
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: Base, h: toggle}
+  - '2'
+  - LCTRL
+  - A
+  - S
+  - D
+  - F
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '3'
+  - LSHFT
+  - Z
+  - X
+  - C
+  - V
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - SPACE
+  - LEFT ALT
+  - ''
+  - ''
+  Photos:
+  - {t: ▽, type: trans}
+  - Meh+ Z
+  - Meh+ E
+  - Meh+ A
+  - Meh+ S
+  - Meh+ B
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Ctl+Alt+ E
+  - LEFT
+  - DOWN
+  - UP
+  - RIGHT
+  - LCTRL
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Sft+ DELETE
+  - Alt+Sft+ A
+  - Alt+ KP 1
+  - Alt+ KP 2
+  - Alt+ KP 3
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: Base, h: toggle}
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  Extras:
+  - SLEEP
+  - ''
+  - ''
+  - ''
+  - ''
+  - BRIGHTNESS MAXIMUM
+  - {t: BT, h: '0'}
+  - {t: BT, h: '1'}
+  - {t: BT, h: '2'}
+  - {t: BT, h: '3'}
+  - BT CLR
+  - AL COFFEE
+  - POWER
+  - ''
+  - ''
+  - ''
+  - ''
+  - BRIGHTNESS INC
+  - OUT TOG
+  - PREVIOUS
+  - PLAY PAUSE
+  - STOP
+  - NEXT
+  - ''
+  - '&bootloader'
+  - ''
+  - ''
+  - ''
+  - ''
+  - BRIGHTNESS DEC
+  - PRINTSCREEN
+  - VOLUME DOWN
+  - VOLUME UP
+  - MUTE
+  - ''
+  - '&bootloader'
+  - ''
+  - ''
+  - {type: held}
+  - {type: held}
+  - ''
+  slow_mouse:
+  - ''
+  - '&msc MOVE_LEFT'
+  - '&msc MOVE_UP'
+  - '&mmv MOVE_UP'
+  - '&msc MOVE_DOWN'
+  - '&msc MOVE_RIGHT'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '&mkp MB4'
+  - '&mmv MOVE_LEFT'
+  - '&mmv MOVE_DOWN'
+  - '&mmv MOVE_RIGHT'
+  - '&mkp MB5'
+  - ''
+  - RIGHT SHIFT
+  - RCTRL
+  - LEFT ALT
+  - LEFT META
+  - ''
+  - ''
+  - AC UNDO
+  - AC CUT
+  - AC COPY
+  - AC PASTE
+  - '&mkp MCLK'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: slow_mouse, h: toggle}
+  - '&mkp LCLK'
+  - '&mkp RCLK'
+  - ''
+  - ''
+combos:
+- p: [8, 9]
+  k: DELETE
+- p: [17, 18]
+  k: '&caps_word'
+- p: [38, 39]
+  k: Extras
