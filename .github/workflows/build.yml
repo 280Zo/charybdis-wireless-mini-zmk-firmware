@@ -24,3 +24,8 @@ jobs:
     needs: convert-and-store-keymap
     uses: ./.github/workflows/user_config_build.yaml
     # uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+
+  draw:
+    needs: build
+    uses: ./.github/workflows/draw_keymaps.yaml
+    # credit to https://github.com/caksoylar/keymap-drawer
