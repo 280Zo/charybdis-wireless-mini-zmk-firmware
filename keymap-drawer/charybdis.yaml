@@ -1,6 +1,6 @@
 layers:
   Base:
-  - AC SEARCH
+  - SEARCH
   - Q
   - W
   - E
@@ -12,7 +12,7 @@ layers:
   - O
   - P
   - {t: Game, h: toggle}
-  - {t: TAB, h: Gui+ E}
+  - {t: TAB, h: WINDOW}
   - {t: A, h: LEFT GUI}
   - {t: S, h: LEFT ALT}
   - {t: D, h: LCTRL}
@@ -24,19 +24,19 @@ layers:
   - {t: L, h: RIGHT ALT}
   - {t: ;, h: LEFT META}
   - DEL
-  - Alt+Ctl+ T
+  - SHELL
   - Z
-  - {t: X, h: Ctl+Alt+ LEFT SHIFT}
-  - {t: C, h: Alt+Ctl+Gui+ LEFT SHIFT}
+  - {t: X, h: MEH}
+  - {t: C, h: HYPER}
   - V
   - B
   - N
   - M
-  - {t: ',', h: Alt+Ctl+Gui+ LEFT SHIFT}
-  - {t: ., h: Ctl+Alt+ LEFT SHIFT}
+  - {t: ',', h: HYPER}
+  - {t: ., h: MEH}
   - /
   - {t: Photos, h: toggle}
-  - {t: PLAY PAUSE, h: Ctl+ F10}
+  - {t: PLAY PAUSE, h: ALL WIN}
   - {t: BACKSPACE, h: Num}
   - {t: ESCAPE, h: Nav}
   - {t: RETURN, h: Mouse}
@@ -91,10 +91,10 @@ layers:
   - ''
   - ''
   - ''
-  - Sft+Ctl+ H
-  - Sft+Ctl+ J
-  - Sft+Ctl+ K
-  - Sft+Ctl+ L
+  - PANE ◀
+  - PANE ▲
+  - PANE ▼
+  - PANE ▶
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -103,10 +103,10 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - '&VSplit'
-  - LEFT ARROW
+  - LEFT
   - DOWN
   - UP
-  - RIGHT ARROW
+  - RIGHT
   - ''
   - ''
   - ''
@@ -193,10 +193,10 @@ layers:
   - LEFT META
   - ''
   - ''
-  - AC UNDO
-  - AC CUT
-  - AC COPY
-  - AC PASTE
+  - UNDO
+  - CUT
+  - COPY
+  - PASTE
   - '&mkp MCLK'
   - ''
   - ''
@@ -305,7 +305,7 @@ layers:
   - {t: BT, h: '2'}
   - {t: BT, h: '3'}
   - BT CLR
-  - AL COFFEE
+  - LOCK
   - POWER
   - ''
   - ''
@@ -361,10 +361,10 @@ layers:
   - LEFT META
   - ''
   - ''
-  - AC UNDO
-  - AC CUT
-  - AC COPY
-  - AC PASTE
+  - UNDO
+  - CUT
+  - COPY
+  - PASTE
   - '&mkp MCLK'
   - ''
   - ''
