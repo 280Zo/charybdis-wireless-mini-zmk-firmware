@@ -14,8 +14,8 @@ on:
         required: false
         type: string
       west_config_path:
-        description: "Path to the folder containing west.yml, e.g. `config`. If specified, west will be initialized to fetch modules defined in west.yml"
-        default: "./config/"
+        description: "TODO(./config/) Path to the folder containing west.yml, e.g. `config`. If specified, west will be initialized to fetch modules defined in west.yml"
+        default: ""
         required: false
         type: string
       output_folder:
@@ -30,7 +30,7 @@ on:
         type: string
       parse_args:
         description: "Map of keyboard names to extra `keymap parse` args, e.g. `corne:'--layer-names Def Lwr Rse Fun'`"
-        default: "charybdis: '-c 12'"
+        default: ""
         required: false
         type: string
       draw_args:
@@ -59,8 +59,8 @@ on:
         required: false
         type: string
       destination:
-        description: "Add the output files to a commit, as artifacts or both, values: `commit`, `artifact`, `both`"
-        default: "both"
+        description: "Add the output files to a commit, as artifacts or both, values: `commit`, `artifact`, `both` TODO (both)"
+        default: "artifact"
         required: false
         type: string
       artifact_name:
@@ -70,7 +70,7 @@ on:
         type: string
       fail_on_error:
         description: "Fail the action if an error occurs during parse/draw"
-        default: false
+        default: true
         required: false
         type: boolean
     outputs:
