@@ -10,7 +10,7 @@ on:
         type: string
       config_path:
         description: "Path to the keymap-drawer configuration file, ignored if non-existent"
-        default: "./keymap-drawer/keymap_drawer.config.yaml"
+        default: "keymap-drawer/config.yaml"
         required: false
         type: string
       west_config_path:
@@ -25,12 +25,12 @@ on:
         type: string
       json_path:
         description: "Path containing <keymap>.json physical layout description files, ignored if non-existent"
-        default: "./config/charybdis.json"
+        default: "config/charybdis.json"
         required: false
         type: string
       parse_args:
         description: "Map of keyboard names to extra `keymap parse` args, e.g. `corne:'--layer-names Def Lwr Rse Fun'`"
-        default: ""
+        default: "charybdis: '-c 12'"
         required: false
         type: string
       draw_args:
