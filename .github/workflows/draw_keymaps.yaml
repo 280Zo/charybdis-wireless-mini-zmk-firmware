@@ -25,7 +25,7 @@ on:
         type: string
       json_path:
         description: "Path containing <keymap>.json physical layout description files, ignored if non-existent"
-        default: "config/charybdis.json"
+        default: "config"
         required: false
         type: string
       parse_args:
