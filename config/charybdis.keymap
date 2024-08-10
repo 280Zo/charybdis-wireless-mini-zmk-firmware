@@ -92,9 +92,9 @@
 
         Sym {
             bindings = <
-&none      &kp SQT                    &kp CARET        &kp PLUS      &kp MINUS             &kp BSLH     &kp GRAVE      &kp TILDE             &kp LEFT_BRACE  &kp RIGHT_BRACE    &kp AMPS     &none
+&none      &kp SQT                    &kp CARET        &kp PLUS      &kp ASTRK             &kp BSLH     &kp GRAVE      &kp TILDE             &kp LEFT_BRACE  &kp RIGHT_BRACE    &kp AMPS     &none
 &kp PRCNT  &hm LEFT_META EXCLAMATION  &hm LEFT_ALT LT  &hm LCTRL GT  &hm LEFT_SHIFT SPACE  &kp SLASH    &kp COLON      &mt LEFT_SHIFT SPACE  &hm LCTRL LPAR  &hm LEFT_ALT RPAR  &kp HASH     &none
-&none      &kp DQT                    &kp DLLR         &kp EQUAL     &kp ASTRK             &kp PIPE     &kp SEMICOLON  &kp UNDERSCORE        &kp LBKT        &kp RBKT           &kp AT_SIGN  &none
+&none      &kp DQT                    &kp DLLR         &kp EQUAL     &kp MINUS             &kp PIPE     &kp SEMICOLON  &kp UNDERSCORE        &kp LBKT        &kp RBKT           &kp AT_SIGN  &none
                                                        &trans        &trans                &trans       &none          &trans
             >;
         };
@@ -135,7 +135,7 @@
             >;
         };
 
-        slow_mouse {
+        Slow_TrkBl {
             bindings = <
 &none  &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
 &none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none

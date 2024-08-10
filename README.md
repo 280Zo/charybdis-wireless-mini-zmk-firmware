@@ -6,16 +6,25 @@ This repository outlines most of the steps needed to build/modify the ZMK firmwa
 
 ## Pre Built Firmware
 
-If you'd like to skip all the configuration steps and use something prebuilt, the firmware files can be found in the [Actions Workflows](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions?query=is%3Acompleted+branch%3Amain). Just log in, click the link, select the latest run that passed on the main branch, and download the qwerty or colemak-dh firmware (if you don't know the difference you probably want qwerty). There are a few things to note about how I've chosen to configure things.
+If you'd like to skip all the configuration steps and use something prebuilt, the firmware files can be found in the [Actions Workflows](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions?query=is%3Acompleted+branch%3Amain). Just log in, click the link, select the latest run that passed on the main branch, and download the 'firmware-charybdis-nanov2-qwerty' artifact (there's also a colemak dh firmware for those few that want to use that layout).
+There are a few things to note about how I've chosen to configure things.
 
 - The keyboard name is Charybdis. This is what will show up when you connect to it with bluetooth.
 - ZMK has terms for each side of a split keyboard. Central is the half that sends keyboard outputs over USB or advertises to other devices over bluetooth. Peripheral is the half that will only send keystrokes to the central once they are paired and connected through bluetooth. I have chosen the right side as central because it fits my desk layout better.
 - To add support for the PMW3610 sensor, [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file) is included in the firmware.
 - Looking at different options to include support for mouse keys (move and scroll), there are several repos out there. [krikun98](https://github.com/krikun98/zmk/tree/mouse-pr) has one that looked promising, but ultimately I settled on [petejohanson's work](https://github.com/petejohanson/zmk/blob/feat/pointers-move-scroll/docs/docs/behaviors/mouse-emulation.md). This will be included in the prebuilt firmware until ZMK merges it.
 
+### Keymaps & Layers
+
+There is a lot that's going on with each layer, but the only things you need to know to get started are that the red keys are what to press to activate the layer, layer names are underlined, the BT keys on the EXTRAS layer allow you to select which bluetooth pairing you want, BT-CLR clears the pairing on the selected profile, and the Slow_Trkbl layer allows you to hold that button to slow the trackball movement down for more precision. As soon as you let it go the trackball movement goes back to normal.
+
+Here is how each layer is mapped out for the latest firmware.
+
+![keymap images](keymap-drawer/charybdis.svg)
+
 ## Update Key Mappings
 
-Before adding/updating a keymap, you need to select a behavior, then choose a parameter code. This process is more clearly outlined on ZMK's [Keymaps & Behaviors](https://zmk.dev/docs/features/keymaps) page.
+Before adding/updating a keymap, you need to select a behavior, then choose a parameter code that you plan to update the key to. This process is more clearly outlined on ZMK's [Keymaps & Behaviors](https://zmk.dev/docs/features/keymaps) page.
 - Behaviors are all documented on the [Behaviors Overview](https://zmk.dev/docs/behaviors)
 - Codes are all documented on the [keycodes](https://zmk.dev/docs/codes) page
 
@@ -25,16 +34,12 @@ There are a few options available to update the keymaps with the chosen behavior
 
 You can edit the keymap file directly to match any configuration you want by using the behavior and codes from above.
 
-The convert_keymap script can convert keymap files between layouts (colemak > qwerty or qwerty > colemak). In the pipeline it will convert the charybdis.keymap from QWERTY to Colemak DH.
-
 ### Use a GUI
 
-Using a GUI to generate the keymap file content is the easiest option. There are multiple mappers out there that will generate keymap files for ZMK. The two I found most helpful are tammingaj's [Keymapper](https://www.keymapper.dev/code) and nickcoutsos' [keymap editor](https://nickcoutsos.github.io/keymap-editor/). I chose to use the latter for my project.
-
-If you'd like to use the keymap editor, follow the steps below.
+Using a GUI to generate the keymap file content is the easiest option. Head over to nickcoutsos' [keymap editor](https://nickcoutsos.github.io/keymap-editor/) and follow the steps below.
 
 - Fork this repo
-- Open a new tab to the [keymap editor](https://nickcoutsos.github.io/keymap-editor)
+- Open a new tab to the keymap editor
 - Give it permission to your fork
 - Select the branch you'd like to modify
 - Update the keys to match what you'd like to use on your keyboard
@@ -65,12 +70,10 @@ Follow the ZMK documentation to change the [Kconfig.deconfig](https://zmk.dev/do
 Follow the ZMK [Kconfig.defconfig](https://zmk.dev/docs/development/new-shield#kconfigdefconfig) section to update the keyboard name. Make sure to read about the danger in exceeding the 16 character limit.
 
 ## Creating Graphical Key Maps
- 
-There are a lot of resources available to create key map images. Keymap Editor and KeyMapper mentioned in the Update Keymappings section have this ability, but they are not very customizable.
 
-[Keymap Drawer](https://keymap-drawer.streamlit.app/) has more options and is able to process ZMK keymaps, but I ultimately settled on the [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/#/).
+This repo uses the excellent work of caksoylar's [Keymap Drawer](https://keymap-drawer.streamlit.app/) to automatically generate a key mapping of each layer when the Github Actions are run.
  
-## Upcoming Features
+## Upcoming ZMK Features
 
 ZMK is actively being developed and there are a few features I'll be adding to my builds as soon as they are released.
 
