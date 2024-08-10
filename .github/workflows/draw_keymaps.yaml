@@ -45,7 +45,7 @@ on:
         type: string
       amend_commit:
         description: "Whether to amend the last commit instead of creating a new one. Make sure you understand the implications of rewriting the branch history if you use this option!"
-        default: false
+        default: true
         required: false
         type: boolean
       install_branch:
