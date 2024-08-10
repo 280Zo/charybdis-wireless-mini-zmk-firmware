@@ -130,7 +130,7 @@ layers:
   - ''''
   - ^
   - +
-  - '-'
+  - '*'
   - \
   - '`'
   - '~'
@@ -154,7 +154,7 @@ layers:
   - '"'
   - $
   - '='
-  - '*'
+  - '-'
   - '|'
   - ;
   - _
@@ -204,7 +204,7 @@ layers:
   - ''
   - ''
   - ''
-  - {t: slow_mouse, h: toggle}
+  - {t: Slow_TrkBl, h: toggle}
   - '&mkp LCLK'
   - '&mkp RCLK'
   - {type: held}
@@ -335,7 +335,7 @@ layers:
   - {type: held}
   - {type: held}
   - ''
-  slow_mouse:
+  Slow_TrkBl:
   - ''
   - '&msc MOVE_LEFT'
   - '&msc MOVE_UP'
@@ -372,7 +372,7 @@ layers:
   - ''
   - ''
   - ''
-  - {t: slow_mouse, h: toggle}
+  - {t: Slow_TrkBl, h: toggle}
   - '&mkp LCLK'
   - '&mkp RCLK'
   - ''
