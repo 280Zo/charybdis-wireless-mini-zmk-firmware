@@ -102,7 +102,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - '&VSplit'
+  - VSPLIT
   - LEFT
   - DOWN
   - UP
@@ -114,7 +114,7 @@ layers:
   - ''
   - ''
   - ''
-  - '&HSplit'
+  - HSPLIT
   - HOME
   - PG DN
   - PG UP
@@ -169,11 +169,11 @@ layers:
   - {type: held}
   Mouse:
   - ''
-  - '&msc MOVE_LEFT'
-  - '&msc MOVE_UP'
-  - '&mmv MOVE_UP'
-  - '&msc MOVE_DOWN'
-  - '&msc MOVE_RIGHT'
+  - WHEEL L
+  - WHEEL D
+  - MOVE UP
+  - WHEEL U
+  - WHEEL R
   - ''
   - ''
   - ''
@@ -181,10 +181,10 @@ layers:
   - ''
   - ''
   - ''
-  - '&mkp MB4'
-  - '&mmv MOVE_LEFT'
-  - '&mmv MOVE_DOWN'
-  - '&mmv MOVE_RIGHT'
+  - BACK
+  - MOVE L
+  - MOVE D
+  - MOVE R
   - FWD
   - ''
   - RIGHT SHIFT
@@ -318,7 +318,7 @@ layers:
   - STOP
   - NEXT
   - ''
-  - BOOT
+  - BOOT LDR
   - ''
   - ''
   - ''
@@ -329,7 +329,7 @@ layers:
   - VOLUME UP
   - MUTE
   - ''
-  - BOOT
+  - BOOT LDR
   - ''
   - ''
   - {type: held}
@@ -337,11 +337,11 @@ layers:
   - ''
   Slow_TrkBl:
   - ''
-  - '&msc MOVE_LEFT'
-  - '&msc MOVE_UP'
-  - '&mmv MOVE_UP'
-  - '&msc MOVE_DOWN'
-  - '&msc MOVE_RIGHT'
+  - WHEEL L
+  - WHEEL D
+  - MOVE UP
+  - WHEEL U
+  - WHEEL R
   - ''
   - ''
   - ''
@@ -349,10 +349,10 @@ layers:
   - ''
   - ''
   - ''
-  - '&mkp MB4'
-  - '&mmv MOVE_LEFT'
-  - '&mmv MOVE_DOWN'
-  - '&mmv MOVE_RIGHT'
+  - BACK
+  - MOVE L
+  - MOVE D
+  - MOVE R
   - FWD
   - ''
   - RIGHT SHIFT
