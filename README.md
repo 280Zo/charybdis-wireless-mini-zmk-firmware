@@ -13,6 +13,11 @@ If you'd like to skip all the configuration steps and use something prebuilt, th
 - To add support for the PMW3610 sensor, [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file) is included in the firmware.
 - Looking at different options to include support for mouse keys (move and scroll), there are several repos out there. [krikun98](https://github.com/krikun98/zmk/tree/mouse-pr) has one that looked promising, but ultimately I settled on [petejohanson's work](https://github.com/petejohanson/zmk/blob/feat/pointers-move-scroll/docs/docs/behaviors/mouse-emulation.md). This will be included in the prebuilt firmware until ZMK merges it.
 
+### Keymaps & Layers
+![keymap images](keymap-drawer/charybdis.svg)
+
+
+
 ## Update Key Mappings
 
 Before adding/updating a keymap, you need to select a behavior, then choose a parameter code. This process is more clearly outlined on ZMK's [Keymaps & Behaviors](https://zmk.dev/docs/features/keymaps) page.
