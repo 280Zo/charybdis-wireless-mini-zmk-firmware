@@ -131,7 +131,7 @@ parse_config:
     QUESTION: "?"
     QUES: "?"
   zmk_remove_keycode_prefix:
-    - "&VSplit"
+    - VSplit
     - "&HSplit"
     - "&msc"
     - "&mmv"
