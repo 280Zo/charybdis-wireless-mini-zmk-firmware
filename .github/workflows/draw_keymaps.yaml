@@ -139,7 +139,7 @@ jobs:
       - name: Draw keymaps
         id: draw
         env:
-          KEYMAP_raw_binding_map='{"&bootloader": "BOOT", "&mkp RCLK": "R CLK", "&mkp LCLK": "L CLK", "&mkp MCLK": "M CLK", "&mkp MB5": "FWD"}'
+          KEYMAP_raw_binding_map: '{"&bootloader": "BOOT", "&mkp RCLK": "R CLK", "&mkp LCLK": "L CLK", "&mkp MCLK": "M CLK", "&mkp MB5": "FWD"}'
         run: |
           get_args() {
               local keyboard=$2
