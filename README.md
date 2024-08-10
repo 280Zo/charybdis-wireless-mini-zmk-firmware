@@ -46,6 +46,15 @@ Using a GUI to generate the keymap file content is the easiest option. Head over
 - Save
 - Wait for the pipeline to run
 - Download and flash the new firmware
+  - Unzip the firmware.zip
+  - Plug the right half info the computer through USB
+  - Double press the reset button
+  - The keyboard will mount as a removable storage device
+  - Copy the right side uf2 file into the NICENANO storage device.
+  - It will take a few seconds, then it will unmount and restart itself.
+  - Plug in the left half, and copy the left uf2 file.
+  - Both halves of the keyboard should now be flashed with the firmware.
+
 
 ## Building Your Own Firmware
 
