@@ -381,6 +381,6 @@ combos:
 - p: [8, 9]
   k: DELETE
 - p: [17, 18]
-  k: '&caps_word'
+  k: CAPS WORD
 - p: [38, 39]
   k: Extras
