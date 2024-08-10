@@ -28,7 +28,16 @@ draw_config:
     rel_h: 12.0
     rx: 4.0
     ry: 4.0
-  svg_extra_style: ""
+  svg_extra_style: "
+@media (prefers-color-scheme: dark) {
+svg.keymap { fill: #448bbe; }
+rect.key { fill: #1e1e1e; }
+rect.key, rect.combo { stroke: #1e1e1e; }
+rect.combo, rect.combo-separate { fill: #2e4857; }
+rect.held, rect.combo.held { fill: #5b3131; }
+text.label, text.footer { stroke: black; }
+text.trans { fill: #7e8184; }
+path.combo { stroke: #7f7f7f; }"
   footer_text: ""
   shrink_wide_legends: 7
   style_layer_activators: true
@@ -130,12 +139,7 @@ parse_config:
     GT: ">"
     QUESTION: "?"
     QUES: "?"
-  zmk_remove_keycode_prefix:
-    - "&amp;VSplit"
-    - "&msc"
-    - "&mmv"
-    - "&mkp"
-    - "&bootloader"
+  zmk_remove_keycode_prefix: []
   zmk_keycode_map:
     EXCLAMATION: "!"
     EXCL: "!"
@@ -212,19 +216,19 @@ parse_config:
     LS(LC(K)): "PANE ▼"
     LS(LC(L)): "PANE ▶"
     "&VSplit": "VSPLIT"
-    "&amp;HSplit": "HSPLIT"
+    "&HSplit": "HSPLIT"
     LEFT_ARROW: "LEFT"
     RIGHT_ARROW: "RIGHT"
-    ;MOVE_LEFT: "WHEEL L"
-    msc MOVE_UP: "WHEEL D"
-    mmv MOVE_UP: "MOVE UP"
-    msc MOVE_DOWN: "WHEEL U"
-    msc MOVE_RIGHT: "WHEEL R"
-    mkp MB4: "BACK"
-    mmv MOVE_LEFT: "MOVE L"
-    mmv MOVE_DOWN: "MOVE D"
-    mmv MOVE_RIGHT: "MOVE R"
-    mkp MB5: "FWD"
+    "&msc MOVE_LEFT": "WHEEL L"
+    "&msc MOVE_UP": "WHEEL D"
+    "&mmv MOVE_UP": "MOVE UP"
+    "&msc MOVE_DOWN": "WHEEL U"
+    "&msc MOVE_RIGHT": "WHEEL R"
+    "&mkp MB4": "BACK"
+    "&mmv MOVE_LEFT": "MOVE L"
+    "&mmv MOVE_DOWN": "MOVE D"
+    "&mmv MOVE_RIGHT": "MOVE R"
+    "&mkp MB5": "FWD"
     C_AC_UNDO: "UNDO"
     C_AC_CUT: "CUT"
     C_AC_COPY: "COPY"
@@ -232,7 +236,7 @@ parse_config:
     "&mkp MCLK": "M CLK"
     "&mkp LCLK": "L CLK"
     "&mkp RCLK": "R CLK"
-    "&bootloader": "BOOTLOADER"
+    "&amp;bootloader": "BOOTLOADER"
     C_AL_COFFEE: "LOCK"
   zmk_combos: {}
   zmk_preamble: "#define KEYMAP_DRAWER"

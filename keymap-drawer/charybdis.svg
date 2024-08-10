@@ -117,11 +117,11 @@ path.combo {
 /* End Tabler Icons Cleanup */
 
 @media (prefers-color-scheme: dark) {
-svg.keymap { fill: #d1d6db; }
-rect.key { fill: #3f4750; }
-rect.key, rect.combo { stroke: #60666c; }
-rect.combo, rect.combo-separate { fill: #1f3d7a; }
-rect.held, rect.combo.held { fill: #854747; }
+svg.keymap { fill: #448bbe; }
+rect.key { fill: #1e1e1e; }
+rect.key, rect.combo { stroke: #1e1e1e; }
+rect.combo, rect.combo-separate { fill: #2e4857; }
+rect.held, rect.combo.held { fill: #5b3131; }
 text.label, text.footer { stroke: black; }
 text.trans { fill: #7e8184; }
 path.combo { stroke: #7f7f7f; }
