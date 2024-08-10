@@ -30,12 +30,13 @@ draw_config:
     ry: 4.0
   svg_extra_style: "
 @media (prefers-color-scheme: dark) {
-svg.keymap { fill: #448bbe; }
+svg.keymap { fill: #dca448; }
 rect.key { fill: #1e1e1e; }
-rect.key, rect.combo { stroke: #1e1e1e; }
+rect.key, rect.combo { stroke: #122532; }
 rect.combo, rect.combo-separate { fill: #2e4857; }
 rect.held, rect.combo.held { fill: #5b3131; }
-text.label, text.footer { stroke: black; }
+text.label, text.footer { stroke: #331d36; 
+                          stroke-width: 0; }
 text.trans { fill: #7e8184; }
 path.combo { stroke: #7f7f7f; }"
   footer_text: ""
