@@ -185,7 +185,7 @@ layers:
   - '&mmv MOVE_LEFT'
   - '&mmv MOVE_DOWN'
   - '&mmv MOVE_RIGHT'
-  - '&mkp MB5'
+  - FWD
   - ''
   - RIGHT SHIFT
   - RCTRL
@@ -197,7 +197,7 @@ layers:
   - CUT
   - COPY
   - PASTE
-  - '&mkp MCLK'
+  - M CLK
   - ''
   - ''
   - ''
@@ -205,8 +205,8 @@ layers:
   - ''
   - ''
   - {t: Slow_TrkBl, h: toggle}
-  - '&mkp LCLK'
-  - '&mkp RCLK'
+  - L CLK
+  - R CLK
   - {type: held}
   - ''
   Game:
@@ -318,7 +318,7 @@ layers:
   - STOP
   - NEXT
   - ''
-  - '&bootloader'
+  - BOOT
   - ''
   - ''
   - ''
@@ -329,7 +329,7 @@ layers:
   - VOLUME UP
   - MUTE
   - ''
-  - '&bootloader'
+  - BOOT
   - ''
   - ''
   - {type: held}
@@ -353,7 +353,7 @@ layers:
   - '&mmv MOVE_LEFT'
   - '&mmv MOVE_DOWN'
   - '&mmv MOVE_RIGHT'
-  - '&mkp MB5'
+  - FWD
   - ''
   - RIGHT SHIFT
   - RCTRL
@@ -365,7 +365,7 @@ layers:
   - CUT
   - COPY
   - PASTE
-  - '&mkp MCLK'
+  - M CLK
   - ''
   - ''
   - ''
@@ -373,8 +373,8 @@ layers:
   - ''
   - ''
   - {t: Slow_TrkBl, h: toggle}
-  - '&mkp LCLK'
-  - '&mkp RCLK'
+  - L CLK
+  - R CLK
   - ''
   - ''
 combos:
