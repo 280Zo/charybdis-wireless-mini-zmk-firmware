@@ -131,8 +131,7 @@ parse_config:
     QUESTION: "?"
     QUES: "?"
   zmk_remove_keycode_prefix:
-    - VSplit
-    - "&HSplit"
+    - "&amp;VSplit"
     - "&msc"
     - "&mmv"
     - "&mkp"
@@ -213,10 +212,10 @@ parse_config:
     LS(LC(K)): "PANE ▼"
     LS(LC(L)): "PANE ▶"
     "&VSplit": "VSPLIT"
-    "&HSplit": "HSPLIT"
+    "&amp;HSplit": "HSPLIT"
     LEFT_ARROW: "LEFT"
     RIGHT_ARROW: "RIGHT"
-    msc MOVE_LEFT: "WHEEL L"
+    ;MOVE_LEFT: "WHEEL L"
     msc MOVE_UP: "WHEEL D"
     mmv MOVE_UP: "MOVE UP"
     msc MOVE_DOWN: "WHEEL U"
