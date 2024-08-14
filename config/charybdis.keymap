@@ -22,33 +22,15 @@
         bindings = <&kp>, <&kp>;
     };
 
-    td0: td_trackball {
-        compatible = "zmk,behavior-tap-dance";
-        label = "TD_TRACKBALL";
-        #binding-cells = <0>;
-        bindings = <&httl 9 4>, <&tog 8>;
+    {
+    behaviors {
+        td_mt: tap_dance_mod_tap {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&mt LSHIFT CAPSLOCK>, <&kp LCTRL>;
+        };
     };
-
-    httl: two_layers {
-        compatible = "zmk,behavior-hold-tap";
-        label = "TWO_LAYERS";
-        bindings = <&mo>, <&tog>;
-
-        #binding-cells = <2>;
-        flavor = "balanced";
-        tapping-term-ms = <200>;
-    };
-
-    btb: back2base {
-        compatible = "zmk,behavior-hold-tap";
-        label = "BACK2BASE";
-        bindings = <&to>, <&to>;
-
-        #binding-cells = <2>;
-        tapping-term-ms = <200>;
-        flavor = "balanced";
-    };
-
     combos {
         compatible = "zmk,combos";
 
@@ -95,7 +77,7 @@
 &kp C_AC_SEARCH  &kp Q           &kp W                     &kp E                         &kp R             &kp T           &kp Y        &kp U             &kp I                             &kp O                          &kp P                    &to 5
 &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F  &kp G           &kp H        &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
 &kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp V             &kp B           &kp N        &kp M             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &btb 0 6
-                                                           &td0                          &lt 2 ESCAPE      &lt 4 RETURN    &lt 3 SPACE
+                                                           &td_mt                          &lt 2 ESCAPE      &lt 4 RETURN    &lt 3 SPACE
             >;
         };
 
