@@ -5,7 +5,6 @@
 #include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/outputs.h>
 
-
 / {
     chosen { zmk,matrix_transform = &default_transform; };
 };
@@ -45,6 +44,12 @@
         flavor = "balanced";
     };
 
+    btb: baktobase {
+        compatible = "zmk,behavior-tap-dance";
+        #binding-cells = <0>;
+        bindings = <&mo 7>, <&to 0>;
+    };
+
     combos {
         compatible = "zmk,combos";
 
@@ -60,6 +65,11 @@
 
         L7 {
             bindings = <&mo 7>;
+            key-positions = <38 39>;
+        };
+
+        L0_or_L7 {
+            bindings = <&btb>;
             key-positions = <38 39>;
         };
     };
@@ -90,8 +100,8 @@
             bindings = <
 &kp C_AC_SEARCH  &kp Q           &kp W                     &kp E                         &kp R             &kp T           &kp Y         &kp U             &kp I                             &kp O                          &kp P                    &to 5
 &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F  &kp G           &kp H         &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
-&kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp V             &kp B           &kp N         &kp M             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &back2base 0 6
-                                                           &td_trackball 9 8                &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
+&kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp V             &kp B           &kp N         &kp M             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &to 5
+                                                           &none                         &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
             >;
         };
 
