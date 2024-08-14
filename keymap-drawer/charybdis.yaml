@@ -42,7 +42,7 @@ layers:
   - {t: RETURN, h: Mouse}
   - {t: SPACE, h: Sym}
   Num:
-  - ''
+  - '&tdtb'
   - ''
   - ''
   - ''
