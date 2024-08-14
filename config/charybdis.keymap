@@ -10,35 +10,37 @@
 };
 
 / {
-    hm: homerow_mod {
-        compatible = "zmk,behavior-hold-tap";
-        #binding-cells = <2>;
-        flavor = "tap-preferred";
-        tapping-term-ms = <250>;
-        quick-tap-ms = <150>;
-        require-prior-idle-ms = <125>;
-        bindings = <&kp>, <&kp>;
-    };
+    behaviors {
+        hm: homerow_mod {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <250>;
+            quick-tap-ms = <150>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+        };
 
-    tdtb: td_trackball {
-        compatible = "zmk,behavior-tap-dance";
-        #binding-cells = <0>;
-        bindings = <&httl 9 4>, <&tog 8>;
-    };
+        tdtb: td_trackball { // &td_trackball 9 8
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            bindings = <&httl 9 4>, <&tog 8>;
+        };
 
-    httl: ht_two_layers {
-        compatible = "zmk,behavior-hold-tap";
-        bindings = <&mo>, <&tog>;
+        httl: ht_two_layers {
+            compatible = "zmk,behavior-hold-tap";
+            bindings = <&mo>, <&tog>;
 
-        #binding-cells = <2>;
-        flavor = "balanced";
-        tapping-term-ms = <200>;
-    };
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+        };
 
-    btb: baktobase {
-        compatible = "zmk,behavior-tap-dance";
-        #binding-cells = <0>;
-        bindings = <&mo 7>, <&to 0>;
+        td_lchange: l_seven_or_zero {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            bindings = <&mo 7>, <&to 0>;
+        };
     };
 
     combos {
@@ -76,9 +78,6 @@
         };
     };
 
-    behaviors {
-    };
-
     keymap {
         compatible = "zmk,keymap";
 
@@ -87,7 +86,7 @@
 &kp C_AC_SEARCH  &kp Q           &kp W                     &kp E                         &kp R             &kp T           &kp Y         &kp U             &kp I                             &kp O                          &kp P                    &to 5
 &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F  &kp G           &kp H         &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
 &kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp V             &kp B           &kp N         &kp M             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &to 6
-                                                           &none                         &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
+                                                                 &none                         &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 4 RETURN  &lt 3 SPACE
             >;
         };
 
