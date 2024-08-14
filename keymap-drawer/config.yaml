@@ -223,6 +223,7 @@ parse_config:
     C_AC_COPY: "COPY"
     C_AC_PASTE: "PASTE"
     C_AL_COFFEE: "LOCK"
+    PRINTSCREEN: "PRINT SCREEN"
   zmk_combos: {}
   zmk_preamble: "#define KEYMAP_DRAWER"
   zmk_additional_includes: []
