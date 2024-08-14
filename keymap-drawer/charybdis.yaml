@@ -35,8 +35,8 @@ layers:
   - {t: ',', h: HYPER}
   - {t: ., h: MEH}
   - /
-  - /
-  - /
+  - {t: Photos, h: toggle}
+  - {t: PLAY PAUSE, h: ALL WIN}
   - {t: BACKSPACE, h: Num}
   - {t: ESCAPE, h: Nav}
   - {t: RETURN, h: Mouse}
@@ -332,8 +332,8 @@ layers:
   - BOOT LDR
   - ''
   - ''
-  - {type: held}
-  - {type: held}
+  - ''
+  - ''
   - ''
   SLOW:
   - ''
@@ -425,4 +425,4 @@ combos:
 - p: [17, 18]
   k: CAPS WORD
 - p: [38, 39]
-  k: Extras
+  k: '&td_lchange'

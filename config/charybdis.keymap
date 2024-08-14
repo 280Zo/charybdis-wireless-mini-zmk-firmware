@@ -57,7 +57,7 @@
         };
 
         L0_or_L7 {
-            bindings = <&btb>;
+            bindings = <&td_lchange>;
             key-positions = <38 39>;
         };
     };
