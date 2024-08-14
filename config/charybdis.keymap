@@ -37,6 +37,7 @@
         #binding-cells = <2>;
         flavor = "balanced";
         tapping-term-ms = <200>;
+        hold-trigger-key-positions = <36>;
     };
 
     btb: back2base {
