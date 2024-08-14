@@ -24,7 +24,7 @@
     td_trackball: td_trackball {
         compatible = "zmk,behavior-tap-dance";
         #binding-cells = <0>;
-        bindings = <&two_layers 9 4>, <&tog 8>;
+        bindings = <&tog 9>, <&tog 8>;
     };
 
     two_layers: two_layers {
