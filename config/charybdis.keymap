@@ -95,7 +95,7 @@
             bindings = <
 &kp C_AC_SEARCH  &kp Q           &kp W                     &kp E                         &kp R             &kp T           &kp Y        &kp U             &kp I                             &kp O                          &kp P                    &to 5
 &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F  &kp G           &kp H        &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
-&kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp V             &kp B           &kp N        &kp M             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &btb 0 6
+&kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp V             &kp B           &kp N        &kp M             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &caps_word
                                                            &td0                          &lt 2 ESCAPE      &lt 4 RETURN    &lt 3 SPACE
             >;
         };
