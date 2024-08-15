@@ -1,428 +1,428 @@
 layers:
   BASE:
-    - SEARCH
-    - Q
-    - W
-    - E
-    - R
-    - T
-    - Y
-    - U
-    - I
-    - O
-    - P
-    - { t: PHOTOS, h: toggle }
-    - { t: TAB, h: WINDOW }
-    - { t: A, h: LEFT GUI }
-    - { t: S, h: LEFT ALT }
-    - { t: D, h: LCTRL }
-    - { t: F, h: LEFT SHIFT }
-    - G
-    - H
-    - { t: J, h: LEFT SHIFT }
-    - { t: K, h: RCTRL }
-    - { t: L, h: RIGHT ALT }
-    - { t: ;, h: LEFT META }
-    - DEL
-    - SHELL
-    - Z
-    - { t: X, h: MEH }
-    - { t: C, h: HYPER }
-    - V
-    - B
-    - N
-    - M
-    - { t: ",", h: HYPER }
-    - { t: ., h: MEH }
-    - /
-    - { t: EXTRAS, h: toggle }
-    - "&tdtb"
-    - { t: BACKSPACE, h: NUM }
-    - { t: ESCAPE, h: NAV }
-    - { t: RETURN, h: GAME }
-    - { t: SPACE, h: SYM }
+  - SEARCH
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - {t: GAME, h: toggle}
+  - {t: TAB, h: WINDOW}
+  - {t: A, h: LEFT GUI}
+  - {t: S, h: LEFT ALT}
+  - {t: D, h: LCTRL}
+  - {t: F, h: LEFT SHIFT}
+  - G
+  - H
+  - {t: J, h: LEFT SHIFT}
+  - {t: K, h: RCTRL}
+  - {t: L, h: RIGHT ALT}
+  - {t: ;, h: LEFT META}
+  - DEL
+  - SHELL
+  - Z
+  - {t: X, h: MEH}
+  - {t: C, h: HYPER}
+  - V
+  - B
+  - N
+  - M
+  - {t: ',', h: HYPER}
+  - {t: ., h: MEH}
+  - /
+  - {t: PHOTOS, h: toggle}
+  - '&tdtb'
+  - {t: BACK SPACE, h: NUM}
+  - {t: ESCAPE, h: NAV}
+  - {t: RETURN, h: MOUSE}
+  - {t: SPACE, h: SYM}
   NUM:
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - /
-    - { t: "7", h: F7 }
-    - { t: "8", h: F8 }
-    - { t: "9", h: F9 }
-    - { t: "-", h: F10 }
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - BACKSPACE
-    - ""
-    - "*"
-    - { t: "4", h: F4 }
-    - { t: "5", h: F5 }
-    - { t: "6", h: F6 }
-    - { t: +, h: F11 }
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - .
-    - { t: "1", h: F1 }
-    - { t: "2", h: F2 }
-    - { t: "3", h: F3 }
-    - { t: "=", h: F12 }
-    - { t: ▽, type: trans }
-    - ""
-    - { type: held }
-    - ""
-    - "0"
-    - ""
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - /
+  - {t: '7', h: F7}
+  - {t: '8', h: F8}
+  - {t: '9', h: F9}
+  - {t: '-', h: F10}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - BACK SPACE
+  - ''
+  - '*'
+  - {t: '4', h: F4}
+  - {t: '5', h: F5}
+  - {t: '6', h: F6}
+  - {t: +, h: F11}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - .
+  - {t: '1', h: F1}
+  - {t: '2', h: F2}
+  - {t: '3', h: F3}
+  - {t: '=', h: F12}
+  - {t: ▽, type: trans}
+  - ''
+  - {type: held}
+  - ''
+  - '0'
+  - ''
   NAV:
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - PANE ◀
-    - PANE ▲
-    - PANE ▼
-    - PANE ▶
-    - ""
-    - { t: ▽, type: trans }
-    - { t: ▽, type: trans }
-    - { t: ▽, type: trans }
-    - { t: ▽, type: trans }
-    - { t: ▽, type: trans }
-    - { t: ▽, type: trans }
-    - VSPLIT
-    - LEFT
-    - DOWN
-    - UP
-    - RIGHT
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - HSPLIT
-    - HOME
-    - PG DN
-    - PG UP
-    - END
-    - { t: ▽, type: trans }
-    - ""
-    - ""
-    - { type: held }
-    - { t: ▽, type: trans }
-    - { t: ▽, type: trans }
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - PANE ◀
+  - PANE ▲
+  - PANE ▼
+  - PANE ▶
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - VSPLIT
+  - LEFT
+  - DOWN
+  - UP
+  - RIGHT
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - HSPLIT
+  - HOME
+  - PG DN
+  - PG UP
+  - END
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   SYM:
-    - ""
-    - "'"
-    - ^
-    - +
-    - "*"
-    - \
-    - "`"
-    - "~"
-    - "{"
-    - "}"
-    - "&"
-    - ""
-    - "%"
-    - { t: "!", h: LEFT META }
-    - { t: <, h: LEFT ALT }
-    - { t: ">", h: LCTRL }
-    - { t: SPACE, h: LEFT SHIFT }
-    - /
-    - ":"
-    - { t: SPACE, h: LEFT SHIFT }
-    - { t: (, h: LCTRL }
-    - { t: ), h: LEFT ALT }
-    - "#"
-    - ""
-    - ""
-    - '"'
-    - $
-    - "="
-    - "-"
-    - "|"
-    - ;
-    - _
-    - "["
-    - "]"
-    - "@"
-    - { t: ▽, type: trans }
-    - { t: ▽, type: trans }
-    - { t: ▽, type: trans }
-    - { t: ▽, type: trans }
-    - ""
-    - { type: held }
+  - ''
+  - ''''
+  - ^
+  - +
+  - '*'
+  - \
+  - '`'
+  - '~'
+  - '{'
+  - '}'
+  - '&'
+  - ''
+  - '%'
+  - {t: '!', h: LEFT META}
+  - {t: <, h: LEFT ALT}
+  - {t: '>', h: LCTRL}
+  - {t: SPACE, h: LEFT SHIFT}
+  - /
+  - ':'
+  - {t: SPACE, h: LEFT SHIFT}
+  - {t: (, h: LCTRL}
+  - {t: ), h: LEFT ALT}
+  - '#'
+  - ''
+  - ''
+  - '"'
+  - $
+  - '='
+  - '-'
+  - '|'
+  - ;
+  - _
+  - '['
+  - ']'
+  - '@'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - {type: held}
   GAME:
-    - "1"
-    - TAB
-    - Q
-    - W
-    - E
-    - R
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - { t: BASE, h: toggle }
-    - "2"
-    - LCTRL
-    - A
-    - S
-    - D
-    - F
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - "3"
-    - LSHFT
-    - Z
-    - X
-    - C
-    - V
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - { t: ▽, type: trans }
-    - ""
-    - SPACE
-    - LEFT ALT
-    - { type: held }
-    - ""
+  - '1'
+  - TAB
+  - Q
+  - W
+  - E
+  - R
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: BASE, h: toggle}
+  - '2'
+  - LCTRL
+  - A
+  - S
+  - D
+  - F
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '3'
+  - LSHFT
+  - Z
+  - X
+  - C
+  - V
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SPACE
+  - LEFT ALT
+  - ''
+  - ''
   PHOTOS:
-    - { t: ▽, type: trans }
-    - Meh+ Z
-    - Meh+ E
-    - Meh+ A
-    - Meh+ S
-    - Meh+ B
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - Ctl+Alt+ E
-    - LEFT
-    - DOWN
-    - UP
-    - RIGHT
-    - LCTRL
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - Sft+ DELETE
-    - Alt+Sft+ A
-    - Alt+ KP 1
-    - Alt+ KP 2
-    - Alt+ KP 3
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - { t: ▽, type: trans }
-    - ""
-    - ""
-    - { t: ▽, type: trans }
-    - { t: ▽, type: trans }
-    - { t: ▽, type: trans }
+  - {t: ▽, type: trans}
+  - Meh+ Z
+  - Meh+ E
+  - Meh+ A
+  - Meh+ S
+  - Meh+ B
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Ctl+Alt+ E
+  - LEFT
+  - DOWN
+  - UP
+  - RIGHT
+  - LCTRL
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Sft+ DELETE
+  - Alt+Sft+ A
+  - Alt+ KP 1
+  - Alt+ KP 2
+  - Alt+ KP 3
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   EXTRAS:
-    - SLEEP
-    - ""
-    - ""
-    - ""
-    - ""
-    - BRIGHTNESS MAXIMUM
-    - { t: BT, h: "0" }
-    - { t: BT, h: "1" }
-    - { t: BT, h: "2" }
-    - { t: BT, h: "3" }
-    - BT CLR
-    - LOCK
-    - POWER
-    - ""
-    - ""
-    - ""
-    - ""
-    - BRIGHTNESS INC
-    - OUT TOG
-    - PREVIOUS
-    - PLAY PAUSE
-    - STOP
-    - NEXT
-    - ""
-    - BOOT LDR
-    - ""
-    - ""
-    - ""
-    - ""
-    - BRIGHTNESS DEC
-    - PRINT SCREEN
-    - VOLUME DOWN
-    - VOLUME UP
-    - MUTE
-    - ""
-    - BOOT LDR
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
+  - SLEEP
+  - ''
+  - ''
+  - ''
+  - ''
+  - BRIGHTNESS MAXIMUM
+  - {t: BT, h: '0'}
+  - {t: BT, h: '1'}
+  - {t: BT, h: '2'}
+  - {t: BT, h: '3'}
+  - BT CLR
+  - LOCK
+  - POWER
+  - ''
+  - ''
+  - ''
+  - ''
+  - BRIGHTNESS INC
+  - OUT TOG
+  - PREVIOUS
+  - PLAY PAUSE
+  - STOP
+  - NEXT
+  - ''
+  - BOOT LDR
+  - ''
+  - ''
+  - ''
+  - ''
+  - BRIGHTNESS DEC
+  - PRINT SCREEN
+  - VOLUME DOWN
+  - VOLUME UP
+  - MUTE
+  - ''
+  - BOOT LDR
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
   MOUSE:
-    - ""
-    - WHEEL L
-    - WHEEL D
-    - MOVE UP
-    - WHEEL U
-    - WHEEL R
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - BACK
-    - MOVE L
-    - MOVE D
-    - MOVE R
-    - FWD
-    - ""
-    - RIGHT SHIFT
-    - RCTRL
-    - LEFT ALT
-    - LEFT META
-    - ""
-    - ""
-    - UNDO
-    - CUT
-    - COPY
-    - PASTE
-    - M CLK
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - { t: ▽, type: trans }
-    - { t: SLOW, h: SCROLL }
-    - L CLK
-    - R CLK
-    - ""
-    - ""
+  - ''
+  - WHEEL L
+  - WHEEL D
+  - MOVE UP
+  - WHEEL U
+  - WHEEL R
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - BACK
+  - MOVE L
+  - MOVE D
+  - MOVE R
+  - FWD
+  - ''
+  - RIGHT SHIFT
+  - RCTRL
+  - LEFT ALT
+  - LEFT META
+  - ''
+  - ''
+  - UNDO
+  - CUT
+  - COPY
+  - PASTE
+  - M CLK
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - '&tdtb2'
+  - L CLK
+  - R CLK
+  - {type: held}
+  - ''
   SLOW:
-    - ""
-    - WHEEL L
-    - WHEEL D
-    - MOVE UP
-    - WHEEL U
-    - WHEEL R
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - BACK
-    - MOVE L
-    - MOVE D
-    - MOVE R
-    - FWD
-    - ""
-    - RIGHT SHIFT
-    - RCTRL
-    - LEFT ALT
-    - LEFT META
-    - ""
-    - ""
-    - UNDO
-    - CUT
-    - COPY
-    - PASTE
-    - M CLK
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - { t: ▽, type: trans }
-    - { t: MOUSE, h: SCROLL }
-    - L CLK
-    - R CLK
-    - ""
-    - ""
+  - ''
+  - WHEEL L
+  - WHEEL D
+  - MOVE UP
+  - WHEEL U
+  - WHEEL R
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - BACK
+  - MOVE L
+  - MOVE D
+  - MOVE R
+  - FWD
+  - ''
+  - RIGHT SHIFT
+  - RCTRL
+  - LEFT ALT
+  - LEFT META
+  - ''
+  - ''
+  - UNDO
+  - CUT
+  - COPY
+  - PASTE
+  - M CLK
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - '&tdtb'
+  - L CLK
+  - R CLK
+  - ''
+  - ''
   SCROLL:
-    - ""
-    - WHEEL L
-    - WHEEL D
-    - MOVE UP
-    - WHEEL U
-    - WHEEL R
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - BACK
-    - MOVE L
-    - MOVE D
-    - MOVE R
-    - FWD
-    - ""
-    - RIGHT SHIFT
-    - RCTRL
-    - LEFT ALT
-    - LEFT META
-    - ""
-    - ""
-    - UNDO
-    - CUT
-    - COPY
-    - PASTE
-    - M CLK
-    - ""
-    - ""
-    - ""
-    - ""
-    - ""
-    - { t: ▽, type: trans }
-    - { t: SCROLL, h: toggle, type: held }
-    - L CLK
-    - R CLK
-    - ""
-    - ""
+  - ''
+  - WHEEL L
+  - WHEEL D
+  - MOVE UP
+  - WHEEL U
+  - WHEEL R
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - BACK
+  - MOVE L
+  - MOVE D
+  - MOVE R
+  - FWD
+  - ''
+  - RIGHT SHIFT
+  - RCTRL
+  - LEFT ALT
+  - LEFT META
+  - ''
+  - ''
+  - UNDO
+  - CUT
+  - COPY
+  - PASTE
+  - M CLK
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {t: SCROLL, h: toggle}
+  - L CLK
+  - R CLK
+  - ''
+  - ''
 combos:
-  - p: [8, 9]
-    k: DELETE
-  - p: [17, 18]
-    k: CAPS WORD
-  - p: [38, 39]
-    k: "&td_bora"
+- p: [8, 9]
+  k: DELETE
+- p: [17, 18]
+  k: CAPS WORD
+- p: [38, 39]
+  k: '&td_bora'
