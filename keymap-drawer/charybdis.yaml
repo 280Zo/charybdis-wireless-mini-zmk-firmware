@@ -11,7 +11,7 @@ layers:
     - I
     - O
     - P
-    - { t: PHOTOS, h: toggle }
+    - { t: GAME, h: toggle }
     - { t: TAB, h: WINDOW }
     - { t: A, h: LEFT GUI }
     - { t: S, h: LEFT ALT }
@@ -35,11 +35,11 @@ layers:
     - { t: ",", h: HYPER }
     - { t: ., h: MEH }
     - /
-    - { t: EXTRAS, h: toggle }
+    - { t: PHOTOS, h: toggle }
     - "&tdtb"
     - { t: BACKSPACE, h: NUM }
     - { t: ESCAPE, h: NAV }
-    - { t: RETURN, h: GAME }
+    - { t: RETURN, h: MOUSE }
     - { t: SPACE, h: SYM }
   NUM:
     - ""
@@ -204,10 +204,10 @@ layers:
     - ""
     - ""
     - { t: ▽, type: trans }
-    - ""
+    - { t: ▽, type: trans }
     - SPACE
     - LEFT ALT
-    - { type: held }
+    - ""
     - ""
   PHOTOS:
     - { t: ▽, type: trans }
@@ -246,7 +246,7 @@ layers:
     - ""
     - ""
     - { t: ▽, type: trans }
-    - ""
+    - { t: ▽, type: trans }
     - ""
     - { t: ▽, type: trans }
     - { t: ▽, type: trans }
@@ -330,10 +330,10 @@ layers:
     - ""
     - ""
     - { t: ▽, type: trans }
-    - { t: SLOW, h: SCROLL }
+    - "&tdtb2"
     - L CLK
     - R CLK
-    - ""
+    - { type: held }
     - ""
   SLOW:
     - ""
@@ -372,7 +372,7 @@ layers:
     - ""
     - ""
     - { t: ▽, type: trans }
-    - { t: MOUSE, h: SCROLL }
+    - "&tdtb"
     - L CLK
     - R CLK
     - ""
@@ -414,7 +414,7 @@ layers:
     - ""
     - ""
     - { t: ▽, type: trans }
-    - { t: SCROLL, h: toggle, type: held }
+    - { t: SCROLL, h: toggle }
     - L CLK
     - R CLK
     - ""
