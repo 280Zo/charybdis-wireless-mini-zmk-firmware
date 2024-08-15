@@ -21,12 +21,13 @@
             bindings = <&kp>, <&kp>;
         };
 
-        tdtb: td_trackball {
+        tdtb: td_mouse_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&httl 9 7>, <&tog 0>;
 
             tapping-term-ms = <200>;
+            label = "Trackball & Scroll";
         };
 
         httl: ht_two_layers {
@@ -42,6 +43,15 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&mo 6>, <&to 0>;
+        };
+
+        tdtb2: td_scroll_slow {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            bindings = <&httl 9 8>, <&tog 0>;
+
+            tapping-term-ms = <200>;
+            label = "Scroll Slow & Base";
         };
     };
 
@@ -85,10 +95,10 @@
 
         BASE {
             bindings = <
-&kp  C_AC_SEARCH           &kp  Q            &kp  W                     &kp  E                         &kp  R             &kp  T         &kp  Y         &kp  U             &kp  I                             &kp  O                          &kp  P                    &to  4
-&hm  LG(E) TAB             &hm  LEFT_GUI A   &hm  LEFT_ALT S            &hm  LCTRL D                   &hm  LEFT_SHIFT F  &kp  G         &kp  H         &hm  LEFT_SHIFT J  &hm  RCTRL K                       &hm  RIGHT_ALT L                &hm  LEFT_META SEMICOLON  &kp  DEL
-&kp  LA(LC(T))             &kp  Z            &mt  LC(LA(LEFT_SHIFT)) X  &mt  LA(LC(LG(LEFT_SHIFT))) C  &kp  V             &kp  B         &kp  N         &kp  M             &mt  LA(LC(LG(LEFT_SHIFT))) COMMA  &mt  LC(LA(LEFT_SHIFT)) PERIOD  &kp  FSLH                 &to  5
-                                                                        &tdtb                          &lt  1 BACKSPACE   &lt  2 ESCAPE  &lt  7 RETURN  &lt  3 SPACE
+&kp C_AC_SEARCH  &kp Q           &kp W                     &kp E                         &kp R             &kp T           &kp Y         &kp U             &kp I                             &kp O                          &kp P                    &to 4
+&hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F  &kp G           &kp H         &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
+&kp LA(LC(T))    &kp Z           &mt LC(LA(LEFT_SHIFT)) X  &mt LA(LC(LG(LEFT_SHIFT))) C  &kp V             &kp B           &kp N         &kp M             &mt LA(LC(LG(LEFT_SHIFT))) COMMA  &mt LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &to 5
+                                                           &tdtb                         &lt 1 BACKSPACE   &lt 2 ESCAPE    &lt 7 RETURN  &lt 3 SPACE
             >;
         };
 
@@ -151,7 +161,7 @@
 &none  &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
 &none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
 &none  &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &trans
-                                       &httl 9 8       &mkp LCLK        &mkp RCLK          &none  &none
+                                       &tdtb2          &mkp LCLK        &mkp RCLK          &none  &none
             >;
         };
 
@@ -160,7 +170,7 @@
 &none  &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
 &none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
 &none  &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &trans
-                                       &httl 9 7       &mkp LCLK        &mkp RCLK          &none  &none
+                                       &tdtb           &mkp LCLK        &mkp RCLK          &none  &none
             >;
         };
 
