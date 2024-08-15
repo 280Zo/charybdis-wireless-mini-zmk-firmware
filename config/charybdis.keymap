@@ -96,12 +96,12 @@
             bindings = <
 &kp  C_AC_SEARCH           &kp  Q            &kp  W                     &kp  E                         &kp  R             &kp  T  &kp  Y  &kp  U             &kp  I                             &kp  O                          &kp  P                    &to  5
 &hm  LG(E) TAB             &hm  LEFT_GUI A   &hm  LEFT_ALT S            &hm  LCTRL D                   &hm  LEFT_SHIFT F  &kp  G  &kp  H  &hm  LEFT_SHIFT J  &hm  RCTRL K                       &hm  RIGHT_ALT L                &hm  LEFT_META SEMICOLON  &kp  DEL
-&none  &none  &none  &none  &none          &none    &kp DOT    &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 EQUAL  &trans
+&kp  LA(LC(T))             &kp  Z            &mt  LC(LA(LEFT_SHIFT)) X  &mt  LA(LC(LG(LEFT_SHIFT))) C  &kp  V             &kp  B  &kp  N  &kp  M             &mt  LA(LC(LG(LEFT_SHIFT))) COMMA  &mt  LC(LA(LEFT_SHIFT)) PERIOD  &kp  FSLH                 &to  6
                      &tdtb  &none          &none    &kp N0     &none
             >;
         };
 
-        Num {
+        NUM {
             bindings = <
 &none  &none  &none  &none  &none          &none    &kp SLASH  &hm F7 N7  &hm F8 N8  &hm F9 N9  &hm F10 MINUS  &none
 &none  &none  &none  &none  &kp BACKSPACE  &none    &kp ASTRK  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &none
@@ -110,7 +110,7 @@
             >;
         };
 
-        Nav {
+        NAV {
             bindings = <
 &none   &none   &none   &none   &none   &none     &none    &kp LS(LC(H))   &kp LS(LC(J))  &kp LS(LC(K))  &kp LS(LC(L))    &none
 &trans  &trans  &trans  &trans  &trans  &trans    &VSplit  &kp LEFT_ARROW  &kp DOWN       &kp UP         &kp RIGHT_ARROW  &none
@@ -119,7 +119,7 @@
             >;
         };
 
-        Sym {
+        SYM {
             bindings = <
 &none      &kp SQT                    &kp CARET        &kp PLUS      &kp ASTRK             &kp BSLH     &kp GRAVE      &kp TILDE             &kp LEFT_BRACE  &kp RIGHT_BRACE    &kp AMPS     &none
 &kp PRCNT  &hm LEFT_META EXCLAMATION  &hm LEFT_ALT LT  &hm LCTRL GT  &hm LEFT_SHIFT SPACE  &kp SLASH    &kp COLON      &mt LEFT_SHIFT SPACE  &hm LCTRL LPAR  &hm LEFT_ALT RPAR  &kp HASH     &none
@@ -128,7 +128,7 @@
             >;
         };
 
-        Game {
+        GAME {
             bindings = <
 &kp N1  &kp TAB    &kp Q  &kp W  &kp E      &kp R           &none  &none  &none  &none  &none  &to 0
 &kp N2  &kp LCTRL  &kp A  &kp S  &kp D      &kp F           &none  &none  &none  &none  &none  &none
@@ -137,7 +137,7 @@
             >;
         };
 
-        Photos {
+        PHOTOS {
             bindings = <
 &trans          &kp LA(LC(LS(Z)))  &kp LA(LC(LS(E)))  &kp LA(LC(LS(A)))  &kp LA(LC(LS(S)))  &kp LA(LC(LS(B)))    &none   &none   &none  &none  &none  &none
 &kp LC(LA(E))   &kp LEFT           &kp DOWN           &kp UP             &kp RIGHT          &kp LCTRL            &none   &none   &none  &none  &none  &none
@@ -146,7 +146,7 @@
             >;
         };
 
-        Extras {
+        EXTRAS {
             bindings = <
 &kp C_SLEEP  &none  &none  &none  &none  &kp C_BRIGHTNESS_MAXIMUM    &bt BT_SEL 0     &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3  &bt BT_CLR  &kp C_AL_COFFEE
 &kp C_POWER  &none  &none  &none  &none  &kp C_BRIGHTNESS_INC        &out OUT_TOG     &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_STOP    &kp C_NEXT  &none
@@ -155,7 +155,7 @@
             >;
         };
 
-        Mouse {
+        MOUSE {
             bindings = <
 &none  &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
 &none  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
