@@ -83,18 +83,18 @@ def main():
 
     def convert_keymap(keymap_contents):   
         # Define regex pattern to find the 'Base' keymap section
-        base_keymap_pattern = re.compile(r'(Base\s*\{\s*bindings\s*=\s*<\s*)(.*?)(\s*>;)', re.DOTALL)     
+        base_keymap_pattern = re.compile(r'(BASE\s*\{\s*bindings\s*=\s*<\s*)(.*?)(\s*>;)', re.DOTALL)     
         # Apply regex substitution to convert keymap
         new_keymap_contents = base_keymap_pattern.sub(replace_keymap, keymap_contents)
         return new_keymap_contents
     
-    # Find and replace the 'Base' keymap layer
+    # Find and replace the 'BASE' keymap layer
     def replace_keymap(match):
         before_keymap = match.group(1)
         old_keymap = match.group(2)
         after_keymap = match.group(3)
         
-        print(f"Found Base keymap \n{old_keymap}")
+        print(f"Found BASE keymap \n{old_keymap}")
 
         # Split the old keymap by lines
         lines = old_keymap.strip().split('\n')
