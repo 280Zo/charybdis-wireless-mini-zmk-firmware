@@ -94,14 +94,14 @@ def main():
         old_keymap = match.group(2)
         after_keymap = match.group(3)
         
-        print(f"Found BASE keymap \n{old_keymap}")
+        print(f">> Found BASE keymap \n{old_keymap}")
 
         # Split the old keymap by lines
         lines = old_keymap.strip().split('\n')
 
         # Process each line
         new_lines = []
-        print("Converting letter keys")
+        print(">> Converting letter keys")
         for line in lines:
             # Split the line by spaces or other delimiters
             parts = line.split()
@@ -121,17 +121,16 @@ def main():
                         new_parts.append(part)
                 else:
                     new_parts.append(part)
-            
             # Join new parts for the line and add to new_lines
             new_lines.append(' '.join(new_parts))
 
         # Join new lines to form the new keymap keymap_contents
         new_keymap = '\n'.join(new_lines)
-        print(f"\nGenerated {out_file} \n{format_columns(new_keymap)}")
+        print(f"\n>> Generated {out_file} \n{format_columns(new_keymap)}")
         return before_keymap + format_columns(new_keymap) + after_keymap
     
     def format_columns(text):    
-        zmk_behavior = r'(&\w{2})'
+        zmk_behavior = r'(&\w+)'
 
         # Split the input text into lines
         lines = text.strip().split('\n')
