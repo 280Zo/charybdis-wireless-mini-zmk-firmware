@@ -37,7 +37,7 @@ layers:
     - /
     - { t: PHOTOS, h: toggle }
     - "&tdtb"
-    - { t: BACKSPACE, h: NUM }
+    - { t: BACK SPACE, h: NUM }
     - { t: ESCAPE, h: NAV }
     - { t: RETURN, h: MOUSE }
     - { t: SPACE, h: SYM }
@@ -58,7 +58,7 @@ layers:
     - ""
     - ""
     - ""
-    - BACKSPACE
+    - BACK SPACE
     - ""
     - "*"
     - { t: "4", h: F4 }
