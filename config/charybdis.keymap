@@ -25,15 +25,19 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&httl 9 7>, <&tog 0>;
-
-            tapping-term-ms = <200>;
             label = "Trackball & Scroll";
+        };
+
+        tdtb2: td_slow_scroll {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            bindings = <&httl 9 8>, <&tog 0>;
+            label = "Scroll Slow & Base";
         };
 
         httl: ht_two_layers {
             compatible = "zmk,behavior-hold-tap";
             bindings = <&mo>, <&tog>;
-
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <200>;
@@ -43,15 +47,6 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&mo 6>, <&to 0>;
-        };
-
-        tdtb2: td_scroll_slow {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&httl 9 8>, <&tog 0>;
-
-            tapping-term-ms = <200>;
-            label = "Scroll Slow & Base";
         };
     };
 
@@ -134,7 +129,7 @@
 &kp N1  &kp TAB    &kp Q  &kp W  &kp E      &kp R           &none  &none  &none  &none  &none  &to 0
 &kp N2  &kp LCTRL  &kp A  &kp S  &kp D      &kp F           &none  &none  &none  &none  &none  &none
 &kp N3  &kp LSHFT  &kp Z  &kp X  &kp C      &kp V           &none  &none  &none  &none  &none  &trans
-                          &none  &kp SPACE  &kp LEFT_ALT    &none  &none
+                          &trans &kp SPACE  &kp LEFT_ALT    &none  &none
             >;
         };
 
@@ -143,7 +138,7 @@
 &trans          &kp LA(LC(LS(Z)))  &kp LA(LC(LS(E)))  &kp LA(LC(LS(A)))  &kp LA(LC(LS(S)))  &kp LA(LC(LS(B)))    &none   &none   &none  &none  &none  &none
 &kp LC(LA(E))   &kp LEFT           &kp DOWN           &kp UP             &kp RIGHT          &kp LCTRL            &none   &none   &none  &none  &none  &none
 &kp LS(DELETE)  &kp LA(LS(A))      &kp LA(KP_N1)      &kp LA(KP_N2)      &kp LA(KP_N3)      &none                &none   &none   &none  &none  &none  &trans
-                                                      &none              &none              &trans               &trans  &trans
+                                                      &trans             &none              &trans               &trans  &trans
             >;
         };
 
