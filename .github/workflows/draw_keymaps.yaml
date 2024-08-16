@@ -158,6 +158,7 @@ jobs:
             , "&VSplit": "VSPLIT"
             , "&caps_word": "CAPS WORD"
             , "&td_bore": "L_BASE L_EXTRA"
+            , "Ctl+Alt+E": "FIT"
              }
         run: |
           get_args() {
