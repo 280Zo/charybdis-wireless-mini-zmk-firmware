@@ -140,7 +140,7 @@ jobs:
         id: draw
         env:
           KEYMAP_raw_binding_map: >
-            '{"&bootloader": "BOOT LDR"
+            {"&bootloader": "BOOT LDR"
             , "&mkp RCLK": "R CLK"
             , "&mkp LCLK": "L CLK"
             , "&mkp MCLK": "M CLK"
@@ -157,7 +157,7 @@ jobs:
             , "&HSplit": "HSPLIT"
             , "&VSplit": "VSPLIT"
             , "&caps_word": "CAPS WORD"
-             }'
+             }
         run: |
           get_args() {
               local keyboard=$2
