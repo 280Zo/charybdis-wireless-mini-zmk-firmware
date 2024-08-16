@@ -211,18 +211,18 @@ layers:
   - ''
   PHOTOS:
   - {t: ▽, type: trans}
-  - Meh+ Z
-  - Meh+ E
-  - Meh+ A
-  - Meh+ S
-  - Meh+ B
+  - TAG Z
+  - TAG E
+  - TAG A
+  - TAG S
+  - TAG B
   - ''
   - ''
   - ''
   - ''
   - ''
   - ''
-  - Ctl+Alt+ E
+  - FIT
   - LEFT
   - DOWN
   - UP
@@ -234,11 +234,11 @@ layers:
   - ''
   - ''
   - ''
-  - Sft+ DELETE
-  - Alt+Sft+ A
-  - Alt+ KP 1
-  - Alt+ KP 2
-  - Alt+ KP 3
+  - SHRED
+  - SHOW TAGS
+  - REJECT
+  - PENDING
+  - ACCEPT
   - ''
   - ''
   - ''
