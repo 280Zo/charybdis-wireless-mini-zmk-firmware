@@ -584,18 +584,6 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
 </g>
 <g class="combo combopos-0">
-<rect rx="6" ry="6" x="658" y="18" width="28" height="26" class="combo"/>
-<text x="672" y="32" class="combo tap">DELETE</text>
-</g>
-<g class="combo combopos-1">
-<path d="M420,91 l-93,0" class="combo"/>
-<path d="M420,91 l93,0" class="combo"/>
-<rect rx="6" ry="6" x="406" y="78" width="28" height="26" class="combo"/>
-<text x="420" y="91" class="combo tap">
-<tspan x="420" dy="-0.6em">CAPS</tspan><tspan x="420" dy="1.2em">WORD</tspan>
-</text>
-</g>
-<g class="combo combopos-2">
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
@@ -808,18 +796,6 @@ path.combo { stroke: #7f7f7f; }
 <text x="0" y="-4" class="key trans tap">▽</text>
 </g>
 <g class="combo combopos-0">
-<rect rx="6" ry="6" x="658" y="18" width="28" height="26" class="combo"/>
-<text x="672" y="32" class="combo tap">DELETE</text>
-</g>
-<g class="combo combopos-1">
-<path d="M420,91 l-93,0" class="combo"/>
-<path d="M420,91 l93,0" class="combo"/>
-<rect rx="6" ry="6" x="406" y="78" width="28" height="26" class="combo"/>
-<text x="420" y="91" class="combo tap">
-<tspan x="420" dy="-0.6em">CAPS</tspan><tspan x="420" dy="1.2em">WORD</tspan>
-</text>
-</g>
-<g class="combo combopos-2">
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
@@ -1039,18 +1015,6 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key held"/>
 </g>
 <g class="combo combopos-0">
-<rect rx="6" ry="6" x="658" y="18" width="28" height="26" class="combo"/>
-<text x="672" y="32" class="combo tap">DELETE</text>
-</g>
-<g class="combo combopos-1">
-<path d="M420,91 l-93,0" class="combo"/>
-<path d="M420,91 l93,0" class="combo"/>
-<rect rx="6" ry="6" x="406" y="78" width="28" height="26" class="combo"/>
-<text x="420" y="91" class="combo tap">
-<tspan x="420" dy="-0.6em">CAPS</tspan><tspan x="420" dy="1.2em">WORD</tspan>
-</text>
-</g>
-<g class="combo combopos-2">
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
@@ -1255,18 +1219,6 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
 </g>
 <g class="combo combopos-0">
-<rect rx="6" ry="6" x="658" y="18" width="28" height="26" class="combo"/>
-<text x="672" y="32" class="combo tap">DELETE</text>
-</g>
-<g class="combo combopos-1">
-<path d="M420,91 l-93,0" class="combo"/>
-<path d="M420,91 l93,0" class="combo"/>
-<rect rx="6" ry="6" x="406" y="78" width="28" height="26" class="combo"/>
-<text x="420" y="91" class="combo tap">
-<tspan x="420" dy="-0.6em">CAPS</tspan><tspan x="420" dy="1.2em">WORD</tspan>
-</text>
-</g>
-<g class="combo combopos-2">
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
@@ -1478,18 +1430,6 @@ path.combo { stroke: #7f7f7f; }
 <text x="0" y="-4" class="key trans tap">▽</text>
 </g>
 <g class="combo combopos-0">
-<rect rx="6" ry="6" x="658" y="18" width="28" height="26" class="combo"/>
-<text x="672" y="32" class="combo tap">DELETE</text>
-</g>
-<g class="combo combopos-1">
-<path d="M420,91 l-93,0" class="combo"/>
-<path d="M420,91 l93,0" class="combo"/>
-<rect rx="6" ry="6" x="406" y="78" width="28" height="26" class="combo"/>
-<text x="420" y="91" class="combo tap">
-<tspan x="420" dy="-0.6em">CAPS</tspan><tspan x="420" dy="1.2em">WORD</tspan>
-</text>
-</g>
-<g class="combo combopos-2">
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
@@ -1715,18 +1655,6 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
 </g>
 <g class="combo combopos-0">
-<rect rx="6" ry="6" x="658" y="18" width="28" height="26" class="combo"/>
-<text x="672" y="32" class="combo tap">DELETE</text>
-</g>
-<g class="combo combopos-1">
-<path d="M420,91 l-93,0" class="combo"/>
-<path d="M420,91 l93,0" class="combo"/>
-<rect rx="6" ry="6" x="406" y="78" width="28" height="26" class="combo"/>
-<text x="420" y="91" class="combo tap">
-<tspan x="420" dy="-0.6em">CAPS</tspan><tspan x="420" dy="1.2em">WORD</tspan>
-</text>
-</g>
-<g class="combo combopos-2">
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
@@ -1955,18 +1883,6 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
 </g>
 <g class="combo combopos-0">
-<rect rx="6" ry="6" x="658" y="18" width="28" height="26" class="combo"/>
-<text x="672" y="32" class="combo tap">DELETE</text>
-</g>
-<g class="combo combopos-1">
-<path d="M420,91 l-93,0" class="combo"/>
-<path d="M420,91 l93,0" class="combo"/>
-<rect rx="6" ry="6" x="406" y="78" width="28" height="26" class="combo"/>
-<text x="420" y="91" class="combo tap">
-<tspan x="420" dy="-0.6em">CAPS</tspan><tspan x="420" dy="1.2em">WORD</tspan>
-</text>
-</g>
-<g class="combo combopos-2">
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
@@ -2195,18 +2111,6 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
 </g>
 <g class="combo combopos-0">
-<rect rx="6" ry="6" x="658" y="18" width="28" height="26" class="combo"/>
-<text x="672" y="32" class="combo tap">DELETE</text>
-</g>
-<g class="combo combopos-1">
-<path d="M420,91 l-93,0" class="combo"/>
-<path d="M420,91 l93,0" class="combo"/>
-<rect rx="6" ry="6" x="406" y="78" width="28" height="26" class="combo"/>
-<text x="420" y="91" class="combo tap">
-<tspan x="420" dy="-0.6em">CAPS</tspan><tspan x="420" dy="1.2em">WORD</tspan>
-</text>
-</g>
-<g class="combo combopos-2">
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
@@ -2437,18 +2341,6 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
 </g>
 <g class="combo combopos-0">
-<rect rx="6" ry="6" x="658" y="18" width="28" height="26" class="combo"/>
-<text x="672" y="32" class="combo tap">DELETE</text>
-</g>
-<g class="combo combopos-1">
-<path d="M420,91 l-93,0" class="combo"/>
-<path d="M420,91 l93,0" class="combo"/>
-<rect rx="6" ry="6" x="406" y="78" width="28" height="26" class="combo"/>
-<text x="420" y="91" class="combo tap">
-<tspan x="420" dy="-0.6em">CAPS</tspan><tspan x="420" dy="1.2em">WORD</tspan>
-</text>
-</g>
-<g class="combo combopos-2">
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>

@@ -24,7 +24,8 @@
         tdtb: td_mouse_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&httl 9 7>, <&tog 0>;
+            bindings = <&httl 9 7>, <&to 0>;
+
             label = "Trackball & Scroll";
         };
 
@@ -32,12 +33,14 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&httl 9 8>, <&tog 0>;
+
             label = "Scroll Slow & Base";
         };
 
         httl: ht_two_layers {
             compatible = "zmk,behavior-hold-tap";
             bindings = <&mo>, <&tog>;
+
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <200>;
@@ -56,11 +59,13 @@
         Delete {
             bindings = <&kp DELETE>;
             key-positions = <8 9>;
+            layers = <0>;
         };
 
         CapsWord {
             bindings = <&caps_word>;
             key-positions = <17 18>;
+            layers = <0>;
         };
 
         BASE_or_EXTRAS {
@@ -126,10 +131,10 @@
 
         GAME {
             bindings = <
-&kp N1  &kp TAB    &kp Q  &kp W  &kp E      &kp R           &none  &none  &none  &none  &none  &to 0
-&kp N2  &kp LCTRL  &kp A  &kp S  &kp D      &kp F           &none  &none  &none  &none  &none  &none
-&kp N3  &kp LSHFT  &kp Z  &kp X  &kp C      &kp V           &none  &none  &none  &none  &none  &trans
-                          &trans &kp SPACE  &kp LEFT_ALT    &none  &none
+&kp N1  &kp TAB    &kp Q  &kp W   &kp E      &kp R           &none  &none  &none  &none  &none  &to 0
+&kp N2  &kp LCTRL  &kp A  &kp S   &kp D      &kp F           &none  &none  &none  &none  &none  &none
+&kp N3  &kp LSHFT  &kp Z  &kp X   &kp C      &kp V           &none  &none  &none  &none  &none  &trans
+                          &trans  &kp SPACE  &kp LEFT_ALT    &none  &none
             >;
         };
 

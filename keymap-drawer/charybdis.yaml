@@ -422,7 +422,9 @@ layers:
 combos:
 - p: [8, 9]
   k: DELETE
+  l: [BASE]
 - p: [17, 18]
   k: CAPS WORD
+  l: [BASE]
 - p: [38, 39]
   k: L_BASE L_EXTRA
