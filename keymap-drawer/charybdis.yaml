@@ -425,4 +425,4 @@ combos:
 - p: [17, 18]
   k: CAPS WORD
 - p: [38, 39]
-  k: '&td_bora'
+  k: L_BASE L_EXTRA

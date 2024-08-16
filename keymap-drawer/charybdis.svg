@@ -379,7 +379,9 @@ path.combo { stroke: #7f7f7f; }
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
-<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bora</tspan></text>
+<text x="420" y="238" class="combo tap">
+<tspan x="420" dy="-0.6em">L_BASE</tspan><tspan x="420" dy="1.2em">L_EXTRA</tspan>
+</text>
 </g>
 </g>
 </g>
@@ -598,7 +600,9 @@ path.combo { stroke: #7f7f7f; }
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
-<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bora</tspan></text>
+<text x="420" y="238" class="combo tap">
+<tspan x="420" dy="-0.6em">L_BASE</tspan><tspan x="420" dy="1.2em">L_EXTRA</tspan>
+</text>
 </g>
 </g>
 </g>
@@ -820,7 +824,9 @@ path.combo { stroke: #7f7f7f; }
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
-<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bora</tspan></text>
+<text x="420" y="238" class="combo tap">
+<tspan x="420" dy="-0.6em">L_BASE</tspan><tspan x="420" dy="1.2em">L_EXTRA</tspan>
+</text>
 </g>
 </g>
 </g>
@@ -1049,7 +1055,9 @@ path.combo { stroke: #7f7f7f; }
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
-<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bora</tspan></text>
+<text x="420" y="238" class="combo tap">
+<tspan x="420" dy="-0.6em">L_BASE</tspan><tspan x="420" dy="1.2em">L_EXTRA</tspan>
+</text>
 </g>
 </g>
 </g>
@@ -1263,7 +1271,9 @@ path.combo { stroke: #7f7f7f; }
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
-<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bora</tspan></text>
+<text x="420" y="238" class="combo tap">
+<tspan x="420" dy="-0.6em">L_BASE</tspan><tspan x="420" dy="1.2em">L_EXTRA</tspan>
+</text>
 </g>
 </g>
 </g>
@@ -1497,7 +1507,9 @@ path.combo { stroke: #7f7f7f; }
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
-<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bora</tspan></text>
+<text x="420" y="238" class="combo tap">
+<tspan x="420" dy="-0.6em">L_BASE</tspan><tspan x="420" dy="1.2em">L_EXTRA</tspan>
+</text>
 </g>
 </g>
 </g>
@@ -1732,7 +1744,9 @@ path.combo { stroke: #7f7f7f; }
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
-<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bora</tspan></text>
+<text x="420" y="238" class="combo tap">
+<tspan x="420" dy="-0.6em">L_BASE</tspan><tspan x="420" dy="1.2em">L_EXTRA</tspan>
+</text>
 </g>
 </g>
 </g>
@@ -1970,7 +1984,9 @@ path.combo { stroke: #7f7f7f; }
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
-<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bora</tspan></text>
+<text x="420" y="238" class="combo tap">
+<tspan x="420" dy="-0.6em">L_BASE</tspan><tspan x="420" dy="1.2em">L_EXTRA</tspan>
+</text>
 </g>
 </g>
 </g>
@@ -2208,7 +2224,9 @@ path.combo { stroke: #7f7f7f; }
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
-<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bora</tspan></text>
+<text x="420" y="238" class="combo tap">
+<tspan x="420" dy="-0.6em">L_BASE</tspan><tspan x="420" dy="1.2em">L_EXTRA</tspan>
+</text>
 </g>
 </g>
 </g>
@@ -2448,7 +2466,9 @@ path.combo { stroke: #7f7f7f; }
 <path d="M420,238 l-61,0" class="combo"/>
 <path d="M420,238 l61,0" class="combo"/>
 <rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
-<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bora</tspan></text>
+<text x="420" y="238" class="combo tap">
+<tspan x="420" dy="-0.6em">L_BASE</tspan><tspan x="420" dy="1.2em">L_EXTRA</tspan>
+</text>
 </g>
 </g>
 </g>
