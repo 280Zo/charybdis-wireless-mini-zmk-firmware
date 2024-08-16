@@ -43,7 +43,7 @@
             tapping-term-ms = <200>;
         };
 
-        td_bora: BASE_or_EXTRA {
+        td_bore: BASE_or_EXTRA {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&mo 6>, <&to 0>;
@@ -64,7 +64,7 @@
         };
 
         BASE_or_EXTRAS {
-            bindings = <&td_bora>;
+            bindings = <&td_bore>;
             key-positions = <38 39>;
         };
     };

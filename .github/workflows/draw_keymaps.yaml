@@ -157,6 +157,7 @@ jobs:
             , "&HSplit": "HSPLIT"
             , "&VSplit": "VSPLIT"
             , "&caps_word": "CAPS WORD"
+            , "&td_bore": "L_BASE L_EXTRA"
              }
         run: |
           get_args() {
