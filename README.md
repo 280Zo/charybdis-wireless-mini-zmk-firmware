@@ -6,7 +6,7 @@ This repository outlines most of the steps needed to build/modify the ZMK firmwa
 
 ## Pre Built Firmware
 
-If you'd like to skip all the configuration steps and use something prebuilt, the firmware files can be found in the [Actions Workflows](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions?query=is%3Acompleted+branch%3Amain). Just log in, click the link, select the latest run that passed on the main branch, and download the 'firmware-charybdis-nanov2-qwerty' artifact (there's also a colemak dh firmware for those few that want to use that layout).
+If you'd like to skip all the configuration steps and use something prebuilt, the firmware files can be found in the [Actions Workflows](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions?query=is%3Acompleted+branch%3Amain). Just click the link, select the latest run that passed on the main branch, and download the `firmware-charybdis-nanov2-qwerty` artifact (there's also a colemak dh firmware for those few that want to use that layout). You'll have to be logged into Github for this.
 There are a few things to note about how I've chosen to configure things.
 
 - The keyboard name is Charybdis. This is what will show up when you connect to it with bluetooth.
