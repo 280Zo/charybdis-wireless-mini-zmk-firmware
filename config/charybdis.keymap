@@ -25,21 +25,21 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&httl 9 7>, <&to 0>;
-
+            tapping-term-ms = <200>;        
             label = "Trackball & Scroll";
         };
 
         tdtb2: td_slow_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&httl 9 8>, <&tog 0>;
+            bindings = <&httl 9 8>, <&to 0>;
 
             label = "Scroll Slow & Base";
         };
 
         httl: ht_two_layers {
             compatible = "zmk,behavior-hold-tap";
-            bindings = <&mo>, <&tog>;
+            bindings = <&mo>, <&to>;
 
             #binding-cells = <2>;
             flavor = "balanced";
