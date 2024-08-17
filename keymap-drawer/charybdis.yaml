@@ -1,5 +1,5 @@
 layers:
-  Base:
+  BASE:
   - SEARCH
   - Q
   - W
@@ -11,7 +11,7 @@ layers:
   - I
   - O
   - P
-  - {t: Game, h: toggle}
+  - {t: GAME, h: toggle}
   - {t: TAB, h: WINDOW}
   - {t: A, h: LEFT GUI}
   - {t: S, h: LEFT ALT}
@@ -35,13 +35,13 @@ layers:
   - {t: ',', h: HYPER}
   - {t: ., h: MEH}
   - /
-  - {t: Photos, h: toggle}
-  - {t: PLAY PAUSE, h: ALL WIN}
-  - {t: BACKSPACE, h: Num}
-  - {t: ESCAPE, h: Nav}
-  - {t: RETURN, h: Mouse}
-  - {t: SPACE, h: Sym}
-  Num:
+  - {t: PHOTOS, h: toggle}
+  - TRACKBALL SCROLL
+  - {t: BACK SPACE, h: NUM}
+  - {t: ESCAPE, h: NAV}
+  - {t: RETURN, h: MOUSE}
+  - {t: SPACE, h: SYM}
+  NUM:
   - ''
   - ''
   - ''
@@ -58,7 +58,7 @@ layers:
   - ''
   - ''
   - ''
-  - BACKSPACE
+  - BACK SPACE
   - ''
   - '*'
   - {t: '4', h: F4}
@@ -77,13 +77,13 @@ layers:
   - {t: '2', h: F2}
   - {t: '3', h: F3}
   - {t: '=', h: F12}
-  - ''
+  - {t: ▽, type: trans}
   - ''
   - {type: held}
   - ''
   - '0'
   - ''
-  Nav:
+  NAV:
   - ''
   - ''
   - ''
@@ -119,13 +119,13 @@ layers:
   - PG DN
   - PG UP
   - END
-  - ''
+  - {t: ▽, type: trans}
   - ''
   - ''
   - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  Sym:
+  SYM:
   - ''
   - ''''
   - ^
@@ -161,55 +161,13 @@ layers:
   - '['
   - ']'
   - '@'
-  - ''
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - ''
   - {type: held}
-  Mouse:
-  - ''
-  - WHEEL L
-  - WHEEL D
-  - MOVE UP
-  - WHEEL U
-  - WHEEL R
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - BACK
-  - MOVE L
-  - MOVE D
-  - MOVE R
-  - FWD
-  - ''
-  - RIGHT SHIFT
-  - RCTRL
-  - LEFT ALT
-  - LEFT META
-  - ''
-  - ''
-  - UNDO
-  - CUT
-  - COPY
-  - PASTE
-  - M CLK
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - {t: Slow_TrkBl, h: toggle}
-  - L CLK
-  - R CLK
-  - {type: held}
-  - ''
-  Game:
+  GAME:
   - '1'
   - TAB
   - Q
@@ -221,7 +179,7 @@ layers:
   - ''
   - ''
   - ''
-  - {t: Base, h: toggle}
+  - {t: BASE, h: toggle}
   - '2'
   - LCTRL
   - A
@@ -245,26 +203,26 @@ layers:
   - ''
   - ''
   - ''
-  - ''
-  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - SPACE
   - LEFT ALT
   - ''
   - ''
-  Photos:
+  PHOTOS:
   - {t: ▽, type: trans}
-  - Meh+ Z
-  - Meh+ E
-  - Meh+ A
-  - Meh+ S
-  - Meh+ B
+  - TAG Z
+  - TAG E
+  - TAG A
+  - TAG S
+  - TAG B
   - ''
   - ''
   - ''
   - ''
   - ''
   - ''
-  - Ctl+Alt+ E
+  - FIT
   - LEFT
   - DOWN
   - UP
@@ -276,24 +234,24 @@ layers:
   - ''
   - ''
   - ''
-  - Sft+ DELETE
-  - Alt+Sft+ A
-  - Alt+ KP 1
-  - Alt+ KP 2
-  - Alt+ KP 3
+  - SHRED
+  - SHOW TAGS
+  - REJECT
+  - PENDING
+  - ACCEPT
   - ''
   - ''
   - ''
   - ''
-  - ''
-  - ''
-  - {t: Base, h: toggle}
   - ''
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - ''
   - {t: ▽, type: trans}
-  Extras:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  EXTRAS:
   - SLEEP
   - ''
   - ''
@@ -324,7 +282,7 @@ layers:
   - ''
   - ''
   - BRIGHTNESS DEC
-  - PRINTSCREEN
+  - PRINT SCREEN
   - VOLUME DOWN
   - VOLUME UP
   - MUTE
@@ -332,10 +290,10 @@ layers:
   - BOOT LDR
   - ''
   - ''
-  - {type: held}
-  - {type: held}
   - ''
-  Slow_TrkBl:
+  - ''
+  - ''
+  MOUSE:
   - ''
   - WHEEL L
   - WHEEL D
@@ -371,8 +329,92 @@ layers:
   - ''
   - ''
   - ''
+  - {t: ▽, type: trans}
+  - SNIPE SCROLL
+  - L CLK
+  - R CLK
+  - {type: held}
   - ''
-  - {t: Slow_TrkBl, h: toggle}
+  SLOW:
+  - ''
+  - WHEEL L
+  - WHEEL D
+  - MOVE UP
+  - WHEEL U
+  - WHEEL R
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - BACK
+  - MOVE L
+  - MOVE D
+  - MOVE R
+  - FWD
+  - ''
+  - RIGHT SHIFT
+  - RCTRL
+  - LEFT ALT
+  - LEFT META
+  - ''
+  - ''
+  - UNDO
+  - CUT
+  - COPY
+  - PASTE
+  - M CLK
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - TRACKBALL SCROLL
+  - L CLK
+  - R CLK
+  - ''
+  - ''
+  SCROLL:
+  - ''
+  - WHEEL L
+  - WHEEL D
+  - MOVE UP
+  - WHEEL U
+  - WHEEL R
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - BACK
+  - MOVE L
+  - MOVE D
+  - MOVE R
+  - FWD
+  - ''
+  - RIGHT SHIFT
+  - RCTRL
+  - LEFT ALT
+  - LEFT META
+  - ''
+  - ''
+  - UNDO
+  - CUT
+  - COPY
+  - PASTE
+  - M CLK
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {t: SCROLL, h: toggle}
   - L CLK
   - R CLK
   - ''
@@ -380,7 +422,9 @@ layers:
 combos:
 - p: [8, 9]
   k: DELETE
+  l: [BASE]
 - p: [17, 18]
   k: CAPS WORD
+  l: [BASE]
 - p: [38, 39]
-  k: Extras
+  k: L_BASE L_EXTRA
