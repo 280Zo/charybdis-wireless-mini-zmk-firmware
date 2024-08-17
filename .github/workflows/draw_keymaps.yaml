@@ -159,6 +159,7 @@ jobs:
             , "&caps_word": "CAPS WORD"
             , "&td_bore": "L_BASE L_EXTRA"
             , "&tdtb": "TRACKBALL SCROLL"
+            , "&tdtb2": "SNIPE SCROLL"
              }
         run: |
           get_args() {
