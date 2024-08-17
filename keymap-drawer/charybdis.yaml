@@ -36,7 +36,7 @@ layers:
   - {t: ., h: MEH}
   - /
   - {t: PHOTOS, h: toggle}
-  - '&tdtb'
+  - TRACKBALL SCROLL
   - {t: BACK SPACE, h: NUM}
   - {t: ESCAPE, h: NAV}
   - {t: RETURN, h: MOUSE}
@@ -372,7 +372,7 @@ layers:
   - ''
   - ''
   - {t: ▽, type: trans}
-  - '&tdtb'
+  - TRACKBALL SCROLL
   - L CLK
   - R CLK
   - ''
