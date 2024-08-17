@@ -158,8 +158,8 @@ jobs:
             , "&VSplit": "VSPLIT"
             , "&caps_word": "CAPS WORD"
             , "&td_bore": "L_BASE L_EXTRA"
-            , "&tdtb": "TRACKBALL SCROLL"
-            , "&tdtb2": "SNIPE SCROLL"
+            , "&tdtb": "SCROLL TRACKBALL"
+            , "&tdtb2": "SCROLL SNIPE"
              }
         run: |
           get_args() {
