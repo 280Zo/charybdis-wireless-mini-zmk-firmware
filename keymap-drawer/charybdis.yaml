@@ -330,7 +330,7 @@ layers:
   - ''
   - ''
   - {t: ▽, type: trans}
-  - '&tdtb2'
+  - SNIPE SCROLL
   - L CLK
   - R CLK
   - {type: held}
