@@ -13,10 +13,11 @@ There are a few things to note about how I've chosen to configure things.
 - ZMK has terms for each side of a split keyboard. Central is the half that sends keyboard outputs over USB or advertises to other devices over bluetooth. Peripheral is the half that will only send keystrokes to the central once they are paired and connected through bluetooth. I have chosen the right side as central because it fits my desk layout better.
 - To add support for the PMW3610 sensor, [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file) is included in the firmware.
 - Looking at different options to include support for mouse keys (move and scroll), there are several repos out there. [krikun98](https://github.com/krikun98/zmk/tree/mouse-pr) has one that looked promising, but ultimately I settled on [petejohanson's work](https://github.com/petejohanson/zmk/blob/feat/pointers-move-scroll/docs/docs/behaviors/mouse-emulation.md). This will be included in the prebuilt firmware until ZMK merges it.
+- I have disabled the automouse layer activation, but it can be reactiveated in `config/boards/shields/charybdis-mini-wireless/charybdis_right.overlay`.
 
 ### Keymaps & Layers
 
-There is a lot that's going on with each layer, but the only things you need to know to get started are that the red keys are what to press to activate the layer, layer names are underlined, the BT keys on the EXTRAS layer allow you to select which bluetooth pairing you want, BT-CLR clears the pairing on the selected profile, and the Slow_Trkbl layer allows you to hold that button to slow the trackball movement down for more precision. As soon as you let it go the trackball movement goes back to normal.
+There is a lot that's going on with each layer, but the only things you need to know to get started are that the red keys are what to press to activate the layer, layer names are underlined, the BT keys on the EXTRAS layer allow you to select which bluetooth pairing you want, BT-CLR clears the pairing on the selected profile, and the MOUSE, SLOW, and SCROLL layers are activated by the thumb key and allow you use the mouse keys or the trackball to scroll and use the pointer.
 
 Here is how each layer is mapped out for the latest firmware.
 
@@ -47,7 +48,7 @@ Using a GUI to generate the keymap file content is the easiest option. Head over
 - Wait for the pipeline to run
 - Download and flash the new firmware
 
-### Flashing the Firmware
+## Flashing the Firmware
 - Unzip the firmware.zip
 - Plug the right half info the computer through USB
 - Double press the reset button
@@ -59,7 +60,7 @@ Using a GUI to generate the keymap file content is the easiest option. Head over
 
 ## Building Your Own Firmware
 
-ZMK provide a comprehensive guide to follow when creating a [New Keyboard Shield](https://zmk.dev/docs/development/new-shield). I'll touch on some of the points here, but their docs should be what you reference when you're building your own firmware.
+ZMK provides a comprehensive guide to follow when creating a [New Keyboard Shield](https://zmk.dev/docs/development/new-shield). I'll touch on some of the points here, but their docs should be what you reference when you're building your own firmware.
 
 ### File Locations
 

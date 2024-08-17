@@ -36,7 +36,7 @@ layers:
   - {t: ., h: MEH}
   - /
   - {t: PHOTOS, h: toggle}
-  - TRACKBALL SCROLL
+  - SCROLL TRACKBALL
   - {t: BACK SPACE, h: NUM}
   - {t: ESCAPE, h: NAV}
   - {t: RETURN, h: MOUSE}
@@ -221,7 +221,7 @@ layers:
   - ''
   - ''
   - ''
-  - ''
+  - {t: ▽, type: trans}
   - FIT
   - LEFT
   - DOWN
@@ -245,7 +245,7 @@ layers:
   - ''
   - ''
   - ''
-  - {t: ▽, type: trans}
+  - {t: BASE, h: toggle}
   - {t: ▽, type: trans}
   - ''
   - {t: ▽, type: trans}
@@ -330,7 +330,7 @@ layers:
   - ''
   - ''
   - {t: ▽, type: trans}
-  - SNIPE SCROLL
+  - SCROLL SNIPE
   - L CLK
   - R CLK
   - {type: held}
@@ -372,7 +372,7 @@ layers:
   - ''
   - ''
   - {t: ▽, type: trans}
-  - TRACKBALL SCROLL
+  - SCROLL TRACKBALL
   - L CLK
   - R CLK
   - ''
