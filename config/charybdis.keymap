@@ -51,18 +51,6 @@
             #binding-cells = <0>;
             bindings = <&mo 6>, <&to 0>;
         };
-
-        tdmt: td_mid_thumb_lclick {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&lt 1 BACKSPACE>, <&mkp LCLK>;
-        };
-
-        tdbt: td_bottom_thumb_rclick {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&lt 2 ESCAPE>, <&mkp RCLK>;
-        };
     };
 
     combos {
@@ -114,7 +102,7 @@
 // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼─────────┤  ├──────────────┼─────────────────┼─────────────────────────────────┼──────────────────────────────┼────────────────────────┼───────┤
     &kp LA(LC(T))    &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V               &kp B       &kp N         &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &to 5
 // ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼─────────┤  ├──────────────┼─────────────────┼─────────────────────────────────┴──────────────────────────────┴────────────────────────┴───────╯
-                                                               &tdtb                         &tdmt               &tdbt       &lt 7 RETURN  &lt 3 SPACE
+                                                               &lt 1 BACKSPACE              &lt 2 ESCAPE         &tdbt       &lt 7 RETURN  &lt 3 SPACE
                                                           // ╰─────────────────────────────┴──────────────────┴─────────╯  ╰──────────────┴───────────╯
             >;
         };
@@ -124,7 +112,7 @@
 &none    &none  &none  &none  &none          &none    &kp SLASH  &hm F7 N7  &hm F8 N8  &hm F9 N9  &hm F10 MINUS  &none
 &kp TAB  &none  &none  &none  &kp BACKSPACE  &none    &kp ASTRK  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &none
 &none    &none  &none  &none  &none          &none    &kp DOT    &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 EQUAL  &trans
-                     &none  &none          &none    &kp N0     &none
+                       &none  &none          &none    &kp N0     &none
             >;
         };
 
@@ -178,7 +166,7 @@
 &none    &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
 &kp TAB  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
 &none    &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &trans
-                                         &tdtb2          &mkp LCLK        &mkp RCLK          &kp RETURN            &lt 3 SPACE
+                                         &tdtb2          &mkp LCLK        &mkp RCLK          &kp RETURN              &lt 3 SPACE
             >;
         };
 
@@ -187,7 +175,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans        
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans        
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans        
-                        &tdtb   &trans &trans          &trans  &trans
+                        &tdtb   &trans  &trans          &trans  &trans
             >;
         };
 
