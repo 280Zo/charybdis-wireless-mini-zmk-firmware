@@ -36,9 +36,9 @@ layers:
   - {t: ., h: MEH}
   - /
   - {t: PHOTOS, h: toggle}
-  - TRACKBALL SCROLL
-  - {t: BACK SPACE, h: NUM}
-  - {t: ESCAPE, h: NAV}
+  - SCROLL TRACKBALL
+  - L1/BS LCLICK
+  - L2/ESC RCLICK
   - {t: RETURN, h: MOUSE}
   - {t: SPACE, h: SYM}
   NUM:
@@ -54,7 +54,7 @@ layers:
   - {t: '9', h: F9}
   - {t: '-', h: F10}
   - ''
-  - ''
+  - TAB
   - ''
   - ''
   - ''
@@ -79,7 +79,7 @@ layers:
   - {t: '=', h: F12}
   - {t: ▽, type: trans}
   - ''
-  - {type: held}
+  - ''
   - ''
   - '0'
   - ''
@@ -115,14 +115,14 @@ layers:
   - ''
   - ''
   - HSPLIT
-  - HOME
+  - END
   - PG DN
   - PG UP
-  - END
+  - HOME
   - {t: ▽, type: trans}
   - ''
   - ''
-  - {type: held}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   SYM:
@@ -221,7 +221,7 @@ layers:
   - ''
   - ''
   - ''
-  - ''
+  - {t: ▽, type: trans}
   - FIT
   - LEFT
   - DOWN
@@ -245,7 +245,7 @@ layers:
   - ''
   - ''
   - ''
-  - {t: ▽, type: trans}
+  - {t: BASE, h: toggle}
   - {t: ▽, type: trans}
   - ''
   - {t: ▽, type: trans}
@@ -306,7 +306,7 @@ layers:
   - ''
   - ''
   - ''
-  - ''
+  - TAB
   - BACK
   - MOVE L
   - MOVE D
@@ -330,95 +330,95 @@ layers:
   - ''
   - ''
   - {t: ▽, type: trans}
-  - SNIPE SCROLL
+  - SCROLL SNIPE
   - L CLK
   - R CLK
-  - {type: held}
-  - ''
+  - {t: RETURN, type: held}
+  - {t: SPACE, h: SYM}
   SLOW:
-  - ''
-  - WHEEL L
-  - WHEEL D
-  - MOVE UP
-  - WHEEL U
-  - WHEEL R
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - BACK
-  - MOVE L
-  - MOVE D
-  - MOVE R
-  - FWD
-  - ''
-  - RIGHT SHIFT
-  - RCTRL
-  - LEFT ALT
-  - LEFT META
-  - ''
-  - ''
-  - UNDO
-  - CUT
-  - COPY
-  - PASTE
-  - M CLK
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
   - {t: ▽, type: trans}
-  - TRACKBALL SCROLL
-  - L CLK
-  - R CLK
-  - ''
-  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SCROLL TRACKBALL
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   SCROLL:
-  - ''
-  - WHEEL L
-  - WHEEL D
-  - MOVE UP
-  - WHEEL U
-  - WHEEL R
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - BACK
-  - MOVE L
-  - MOVE D
-  - MOVE R
-  - FWD
-  - ''
-  - RIGHT SHIFT
-  - RCTRL
-  - LEFT ALT
-  - LEFT META
-  - ''
-  - ''
-  - UNDO
-  - CUT
-  - COPY
-  - PASTE
-  - M CLK
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
   - {t: ▽, type: trans}
-  - {t: SCROLL, h: toggle}
-  - L CLK
-  - R CLK
-  - ''
-  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
 combos:
 - p: [8, 9]
   k: DELETE
