@@ -37,8 +37,8 @@ layers:
   - /
   - {t: PHOTOS, h: toggle}
   - SCROLL TRACKBALL
-  - L1/BS LCLICK
-  - L2/ESC RCLICK
+  - {t: BACK SPACE, h: NUM}
+  - {t: ESCAPE, h: NAV}
   - {t: RETURN, h: MOUSE}
   - {t: SPACE, h: SYM}
   NUM:
@@ -79,7 +79,7 @@ layers:
   - {t: '=', h: F12}
   - {t: ▽, type: trans}
   - ''
-  - ''
+  - {type: held}
   - ''
   - '0'
   - ''
@@ -122,7 +122,7 @@ layers:
   - {t: ▽, type: trans}
   - ''
   - ''
-  - {t: ▽, type: trans}
+  - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   SYM:
