@@ -32,7 +32,7 @@
         tdtb2: td_slow_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&httl 9 8>, <&to 0>;
+            bindings = <&httl 8 9>, <&to 0>;
 
             label = "Scroll Slow & Base";
         };
@@ -102,7 +102,7 @@
 // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────┤  ├──────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼─────────┤
     &kp LA(LC(T))    &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V               &kp B           &kp N          &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA   &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &to 5
 // ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────┤  ├──────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴─────────╯
-                                                               &tdtb                         &lt 1 BACKSPACE     &lt 2 ESCAPE     &lt 7 RETURN  &lt 3 SPACE
+                                                               &tdtb2                         &lt 1 BACKSPACE     &lt 2 ESCAPE     &lt 7 RETURN  &lt 3 SPACE
                                                           // ╰─────────────────────────────┴──────────────────┴──────────────╯  ╰──────────────┴────────────╯
             >;
         };
@@ -175,7 +175,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans        
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans        
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans        
-                        &tdtb   &trans  &trans          &trans  &trans
+                        &tdtb   &trans  &trans          &trans  &trans      
             >;
         };
 
