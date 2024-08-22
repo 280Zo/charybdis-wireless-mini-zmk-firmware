@@ -31,7 +31,7 @@
         tdtb2: td_slow_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&httl 8 9>, <&to 0>;
+            bindings = <&httl 9 7>, <&httl 8 0>;
         };
 
         httl: ht_two_layers {
