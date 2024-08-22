@@ -115,10 +115,10 @@ layers:
   - ''
   - ''
   - HSPLIT
-  - END
+  - HOME
   - PG DN
   - PG UP
-  - HOME
+  - END
   - {t: ▽, type: trans}
   - ''
   - ''
