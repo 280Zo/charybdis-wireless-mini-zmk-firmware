@@ -26,15 +26,12 @@
             #binding-cells = <0>;
             bindings = <&httl 9 7>, <&to 0>;
             tapping-term-ms = <200>;        
-            label = "Trackball & Scroll";
         };
 
         tdtb2: td_slow_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&httl 8 9>, <&to 0>;
-
-            label = "Scroll Slow & Base";
         };
 
         httl: ht_two_layers {
@@ -79,14 +76,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
-            label = "VSPLIT";
         };
 
         HSplit: HSplit {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(S) &kp LS(P) &kp RET>;
-            label = "HSPLIT";
         };
     };
 
