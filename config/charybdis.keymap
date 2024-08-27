@@ -24,14 +24,14 @@
         tdtb: td_mouse_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&httl 0 7>, <&to 9>;
+            bindings = <&httl 9 7>, <&to 0>;
             tapping-term-ms = <200>;
         };
 
         tdtb2: td_slow_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&httl 9 7>, <&httl 8 0>;
+            bindings = <&httl 9 0>, <&to 8>;
         };
 
         httl: ht_two_layers {
