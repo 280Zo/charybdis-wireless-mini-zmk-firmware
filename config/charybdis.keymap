@@ -24,8 +24,8 @@
         tdtb: td_mouse_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&httl 9 7>, <&to 0>;
-            tapping-term-ms = <200>;        
+            bindings = <&httl 0 7>, <&to 9>;
+            tapping-term-ms = <200>;
         };
 
         tdtb2: td_slow_scroll {
