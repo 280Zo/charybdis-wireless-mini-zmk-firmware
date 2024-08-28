@@ -160,6 +160,8 @@ jobs:
             , "&td_bore": "L_BASE L_EXTRA"
             , "&tdtb": "SCROLL TRACKBALL"
             , "&tdtb2": "SCROLL SNIPE"
+            , "&tdmt": "L1/BS LCLICK"
+            , "&tdbt": "L2/ESC RCLICK"
              }
         run: |
           get_args() {

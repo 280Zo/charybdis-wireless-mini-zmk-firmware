@@ -36,7 +36,7 @@ layers:
   - {t: ., h: MEH}
   - /
   - {t: PHOTOS, h: toggle}
-  - SCROLL TRACKBALL
+  - SCROLL SNIPE
   - {t: BACK SPACE, h: NUM}
   - {t: ESCAPE, h: NAV}
   - {t: RETURN, h: MOUSE}
@@ -54,7 +54,7 @@ layers:
   - {t: '9', h: F9}
   - {t: '-', h: F10}
   - ''
-  - ''
+  - TAB
   - ''
   - ''
   - ''
@@ -77,7 +77,7 @@ layers:
   - {t: '2', h: F2}
   - {t: '3', h: F3}
   - {t: '=', h: F12}
-  - {t: ▽, type: trans}
+  - ''
   - ''
   - {type: held}
   - ''
@@ -119,7 +119,7 @@ layers:
   - PG DN
   - PG UP
   - END
-  - {t: ▽, type: trans}
+  - ''
   - ''
   - ''
   - {type: held}
@@ -127,41 +127,41 @@ layers:
   - {t: ▽, type: trans}
   SYM:
   - ''
-  - ''''
-  - ^
   - +
-  - '*'
-  - \
-  - '`'
-  - '~'
   - '{'
   - '}'
-  - '&'
-  - ''
-  - '%'
-  - {t: '!', h: LEFT META}
-  - {t: <, h: LEFT ALT}
-  - {t: '>', h: LCTRL}
-  - {t: SPACE, h: LEFT SHIFT}
-  - /
+  - '-'
   - ':'
+  - \
+  - '`'
+  - $
+  - ^
+  - ''''
+  - ''
+  - ''
+  - {t: '!', h: LEFT META}
+  - {t: (, h: LEFT ALT}
+  - {t: ), h: LCTRL}
   - {t: SPACE, h: LEFT SHIFT}
-  - {t: (, h: LCTRL}
-  - {t: ), h: LEFT ALT}
+  - '~'
+  - /
+  - {t: SPACE, h: LEFT SHIFT}
+  - {t: <, h: LCTRL}
+  - {t: '>', h: LEFT ALT}
   - '#'
   - ''
   - ''
-  - '"'
-  - $
   - '='
-  - '-'
-  - '|'
-  - ;
-  - _
   - '['
   - ']'
+  - _
+  - ;
+  - '|'
+  - '*'
+  - '&'
+  - '%'
   - '@'
-  - {t: ▽, type: trans}
+  - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -203,7 +203,7 @@ layers:
   - ''
   - ''
   - ''
-  - {t: ▽, type: trans}
+  - ''
   - {t: ▽, type: trans}
   - SPACE
   - LEFT ALT
@@ -306,7 +306,7 @@ layers:
   - ''
   - ''
   - ''
-  - ''
+  - TAB
   - BACK
   - MOVE L
   - MOVE D
@@ -329,12 +329,12 @@ layers:
   - ''
   - ''
   - ''
-  - {t: ▽, type: trans}
+  - ''
   - SCROLL SNIPE
   - L CLK
   - R CLK
-  - {type: held}
-  - ''
+  - {t: RETURN, type: held}
+  - {t: SPACE, h: SYM}
   SLOW:
   - ''
   - WHEEL L
@@ -348,7 +348,7 @@ layers:
   - ''
   - ''
   - ''
-  - ''
+  - TAB
   - BACK
   - MOVE L
   - MOVE D
@@ -371,12 +371,12 @@ layers:
   - ''
   - ''
   - ''
-  - {t: ▽, type: trans}
-  - SCROLL TRACKBALL
+  - ''
+  - SCROLL SNIPE
   - L CLK
   - R CLK
-  - ''
-  - ''
+  - RETURN
+  - {t: SPACE, h: SYM}
   SCROLL:
   - ''
   - WHEEL L
@@ -390,7 +390,7 @@ layers:
   - ''
   - ''
   - ''
-  - ''
+  - TAB
   - BACK
   - MOVE L
   - MOVE D
@@ -413,12 +413,12 @@ layers:
   - ''
   - ''
   - ''
-  - {t: ▽, type: trans}
-  - {t: SCROLL, h: toggle}
+  - ''
+  - SCROLL SNIPE
   - L CLK
   - R CLK
-  - ''
-  - ''
+  - RETURN
+  - {t: SPACE, h: SYM}
 combos:
 - p: [8, 9]
   k: DELETE
