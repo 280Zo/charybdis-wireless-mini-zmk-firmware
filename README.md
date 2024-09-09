@@ -10,16 +10,27 @@ If you'd like to skip all the configuration steps and use something prebuilt, th
 There are a few things to note about how I've chosen to configure things.
 
 - The keyboard name is Charybdis. This is what will show up when you connect to it with bluetooth.
-- ZMK has terms for each side of a split keyboard. Central is the half that sends keyboard outputs over USB or advertises to other devices over bluetooth. Peripheral is the half that will only send keystrokes to the central once they are paired and connected through bluetooth. I have chosen the right side as central because it fits my desk layout better.
+- ZMK has terms for each side of a split keyboard. Central is the half that sends keyboard outputs over USB or advertises to other devices over bluetooth. Peripheral is the half that will only send keystrokes to the central once they are paired and connected through bluetooth. These builds use the right side as central.
 - To add support for the PMW3610 sensor, [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file) is included in the firmware.
-- Looking at different options to include support for mouse keys (move and scroll), there are several repos out there. [krikun98](https://github.com/krikun98/zmk/tree/mouse-pr) has one that looked promising, but ultimately I settled on [petejohanson's work](https://github.com/petejohanson/zmk/blob/feat/pointers-move-scroll/docs/docs/behaviors/mouse-emulation.md). This will be included in the prebuilt firmware until ZMK merges it.
-- I have disabled the automouse layer activation, but it can be reactiveated in `config/boards/shields/charybdis-mini-wireless/charybdis_right.overlay`.
+- [Petejohanson's work](https://github.com/petejohanson/zmk/blob/feat/pointers-move-scroll/docs/docs/behaviors/mouse-emulation.md) is also included in the build to allow mouse keys to work. This will be included until ZMK merges it.
 
 ### Keymaps & Layers
 
-There is a lot that's going on with each layer, but the only things you need to know to get started are that the red keys are what to press to activate the layer, layer names are underlined, the BT keys on the EXTRAS layer allow you to select which bluetooth pairing you want, BT-CLR clears the pairing on the selected profile, and the MOUSE, SLOW, and SCROLL layers are activated by the thumb key and allow you use the mouse keys or the trackball to scroll and use the pointer.
+Each layer has been heavily influanced by [Miryoku](https://github.com/manna-harbour/miryoku/) and [home row mods](https://precondition.github.io/home-row-mods) that use [bilateral combinations](https://sunaku.github.io/home-row-mods.html) to make typing as efficient and comfortable as possible. Extra attention has also been given to making sure cursor, scrolling, and mouse button opperations are as seemless and available as possible. This removes the need to ever remove your hands from the keyboard home row.
 
-Here is how each layer is mapped out for the latest firmware.
+Review the layer maps below to see how each one functions. Then connect the keyboard via USB or bluetooth and start using them.
+
+Here are a few hints for a quick start:
+
+- When moving the trackball, the mouse layer will be automatically activated. When the trackball movement stops, the previous layer is activated again.
+
+- The bluetooth keys on the EXTRAS layer allow you to select which bluetooth pairing you want, BT-CLR clears the pairing on the selected profile.
+
+- The most left thumb button has multiple functions
+  - When held, the function of the trackball is changed from moving the cursor to scrolling.
+  - When double tapped, it will reduce the cursor speed for more precision, and activate the mouse layer.
+  - When single tapped it will activate the base layer.
+
 
 ![keymap images](keymap-drawer/charybdis.svg)
 
