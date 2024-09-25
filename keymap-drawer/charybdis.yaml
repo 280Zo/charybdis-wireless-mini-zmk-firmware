@@ -36,7 +36,7 @@ layers:
   - {t: ., h: MEH}
   - /
   - {t: PHOTOS, h: toggle}
-  - SCROLL SNIPE
+  - '&tdtb2'
   - {t: BACK SPACE, h: NUM}
   - {t: ESCAPE, h: NAV}
   - {t: RETURN, h: MOUSE}
@@ -102,7 +102,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - VSPLIT
+  - '&VSplit'
   - LEFT
   - DOWN
   - UP
@@ -114,7 +114,7 @@ layers:
   - ''
   - ''
   - ''
-  - HSPLIT
+  - '&HSplit'
   - HOME
   - PG DN
   - PG UP
@@ -276,7 +276,7 @@ layers:
   - STOP
   - NEXT
   - ''
-  - BOOT LDR
+  - '&bootloader'
   - ''
   - ''
   - ''
@@ -287,7 +287,7 @@ layers:
   - VOLUME UP
   - MUTE
   - ''
-  - BOOT LDR
+  - '&bootloader'
   - ''
   - ''
   - ''
@@ -295,11 +295,11 @@ layers:
   - ''
   MOUSE:
   - ''
-  - WHEEL L
-  - WHEEL D
-  - MOVE UP
-  - WHEEL U
-  - WHEEL R
+  - '&msc MOVE_LEFT'
+  - '&msc MOVE_UP'
+  - '&mmv MOVE_UP'
+  - '&msc MOVE_DOWN'
+  - '&msc MOVE_RIGHT'
   - ''
   - ''
   - ''
@@ -307,11 +307,11 @@ layers:
   - ''
   - ''
   - TAB
-  - BACK
-  - MOVE L
-  - MOVE D
-  - MOVE R
-  - FWD
+  - '&mkp MB4'
+  - '&mmv MOVE_LEFT'
+  - '&mmv MOVE_DOWN'
+  - '&mmv MOVE_RIGHT'
+  - '&mkp MB5'
   - ''
   - RIGHT SHIFT
   - RCTRL
@@ -323,25 +323,25 @@ layers:
   - CUT
   - COPY
   - PASTE
-  - M CLK
+  - '&mkp MCLK'
   - ''
   - ''
   - ''
   - ''
   - ''
   - ''
-  - SCROLL SNIPE
-  - L CLK
-  - R CLK
+  - '&tdtb2'
+  - '&mkp LCLK'
+  - '&mkp RCLK'
   - {t: RETURN, type: held}
   - {t: SPACE, h: SYM}
   SLOW:
   - ''
-  - WHEEL L
-  - WHEEL D
-  - MOVE UP
-  - WHEEL U
-  - WHEEL R
+  - '&msc MOVE_LEFT'
+  - '&msc MOVE_UP'
+  - '&mmv MOVE_UP'
+  - '&msc MOVE_DOWN'
+  - '&msc MOVE_RIGHT'
   - ''
   - ''
   - ''
@@ -349,11 +349,11 @@ layers:
   - ''
   - ''
   - TAB
-  - BACK
-  - MOVE L
-  - MOVE D
-  - MOVE R
-  - FWD
+  - '&mkp MB4'
+  - '&mmv MOVE_LEFT'
+  - '&mmv MOVE_DOWN'
+  - '&mmv MOVE_RIGHT'
+  - '&mkp MB5'
   - ''
   - RIGHT SHIFT
   - RCTRL
@@ -365,25 +365,25 @@ layers:
   - CUT
   - COPY
   - PASTE
-  - M CLK
+  - '&mkp MCLK'
   - ''
   - ''
   - ''
   - ''
   - ''
   - ''
-  - SCROLL SNIPE
-  - L CLK
-  - R CLK
+  - '&tdtb2'
+  - '&mkp LCLK'
+  - '&mkp RCLK'
   - RETURN
   - {t: SPACE, h: SYM}
   SCROLL:
   - ''
-  - WHEEL L
-  - WHEEL D
-  - MOVE UP
-  - WHEEL U
-  - WHEEL R
+  - '&msc MOVE_LEFT'
+  - '&msc MOVE_UP'
+  - '&mmv MOVE_UP'
+  - '&msc MOVE_DOWN'
+  - '&msc MOVE_RIGHT'
   - ''
   - ''
   - ''
@@ -391,11 +391,11 @@ layers:
   - ''
   - ''
   - TAB
-  - BACK
-  - MOVE L
-  - MOVE D
-  - MOVE R
-  - FWD
+  - '&mkp MB4'
+  - '&mmv MOVE_LEFT'
+  - '&mmv MOVE_DOWN'
+  - '&mmv MOVE_RIGHT'
+  - '&mkp MB5'
   - ''
   - RIGHT SHIFT
   - RCTRL
@@ -407,16 +407,16 @@ layers:
   - CUT
   - COPY
   - PASTE
-  - M CLK
+  - '&mkp MCLK'
   - ''
   - ''
   - ''
   - ''
   - ''
   - ''
-  - SCROLL SNIPE
-  - L CLK
-  - R CLK
+  - '&tdtb2'
+  - '&mkp LCLK'
+  - '&mkp RCLK'
   - RETURN
   - {t: SPACE, h: SYM}
 combos:
@@ -424,7 +424,7 @@ combos:
   k: DELETE
   l: [BASE]
 - p: [17, 18]
-  k: CAPS WORD
+  k: '&caps_word'
   l: [BASE]
 - p: [38, 39]
-  k: L_BASE L_EXTRA
+  k: '&td_bore'
