@@ -7,7 +7,7 @@ requires: [pro_micro]
 features:
   - keys
   - pointer
-  - colemak DH
 siblings:
   - charybdis_left
   - charybdis_right
+  - charybdis_dongle
