@@ -124,7 +124,8 @@ jobs:
             echo "keymap ready"
           fi
           echo "Build files list:"
-          ls -R "${{ env.base_dir }}"
+          sudo apt-get update sudo apt-get install tree
+          tree "${{ env.base_dir }}"
 
       - name: Cache west modules
         uses: actions/cache@v4
