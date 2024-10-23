@@ -112,8 +112,8 @@ jobs:
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
             base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}"
-            mkdir "$base_config_path"
-            mkdir "$base_shield_path"
+            mkdir -p "$base_config_path"
+            mkdir -p "$base_shield_path"
             cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
             echo "config files ready"
             cp -R "${{ inputs.shield_path }}"/* "$base_shield_path/"
