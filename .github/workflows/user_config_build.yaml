@@ -13,6 +13,11 @@ on:
         default: "config"
         required: false
         type: string
+      shield_path:
+        description: "Path to the shield directory"
+        default: "boards/shields/charybdis-mini-wireless"
+        required: false
+        type: string
       keymap_path:
         description: "Path to the keymap directory"
         default: "boards/shields/charybdis-mini-wireless/keymaps"
@@ -106,12 +111,17 @@ jobs:
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
+            base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}"
             mkdir "$base_config_path"
+            mkdir "$base_shield_path"
             cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
-            echo "base installed"
+            echo "config files ready"
+            cp -R "${{ inputs.shield_path }}"/* "$base_shield_path/"
+            echo "shield files ready"
             # Copy active keymap to the board directory
-            cp -Rv "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/${{ matrix.keymap }}.keymap" \
-                "$base_config_path/boards/shields/charybdis-mini-wireless/charybdis.keymap"
+            cp -Rv "${{ inputs.keymap_path }}/${{ matrix.keymap }}.keymap" \
+              "${{ env.base_dir }}/${{ inputs.keymap_path }}/charybdis.keymap"
+            echo "keymap ready"
           fi
           echo "Build files list:"
           ls -R "${{ env.base_dir }}"
