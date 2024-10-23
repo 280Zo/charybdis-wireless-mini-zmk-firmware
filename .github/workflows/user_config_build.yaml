@@ -110,7 +110,7 @@ jobs:
       - name: Copy config files to isolated temporary directory
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
-            apt-get -qq update && apt-get -q install tree
+            apt-get -qq update && apt-get -q install -o Dpkg::Progress-Fancy="0" -o APT::Color="0" -o Dpkg::Use-Pty="0" tree
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
             base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}"
             mkdir -p "$base_config_path"
