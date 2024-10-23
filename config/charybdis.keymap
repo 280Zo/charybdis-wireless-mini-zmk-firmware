@@ -11,9 +11,10 @@
 };
 
 / {
-    trackball_central_listener {
+    trackball_move_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
+        // device = <&pd0>;
         layers = <0 2>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
@@ -26,6 +27,7 @@
     trackball_snipe_listener {
         compatible = "zmk,input-behavior-listener";   
         device = <&vtrackball>;
+        // device = <&pd0>;
         layers = <8>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
@@ -37,12 +39,13 @@
     trackball_scroll_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
+        // device = <&pd0>;
         layers = <1 9>;
         evt-type = <INPUT_EV_REL>;            
         x-input-code = <INPUT_REL_MISC>;
         y-input-code = <INPUT_REL_WHEEL>;
         y-invert;
-        bindings = <&ib_wheel_scaler 1 16>;
+        bindings = <&ib_wheel_scaler 1 15>;
     };
 
     ib_wheel_scaler: ib_wheel_scaler {
@@ -55,7 +58,7 @@
     ib_toggle_layer: ib_toggle_layer {
         compatible = "zmk,input-behavior-tog-layer";
         #binding-cells = <1>;
-        time-to-live-ms = <750>;
+        time-to-live-ms = <1000>;
     };
     
     behaviors {
