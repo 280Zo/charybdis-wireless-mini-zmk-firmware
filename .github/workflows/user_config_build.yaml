@@ -110,7 +110,7 @@ jobs:
       - name: Copy config files to isolated temporary directory
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
-            apt-get -qq update && apt-get install tree
+            apt-get -qq update && apt-get -q install tree
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
             base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}"
             mkdir -p "$base_config_path"
@@ -120,7 +120,7 @@ jobs:
             cp -R "${{ inputs.shield_path }}"/* "$base_shield_path/"
             echo "shield files ready"
             # Copy active keymap to the board directory
-            cp -Rv "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/${{ matrix.keymap }}.keymap" \
+            cp -Rv "$base_shield_path/keymaps/${{ matrix.keymap }}.keymap" \
               "$base_config_path/charybdis.keymap"
             echo "keymap ready"
           fi
