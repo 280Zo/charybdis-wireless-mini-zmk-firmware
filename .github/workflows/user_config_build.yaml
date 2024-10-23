@@ -15,7 +15,7 @@ on:
         type: string
       keymap_path:
         description: "Path to the keymap directory"
-        default: "config/boards/shields/charybdis-mini-wireless/keymaps"
+        default: "boards/shields/charybdis-mini-wireless/keymaps"
         required: false
         type: string
       fallback_binary:
@@ -96,11 +96,11 @@ jobs:
       - name: Move keymaps to keymap directory
         run: |
           rm -f $GITHUB_WORKSPACE/config/*.keymap
-          mkdir -p "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
+          mkdir -p "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/"
           cd "$GITHUB_WORKSPACE"
           mv charybdis.keymap charybdis_qwerty.keymap
-          mv *.keymap "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
-          ls -lR "$GITHUB_WORKSPACE/config/boards/shields/charybdis-mini-wireless/keymaps/"
+          mv *.keymap "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/"
+          ls -lR "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/"
 
       - name: Copy config files to isolated temporary directory
         run: |
