@@ -11,22 +11,22 @@
 };
 
 / {
-    trackball_listener {
+    trackball_central_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
-        layers = <0 2 3 4 5>;
+        layers = <0 2>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
         scale-multiplier = <1>;
-        scale-divisor = <4>;
-        bindings = <&ib_toggle_layer 5>;
+        scale-divisor = <2>;
+        bindings = <&ib_toggle_layer 7>;
     };
 
     trackball_snipe_listener {
         compatible = "zmk,input-behavior-listener";   
         device = <&vtrackball>;
-        layers = <>;
+        layers = <8>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
@@ -37,7 +37,7 @@
     trackball_scroll_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
-        layers = <1>;
+        layers = <1 9>;
         evt-type = <INPUT_EV_REL>;            
         x-input-code = <INPUT_REL_MISC>;
         y-input-code = <INPUT_REL_WHEEL>;
