@@ -110,7 +110,7 @@ jobs:
             cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
             echo "base installed"
             # Copy active keymap to the board directory
-            cp -Rv "$base_config_path/boards/shields/charybdis-mini-wireless/keymaps/${{ matrix.keymap }}.keymap" \
+            cp -Rv "${{ env.base_dir }}/boards/shields/charybdis-mini-wireless/keymaps/${{ matrix.keymap }}.keymap" \
                 "$base_config_path/boards/shields/charybdis-mini-wireless/charybdis.keymap"
           fi
           echo "Build files list:"
