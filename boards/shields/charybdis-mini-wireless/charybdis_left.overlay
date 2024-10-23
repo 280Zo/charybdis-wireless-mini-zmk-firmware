@@ -1,5 +1,5 @@
 #include "charybdis.dtsi"
-#include "charybdis_pmw3610.dtsi"
+// #include "charybdis_pmw3610.dtsi"
 
 &kscan0 {
 	compatible = "zmk,kscan-gpio-matrix";
@@ -20,8 +20,8 @@
             ;
 };
 
-/ {
-	vtrackball: virtual_input_trackball {
-		compatible = "zmk,virtual-input";
-	};
-};
+// / {
+// 	vtrackball: virtual_input_trackball {
+// 		compatible = "zmk,virtual-input";
+// 	};
+// };
