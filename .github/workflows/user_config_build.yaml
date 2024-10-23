@@ -119,8 +119,8 @@ jobs:
             cp -R "${{ inputs.shield_path }}"/* "$base_shield_path/"
             echo "shield files ready"
             # Copy active keymap to the board directory
-            cp -Rv "${{ inputs.keymap_path }}/${{ matrix.keymap }}.keymap" \
-              "${{ env.base_dir }}/${{ inputs.keymap_path }}/charybdis.keymap"
+            cp -Rv "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/${{ matrix.keymap }}.keymap" \
+              "base_config_path/charybdis.keymap"
             echo "keymap ready"
           fi
           echo "Build files list:"
