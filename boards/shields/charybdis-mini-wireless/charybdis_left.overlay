@@ -1,9 +1,9 @@
 #include "charybdis.dtsi"
-#include "charybdis_pmw3610.dtsi"
+#include "charybdis_3610.dtsi"
 
 &kscan0 {
 	compatible = "zmk,kscan-gpio-matrix";
-
+	
 	col-gpios
 		= <&pro_micro 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
 		, <&pro_micro 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
