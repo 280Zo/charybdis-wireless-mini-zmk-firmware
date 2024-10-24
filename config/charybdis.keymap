@@ -7,27 +7,27 @@
 #include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/outputs.h>
 
-/ {
-    chosen { zmk,matrix_transform = &default_transform; };
-};
+// / {
+//     chosen { zmk,matrix_transform = &default_transform; };
+// };
 
 / {
     trackball_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
-        layers = <0 2>;
+        layers = <0 2 3 4 5>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
         scale-multiplier = <1>;
-        scale-divisor = <1>;
+        scale-divisor = <4>;
         bindings = <&ib_toggle_layer 7>;
     };
 
     trackball_snipe_listener {
         compatible = "zmk,input-behavior-listener";   
         device = <&vtrackball>;
-        layers = <8>;
+        layers = <>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
@@ -38,13 +38,12 @@
     trackball_scroll_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
-        // device = <&pd0>;
         layers = <9>;
         evt-type = <INPUT_EV_REL>;            
         x-input-code = <INPUT_REL_MISC>;
         y-input-code = <INPUT_REL_WHEEL>;
         y-invert;
-        bindings = <&ib_wheel_scaler 1 15>;
+        bindings = <&ib_wheel_scaler 1 16>;
     };
 
     ib_wheel_scaler: ib_wheel_scaler {
@@ -61,6 +60,17 @@
     };
     
     behaviors {
+        lt: layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <240>;
+            quick-tap-ms = <150>;
+            bindings = 
+                <&mo>,
+                <&kp>;
+        };
+        
         hm: homerow_mod {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
