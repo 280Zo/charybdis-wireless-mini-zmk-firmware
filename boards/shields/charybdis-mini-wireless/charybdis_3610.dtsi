@@ -50,3 +50,12 @@
         y-input-code = <INPUT_REL_Y>;
     };
 };
+
+
+// https://github.com/badjeff/zmk-pmw3610-driver
+/ {
+  trackball_listener {
+    compatible = "zmk,input-listener";
+    device = <&trackball>;
+  };
+};
