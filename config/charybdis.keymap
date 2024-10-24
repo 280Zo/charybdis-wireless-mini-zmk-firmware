@@ -1,15 +1,16 @@
 #include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <behaviors/mouse_keys.dtsi>
+#include <dt-bindings/zmk/ext_power.h>
 
 / {
     trackball_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
-        layers = <0 2 3 4 5>;
+        layers = <0 2>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
@@ -64,18 +65,74 @@
                 <&mo>,
                 <&kp>;
         };
+        
+        hm: homerow_mod {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <250>;
+            quick-tap-ms = <150>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+        };
+
+        tdtb: td_mouse_scroll {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            bindings = <&httl 9 7>, <&to 0>;
+            tapping-term-ms = <200>;
+        };
+
+        tdtb2: td_slow_scroll {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            bindings = <&httl 9 0>, <&to 8>;
+        };
+
+        httl: ht_two_layers {
+            compatible = "zmk,behavior-hold-tap";
+            bindings = <&mo>, <&to>;
+
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+        };
+
+        td_bore: BASE_or_EXTRA {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            bindings = <&mo 6>, <&to 0>;
+        };
+    };
+
+    macros {
+        VSplit: VSplit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
+        };
+
+        HSplit: HSplit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(S) &kp LS(P) &kp RET>;
+        };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
         Base {
-            label = "Base";
             bindings = <
-  &kp TAB  &kp Q  &kp W      &kp E      &kp R  &kp T    &kp Y    &kp U      &kp I    &kp O     &kp P    &kp BSPC
-  &kp ESC  &kp A  &kp S      &kp D      &kp F  &kp G    &kp H    &kp J      &kp K    &kp L  &kp SEMI    &kp APOS
-&kp LSHFT  &kp Z  &kp X      &kp C      &kp V  &kp B    &kp N    &kp M  &kp COMMA  &kp DOT  &kp FSLH  &kp RSHIFT
-                         &kp LCTRL  &kp SPACE  &mo 1    &mo 2  &kp RET
+// ╭────────────────┬──────────────┬─────────────────────────┬─────────────────────────────┬──────────────────┬──────────────╮  ╭──────────────┬─────────────────┬──────────────────────────────────┬──────────────────────────────┬────────────────────────┬─────────╮
+    &kp C_AC_SEARCH  &kp Q           &kp W                     &kp E                         &kp R               &kp T           &kp Y          &kp U             &kp I                              &kp O                          &kp P                    &to 4
+// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────┤  ├──────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼─────────┤
+    &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F    &kp G           &kp H          &hm LEFT_SHIFT J  &hm RCTRL K                        &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
+// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────┤  ├──────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼─────────┤
+    &kp LA(LC(T))    &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V               &kp B           &kp N          &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA   &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &to 5
+// ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────┤  ├──────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴─────────╯
+                                                               &tdtb2                         &lt 1 BACKSPACE     &lt 2 ESCAPE     &lt 7 RETURN  &lt 3 SPACE
+                                                          // ╰─────────────────────────────┴──────────────────┴──────────────╯  ╰──────────────┴────────────╯
             >;
         };
 
