@@ -109,6 +109,27 @@
         };
     };
 
+    combos {
+        compatible = "zmk,combos";
+
+        Delete {
+            bindings = <&kp DELETE>;
+            key-positions = <8 9>;
+            layers = <0>;
+        };
+
+        CapsWord {
+            bindings = <&caps_word>;
+            key-positions = <17 18>;
+            layers = <0>;
+        };
+
+        BASE_or_EXTRAS {
+            bindings = <&td_bore>;
+            key-positions = <38 39>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
