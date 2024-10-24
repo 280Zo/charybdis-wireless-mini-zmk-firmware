@@ -161,23 +161,21 @@
             >;
         };
 
-        Lower {
-            label = "Lower";
+        NUM {
             bindings = <
-      &trans    &trans    &kp UP     &trans     &trans    &trans       &kp N7   &kp N8  &kp N9   &kp N0  &kp HOME   &kp F1
-      &trans  &kp LEFT  &kp DOWN  &kp RIGHT     &trans    &trans       &kp N4   &kp N5  &kp N6    &none    &trans  &kp F10
-&kp LEFT_ALT    &trans    &trans     &trans  &kp MINUS  &kp PLUS       &kp N1   &kp N2  &kp N3  &kp DOT    &trans  &kp F20
-                                   &kp LGUI  &kp SPACE    &trans    &kp RCTRL  &kp RET
+&none    &none  &none  &none  &none          &none    &kp SLASH  &hm F7 N7  &hm F8 N8  &hm F9 N9  &hm F10 MINUS  &none
+&kp TAB  &none  &none  &none  &kp BACKSPACE  &none    &kp ASTRK  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &none
+&none    &none  &none  &none  &none          &none    &kp DOT    &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 EQUAL  &none
+                       &none  &none          &none    &kp N0     &trans
             >;
         };
 
-        Raise {
-            label = "Raise";
+        NAV {
             bindings = <
-&trans      &kp EXCL       &kp AT    &kp HASH   &kp DLLR     &kp PRCNT    &kp CARET   &kp AMPS  &kp KP_MULTIPLY  &kp LPAR  &kp RPAR    &kp DEL
-&trans    &bt BT_CLR   &bt BT_PRV  &bt BT_NXT     &trans         &to 3    &kp UNDER  &kp EQUAL         &kp LBKT  &kp RBKT  &kp BSLH  &kp GRAVE
-&trans  &out OUT_TOG  &bootloader      &trans     &trans        &trans    &kp MINUS   &kp PLUS         &kp LBRC  &kp RBRC  &kp PIPE  &kp TILDE
-                                     &kp LGUI  &kp SPACE  &kp LEFT_ALT       &trans    &bootloader
+&none   &none   &none   &none   &none   &none     &none    &kp LS(LC(H))   &kp LS(LC(J))  &kp LS(LC(K))  &kp LS(LC(L))    &none
+&trans  &trans  &trans  &trans  &trans  &trans    &none  &kp LEFT_ARROW  &kp DOWN       &kp UP         &kp RIGHT_ARROW  &none
+&none   &none   &none   &none   &none   &none     &none  &kp HOME        &kp PG_DN      &kp PG_UP      &kp END          &none
+                        &none   &none   &trans    &trans   &trans
             >;
         };
 
