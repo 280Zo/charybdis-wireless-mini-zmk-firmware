@@ -15,7 +15,7 @@
     trackball_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
-        layers = <0 2 3 4 5>;
+        layers = <0 2>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
@@ -27,7 +27,7 @@
     trackball_snipe_listener {
         compatible = "zmk,input-behavior-listener";   
         device = <&vtrackball>;
-        layers = <>;
+        layers = <8>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
