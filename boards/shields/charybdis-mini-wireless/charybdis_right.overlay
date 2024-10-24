@@ -1,17 +1,13 @@
 #include "charybdis.dtsi"
 #include "charybdis_pmw3610.dtsi"
 
+// The matrix transform is 6 columns over because the left half is 6 columns wide.
 &default_transform {
 	col-offset = <6>;
 };
 
-&five_column_transform {
-	col-offset = <5>;
-};
-
 &kscan0 {
 	compatible = "zmk,kscan-gpio-matrix";
-	
 	col-gpios
 		= <&pro_micro 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
 		, <&pro_micro 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -45,6 +41,6 @@
 	input_relay_config_trackball {
 		compatible = "zmk,split-peripheral-input-relay";
 		device = <&trackball>;
-		relay-channel = <102>;
+		relay-channel = <111>;
 	};
 };
