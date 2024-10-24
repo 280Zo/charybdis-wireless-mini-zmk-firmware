@@ -1,2 +1,4 @@
 boards/shields/charybdis-mini-wireless/charybdis.keymap
 drivers/
+config_OG/
+boards_OG/

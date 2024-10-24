@@ -3,6 +3,7 @@
 
 &kscan0 {
 	compatible = "zmk,kscan-gpio-matrix";
+	
 	col-gpios
 		= <&pro_micro 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
 		, <&pro_micro 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -12,12 +13,12 @@
 		, <&pro_micro 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
 		;
 
-		row-gpios
-			= <&pro_micro 18 GPIO_ACTIVE_HIGH>
-			, <&pro_micro 5 GPIO_ACTIVE_HIGH>
-			, <&pro_micro 4 GPIO_ACTIVE_HIGH>
-			, <&pro_micro 9 GPIO_ACTIVE_HIGH>
-            ;
+	row-gpios
+		= <&pro_micro 18 GPIO_ACTIVE_HIGH>
+		, <&pro_micro 5 GPIO_ACTIVE_HIGH>
+		, <&pro_micro 4 GPIO_ACTIVE_HIGH>
+		, <&pro_micro 9 GPIO_ACTIVE_HIGH>
+		;
 };
 
 / {
@@ -25,28 +26,3 @@
 		compatible = "zmk,virtual-input";
 	};
 };
-
-// &pd0 {
-// 	status = "okay";
-// 	/* the rest of sensor config should be config here, e.g. gpios */
-// };
-
-// / {
-// 	/* define virtual input, will be resurrected for emitting input event */
-// 	/* NOTE: set `device = <&pd1>` in `zmk,input-listener` */
-// 	pd1: virtual_input {
-// 		compatible = "zmk,virtual-input";
-// 	};
-
-// 	/* for central side, define (relay-channel)-to-(virtual-input) mapping */
-// 	input_relay_config_102 {
-// 		compatible = "zmk,split-peripheral-input-relay";
-		
-// 		/* channel id, used to filter incoming input event from split peripheral */
-// 		/* NOTE: should matching relay-channel on peripheral overlay */
-// 		relay-channel = <111>;
-
-// 		/* virtual input device on central, which used to emit input event as an agent device */
-// 		device = <&pd1>;
-// 	};
-// };
