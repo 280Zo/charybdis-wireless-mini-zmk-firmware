@@ -6,7 +6,11 @@ url: https://github.com/Bastardkb/Charybdis/
 requires: [pro_micro]
 features:
   - keys
-  - pointer
+  - qwerty
+  - colemakdh
+  - mouse keys pointer
+  - trackball pointer
+  - dongle/bluetooth/usb
 siblings:
   - charybdis_left
   - charybdis_right
