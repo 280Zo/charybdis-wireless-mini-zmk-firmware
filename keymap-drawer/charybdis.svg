@@ -337,6 +337,22 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
 <text x="0" y="-4" class="key tap">RET</text>
 </g>
+<g class="combo combopos-0">
+<rect rx="6" ry="6" x="658" y="18" width="28" height="26" class="combo"/>
+<text x="672" y="32" class="combo tap">DELETE</text>
+</g>
+<g class="combo combopos-1">
+<path d="M420,91 l-93,0" class="combo"/>
+<path d="M420,91 l93,0" class="combo"/>
+<rect rx="6" ry="6" x="406" y="78" width="28" height="26" class="combo"/>
+<text x="420" y="91" class="combo tap"><tspan style="font-size: 70%">&amp;caps_word</tspan></text>
+</g>
+<g class="combo combopos-2">
+<path d="M420,238 l-61,0" class="combo"/>
+<path d="M420,238 l61,0" class="combo"/>
+<rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
+<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bore</tspan></text>
+</g>
 </g>
 </g>
 <g transform="translate(30, 333)" class="layer-Lower">
@@ -546,6 +562,12 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
 <text x="0" y="-4" class="key tap">RET</text>
+</g>
+<g class="combo combopos-0">
+<path d="M420,238 l-61,0" class="combo"/>
+<path d="M420,238 l61,0" class="combo"/>
+<rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
+<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bore</tspan></text>
 </g>
 </g>
 </g>
@@ -770,6 +792,12 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
 <text x="0" y="-4" class="key tap"><tspan style="font-size: 64%">&amp;bootloader</tspan></text>
 </g>
+<g class="combo combopos-0">
+<path d="M420,238 l-61,0" class="combo"/>
+<path d="M420,238 l61,0" class="combo"/>
+<rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
+<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bore</tspan></text>
+</g>
 </g>
 </g>
 <g transform="translate(30, 998)" class="layer-Game">
@@ -985,6 +1013,12 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key trans"/>
 <text x="0" y="-4" class="key trans tap">▽</text>
+</g>
+<g class="combo combopos-0">
+<path d="M420,238 l-61,0" class="combo"/>
+<path d="M420,238 l61,0" class="combo"/>
+<rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
+<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bore</tspan></text>
 </g>
 </g>
 </g>
@@ -1215,6 +1249,12 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key trans"/>
 <text x="0" y="-4" class="key trans tap">▽</text>
 </g>
+<g class="combo combopos-0">
+<path d="M420,238 l-61,0" class="combo"/>
+<path d="M420,238 l61,0" class="combo"/>
+<rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
+<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bore</tspan></text>
+</g>
 </g>
 </g>
 <g transform="translate(30, 1663)" class="layer-Mouse">
@@ -1432,6 +1472,12 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key trans"/>
 <text x="0" y="-4" class="key trans tap">▽</text>
+</g>
+<g class="combo combopos-0">
+<path d="M420,238 l-61,0" class="combo"/>
+<path d="M420,238 l61,0" class="combo"/>
+<rect rx="6" ry="6" x="406" y="225" width="28" height="26" class="combo"/>
+<text x="420" y="238" class="combo tap"><tspan style="font-size: 88%">&amp;td_bore</tspan></text>
 </g>
 </g>
 </g>

@@ -211,3 +211,12 @@ layers:
   - '&mkp RCLK'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+combos:
+- p: [8, 9]
+  k: DELETE
+  l: [Base]
+- p: [17, 18]
+  k: '&caps_word'
+  l: [Base]
+- p: [38, 39]
+  k: '&td_bore'
