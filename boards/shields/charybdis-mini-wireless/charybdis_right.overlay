@@ -44,30 +44,3 @@
 		relay-channel = <111>;
 	};
 };
-
-// &pd0 {
-// 	status = "okay";
-// 	/* the rest of sensor config should be config here, e.g. gpios */
-// };
-
-// / {
-// 	/* THIS make keymap binding happy only, nothing happen on peripheral side */
-// 	pd1: virtual_input {
-// 		compatible = "zmk,virtual-input";
-// 	};
-
-// 	/* for peripheral side, define (input-device)-to-(relay-channel) mapping */
-// 	input_relay_config_111 {
-// 		compatible = "zmk,split-peripheral-input-relay";
-
-// 		/* peripheral side input device, used to... */
-// 		/*  - be intecepted on peripheral; */
-// 		/*  - and then, be resurrected as `zmk,virtual-device` on central; */
-// 		device = <&pd0>;
-		
-// 		/* channel id, used to be be transfered along with all input events. */
-// 		/* NOTE 1: pick any 8bit integer. (1 - 255) */
-// 		/* NOTE 2: should matching relay-channel on central overlay */
-// 		relay-channel = <111>;
-// 	};
-// };
