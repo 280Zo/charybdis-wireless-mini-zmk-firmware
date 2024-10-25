@@ -335,6 +335,90 @@ layers:
   - '&mkp RCLK'
   - {t: RETURN, type: held}
   - {t: SPACE, h: SYM}
+  SLOW:
+  - ''
+  - '&msc MOVE_LEFT'
+  - '&msc MOVE_UP'
+  - '&mmv MOVE_UP'
+  - '&msc MOVE_DOWN'
+  - '&msc MOVE_RIGHT'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - TAB
+  - '&mkp MB4'
+  - '&mmv MOVE_LEFT'
+  - '&mmv MOVE_DOWN'
+  - '&mmv MOVE_RIGHT'
+  - '&mkp MB5'
+  - ''
+  - RIGHT SHIFT
+  - RCTRL
+  - LEFT ALT
+  - LEFT META
+  - ''
+  - ''
+  - UNDO
+  - CUT
+  - COPY
+  - PASTE
+  - '&mkp MCLK'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '&tdtb2'
+  - '&mkp LCLK'
+  - '&mkp RCLK'
+  - RETURN
+  - {t: SPACE, h: SYM}
+  SCROLL:
+  - ''
+  - '&msc MOVE_LEFT'
+  - '&msc MOVE_UP'
+  - '&mmv MOVE_UP'
+  - '&msc MOVE_DOWN'
+  - '&msc MOVE_RIGHT'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - TAB
+  - '&mkp MB4'
+  - '&mmv MOVE_LEFT'
+  - '&mmv MOVE_DOWN'
+  - '&mmv MOVE_RIGHT'
+  - '&mkp MB5'
+  - ''
+  - RIGHT SHIFT
+  - RCTRL
+  - LEFT ALT
+  - LEFT META
+  - ''
+  - ''
+  - UNDO
+  - CUT
+  - COPY
+  - PASTE
+  - '&mkp MCLK'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '&tdtb2'
+  - '&mkp LCLK'
+  - '&mkp RCLK'
+  - RETURN
+  - {t: SPACE, h: SYM}
 combos:
 - p: [8, 9]
   k: DELETE
