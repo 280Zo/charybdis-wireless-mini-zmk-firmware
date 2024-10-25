@@ -132,7 +132,7 @@ jobs:
             echo "shield files ready"
             
             # Copy active keymap to the board directory
-            cp -Rv "${{ env.base_dir }}/${{ inputs.shield_path }}/keymaps/${{ env.keymap }}.keymap" \
+            cp -Rv "${{ inputs.shield_path }}/keymaps/${{ env.keymap }}.keymap" \
               "$base_config_path/charybdis.keymap"
             echo "keymap ready"
           fi
