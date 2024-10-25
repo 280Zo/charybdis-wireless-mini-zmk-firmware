@@ -21,7 +21,7 @@
         scale-multiplier = <1>;
         scale-divisor = <2>;
         bindings = <&ib_toggle_layer 7>;
-    }
+    };
 
     trackball_snipe_listener {
         compatible = "zmk,input-behavior-listener";   
