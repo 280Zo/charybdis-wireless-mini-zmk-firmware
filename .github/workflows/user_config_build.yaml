@@ -92,6 +92,7 @@ jobs:
           echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"}${zmk_load_arg}" >> $GITHUB_ENV
           echo "display_name=${shield:+$shield - }${board}" >> $GITHUB_ENV
           echo "format=${format}" >> $GITHUB_ENV
+          echo "keymap=${keymap}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk}" >> $GITHUB_ENV
 
       - name: Download artifacts
@@ -131,7 +132,7 @@ jobs:
             echo "shield files ready"
             
             # Copy active keymap to the board directory
-            cp -Rv "${{ env.base_dir }}/${{ inputs.shield_path }}/keymaps/${{ matrix.keymap }}.keymap" \
+            cp -Rv "${{ env.base_dir }}/${{ inputs.shield_path }}/keymaps/${{ env.keymap }}.keymap" \
               "$base_config_path/charybdis.keymap"
             echo "keymap ready"
           fi
