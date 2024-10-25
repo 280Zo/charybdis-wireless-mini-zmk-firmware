@@ -129,8 +129,10 @@ jobs:
             echo "config files ready"
             
             # Copy shielf files
-            cp -R "${{ inputs.shield_path }}-${{ env.format }}"/* "$base_shield_path/"
-            echo "shield files ready"
+            if [ "${{ env.shield }}" != "settings_reset" ]; then
+              cp -R "${{ inputs.shield_path }}-${{ env.format }}"/* "$base_shield_path/"
+              echo "shield files ready"
+            fi
             
             # Copy active keymap to the board directory
             if [ "${{ env.shield }}" != "settings_reset" ]; then

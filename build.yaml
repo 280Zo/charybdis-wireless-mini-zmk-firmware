@@ -42,17 +42,22 @@ include:
   #   format: bt
   #   artifact-name: charybdis_qwerty_right
 
-  # # Colemak DH Dongle
-  # - board: nice_nano_v2
-  #   shield: charybdis_left
-  #   keymap: colemak_dh
-  #   format: dongle
-  #   artifact-name: charybdis_colemak_left_dongle
-  # - board: nice_nano_v2
-  #   shield: charybdis_right
-  #   keymap: colemak_dh
-  #   format: dongle
-  #   artifact-name: charybdis_colemak_right_dongle
+  # Colemak DH Dongle
+  - board: nice_nano_v2
+    shield: charybdis_left
+    keymap: colemak_dh
+    format: dongle
+    artifact-name: charybdis_colemak_left_dongle
+  - board: nice_nano_v2
+    shield: charybdis_right
+    keymap: colemak_dh
+    format: dongle
+    artifact-name: charybdis_colemak_right_dongle
+  - board: nice_nano_v2
+    shield: charybdis_dongle
+    keymap: colemak_dh
+    format: dongle
+    artifact-name: charybdis_dongle
 
   # QWERTY Dongle
   - board: nice_nano_v2
@@ -65,10 +70,9 @@ include:
     keymap: qwerty
     format: dongle
     artifact-name: charybdis_qwerty_right_dongle
-
-  # DONGLE
   - board: nice_nano_v2
     shield: charybdis_dongle
+    keymap: qwerty
     format: dongle
     artifact-name: charybdis_dongle
 
