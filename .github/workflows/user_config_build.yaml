@@ -15,12 +15,12 @@ on:
         type: string
       shield_path:
         description: "Path to the shield directory"
-        default: "boards/shields/charybdis-mini-wireless"
+        default: "boards/shields/charybdis"
         required: false
         type: string
       keymap_path:
         description: "Path to the keymap directory"
-        default: "boards/shields/charybdis-mini-wireless/keymaps"
+        default: "boards/shields/charybdis/keymaps"
         required: false
         type: string
       fallback_binary:
@@ -70,6 +70,7 @@ jobs:
           board: ${{ matrix.board }}
           shield: ${{ matrix.shield }}
           keymap: ${{ matrix.keymap }}
+          format: ${{ matrix.format }}
           artifact_name: ${{ matrix.artifact-name }}
           snippet: ${{ matrix.snippet }}
         run: |
@@ -91,7 +92,6 @@ jobs:
           echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"}${zmk_load_arg}" >> $GITHUB_ENV
           echo "display_name=${shield:+$shield - }${board}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk}" >> $GITHUB_ENV
-
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
@@ -101,23 +101,23 @@ jobs:
       - name: Move keymaps to keymap directory
         run: |
           rm -f $GITHUB_WORKSPACE/config/*.keymap
-          mkdir -p "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/"
+          mkdir -p "$GITHUB_WORKSPACE/boards/shields/charybdis/keymaps/"
           cd "$GITHUB_WORKSPACE"
           mv charybdis.keymap charybdis_qwerty.keymap
-          mv *.keymap "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/"
-          ls -lR "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/"
+          mv *.keymap "$GITHUB_WORKSPACE/boards/shields/charybdis/keymaps/"
+          ls -lR "$GITHUB_WORKSPACE/boards/shields/charybdis/keymaps/"
 
       - name: Copy config files to isolated temporary directory
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             apt-get -qq update && apt-get -q install -o Dpkg::Progress-Fancy="0" -o APT::Color="0" -o Dpkg::Use-Pty="0" tree
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
-            base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}"
+            base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}-${format}"
             mkdir -p "$base_config_path"
             mkdir -p "$base_shield_path"
             cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
             echo "config files ready"
-            cp -R "${{ inputs.shield_path }}"/* "$base_shield_path/"
+            cp -R "${{ inputs.shield_path }}-${format}"/* "$base_shield_path/"
             echo "shield files ready"
             # Copy active keymap to the board directory
             cp -Rv "$base_shield_path/keymaps/${{ matrix.keymap }}.keymap" \
