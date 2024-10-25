@@ -1,0 +1,17 @@
+file_format: "1"
+id: charybdis
+name: Charybdis
+type: shield
+url: https://github.com/Bastardkb/Charybdis/
+requires: [pro_micro]
+features:
+  - Keys
+  - QWERTY
+  - Colemak DH
+  - Mouse keys pointer
+  - Trackball pointer
+  - Dongle/Bluetooth/USB
+siblings:
+  - charybdis_left
+  - charybdis_right
+  - charybdis_dongle
