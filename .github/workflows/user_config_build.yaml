@@ -138,6 +138,7 @@ jobs:
               cp -Rv "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/${{ env.keymap }}.keymap" \
                 "$base_config_path/charybdis.keymap"
               echo "keymap ready"
+            fi
           fi
           echo "Build files list:"
           tree "${{ env.base_dir }}"
