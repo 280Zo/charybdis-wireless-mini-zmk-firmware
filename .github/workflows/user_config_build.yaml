@@ -114,12 +114,12 @@ jobs:
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             apt-get -qq update && apt-get -q install -o Dpkg::Progress-Fancy="0" -o APT::Color="0" -o Dpkg::Use-Pty="0" tree
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
-            base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}-${format}"
+            base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}-${{ env.format }}"
             mkdir -p "$base_config_path"
             mkdir -p "$base_shield_path"
             cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
             echo "config files ready"
-            cp -R "${{ inputs.shield_path }}-${format}"/* "$base_shield_path/"
+            cp -R "${{ inputs.shield_path }}-${{ env.format }}"/* "$base_shield_path/"
             echo "shield files ready"
             # Copy active keymap to the board directory
             cp -Rv "$base_shield_path/keymaps/${{ matrix.keymap }}.keymap" \
