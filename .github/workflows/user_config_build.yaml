@@ -93,6 +93,7 @@ jobs:
           echo "display_name=${shield:+$shield - }${board}" >> $GITHUB_ENV
           echo "format=${format}" >> $GITHUB_ENV
           echo "keymap=${keymap}" >> $GITHUB_ENV
+          echo "shield=${shield}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk}" >> $GITHUB_ENV
 
       - name: Download artifacts
@@ -111,6 +112,7 @@ jobs:
           ls -lR "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
 
       - name: Copy config files to isolated temporary directory
+        if: env.shield != 'settings_reset'
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             apt-get -qq update && apt-get -q install -o Dpkg::Progress-Fancy="0" -o APT::Color="0" -o Dpkg::Use-Pty="0" tree
@@ -132,9 +134,10 @@ jobs:
             echo "shield files ready"
             
             # Copy active keymap to the board directory
-            cp -Rv "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/${{ env.keymap }}.keymap" \
-              "$base_config_path/charybdis.keymap"
-            echo "keymap ready"
+            if [ "${{ env.shield }}" != "charybdis_dongle" ]; then
+              cp -Rv "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/${{ env.keymap }}.keymap" \
+                "$base_config_path/charybdis.keymap"
+              echo "keymap ready"
           fi
           echo "Build files list:"
           tree "${{ env.base_dir }}"
