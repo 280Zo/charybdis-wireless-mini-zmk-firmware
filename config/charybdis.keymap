@@ -223,7 +223,6 @@
                                          &tdtb2          &mkp LCLK        &mkp RCLK          &kp RETURN              &lt 3 SPACE
             >;
         };
-    };
 
         SLOW {
             bindings = <
