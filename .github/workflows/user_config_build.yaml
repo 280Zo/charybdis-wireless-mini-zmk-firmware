@@ -104,11 +104,11 @@ jobs:
       - name: Move keymaps to keymap directory
         run: |
           rm -f $GITHUB_WORKSPACE/config/*.keymap
-          mkdir -p "$GITHUB_WORKSPACE/boards/shields/charybdis/keymaps/"
+          mkdir -p "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
           cd "$GITHUB_WORKSPACE"
           mv charybdis.keymap charybdis_qwerty.keymap
-          mv *.keymap "$GITHUB_WORKSPACE/boards/shields/charybdis/keymaps/"
-          ls -lR "$GITHUB_WORKSPACE/boards/shields/charybdis/keymaps/"
+          mv *.keymap "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
+          ls -lR "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
 
       - name: Copy config files to isolated temporary directory
         run: |
@@ -132,7 +132,7 @@ jobs:
             echo "shield files ready"
             
             # Copy active keymap to the board directory
-            cp -Rv "${{ inputs.shield_path }}/keymaps/${{ env.keymap }}.keymap" \
+            cp -Rv "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/${{ env.keymap }}.keymap" \
               "$base_config_path/charybdis.keymap"
             echo "keymap ready"
           fi
