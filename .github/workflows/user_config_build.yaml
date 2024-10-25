@@ -113,14 +113,23 @@ jobs:
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             apt-get -qq update && apt-get -q install -o Dpkg::Progress-Fancy="0" -o APT::Color="0" -o Dpkg::Use-Pty="0" tree
+            
+            # Define base directories for sheild and config
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
             base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}-${{ env.format }}"
+
+            # Create directories for shield and config
             mkdir -p "$base_config_path"
             mkdir -p "$base_shield_path"
+            
+            # Copy config files
             cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
             echo "config files ready"
+            
+            # Copy shielf files
             cp -R "${{ inputs.shield_path }}-${{ env.format }}"/* "$base_shield_path/"
             echo "shield files ready"
+            
             # Copy active keymap to the board directory
             cp -Rv "$base_shield_path/keymaps/${{ matrix.keymap }}.keymap" \
               "$base_config_path/charybdis.keymap"
