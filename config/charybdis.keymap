@@ -19,9 +19,9 @@
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
         scale-multiplier = <1>;
-        scale-divisor = <3>;
+        scale-divisor = <2>;
         bindings = <&ib_toggle_layer 7>;
-    };
+    }
 
     trackball_snipe_listener {
         compatible = "zmk,input-behavior-listener";   
@@ -31,7 +31,7 @@
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
         scale-multiplier = <1>;
-        scale-divisor = <5>;
+        scale-divisor = <4>;
     };
 
     trackball_scroll_listener {
