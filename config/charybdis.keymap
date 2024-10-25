@@ -43,7 +43,7 @@
         layers = <9>;
         evt-type = <INPUT_EV_REL>;            
         x-input-code = <INPUT_REL_MISC>;
-        y-input-code = <INPUT_REL_WHEEL>
+        y-input-code = <INPUT_REL_WHEEL>;
         y-invert;
         bindings = <&ib_wheel_scaler 1 16>;
     };
