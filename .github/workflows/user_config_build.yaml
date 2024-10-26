@@ -96,13 +96,13 @@ jobs:
           echo "shield=${shield}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk}" >> $GITHUB_ENV
 
-      - name: Download artifacts
+      - name: Download keymaps
         uses: actions/download-artifact@v4
         with:
           name: keymap_files
           path: "${{ github.workspace }}/"
 
-      - name: Move keymaps to keymap directory
+      - name: Copy keymaps to keymap directory
         run: |
           rm -f $GITHUB_WORKSPACE/config/*.keymap
           mkdir -p "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
@@ -110,6 +110,11 @@ jobs:
           mv charybdis.keymap qwerty.keymap
           mv *.keymap "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
           ls -lR "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
+
+      - name: Delete keymap artifacts
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: keymap_files
 
       - name: Copy config files to isolated temporary directory
         run: |
@@ -214,7 +219,7 @@ jobs:
             cp "${{ env.build_dir }}/zephyr/zmk.${{ inputs.fallback_binary }}" "${{ env.build_dir }}/artifacts/${{ env.artifact_name }}.${{ inputs.fallback_binary }}"
           fi
 
-      - name: Archive (${{ env.display_name }})
+      - name: Upload (${{ env.display_name }})
         uses: actions/upload-artifact@v4
         with:
           name: artifact-${{ env.artifact_name }}
