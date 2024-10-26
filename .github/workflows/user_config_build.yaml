@@ -112,9 +112,10 @@ jobs:
           ls -lR "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
 
       - name: Delete keymap artifacts
-        uses: geekyeggo/delete-artifact@v2
+        uses: geekyeggo/delete-artifact@v5
         with:
           name: keymap_files
+          failOnError: false
 
       - name: Copy config files to isolated temporary directory
         run: |
@@ -227,6 +228,7 @@ jobs:
 
   merge:
     runs-on: ubuntu-latest
+    continue-on-error: true
     needs: build
     name: Merge Output Artifacts
     steps:
@@ -234,28 +236,28 @@ jobs:
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: artifact-charybdis_qwerty_{left,right}
-          name: charybdis-qwerty-firmware
+          name: firmware-charybdis-qwerty
           delete-merged: true
 
       - name: Upload Charybdis ZMK Firmware (QWERTY Dongle)
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: artifact-charybdis_qwerty*dongle
-          name: charybdis-qwerty-dongle-firmware
+          name: firmware-charybdis-qwerty-dongle
           delete-merged: true
 
       - name: Upload Charybdis ZMK Firmware (Colemak BT)
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: artifact-charybdis_colemak_{left,right}
-          name: charybdis-colemak-firmware
+          name: firmware-charybdis-colemak
           delete-merged: true
 
       - name: Upload Charybdis ZMK Firmware (Colemak Dongle)
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: artifact-charybdis_colemak*dongle
-          name: charybdis-colemak-dongle-firmware
+          name: firmware-charybdis-colemak-dongle
           delete-merged: true
 
       - name: Upload Firmware Reset (Nano v2)
