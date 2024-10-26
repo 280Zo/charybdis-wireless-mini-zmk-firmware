@@ -225,15 +225,44 @@ jobs:
     needs: build
     name: Merge Output Artifacts
     steps:
-      - name: Merge QWERTY Artifacts
+      - name: Upload Charybdis ZMK Firmware (QWERTY BT)
         uses: actions/upload-artifact/merge@v4
         with:
-          name: "firmware-charybdis-nanov2-qwerty"
-          pattern: artifact-charybdis_qwerty*
+          pattern: |
+            **/*charybdis_qwerty*
+            !**/*dongle*
+          name: charybdis-qwerty-firmware
           delete-merged: true
-      - name: Merge Colemak DH Artifacts
+
+      - name: Upload Charybdis ZMK Firmware (QWERTY Dongle)
         uses: actions/upload-artifact/merge@v4
         with:
-          name: "firmware-charybdis-nanov2-colemakdh"
-          pattern: artifact-charybdis_colemak*
+          pattern: |
+            **/*charybdis_qwerty*dongle*
+          name: charybdis-qwerty-dongle-firmware
+          delete-merged: true
+
+      - name: Upload Charybdis ZMK Firmware (Colemak BT)
+        uses: actions/upload-artifact/merge@v4
+        with:
+          pattern: |
+            **/*charybdis_colemak*
+            !**/*dongle*
+          name: charybdis-colemak-firmware
+          delete-merged: true
+
+      - name: Upload Charybdis ZMK Firmware (Colemak Dongle)
+        uses: actions/upload-artifact/merge@v4
+        with:
+          pattern: |
+            **/*charybdis_colemak*dongle*
+          name: charybdis-colemak-dongle-firmware
+          delete-merged: true
+
+      - name: Upload Firmware Reset (Nano v2)
+        uses: actions/upload-artifact/merge@v4
+        with:
+          pattern: |
+            **/firmware_reset_nanov2*
+          name: firmware-reset-nanov2
           delete-merged: true
