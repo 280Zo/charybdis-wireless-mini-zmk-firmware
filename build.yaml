@@ -47,12 +47,12 @@ include:
     shield: charybdis_left
     keymap: qwerty
     format: dongle
-    artifact-name: charybdis_qwerty_left_dongle
+    artifact-name: charybdis_qwerty_dongle_left
   - board: nice_nano_v2
     shield: charybdis_right
     keymap: qwerty
     format: dongle
-    artifact-name: charybdis_qwerty_right_dongle
+    artifact-name: charybdis_qwerty_dongle_right
   - board: nice_nano_v2
     shield: charybdis_dongle
     keymap: qwerty
@@ -64,12 +64,12 @@ include:
     shield: charybdis_left
     keymap: colemak_dh
     format: dongle
-    artifact-name: charybdis_colemak_left_dongle
+    artifact-name: charybdis_colemak_dongle_left
   - board: nice_nano_v2
     shield: charybdis_right
     keymap: colemak_dh
     format: dongle
-    artifact-name: charybdis_colemak_right_dongle
+    artifact-name: charybdis_colemak_dongle_right
   - board: nice_nano_v2
     shield: charybdis_dongle
     keymap: colemak_dh
