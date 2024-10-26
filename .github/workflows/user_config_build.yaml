@@ -229,8 +229,8 @@ jobs:
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: |
-            artifact-charybdis_qwerty_left
-            artifact-charybdis_qwerty_right
+            artifact-charybdis_qwerty_*
+            !artifact-charybdis_qwerty_*dongle*
           name: charybdis-qwerty-firmware
           delete-merged: true
 
@@ -246,8 +246,8 @@ jobs:
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: |
-            artifact-charybdis_colemak_left
-            artifact-charybdis_colemak_right
+            artifact-charybdis_colemak_*
+            !artifact-charybdis_colemak_*dongle*
           name: charybdis-colemak-firmware
           delete-merged: true
 
