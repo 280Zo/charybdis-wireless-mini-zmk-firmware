@@ -229,8 +229,8 @@ jobs:
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: |
-            **/*charybdis_qwerty*
-            !**/*dongle*
+            artifact-charybdis_qwerty_left
+            artifact-charybdis_qwerty_right
           name: charybdis-qwerty-firmware
           delete-merged: true
 
@@ -238,7 +238,7 @@ jobs:
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: |
-            **/*charybdis_qwerty*dongle*
+            artifact-charybdis_qwerty*dongle
           name: charybdis-qwerty-dongle-firmware
           delete-merged: true
 
@@ -246,8 +246,8 @@ jobs:
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: |
-            **/*charybdis_colemak*
-            !**/*dongle*
+            artifact-charybdis_colemak_left
+            artifact-charybdis_colemak_right
           name: charybdis-colemak-firmware
           delete-merged: true
 
@@ -255,7 +255,7 @@ jobs:
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: |
-            **/*charybdis_colemak*dongle*
+            artifact-charybdis_colemak*dongle
           name: charybdis-colemak-dongle-firmware
           delete-merged: true
 
@@ -263,6 +263,6 @@ jobs:
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: |
-            **/firmware_reset_nanov2*
+            artifact-firmware_reset_nanov2
           name: firmware-reset-nanov2
           delete-merged: true
