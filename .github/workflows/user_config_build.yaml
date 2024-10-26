@@ -224,7 +224,7 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     needs: build
-    name: Merge Output Artifacts
+    name: Merge & Prune Artifacts
     steps:
       - name: Upload Charybdis ZMK Firmware (QWERTY BT)
         uses: actions/upload-artifact/merge@v4
