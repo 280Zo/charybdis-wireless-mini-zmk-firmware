@@ -111,12 +111,6 @@ jobs:
           mv *.keymap "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
           ls -lR "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
 
-      - name: Delete keymap artifacts
-        uses: geekyeggo/delete-artifact@v5
-        with:
-          name: keymap_files
-          failOnError: false
-
       - name: Copy config files to isolated temporary directory
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
@@ -226,7 +220,7 @@ jobs:
           name: artifact-${{ env.artifact_name }}
           path: ${{ env.build_dir }}/artifacts
 
-  merge:
+  cleanup:
     runs-on: ubuntu-latest
     continue-on-error: true
     needs: build
@@ -266,3 +260,9 @@ jobs:
           pattern: artifact-firmware_reset_nanov2
           name: firmware-reset-nanov2
           delete-merged: true
+
+      - name: Delete keymap artifacts
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: keymap_files
+          failOnError: false
