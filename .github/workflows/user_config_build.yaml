@@ -134,18 +134,16 @@ jobs:
             #   echo "shield files ready"
             # fi
             
-            # Copy active keymap to the board directory
+            # Copy active keymap to the board directory & adjust for bt/dongle format
             if [ "${{ env.shield }}" != "settings_reset" ]; then
               cp -Rv "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/${{ env.keymap }}.keymap" \
                 "$base_config_path/charybdis.keymap"
+              if [[ "${{ env.format }}" == "bt" ]]; then
+                sed -i 's/device = <&vtrackball>;/device = <trackball>;/g' "$base_config_path/charybdis.keymap"
+              fi
+            fi
               echo "keymap ready"
             fi
-
-            # Adjust keymap for dongle or bt format
-            if [[ "${{ env.format }}" == "bt" ]]; then
-              sed -i 's/device = <&vtrackball>; /device = <&trackball>; /g' "$base_config_path/charybdis.keymap"
-            fi
-          fi
 
           # Remove untargeted shields so they don't get auto picked up by the west build command
           find "${GITHUB_WORKSPACE}/boards/shields" \
