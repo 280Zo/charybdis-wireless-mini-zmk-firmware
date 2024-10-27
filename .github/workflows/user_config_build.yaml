@@ -177,7 +177,7 @@ jobs:
       - name: West Build (${{ env.display_name }})
         working-directory: ${{ env.base_dir }}
         shell: sh -x {0}
-        run: west build -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" ${{ env.extra_west_args }} -- -DZMK_CONFIG=${{ env.base_dir }}/${{ inputs.config_path }} ${{ env.extra_cmake_args }} ${{ matrix.cmake-args }}
+        run: west build --pristine -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" ${{ env.extra_west_args }} -- -DZMK_CONFIG=${{ env.base_dir }}/${{ inputs.config_path }} ${{ env.extra_cmake_args }} ${{ matrix.cmake-args }}
 
       - name: ${{ env.display_name }} Kconfig file
         run: |
@@ -206,7 +206,7 @@ jobs:
         shell: sh -x {0}
         run: |
           mkdir "${{ env.build_dir }}/artifacts"
-          if [ -f "${{ env.build_dir }}/zephyr/zmk.uf2" ] # TODO MAYBE A RACE CONDITION WHERE OTHERS ARE FINISHING FIRST AND GOING TO THIS LOCATION?
+          if [ -f "${{ env.build_dir }}/zephyr/zmk.uf2" ]
           then
             cp "${{ env.build_dir }}/zephyr/zmk.uf2" "${{ env.build_dir }}/artifacts/${{ env.artifact_name }}.uf2"
           elif [ -f "${{ env.build_dir }}/zephyr/zmk.${{ inputs.fallback_binary }}" ]
@@ -220,49 +220,49 @@ jobs:
           name: artifact-${{ env.artifact_name }}
           path: ${{ env.build_dir }}/artifacts
 
-  # cleanup:
-  #   runs-on: ubuntu-latest
-  #   continue-on-error: true
-  #   needs: build
-  #   name: Merge & Prune Artifacts
-  #   steps:
-  #     - name: Upload Charybdis ZMK Firmware (QWERTY BT)
-  #       uses: actions/upload-artifact/merge@v4
-  #       with:
-  #         pattern: artifact-charybdis_qwerty_{left,right}
-  #         name: firmware-charybdis-qwerty
-  #         delete-merged: true
+  cleanup:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs: build
+    name: Merge & Prune Artifacts
+    steps:
+      - name: Upload Charybdis ZMK Firmware (QWERTY BT)
+        uses: actions/upload-artifact/merge@v4
+        with:
+          pattern: artifact-charybdis_qwerty_{left,right}
+          name: firmware-charybdis-qwerty
+          delete-merged: true
 
-  #     - name: Upload Charybdis ZMK Firmware (QWERTY Dongle)
-  #       uses: actions/upload-artifact/merge@v4
-  #       with:
-  #         pattern: artifact-charybdis_qwerty*dongle
-  #         name: firmware-charybdis-qwerty-dongle
-  #         delete-merged: true
+      - name: Upload Charybdis ZMK Firmware (QWERTY Dongle)
+        uses: actions/upload-artifact/merge@v4
+        with:
+          pattern: artifact-charybdis_qwerty*dongle
+          name: firmware-charybdis-qwerty-dongle
+          delete-merged: true
 
-  #     - name: Upload Charybdis ZMK Firmware (Colemak BT)
-  #       uses: actions/upload-artifact/merge@v4
-  #       with:
-  #         pattern: artifact-charybdis_colemak_{left,right}
-  #         name: firmware-charybdis-colemak
-  #         delete-merged: true
+      - name: Upload Charybdis ZMK Firmware (Colemak BT)
+        uses: actions/upload-artifact/merge@v4
+        with:
+          pattern: artifact-charybdis_colemak_{left,right}
+          name: firmware-charybdis-colemak
+          delete-merged: true
 
-  #     - name: Upload Charybdis ZMK Firmware (Colemak Dongle)
-  #       uses: actions/upload-artifact/merge@v4
-  #       with:
-  #         pattern: artifact-charybdis_colemak*dongle
-  #         name: firmware-charybdis-colemak-dongle
-  #         delete-merged: true
+      - name: Upload Charybdis ZMK Firmware (Colemak Dongle)
+        uses: actions/upload-artifact/merge@v4
+        with:
+          pattern: artifact-charybdis_colemak*dongle
+          name: firmware-charybdis-colemak-dongle
+          delete-merged: true
 
-  #     - name: Upload Firmware Reset (Nano v2)
-  #       uses: actions/upload-artifact/merge@v4
-  #       with:
-  #         pattern: artifact-firmware_reset_nanov2
-  #         name: firmware-reset-nanov2
-  #         delete-merged: true
+      - name: Upload Firmware Reset (Nano v2)
+        uses: actions/upload-artifact/merge@v4
+        with:
+          pattern: artifact-firmware_reset_nanov2
+          name: firmware-reset-nanov2
+          delete-merged: true
 
-  #     - name: Delete keymap artifacts
-  #       uses: geekyeggo/delete-artifact@v5
-  #       with:
-  #         name: keymap_files
-  #         failOnError: false
+      - name: Delete keymap artifacts
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: keymap_files
+          failOnError: false
