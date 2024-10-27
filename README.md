@@ -17,7 +17,7 @@ If you'd like to use the pre-built firmware the files can be found in the [Actio
 - **firmware-charybdis-qwerty-dongle** - Dongle with QWERTY layout
 - **firmware-charybdis-colemak** - Bluetooth/USB with Colemak DH layout
 - **firmware-charybdis-colemak-dongle** - Dongle with Colemak DH layout
-- **firmware-reset-nanov2** - Firmware reset
+- **firmware-reset-nanov2** - Reset the firmware completely
 
 There are a few things to note about how the pre-built firmware is configured:
 
