@@ -39,7 +39,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install yaml2json
+      - name: Install yaml2jsont
         run: python3 -m pip install remarshal
 
       - name: Fetch Build Matrix
@@ -131,6 +131,7 @@ jobs:
             # Copy shield files
             if [ "${{ env.shield }}" != "settings_reset" ]; then
               cp -R "${{ inputs.shield_path }}-${{ env.format }}"/* "$base_shield_path/"
+              rm -rf "${{ inputs.shield_path }}" # delete all other boards/shields so they're not auto picked up when built 
               echo "shield files ready"
             fi
             
@@ -238,7 +239,7 @@ jobs:
         continue-on-error: true
         uses: actions/upload-artifact/merge@v4
         with:
-          pattern: artifact-charybdis_qwerty_dongle*c
+          pattern: artifact-charybdis_qwerty_dongle*
           name: firmware-charybdis-qwerty-dongle
           delete-merged: true
 
