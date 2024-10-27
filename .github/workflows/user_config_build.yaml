@@ -118,21 +118,21 @@ jobs:
             
             # Define base directories for sheild and config
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
-            base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}-${{ env.format }}"
+            # base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}-${{ env.format }}"
 
             # Create directories for shield and config
             mkdir -p "$base_config_path"
-            mkdir -p "$base_shield_path"
+            # mkdir -p "$base_shield_path"
             
             # Copy config files
             cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
             echo "config files ready"
             
-            # Copy shield files
-            if [ "${{ env.shield }}" != "settings_reset" ]; then
-              cp -R "${{ inputs.shield_path }}-${{ env.format }}"/* "$base_shield_path/"
-              echo "shield files ready"
-            fi
+            # # Copy shield files
+            # if [ "${{ env.shield }}" != "settings_reset" ]; then
+            #   cp -R "${{ inputs.shield_path }}-${{ env.format }}"/* "$base_shield_path/"
+            #   echo "shield files ready"
+            # fi
             
             # Copy active keymap to the board directory
             if [ "${{ env.shield }}" != "settings_reset" ]; then
@@ -143,13 +143,12 @@ jobs:
           fi
 
           # Remove untargeted shields so they don't get auto picked up by the west build command
-          pwd
-          rm -rfv "${GITHUB_WORKSPACE}/boards/shields"
-          echo "Removed unused shields"
-          tree "${GITHUB_WORKSPACE}"
+          find "${GITHUB_WORKSPACE}/boards/shields" -mindepth 1 ! -name "charybdis-${{ env.format }}" -exec rm -rf {} +
+          echo "Removed extra shields"
 
           echo "Build files list:"
           tree "${{ env.base_dir }}"
+          tree "${GITHUB_WORKSPACE}/boards/shields"
 
       - name: Cache west modules
         uses: actions/cache@v4
