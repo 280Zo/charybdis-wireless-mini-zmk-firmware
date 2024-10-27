@@ -39,12 +39,12 @@
 };
 
 
-// From left.overlay
-/ {
-	vtrackball: virtual_input_trackball {
-		compatible = "zmk,virtual-input";
-	};
-};
+// // From left.overlay - keys but no trackball
+// / {
+// 	vtrackball: virtual_input_trackball {
+// 		compatible = "zmk,virtual-input";
+// 	};
+// };
 
 
 // // From right.overlay - keys but no trackball
@@ -61,15 +61,15 @@
 // };
 
 
-// // From dongle.overlay
-// / {
-// 	vtrackball: virtual_input_trackball {
-// 		compatible = "zmk,virtual-input";
-// 	};
+// From dongle.overlay
+/ {
+	vtrackball: virtual_input_trackball {
+		compatible = "zmk,virtual-input";
+	};
 
-// 	input_relay_config_trackball {
-// 		compatible = "zmk,split-peripheral-input-relay";
-// 		device = <&vtrackball>;
-// 		relay-channel = <111>;
-// 	};
-// };
+	input_relay_config_trackball {
+		compatible = "zmk,split-peripheral-input-relay";
+		device = <&vtrackball>;
+		relay-channel = <111>;
+	};
+};
