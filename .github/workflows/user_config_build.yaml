@@ -143,7 +143,7 @@ jobs:
           fi
 
           # Remove untargeted shields so they don't get auto picked up by the west build command
-          rm -rf "${{ inputs.shield_path }}"
+          rm -rfv "${{ inputs.shield_path }}*"
           echo "Removed unused shields"
 
           echo "Build files list:"
