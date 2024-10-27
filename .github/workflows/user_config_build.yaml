@@ -138,13 +138,21 @@ jobs:
             if [ "${{ env.shield }}" != "settings_reset" ]; then
               cp -Rv "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/${{ env.keymap }}.keymap" \
                 "$base_config_path/charybdis.keymap"
-              echo "format: ${{ env.format }}"
-              if [[ "${{ env.format }}" == "bt" ]]; then
-                echo "converting tracbkall device"
-                sed -i 's/device = <&vtrackball>;/device = <trackball>;/g' "$base_config_path/charybdis.keymap"
-                head -n 50 "$base_config_path/charybdis.keymap" | grep "trackball"
-              fi
-            fi
+              
+              echo "Format value: '${{ matrix.format }}'"
+              
+              case "${{ matrix.format }}" in
+                "bt")
+                  echo "Converting trackball device for BT format"
+                  sed -i 's/device = <&vtrackball>;/device = <trackball>;/g' "$base_config_path/charybdis.keymap"
+                  echo "Conversion result:"
+                  grep "device = <" "$base_config_path/charybdis.keymap"
+                  ;;
+                *)
+                  echo "Skipping trackball conversion for format: ${{ matrix.format }}"
+                  ;;
+              esac
+              
               echo "keymap ready"
             fi
 
