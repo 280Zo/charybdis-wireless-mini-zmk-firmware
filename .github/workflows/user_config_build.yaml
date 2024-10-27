@@ -227,7 +227,7 @@ jobs:
     name: Merge & Prune Artifacts
     steps:
       - name: Upload Charybdis ZMK Firmware (QWERTY BT)
-        if: ${{ !cancelled() }}
+        continue-on-error: true
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: artifact-charybdis_qwerty_{left,right}
@@ -235,15 +235,15 @@ jobs:
           delete-merged: true
 
       - name: Upload Charybdis ZMK Firmware (QWERTY Dongle)
-        if: ${{ !cancelled() }}
+        continue-on-error: true
         uses: actions/upload-artifact/merge@v4
         with:
-          pattern: artifact-charybdis_qwerty_dongle*
+          pattern: artifact-charybdis_qwerty_dongle*c
           name: firmware-charybdis-qwerty-dongle
           delete-merged: true
 
       - name: Upload Charybdis ZMK Firmware (Colemak BT)
-        if: ${{ !cancelled() }}
+        continue-on-error: true
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: artifact-charybdis_colemak_{left,right}
@@ -251,7 +251,7 @@ jobs:
           delete-merged: true
 
       - name: Upload Charybdis ZMK Firmware (Colemak Dongle)
-        if: ${{ !cancelled() }}
+        continue-on-error: true
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: artifact-charybdis_colemak_dongle*
@@ -259,7 +259,7 @@ jobs:
           delete-merged: true
 
       - name: Upload Firmware Reset (Nano v2)
-        if: ${{ !cancelled() }}
+        continue-on-error: true
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: artifact-firmware_reset_nano_v2
@@ -267,8 +267,7 @@ jobs:
           delete-merged: true
 
       - name: Delete keymap artifacts
-        if: ${{ !cancelled() }}
+        continue-on-error: true
         uses: geekyeggo/delete-artifact@v5
         with:
           name: keymap_files
-          failOnError: false
