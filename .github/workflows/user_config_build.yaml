@@ -143,8 +143,12 @@ jobs:
           fi
 
           # Remove untargeted shields so they don't get auto picked up by the west build command
-          rm -rfv "${{ inputs.shield_path }}*"
+          pwd
+          tree .
+          tree "${GITHUB_WORKSPACE}"
+          rm -rfv "${GITHUB_WORKSPACE}/${{ inputs.shield_path }}*"
           echo "Removed unused shields"
+          tree "${GITHUB_WORKSPACE}"
 
           echo "Build files list:"
           tree "${{ env.base_dir }}"
