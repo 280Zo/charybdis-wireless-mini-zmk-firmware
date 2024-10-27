@@ -39,7 +39,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install yaml2jsont
+      - name: Install yaml2json
         run: python3 -m pip install remarshal
 
       - name: Fetch Build Matrix
@@ -131,7 +131,6 @@ jobs:
             # Copy shield files
             if [ "${{ env.shield }}" != "settings_reset" ]; then
               cp -R "${{ inputs.shield_path }}-${{ env.format }}"/* "$base_shield_path/"
-              rm -rf "${{ inputs.shield_path }}" # delete all other boards/shields so they're not auto picked up when built 
               echo "shield files ready"
             fi
             
@@ -142,6 +141,11 @@ jobs:
               echo "keymap ready"
             fi
           fi
+
+          # Remove untargeted shields so they don't get auto picked up by the west build command
+          rm -rf "${{ inputs.shield_path }}"
+          echo "Removed unused shields"
+
           echo "Build files list:"
           tree "${{ env.base_dir }}"
 
