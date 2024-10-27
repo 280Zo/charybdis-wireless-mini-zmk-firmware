@@ -238,7 +238,7 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact/merge@v4
         with:
-          pattern: artifact-charybdis_qwerty*dongle
+          pattern: artifact-charybdis_qwerty_dongle*
           name: firmware-charybdis-qwerty-dongle
           delete-merged: true
 
@@ -254,7 +254,7 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact/merge@v4
         with:
-          pattern: artifact-charybdis_colemak*dongle
+          pattern: artifact-charybdis_colemak_dongle*
           name: firmware-charybdis-colemak-dongle
           delete-merged: true
 
