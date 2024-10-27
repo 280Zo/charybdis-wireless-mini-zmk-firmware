@@ -143,7 +143,11 @@ jobs:
           fi
 
           # Remove untargeted shields so they don't get auto picked up by the west build command
-          find "${GITHUB_WORKSPACE}/boards/shields" -maxdepth 1 ! -name "charybdis-${{ env.format }}" -exec rm -rf {} +
+          find "${GITHUB_WORKSPACE}/boards/shields" \
+            -mindepth 1 \
+            -maxdepth 1 \
+            ! -name "charybdis-${{ env.format }}" \
+            -exec rm -rf {} +
           echo "Removed extra shields"
 
           echo "Build files list:"
