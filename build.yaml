@@ -30,17 +30,17 @@ include:
   #   format: bt
   #   artifact-name: charybdis_qwerty_right
 
-  # # Colemak DH BT
-  # - board: nice_nano_v2
-  #   shield: charybdis_left
-  #   keymap: colemak_dh
-  #   format: bt
-  #   artifact-name: charybdis_colemak_left
-  # - board: nice_nano_v2
-  #   shield: charybdis_right
-  #   keymap: colemak_dh
-  #   format: bt
-  #   artifact-name: charybdis_colemak_right
+  # Colemak DH BT
+  - board: nice_nano_v2
+    shield: charybdis_left
+    keymap: colemak_dh
+    format: bt
+    artifact-name: charybdis_colemak_left
+  - board: nice_nano_v2
+    shield: charybdis_right
+    keymap: colemak_dh
+    format: bt
+    artifact-name: charybdis_colemak_right
 
   # # QWERTY Dongle
   # - board: nice_nano_v2
