@@ -1,12 +1,17 @@
 [![.github/workflows/build.yml](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions/workflows/build.yml/badge.svg)](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions/workflows/build.yml)
 
-# Intro
+## Intro
 
-This repository outlines most of the steps needed to build/modify the ZMK firmware for a Wireless Charybdis keyboard.
+This repository offers pre-configured ZMK firmware designed for Wireless Charybdis keyboards, supporting both the ubiquitous QWERTY layout and the optimized Colemak DH layout. You can choose from two configurations:
+
+- Bluetooth and USB
+- Dongle
+
+Additionally, this repository also provides high level instructions and resources on how to customize and build the firmware to meet your specific needs.
 
 ## Usage
 
-If you'd like to use the pre-built firmware the files can be found in the [Actions Workflows](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions?query=is%3Acompleted+branch%3Amain). To download them, log into Github, click the link, select the latest run that passed on the main branch, and download the applicable firmware. There are five firmware artifacts to choose from. If you're unsure which one to use, you probably want firmware-charybdis-qwerty.
+If you'd like to use the pre-built firmware the files can be found in the [Actions Workflows](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions?query=is%3Acompleted+branch%3Amain). To download them, log into Github, click the link, select the latest run that passed on the main branch, and download the applicable firmware. There are five firmware artifacts to choose from. If you're unsure which one to use, you probably want the firmware-charybdis-qwerty build.
 
 - **firmware-charybdis-qwerty** - Bluetooth/USB with QWERTY layout
 - **firmware-charybdis-qwerty-dongle** - Dongle with QWERTY layout
@@ -22,26 +27,27 @@ There are a few things to note about how the pre-built firmware is configured:
   - The central side can also be plugged in to USB and the keyboard can be used when Bluetooth on the host computer isn't available (e.g. BIOS navigation)
 - To add support for the PMW3610 low power trackball sensor, badjeff's [zmk-pmw3610-driver](https://github.com/badjeff/zmk-pmw3610-driver) is included in the firmware.
 - To add support for the dongle, badjeff's [ZMK Input Behavior Listener](https://github.com/badjeff/zmk-input-behavior-listener?tab=readme-ov-file) and [ZMK Split Peripheral Input Relay](https://github.com/badjeff/zmk-split-peripheral-input-relay) modules are included in the firmware.
-- A separate branch builds the Bluetooth/USB firmware using [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file).
-- [Petejohanson's work](https://github.com/petejohanson/zmk/blob/feat/pointers-move-scroll/docs/docs/behaviors/mouse-emulation.md) is also included in the build to allow mouse keys to work. This will be included until the main ZMK repo merges it.
+- eigatech's [zmk-configs](https://github.com/eigatech/zmk-config?tab=readme-ov-file) played a major role in getting badjeff's drivers and modules fully configured
+- A separate branch builds the Bluetooth/USB firmware using [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file) as an alternative to badjeff's driver.
+- [Petejohanson's individual work](https://github.com/petejohanson/zmk/blob/feat/pointers-move-scroll/docs/docs/behaviors/mouse-emulation.md) is also included in the build to allow mouse keys to function. This will be used until the main ZMK repo merges it.
 
-### Flashing the Firmware
-
-**Note** - If you switch from the dongle to the Bluetooth/USB configuration, or visa versa, you need to first flash the reset firmware to all devices.
+## Flashing the Firmware
 
 Follow the steps below to flash the firmware
 
+- If you are flashing the firmware for the first time, or if you're switching between the dongle and the Bluetooth/USB configuration, flash the reset firmware to all the devices first
 - Unzip the firmware.zip
 - Plug the right half info the computer through USB
 - Double press the reset button
 - The keyboard will mount as a removable storage device
-- Copy the right side uf2 file into the NICENANO storage device.
+- Copy the applicable uf2 file into the NICENANO storage device (e.g. charybdis_qwerty_dongle.uf2 -> dongle)
 - It will take a few seconds, then it will unmount and restart itself.
-- Plug in the left half, and copy the left uf2 file.
-- If you're using a dongle, flash the dongle firmware the same way
+- Repeat these steps for all devices.
 - You should now be able to use your keyboard
 
-### Keymaps & Layers
+Note - If the keyboard halves aren't connecting as expected, try pressing the reset button on both halves at the same time. If that doesn't work, follow the [ZMK Connection Issues](https://zmk.dev/docs/troubleshooting/connection-issues#acquiring-a-reset-uf2) documentation for more troubleshooting steps.
+
+## Keymaps & Layers
 
 Each layer has been heavily influenced by [Miryoku](https://github.com/manna-harbour/miryoku/) and [home row mods](https://precondition.github.io/home-row-mods) that use [bilateral combinations](https://sunaku.github.io/home-row-mods.html) to make typing as efficient and comfortable as possible, though some non-bilateral key options are also included for optional usage.
 To reduce hand movement, extra attention has also been given to making sure cursor, scrolling, and mouse button operations are as seamless as possible.
@@ -63,18 +69,9 @@ Here are a few tips for a quick start:
 
 ## Modify Key Mappings
 
-### Edit Code Directly
-
-To change a key layout choose a behavior you'd like to assign to a key, then choose a parameter code. This process is more clearly outlined on ZMK's [Keymaps & Behaviors](https://zmk.dev/docs/features/keymaps) page.
-
-- Behaviors are all documented on the [Behaviors Overview](https://zmk.dev/docs/behaviors)
-- Codes are all documented on the [keycodes](https://zmk.dev/docs/codes) page
-
-Open the keymap file and change keys, or add/remove layers, then merge the changes and re-flash the keyboard with the updated firmware.
-
 ### Use a GUI
 
-Using a GUI to generate the keymap file content is the easiest option. Head over to nickcoutsos' keymap editor and follow the steps below.
+Using a GUI to generate the keymap file content is the easiest option when getting started. Head over to nickcoutsos' keymap editor and follow the steps below.
 
 - Fork/Clone this repo
 - Open a new tab to the [keymap editor](https://nickcoutsos.github.io/keymap-editor/)
@@ -84,6 +81,15 @@ Using a GUI to generate the keymap file content is the easiest option. Head over
 - Save
 - Wait for the pipeline to run
 - Download and flash the new firmware
+
+### Edit Code Directly
+
+To change a key layout choose a behavior you'd like to assign to a key, then choose a parameter code. This process is more clearly outlined on ZMK's [Keymaps & Behaviors](https://zmk.dev/docs/features/keymaps) page.
+
+- Behaviors are all documented on the [Behaviors Overview](https://zmk.dev/docs/behaviors)
+- Codes are all documented on the [keycodes](https://zmk.dev/docs/codes) page
+
+Open the keymap file and change keys, or add/remove layers, then merge the changes and re-flash the keyboard with the updated firmware.
 
 ## Building Your Own Firmware
 
@@ -120,7 +126,7 @@ ZMK is actively being developed and there are a few features that will be added 
 
 ## Credits
 
-- [eigatech](https://github.com/eigatech/zmk-config?tab=readme-ov-file)
+- [eigatech](https://github.com/eigatech)
 - [badjeff](https://github.com/badjeff)
 - [inorichi](https://github.com/inorichi)
 - [manna-harbour](https://github.com/manna-harbour)
