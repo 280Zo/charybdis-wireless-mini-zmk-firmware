@@ -14,13 +14,13 @@ on:
         required: false
         type: string
       shield_path:
-        description: "Path to the shields directory"
-        default: "boards/shields/charybdis"
+        description: "Path to the shield directory"
+        default: "boards/shields/charybdis-mini-wireless"
         required: false
         type: string
       keymap_path:
         description: "Path to the keymap directory"
-        default: "boards/shields/charybdis/keymaps"
+        default: "boards/shields/charybdis-mini-wireless/keymaps"
         required: false
         type: string
       fallback_binary:
@@ -70,7 +70,6 @@ jobs:
           board: ${{ matrix.board }}
           shield: ${{ matrix.shield }}
           keymap: ${{ matrix.keymap }}
-          format: ${{ matrix.format }}
           artifact_name: ${{ matrix.artifact-name }}
           snippet: ${{ matrix.snippet }}
         run: |
@@ -91,55 +90,39 @@ jobs:
           echo "extra_west_args=${extra_west_args}" >> $GITHUB_ENV
           echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"}${zmk_load_arg}" >> $GITHUB_ENV
           echo "display_name=${shield:+$shield - }${board}" >> $GITHUB_ENV
-          echo "format=${format}" >> $GITHUB_ENV
-          echo "keymap=${keymap}" >> $GITHUB_ENV
-          echo "shield=${shield}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk}" >> $GITHUB_ENV
 
-      - name: Download keymaps
+      - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           name: keymap_files
           path: "${{ github.workspace }}/"
 
-      - name: Copy keymaps to keymap directory
+      - name: Move keymaps to keymap directory
         run: |
           rm -f $GITHUB_WORKSPACE/config/*.keymap
-          mkdir -p "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
+          mkdir -p "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/"
           cd "$GITHUB_WORKSPACE"
-          mv charybdis.keymap qwerty.keymap
-          mv *.keymap "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
-          ls -lR "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/"
+          mv charybdis.keymap charybdis_qwerty.keymap
+          mv *.keymap "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/"
+          ls -lR "$GITHUB_WORKSPACE/boards/shields/charybdis-mini-wireless/keymaps/"
 
       - name: Copy config files to isolated temporary directory
         run: |
           if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
             apt-get -qq update && apt-get -q install -o Dpkg::Progress-Fancy="0" -o APT::Color="0" -o Dpkg::Use-Pty="0" tree
-            
-            # Define base directories for sheild and config
             base_config_path="${{ env.base_dir }}/${{ inputs.config_path }}"
-            base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}-${{ env.format }}"
-
-            # Create directories for shield and config
+            base_shield_path="${{ env.base_dir }}/${{ inputs.shield_path }}"
             mkdir -p "$base_config_path"
             mkdir -p "$base_shield_path"
-            
-            # Copy config files
             cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
             echo "config files ready"
-            
-            # Copy shield files
-            if [ "${{ env.shield }}" != "settings_reset" ]; then
-              cp -R "${{ inputs.shield_path }}-${{ env.format }}"/* "$base_shield_path/"
-              echo "shield files ready"
-            fi
-            
+            cp -R "${{ inputs.shield_path }}"/* "$base_shield_path/"
+            echo "shield files ready"
             # Copy active keymap to the board directory
-            if [ "${{ env.shield }}" != "settings_reset" ]; then
-              cp -Rv "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/${{ env.keymap }}.keymap" \
-                "$base_config_path/charybdis.keymap"
-              echo "keymap ready"
-            fi
+            cp -Rv "$base_shield_path/keymaps/${{ matrix.keymap }}.keymap" \
+              "$base_config_path/charybdis.keymap"
+            echo "keymap ready"
           fi
           echo "Build files list:"
           tree "${{ env.base_dir }}"
@@ -177,7 +160,7 @@ jobs:
       - name: West Build (${{ env.display_name }})
         working-directory: ${{ env.base_dir }}
         shell: sh -x {0}
-        run: west build --pristine -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" ${{ env.extra_west_args }} -- -DZMK_CONFIG=${{ env.base_dir }}/${{ inputs.config_path }} ${{ env.extra_cmake_args }} ${{ matrix.cmake-args }}
+        run: west build -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" ${{ env.extra_west_args }} -- -DZMK_CONFIG=${{ env.base_dir }}/${{ inputs.config_path }} ${{ env.extra_cmake_args }} ${{ matrix.cmake-args }}
 
       - name: ${{ env.display_name }} Kconfig file
         run: |
@@ -214,60 +197,26 @@ jobs:
             cp "${{ env.build_dir }}/zephyr/zmk.${{ inputs.fallback_binary }}" "${{ env.build_dir }}/artifacts/${{ env.artifact_name }}.${{ inputs.fallback_binary }}"
           fi
 
-      - name: Upload (${{ env.display_name }})
+      - name: Archive (${{ env.display_name }})
         uses: actions/upload-artifact@v4
         with:
           name: artifact-${{ env.artifact_name }}
           path: ${{ env.build_dir }}/artifacts
 
-  cleanup:
+  merge:
     runs-on: ubuntu-latest
-    continue-on-error: true
     needs: build
-    name: Merge & Prune Artifacts
+    name: Merge Output Artifacts
     steps:
-      - name: Upload Charybdis ZMK Firmware (QWERTY BT)
-        continue-on-error: true
+      - name: Merge QWERTY Artifacts
         uses: actions/upload-artifact/merge@v4
         with:
-          pattern: artifact-charybdis_qwerty_{left,right}
-          name: firmware-charybdis-qwerty
+          name: "firmware-charybdis-nanov2-qwerty"
+          pattern: artifact-charybdis_qwerty*
           delete-merged: true
-
-      - name: Upload Charybdis ZMK Firmware (QWERTY Dongle)
-        continue-on-error: true
+      - name: Merge Colemak DH Artifacts
         uses: actions/upload-artifact/merge@v4
         with:
-          pattern: artifact-charybdis_qwerty_dongle*c
-          name: firmware-charybdis-qwerty-dongle
+          name: "firmware-charybdis-nanov2-colemakdh"
+          pattern: artifact-charybdis_colemak*
           delete-merged: true
-
-      - name: Upload Charybdis ZMK Firmware (Colemak BT)
-        continue-on-error: true
-        uses: actions/upload-artifact/merge@v4
-        with:
-          pattern: artifact-charybdis_colemak_{left,right}
-          name: firmware-charybdis-colemak
-          delete-merged: true
-
-      - name: Upload Charybdis ZMK Firmware (Colemak Dongle)
-        continue-on-error: true
-        uses: actions/upload-artifact/merge@v4
-        with:
-          pattern: artifact-charybdis_colemak_dongle*
-          name: firmware-charybdis-colemak-dongle
-          delete-merged: true
-
-      - name: Upload Firmware Reset (Nano v2)
-        continue-on-error: true
-        uses: actions/upload-artifact/merge@v4
-        with:
-          pattern: artifact-firmware_reset_nano_v2
-          name: firmware-reset-nanov2
-          delete-merged: true
-
-      - name: Delete keymap artifacts
-        continue-on-error: true
-        uses: geekyeggo/delete-artifact@v5
-        with:
-          name: keymap_files
