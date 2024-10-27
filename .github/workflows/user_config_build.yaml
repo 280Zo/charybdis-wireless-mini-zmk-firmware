@@ -14,7 +14,7 @@ on:
         required: false
         type: string
       shield_path:
-        description: "Path to the shield directory"
+        description: "Path to the shields directory"
         default: "boards/shields/charybdis"
         required: false
         type: string
@@ -128,7 +128,7 @@ jobs:
             cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
             echo "config files ready"
             
-            # Copy shielf files
+            # Copy shield files
             if [ "${{ env.shield }}" != "settings_reset" ]; then
               cp -R "${{ inputs.shield_path }}-${{ env.format }}"/* "$base_shield_path/"
               echo "shield files ready"
@@ -137,7 +137,7 @@ jobs:
             # Copy active keymap to the board directory
             if [ "${{ env.shield }}" != "settings_reset" ]; then
               cp -Rv "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/${{ env.keymap }}.keymap" \
-                "$base_config_path/charybdis.keymap"
+                "$base_config_path/"
               echo "keymap ready"
             fi
           fi
