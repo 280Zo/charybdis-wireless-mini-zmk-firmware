@@ -1,15 +1,68 @@
-#include <behaviors/mouse_keys.dtsi>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <behaviors/mouse_keys.dtsi>
+#include <dt-bindings/zmk/ext_power.h>
 
 / {
     chosen { zmk,matrix_transform = &default_transform; };
 };
 
 / {
+    /* input config for mouse move mode */
+    trackball_listener {
+        compatible = "zmk,input-behavior-listener";
+        device = <&vtrackball>;
+        layers = <0 2 7>;
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+        scale-multiplier = <1>;
+        scale-divisor = <3>;
+        bindings = <&ib_toggle_layer 7>;
+    };
+
+    /* input config for snipe mode */
+    trackball_snipe_listener {
+        compatible = "zmk,input-behavior-listener";   
+        device = <&vtrackball>;
+        layers = <8>;
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+        scale-multiplier = <1>;
+        scale-divisor = <4>;
+    };
+
+    /* input config for mouse scroll mode */
+    trackball_scroll_listener {
+        compatible = "zmk,input-behavior-listener";
+        device = <&vtrackball>;
+        layers = <9>;
+        evt-type = <INPUT_EV_REL>;            
+        x-input-code = <INPUT_REL_MISC>;
+        y-input-code = <INPUT_REL_WHEEL>;
+        y-invert;
+        bindings = <&ib_wheel_scaler 1 16>;
+    };
+
+    /* define a resolution down scaler only for INPUT_REL_WHEEL */
+    ib_wheel_scaler: ib_wheel_scaler {
+        compatible = "zmk,input-behavior-scaler";
+        #binding-cells = <2>;
+        evt-type = <INPUT_EV_REL>;
+        input-code = <INPUT_REL_WHEEL>;
+    };
+
+    /* adjust cooldown waiting period for mouse key layer after activated */
+    ib_toggle_layer: ib_toggle_layer {
+        compatible = "zmk,input-behavior-tog-layer";
+        #binding-cells = <1>;
+        time-to-live-ms = <750>;
+    };
+
     behaviors {
         hm: homerow_mod {
             compatible = "zmk,behavior-hold-tap";
@@ -48,6 +101,17 @@
             #binding-cells = <0>;
             bindings = <&mo 6>, <&to 0>;
         };
+
+        // lt: layer_tap { // Part of example config
+        //     compatible = "zmk,behavior-hold-tap";
+        //     #binding-cells = <2>;
+        //     flavor = "balanced";
+        //     tapping-term-ms = <240>;
+        //     quick-tap-ms = <150>;
+        //     bindings = 
+        //         <&mo>,
+        //         <&kp>;
+        // };
     };
 
     combos {
@@ -107,7 +171,7 @@
 &none    &none  &none  &none  &none          &none    &kp SLASH  &hm F7 N7  &hm F8 N8  &hm F9 N9  &hm F10 MINUS  &none
 &kp TAB  &none  &none  &none  &kp BACKSPACE  &none    &kp ASTRK  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &none
 &none    &none  &none  &none  &none          &none    &kp DOT    &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 EQUAL  &none
-                       &none  &none          &none    &kp N0     &none
+                       &none  &none          &none    &kp N0     &trans
             >;
         };
 

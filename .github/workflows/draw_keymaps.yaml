@@ -140,29 +140,30 @@ jobs:
         id: draw
         env:
           KEYMAP_raw_binding_map: >
-            {"&bootloader": "BOOT LDR"
-            , "&mkp RCLK": "R CLK"
-            , "&mkp LCLK": "L CLK"
-            , "&mkp MCLK": "M CLK"
-            , "&mkp MB5": "FWD"
-            , "&mmv MOVE_RIGHT": "MOVE R"
-            , "&mmv MOVE_DOWN": "MOVE D"
-            , "&mmv MOVE_LEFT": "MOVE L"
-            , "&mkp MB4": "BACK"
-            , "&msc MOVE_RIGHT": "WHEEL R"
-            , "&msc MOVE_DOWN": "WHEEL U"
-            , "&mmv MOVE_UP": "MOVE UP"
-            , "&msc MOVE_UP": "WHEEL D"
-            , "&msc MOVE_LEFT": "WHEEL L"
-            , "&HSplit": "HSPLIT"
-            , "&VSplit": "VSPLIT"
-            , "&caps_word": "CAPS WORD"
-            , "&td_bore": "L_BASE L_EXTRA"
-            , "&tdtb": "SCROLL TRACKBALL"
-            , "&tdtb2": "SCROLL SNIPE"
-            , "&tdmt": "L1/BS LCLICK"
-            , "&tdbt": "L2/ESC RCLICK"
-             }
+            {
+              "&bootloader": "BOOT LDR",
+              "&mkp RCLK": "R CLK",
+              "&mkp LCLK": "L CLK",
+              "&mkp MCLK": "M CLK",
+              "&mkp MB4": "BACK",
+              "&mkp MB5": "FWD",
+              "&mmv MOVE_UP": "MOVE UP",
+              "&mmv MOVE_DOWN": "MOVE D",
+              "&mmv MOVE_LEFT": "MOVE L",
+              "&mmv MOVE_RIGHT": "MOVE R",
+              "&msc MOVE_UP": "WHEEL D",
+              "&msc MOVE_DOWN": "WHEEL U",
+              "&msc MOVE_LEFT": "WHEEL L",
+              "&msc MOVE_RIGHT": "WHEEL R",
+              "&HSplit": "HSPLIT",
+              "&VSplit": "VSPLIT",
+              "&caps_word": "CAPS WORD",
+              "&td_bore": "L_BASE L_EXTRA",
+              "&tdtb": "SCROLL TRACKBALL",
+              "&tdtb2": "SCROLL SNIPE",
+              "&tdmt": "L1/BS LCLICK",
+              "&tdbt": "L2/ESC RCLICK"
+            }
         run: |
           get_args() {
               local keyboard=$2

@@ -18,19 +18,66 @@
 #
 ---
 include:
+  # QWERTY BT
   - board: nice_nano_v2
     shield: charybdis_left
-    keymap: charybdis_colemak_dh
-    artifact-name: charybdis_colemak_left
-  - board: nice_nano_v2
-    shield: charybdis_right
-    keymap: charybdis_colemak_dh
-    artifact-name: charybdis_colemak_right
-  - board: nice_nano_v2
-    shield: charybdis_left
-    keymap: charybdis_qwerty
+    keymap: qwerty
+    format: bt
     artifact-name: charybdis_qwerty_left
   - board: nice_nano_v2
     shield: charybdis_right
-    keymap: charybdis_qwerty
+    keymap: qwerty
+    format: bt
     artifact-name: charybdis_qwerty_right
+
+  # Colemak DH BT
+  - board: nice_nano_v2
+    shield: charybdis_left
+    keymap: colemak_dh
+    format: bt
+    artifact-name: charybdis_colemak_left
+  - board: nice_nano_v2
+    shield: charybdis_right
+    keymap: colemak_dh
+    format: bt
+    artifact-name: charybdis_colemak_right
+
+  # QWERTY Dongle
+  - board: nice_nano_v2
+    shield: charybdis_left
+    keymap: qwerty
+    format: dongle
+    artifact-name: charybdis_qwerty_dongle_left
+  - board: nice_nano_v2
+    shield: charybdis_right
+    keymap: qwerty
+    format: dongle
+    artifact-name: charybdis_qwerty_dongle_right
+  - board: nice_nano_v2
+    shield: charybdis_dongle
+    keymap: qwerty
+    format: dongle
+    artifact-name: charybdis_qwerty_dongle
+
+  # Colemak DH Dongle
+  - board: nice_nano_v2
+    shield: charybdis_left
+    keymap: colemak_dh
+    format: dongle
+    artifact-name: charybdis_colemak_dongle_left
+  - board: nice_nano_v2
+    shield: charybdis_right
+    keymap: colemak_dh
+    format: dongle
+    artifact-name: charybdis_colemak_dongle_right
+  - board: nice_nano_v2
+    shield: charybdis_dongle
+    keymap: colemak_dh
+    format: dongle
+    artifact-name: charybdis_colemak_dongle
+
+  # Firmware Reset
+  - board: nice_nano_v2
+    shield: settings_reset
+    format: reset
+    artifact-name: firmware_reset_nano_v2
