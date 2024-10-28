@@ -133,8 +133,8 @@ jobs:
               echo "format: ${{ env.format }}"
               case "${{ env.format }}" in
                 *bt*)
-                  echo "converting trackball device"
-                  sed -i 's/device = <&vtrackball>;/device = <trackball>;/g' "$base_config_path/charybdis.keymap"
+                  echo "converting trackball device to bt/usb format"
+                  sed -i 's/device = <&vtrackball>;/device = <\&trackball>;/g' "$base_config_path/charybdis.keymap"
                   grep "device = <" "$base_config_path/charybdis.keymap"
                   ;;
               esac            fi
