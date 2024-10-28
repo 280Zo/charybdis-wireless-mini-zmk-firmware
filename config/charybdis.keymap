@@ -63,18 +63,7 @@
         time-to-live-ms = <750>;
     };
 
-    // behaviors {
-    //     lt: layer_tap { // Part of example config
-    //         compatible = "zmk,behavior-hold-tap";
-    //         #binding-cells = <2>;
-    //         flavor = "balanced";
-    //         tapping-term-ms = <240>;
-    //         quick-tap-ms = <150>;
-    //         bindings = 
-    //             <&mo>,
-    //             <&kp>;
-    //     };
-        
+    behaviors {
         hm: homerow_mod {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -112,6 +101,17 @@
             #binding-cells = <0>;
             bindings = <&mo 6>, <&to 0>;
         };
+
+        // lt: layer_tap { // Part of example config
+        //     compatible = "zmk,behavior-hold-tap";
+        //     #binding-cells = <2>;
+        //     flavor = "balanced";
+        //     tapping-term-ms = <240>;
+        //     quick-tap-ms = <150>;
+        //     bindings = 
+        //         <&mo>,
+        //         <&kp>;
+        // };
     };
 
     combos {
