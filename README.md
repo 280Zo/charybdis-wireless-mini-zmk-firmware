@@ -9,6 +9,8 @@ This repository offers pre-configured ZMK firmware designed for Wireless Charybd
 
 Additionally, this repository also provides high level instructions and resources on how to customize and build the firmware to meet your specific needs.
 
+Check out the [Charybdis Mini Wireless build guide](https://github.com/280Zo/charybdis-wireless-mini-3x6-build-guide?tab=readme-ov-file) if you haven't yet built your own Charybdis keyboard.
+
 ## Usage
 
 If you'd like to use the pre-built firmware the files can be found in the [Actions Workflows](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions?query=is%3Acompleted+branch%3Amain). To download them, log into Github, click the link, select the latest run that passed on the main branch, and download the applicable firmware. There are five firmware artifacts to choose from. If you're unsure which one to use, you probably want the firmware-charybdis-qwerty build.
@@ -28,7 +30,7 @@ There are a few things to note about how the pre-built firmware is configured:
 - To add support for the PMW3610 low power trackball sensor, badjeff's [zmk-pmw3610-driver](https://github.com/badjeff/zmk-pmw3610-driver), [ZMK Input Behavior Listener](https://github.com/badjeff/zmk-input-behavior-listener?tab=readme-ov-file), and [ZMK Split Peripheral Input Relay](https://github.com/badjeff/zmk-split-peripheral-input-relay) modules are included in the firmware.
 - eigatech's [zmk-configs](https://github.com/eigatech/zmk-config?tab=readme-ov-file) played a major role in getting badjeff's drivers and modules fully configured and are a great resource
 - A separate branch builds the Bluetooth/USB firmware using [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file) as an alternative to badjeff's driver.
-- [Petejohanson's individual work](https://github.com/petejohanson/zmk/blob/feat/pointers-move-scroll/docs/docs/behaviors/mouse-emulation.md) is also included in the build to allow mouse keys to function. This will be used until the main ZMK repo merges it.
+- Petejohanson's [pointers-move-scroll ZMK](https://github.com/petejohanson/zmk/blob/feat/pointers-move-scroll/docs/docs/behaviors/mouse-emulation.md) branch is used to build the firmware because it allows mouse keys and scrolling to function. This will be used until [2477](https://github.com/zmkfirmware/zmk/pull/2477) becomes stable or is merged with the main ZMK repo.
 
 ## Flashing the Firmware
 
@@ -44,7 +46,8 @@ Follow the steps below to flash the firmware
 - Repeat these steps for all devices.
 - You should now be able to use your keyboard
 
-Note - If the keyboard halves aren't connecting as expected, try pressing the reset button on both halves at the same time. If that doesn't work, follow the [ZMK Connection Issues](https://zmk.dev/docs/troubleshooting/connection-issues#acquiring-a-reset-uf2) documentation for more troubleshooting steps.
+> [!NOTE]  
+> If the keyboard halves aren't connecting as expected, try pressing the reset button on both halves at the same time. If that doesn't work, follow the [ZMK Connection Issues](https://zmk.dev/docs/troubleshooting/connection-issues#acquiring-a-reset-uf2) documentation for more troubleshooting steps.
 
 ## Keymaps & Layers
 
@@ -120,8 +123,8 @@ This repo uses the excellent work of caksoylar's [Keymap Drawer](https://keymap-
 
 ZMK is actively being developed and there are a few features that will be added to these builds as soon as they are released.
 
-- Mouse Pointer & Scrolling - [PR in review](https://github.com/zmkfirmware/zmk/pull/2027)
-- Layer Locks - [Layer locks will hopefully get merged in](https://github.com/zmkfirmware/zmk/pull/1984)
+- Mouse move and scroll support - [in draft](https://github.com/zmkfirmware/zmk/pull/2477)
+- Layer Lock - [Open PR](https://github.com/zmkfirmware/zmk/pull/1984)
 
 ## Credits
 
