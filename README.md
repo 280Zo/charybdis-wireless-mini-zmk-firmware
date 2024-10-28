@@ -90,6 +90,14 @@ To change a key layout choose a behavior you'd like to assign to a key, then cho
 
 Open the keymap file and change keys, or add/remove layers, then merge the changes and re-flash the keyboard with the updated firmware.
 
+## Changing the Central and Peripheral Assignments
+
+Follow the ZMK documentation [Kconfig.deconfig](https://zmk.dev/docs/development/new-shield#kconfigdefconfig) to change which keyboard half is the central and which is the peripheral. This does not apply to the dongle configuration.
+
+## Changing the Keyboard Name
+
+Follow the ZMK [Kconfig.defconfig](https://zmk.dev/docs/development/new-shield#kconfigdefconfig) section to update the keyboard name. Make sure to read about the danger in exceeding the 16 character limit.
+
 ## Building Your Own Firmware
 
 ZMK provides a comprehensive guide to follow when creating a [New Keyboard Shield](https://zmk.dev/docs/development/new-shield). I'll touch on some of the points here, but their docs should be what you reference when you're building your own firmware.
@@ -103,14 +111,6 @@ When building the ZMK firmware, the files need to be located in the correct plac
 To set up some of the configuration files it requires a knowledge of which keys connect to which pins on the MCU (see the [Shield Overlays](https://zmk.dev/docs/development/new-shield#shield-overlays) section), and how the rows and columns are wired.
 
 To get this information, look at the PCB kcad files and follow the traces from key pads, to row and column through holes, to MCU through holes. Once you have that information you can update the applicable dtsi/overlay files.
-
-### Changing the Central and Peripheral Assignments
-
-Follow the ZMK documentation to change the [Kconfig.deconfig](https://zmk.dev/docs/development/new-shield#kconfigdefconfig).
-
-### Changing the Keyboard Name
-
-Follow the ZMK [Kconfig.defconfig](https://zmk.dev/docs/development/new-shield#kconfigdefconfig) section to update the keyboard name. Make sure to read about the danger in exceeding the 16 character limit.
 
 ## Creating Graphical Key Maps
 
