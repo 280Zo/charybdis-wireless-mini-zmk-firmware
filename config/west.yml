@@ -7,7 +7,7 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: feat/pointers-move-scroll
+      revision: feat/pointers-with-input-processors
       import: app/west.yml
     - name: zmk-pmw3610-driver
       remote: badjeff
