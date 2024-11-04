@@ -110,7 +110,7 @@
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <200>;
-            bindings = <&mkp LCLK>, <&mo SCROLL>;
+            bindings = <&kp>, <&kp>;
         };
 
         td_bore: BASE_or_EXTRA {
