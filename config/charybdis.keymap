@@ -115,7 +115,7 @@
 
         td_clk_scrl: td_click_or_scroll {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
+            #binding-cells = <3>;
             flavor = "balanced";
             tapping-term-ms = <200>;
             bindings = <&ht_lclick>, <&mo>;  // hold, tap, double_tap
