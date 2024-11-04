@@ -6,6 +6,17 @@
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/ext_power.h>
 
+#define BASE    0
+#define NUM     1
+#define NAV     2
+#define SYM     3
+#define GAME    4
+#define PHOTOS  5
+#define EXTRAS  6
+#define MOUSE   7
+#define SLOW    8
+#define SCROLL  9
+
 / {
     chosen { zmk,matrix_transform = &default_transform; };
 };
@@ -21,7 +32,7 @@
         y-input-code = <INPUT_REL_Y>;
         scale-multiplier = <1>;
         scale-divisor = <2>;
-        bindings = <&ib_toggle_layer 7>;
+        // bindings = <&ib_toggle_layer 7>;
     };
 
     /* input config for snipe mode */
@@ -68,29 +79,35 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <250>;
+            tapping-term-ms = <150>;
             quick-tap-ms = <150>;
             require-prior-idle-ms = <125>;
             bindings = <&kp>, <&kp>;
         };
 
-        tdtb: td_mouse_scroll {
+        td_cursor: td_scroll_or_cursor {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&httl 9 7>, <&to 0>;
-            tapping-term-ms = <200>;
+            bindings = <&httl 9 8>, <&to 7>; # hold, tap, double_tap
         };
 
-        tdtb2: td_slow_scroll {
+        td_layers: td_layer_swap {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&httl 9 0>, <&to 8>;
+            bindings = <&to 0>, <&to 5>, <&to 4>; # tap, double_tap, tripple_tap
         };
 
         httl: ht_two_layers {
             compatible = "zmk,behavior-hold-tap";
             bindings = <&mo>, <&to>;
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+        };
 
+        td_clk_scrl: td_click_or_scroll {
+            compatible = "zmk,behavior-hold-tap";
+            bindings = <&mkp LCLK>, <&mo SCROLL>;
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <200>;
@@ -101,32 +118,35 @@
             #binding-cells = <0>;
             bindings = <&mo 6>, <&to 0>;
         };
-
-        // lt: layer_tap { // Part of example config
-        //     compatible = "zmk,behavior-hold-tap";
-        //     #binding-cells = <2>;
-        //     flavor = "balanced";
-        //     tapping-term-ms = <240>;
-        //     quick-tap-ms = <150>;
-        //     bindings = 
-        //         <&mo>,
-        //         <&kp>;
-        // };
     };
 
     combos {
         compatible = "zmk,combos";
 
-        Delete {
-            bindings = <&kp DELETE>;
-            key-positions = <8 9>;
-            layers = <0>;
-        };
+        // GameLayer {
+        //     bindings = <&tog 4>;
+        //     key-positions = <8 9>;
+        // };
+
+        // PhotoLayer {
+        //     bindings = <&tog 5>;
+        //     key-positions = <2 3>;
+        // };
 
         CapsWord {
             bindings = <&caps_word>;
             key-positions = <17 18>;
             layers = <0>;
+        };
+
+        // SymLayer {
+        //     bindings = <&mo 3>;
+        //     key-positions = <37 40>;
+        // };
+
+        MiddleClick {
+            bindings = <&mkp MCLK>;
+            key-positions = <24 35>;
         };
 
         BASE_or_EXTRAS {
@@ -152,17 +172,30 @@
     keymap {
         compatible = "zmk,keymap";
 
+//         BASE {
+//             bindings = <
+// // ╭────────────────┬──────────────┬─────────────────────────┬─────────────────────────────┬──────────────────┬──────────────╮  ╭──────────────┬─────────────────┬──────────────────────────────────┬──────────────────────────────┬────────────────────────┬─────────╮
+//     &kp C_AC_SEARCH  &kp Q           &kp W                     &kp E                         &kp R               &kp T           &kp Y          &kp U             &kp I                              &kp O                          &kp P                    &to 4
+// // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────┤  ├──────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼─────────┤
+//     &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F    &kp G           &kp H          &hm LEFT_SHIFT J  &hm RCTRL K                        &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
+// // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────┤  ├──────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼─────────┤
+//     &kp LA(LC(T))    &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V               &kp B           &kp N          &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA   &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &to 5
+// // ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────┤  ├──────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴─────────╯
+//                                                                &td_cursor                    &lt 1 BACKSPACE     &lt 2 ESCAPE     &lt 7 RETURN  &lt 3 SPACE
+//                                                           // ╰─────────────────────────────┴──────────────────┴──────────────╯  ╰──────────────┴────────────╯
+//             >;
+//         };
         BASE {
             bindings = <
-// ╭────────────────┬──────────────┬─────────────────────────┬─────────────────────────────┬──────────────────┬──────────────╮  ╭──────────────┬─────────────────┬──────────────────────────────────┬──────────────────────────────┬────────────────────────┬─────────╮
-    &kp C_AC_SEARCH  &kp Q           &kp W                     &kp E                         &kp R               &kp T           &kp Y          &kp U             &kp I                              &kp O                          &kp P                    &to 4
-// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────┤  ├──────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼─────────┤
-    &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F    &kp G           &kp H          &hm LEFT_SHIFT J  &hm RCTRL K                        &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
-// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────┤  ├──────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼─────────┤
-    &kp LA(LC(T))    &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V               &kp B           &kp N          &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA   &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &to 5
-// ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────┤  ├──────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴─────────╯
-                                                               &tdtb2                         &lt 1 BACKSPACE     &lt 2 ESCAPE     &lt 7 RETURN  &lt 3 SPACE
-                                                          // ╰─────────────────────────────┴──────────────────┴──────────────╯  ╰──────────────┴────────────╯
+// ╭────────────────┬──────────────┬─────────────────────────┬─────────────────────────────┬──────────────────┬───────────────╮  ╭──────────────────┬─────────────────┬──────────────────────────────────┬──────────────────────────────┬────────────────────────┬───────────╮
+    &kp C_AC_SEARCH  &kp Q           &kp W                     &kp E                         &kp R              &kp T              &kp Y               &kp U             &kp I                             &kp O                          &kp P                    &td_layers
+// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼───────────┤
+    &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F   &kp G              &kp H               &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
+// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼───────────┤
+    &td_clk_scrl     &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V              &kp B              &kp N               &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &mkp RCLK
+// ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴───────────╯
+                                                               &td_cursor                    &lt NUM BACKSPACE  &lt NAV ESCAPE     &lt MOUSE RETURN   &lt SYM SPACE
+                                                          // ╰─────────────────────────────┴──────────────────┴───────────────╯  ╰──────────────────┴──────────────╯
             >;
         };
 
@@ -171,7 +204,7 @@
 &none    &none  &none  &none  &none          &none    &kp SLASH  &hm F7 N7  &hm F8 N8  &hm F9 N9  &hm F10 MINUS  &none
 &kp TAB  &none  &none  &none  &kp BACKSPACE  &none    &kp ASTRK  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &none
 &none    &none  &none  &none  &none          &none    &kp DOT    &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 EQUAL  &none
-                       &none  &none          &none    &kp N0     &trans
+                       &trans &none          &trans   &kp N0     &trans
             >;
         };
 
@@ -179,7 +212,7 @@
             bindings = <
 &none   &none   &none   &none   &none   &none     &none    &kp LS(LC(H))   &kp LS(LC(J))  &kp LS(LC(K))  &kp LS(LC(L))    &none
 &trans  &trans  &trans  &trans  &trans  &trans    &VSplit  &kp LEFT_ARROW  &kp DOWN       &kp UP         &kp RIGHT_ARROW  &none
-&none   &none   &none   &none   &none   &none     &HSplit  &kp HOME        &kp PG_DN      &kp PG_UP      &kp END          &none
+&trans  &none   &none   &none   &none   &none     &HSplit  &kp HOME        &kp PG_DN      &kp PG_UP      &kp END          &trans
                         &none   &none   &trans    &trans   &trans
             >;
         };
@@ -224,26 +257,26 @@
             bindings = <
 &none    &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
 &kp TAB  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
-&none    &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &none
-                                         &tdtb2          &mkp LCLK        &mkp RCLK          &kp RETURN              &lt 3 SPACE
+&trans   &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &trans
+                                         &trans          &trans           &trans             &kp RETURN              &trans
             >;
         };
 
         SLOW {
             bindings = <
-&none    &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
-&kp TAB  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
-&none    &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &none
-                                         &tdtb2          &mkp LCLK        &mkp RCLK          &kp RETURN              &lt 3 SPACE
+&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+                              &trans    &trans    &trans    &trans    &trans
             >;
         };
 
         SCROLL {
             bindings = <
-&none    &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
-&kp TAB  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
-&none    &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &none
-                                         &tdtb2          &mkp LCLK        &mkp RCLK          &kp RETURN              &lt 3 SPACE
+&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+                              &trans    &trans    &trans    &trans    &trans
             >;
         };
     };
