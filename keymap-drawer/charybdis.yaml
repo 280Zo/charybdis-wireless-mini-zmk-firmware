@@ -24,7 +24,7 @@ layers:
   - {t: L, h: RIGHT ALT}
   - {t: ;, h: LEFT META}
   - DEL
-  - {t: '9', h: L CLK}
+  - {t: L CLK, h: '9'}
   - Z
   - {t: X, h: MEH}
   - {t: C, h: HYPER}
