@@ -108,7 +108,7 @@
         ht_lclick: ht_lclick {
             compatible = "zmk,behavior-hold-tap";
             bindings = <&mkp LCLK>, <&mkp LCLK>;
-            #binding-cells = <2>;
+            #binding-cells = <0>;
             flavor = "balanced";
             tapping-term-ms = <200>;
         };
