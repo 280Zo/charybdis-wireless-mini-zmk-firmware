@@ -88,13 +88,13 @@
         td_cursor: td_scroll_or_cursor {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&httl 9 8>, <&to 7>; # hold, tap, double_tap
+            bindings = <&httl 9 8>, <&to 7>; // hold, tap, double_tap
         };
 
         td_layers: td_layer_swap {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&to 0>, <&to 5>, <&to 4>; # tap, double_tap, tripple_tap
+            bindings = <&to 0>, <&to 5>, <&to 4>; // tap, double_tap, tripple_tap
         };
 
         httl: ht_two_layers {
