@@ -118,11 +118,7 @@
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <200>;
-<<<<<<< HEAD
             bindings = <&ht_lclick>, <&mo>;  // hold, tap, double_tap
-=======
-            bindings = <&mo>, <&mkp>;  // hold, tap
->>>>>>> 67adb91c1f3c5f5f27644ab008fb7fc2ad4895d3
         };
 
         td_bore: BASE_or_EXTRA {
