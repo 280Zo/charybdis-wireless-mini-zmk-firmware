@@ -3,96 +3,81 @@
         VSplit: VSplit {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
+            bindings = <&kp LS(SEMI) &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
         };
 
         HSplit: HSplit {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(S) &kp LS(P) &kp RET>;
+            bindings = <&kp LS(SEMI) &kp LS(S) &kp LS(P) &kp RET>;
         };
 
-        shrug: shrug {
-            label = "SHRUG";
+        shrug: shrug { // shrug emoji ¯\_(ツ)_/¯
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <40>;
+            wait-ms = <10>;
+            tap-ms = <20>;
             bindings
-                = <&macro_press &kp LSHFT>
-                // ¯
-                , <&macro_tap &kp N0 &kp N2 &kp N5 &kp N0>
-                , <&macro_release &kp LSHFT>
+                // ¯ (Macron)
+                = <&macro_press &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp U>
+                , <&macro_release &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp N0 &kp N0 &kp A &kp F &kp SPC>
                 // \
                 , <&macro_tap &kp BSLH>
                 // _
                 , <&macro_tap &kp UNDER>
                 // (
                 , <&macro_tap &kp LPAR>
-                // ツ
-                , <&macro_press &kp LSHFT>
-                , <&macro_tap &kp N3 &kp N0 &kp C &kp N4>
-                , <&macro_release &kp LSHFT>
+                // ツ (Katakana Letter Tu)
+                , <&macro_press &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp U>
+                , <&macro_release &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp N3 &kp N0 &kp C &kp N4 &kp SPC>
                 // )
                 , <&macro_tap &kp RPAR>
                 // _
                 , <&macro_tap &kp UNDER>
                 // /
                 , <&macro_tap &kp FSLH>
-                // ¯
-                , <&macro_press &kp LSHFT>
-                , <&macro_tap &kp N0 &kp N2 &kp N5 &kp N0>
-                , <&macro_release &kp LSHFT>
+                // ¯ (Macron)
+                , <&macro_press &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp U>
+                , <&macro_release &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp N0 &kp N0 &kp A &kp F &kp SPC>
                 ;
         };
 
-        gcm: gcm {
-            label = "git commit WIP";
+        gcm: gcm { // git commit WIP
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <40>;
-            bindings
-                = <&macro_tap &kp G &kp I &kp T>         // "git"
-                , <&macro_tap &kp SPACE>                 // space
-                , <&macro_tap &kp C &kp O &kp M &kp M &kp I &kp T>  // "commit"
-                , <&macro_tap &kp SPACE>                 // space
-                , <&macro_tap &kp MINUS>                 // "-"
-                , <&macro_tap &kp A &kp M>               // "am"
-                , <&macro_tap &kp SPACE>                 // space
-                , <&macro_tap &kp DQT>                   // "
-                , <&macro_tap &kp W &kp I &kp P>         // "WIP"
-                , <&macro_tap &kp DQT>                   // "
-                ;
+            wait-ms = <10>;
+            tap-ms = <20>;
+            bindings = <
+                &macro_tap &kp G &kp I &kp T &kp SPACE
+                &kp C &kp O &kp M &kp M &kp I &kp T &kp SPACE
+                &kp MINUS &kp A &kp M &kp SPACE
+                &kp DQT &kp W &kp I &kp P &kp DQT
+            >;
         };
 
-        lgtm: lgtm {
-            label = "LGTM Approval";
+        lgtm: lgtm { // LGTM Approval
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <40>;
-            bindings
-                = <&macro_press &kp LSHFT>
-                , <&macro_tap &kp L &kp G &kp T &kp M>    // "LGTM"
-                , <&macro_release &kp LSHFT>
-                , <&macro_tap &kp SPACE>                  // space
-                , <&macro_tap &kp MINUS>                  // "-"
-                , <&macro_tap &kp SPACE>                  // space
-                , <&macro_press &kp LSHFT>
-                , <&macro_tap &kp A>                      // "A"
-                , <&macro_release &kp LSHFT>
-                , <&macro_tap &kp P &kp P &kp R &kp O &kp V &kp E &kp D>  // "pproved"
-                , <&macro_tap &kp EXCL>                   // "!"
-                ;
+            wait-ms = <10>;
+            tap-ms = <20>;
+            bindings = <
+                &macro_tap &kp LS(L) &kp LS(G) &kp LS(T) &kp LS(M)
+                &kp SPACE &kp MINUS &kp SPACE
+                &kp LS(A) &kp P &kp P &kp R &kp O &kp V &kp E &kp D &kp EXCL
+            >;
         };
 
-        py_iter: py_iter {
-            label = "PYTHON_ITERATION_WITH_INDEX";
+        py_iter: py_iter { // PYTHON_ITERATION_WITH_INDEX
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <40>;
+            wait-ms = <10>;
+            tap-ms = <20>;
             bindings
                 = <&macro_tap &kp C &kp O &kp U &kp N &kp T>  // "count"
                 , <&macro_tap &kp SPACE>
@@ -145,12 +130,11 @@
                 ;
         };
 
-        js_iter: js_iter {
-            label = "JS_ITERATION_WITH_INDEX";
+        js_iter: js_iter { // JS_ITERATION_WITH_INDEX
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <40>;
+            wait-ms = <10>;
+            tap-ms = <20>;
             bindings
                 = <&macro_tap &kp L &kp E &kp T &kp SPACE>    // "let "
                 , <&macro_tap &kp C &kp O &kp U &kp N &kp T>  // "count"
@@ -198,12 +182,11 @@
                 ;
         };
 
-        shit: shit {
-            label = "SUDO_BANG_BANG";
+        shit: shit { // SUDO_BANG_BANG
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <40>;
+            wait-ms = <10>;
+            tap-ms = <20>;
             bindings
                 = <&macro_tap &kp S &kp U &kp D &kp O>  // "sudo"
                 , <&macro_tap &kp SPACE>                // space
@@ -212,43 +195,22 @@
                 ;
         };
         
-        find: find {
-            label = "FIND";
+        find: find { // FIND
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <40>;
-            bindings
-                = <&macro_press &kp LCTRL>
-                , <&macro_tap &kp F>
-                , <&macro_release &kp LCTRL>
-                ;
+            bindings = <&macro_press &kp LCTRL &kp F &macro_release &kp LCTRL>;
         };
         
-        clip_hist: clip_hist {
-            label = "CLIPBOARD_HISTORY";
+        clip_hist: clip_hist { // CLIPBOARD_HISTORY
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <40>;
-            bindings
-                = <&macro_press &kp LGUI>
-                , <&macro_tap &kp V>
-                , <&macro_release &kp LGUI>
-                ;
+            bindings = <&macro_press &kp LGUI &kp V &macro_release &kp LGUI>;
         };
         
-        new_dir: new_dir {
-            label = "NEW_DIRECTORY";
+        new_dir: new_dir { // NEW_DIRECTORY
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <30>;
-            tap-ms = <40>;
-            bindings
-                = <&macro_press &kp LCTRL &kp LSHFT>
-                , <&macro_tap &kp N>
-                , <&macro_release &kp LSHFT &kp LCTRL>
-                ;
+            bindings = <&macro_press &kp LCTRL &kp LSHFT &kp N &macro_release &kp LCTRL &kp LSHFT>;
         };
     };
 };
