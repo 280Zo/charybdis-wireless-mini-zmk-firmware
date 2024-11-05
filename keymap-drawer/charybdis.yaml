@@ -1,6 +1,6 @@
 layers:
   '0':
-  - SEARCH
+  - ESCAPE
   - Q
   - W
   - E
@@ -12,7 +12,7 @@ layers:
   - O
   - P
   - '&td_layers'
-  - {t: TAB, h: WINDOW}
+  - {t: TAB, h: '2'}
   - {t: A, h: LEFT GUI}
   - {t: S, h: LEFT ALT}
   - {t: D, h: LCTRL}
@@ -24,7 +24,7 @@ layers:
   - {t: L, h: RIGHT ALT}
   - {t: ;, h: LEFT META}
   - DEL
-  - L CLK
+  - SEARCH
   - Z
   - {t: X, h: MEH}
   - {t: C, h: HYPER}
@@ -37,8 +37,8 @@ layers:
   - /
   - F12
   - '&td_cursor'
+  - L CLK
   - {t: BACK SPACE, h: '1'}
-  - {t: ESCAPE, h: '2'}
   - {t: RETURN, h: '7'}
   - {t: SPACE, h: '3'}
   '1':
@@ -79,8 +79,8 @@ layers:
   - {t: '=', h: F12}
   - ''
   - {t: ▽, type: trans}
+  - ''
   - {type: held}
-  - {t: ▽, type: trans}
   - '0'
   - {t: ▽, type: trans}
   '2':
@@ -96,7 +96,7 @@ layers:
   - PANE ▼
   - PANE ▶
   - ''
-  - {t: ▽, type: trans}
+  - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -122,7 +122,7 @@ layers:
   - {t: ▽, type: trans}
   - ''
   - ''
-  - {type: held}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   '3':
@@ -423,7 +423,9 @@ combos:
 - p: [17, 18]
   k: CAPS WORD
   l: ['0']
-- p: [24, 35]
+- p: [28, 37]
   k: M CLK
+- p: [16, 37]
+  k: R CLK
 - p: [38, 39]
   k: L_BASE L_EXTRA
