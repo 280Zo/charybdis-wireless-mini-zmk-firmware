@@ -11,7 +11,7 @@ layers:
   - I
   - O
   - P
-  - '&td_layers'
+  - L_BASE L_PHOTO L_GAME
   - {t: TAB, h: '2'}
   - {t: A, h: LEFT GUI}
   - {t: S, h: LEFT ALT}
@@ -35,8 +35,8 @@ layers:
   - {t: ',', h: HYPER}
   - {t: ., h: MEH}
   - /
-  - F12
-  - '&td_cursor'
+  - DEV TOOLS
+  - SCRL SLOW
   - L CLK
   - {t: BACK SPACE, h: '1'}
   - {t: RETURN, h: '7'}
@@ -76,7 +76,7 @@ layers:
   - {t: '1', h: F1}
   - {t: '2', h: F2}
   - {t: '3', h: F3}
-  - {t: '=', h: F12}
+  - {t: '=', h: DEV TOOLS}
   - ''
   - {t: ▽, type: trans}
   - ''
@@ -108,18 +108,18 @@ layers:
   - UP
   - RIGHT
   - ''
+  - ''
+  - ''
+  - ''
+  - ''
   - {t: ▽, type: trans}
-  - ''
-  - ''
-  - ''
-  - ''
   - ''
   - HSPLIT
   - HOME
   - PG DN
   - PG UP
   - END
-  - {t: ▽, type: trans}
+  - ''
   - ''
   - ''
   - {t: ▽, type: trans}
@@ -253,9 +253,9 @@ layers:
   - {t: ▽, type: trans}
   '6':
   - SLEEP
-  - '&shrug'
-  - '&lgtm'
-  - '&gcm'
+  - SHRUG
+  - LGTM
+  - GIT COMMIT
   - ''
   - BRIGHTNESS INC
   - {t: BT, h: '0'}
@@ -265,10 +265,10 @@ layers:
   - BT CLR
   - LOCK
   - POWER
-  - '&shit'
-  - '&py_iter'
-  - '&js_iter'
-  - '&find'
+  - SHIT SUDO
+  - PYTHON LOOP
+  - JS LOOP
+  - ''
   - BRIGHTNESS DEC
   - OUT TOG
   - PREVIOUS
@@ -281,8 +281,8 @@ layers:
   - ''
   - ''
   - ''
-  - '&clip_hist'
-  - '&new_dir'
+  - CLIP HIST
+  - NEW DIR
   - VOLUME DOWN
   - VOLUME UP
   - MUTE
@@ -318,7 +318,7 @@ layers:
   - LEFT ALT
   - LEFT META
   - ''
-  - {t: ▽, type: trans}
+  - ''
   - UNDO
   - CUT
   - COPY
@@ -329,13 +329,13 @@ layers:
   - ''
   - ''
   - ''
-  - {t: ▽, type: trans}
+  - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: RETURN, type: held}
   - {t: ▽, type: trans}
-  '8':
+  SLOW:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -377,7 +377,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  '9':
+  SCROLL:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
