@@ -107,7 +107,7 @@
 
         ht_lclick: ht_lclick {
             compatible = "zmk,behavior-hold-tap";
-            bindings = <&mkp>, <&mkp>;
+            bindings = <&mkp>, <&mkp>; // hold, tap
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <200>;
@@ -116,8 +116,8 @@
         td_clk_scrl: td_click_or_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&ht_lclick LCLK LCLK>, <&mo 9>;  // hold, tap, double_tap
+            tapping-term-ms = <250>;
+            bindings = <&mkp LCLK>, <&mo 9>;  // tap/hold, double_tap
         };
 
         td_bore: BASE_or_EXTRA {
