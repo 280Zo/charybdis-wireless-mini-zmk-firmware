@@ -24,7 +24,7 @@ layers:
   - {t: L, h: RIGHT ALT}
   - {t: ;, h: LEFT META}
   - DEL
-  - {t: L CLK, h: '9'}
+  - '&td_clk_scrl'
   - Z
   - {t: X, h: MEH}
   - {t: C, h: HYPER}
@@ -402,7 +402,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {type: held}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
