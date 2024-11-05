@@ -88,7 +88,7 @@
         td_cursor: td_scroll_or_cursor {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&httl 9 8>, <&to 7>; // hold, tap, double_tap
+            bindings = <&httl 9 0>, <&to 8>; // hold, tap, double_tap
         };
 
         td_layers: td_layer_swap {
@@ -108,7 +108,7 @@
         td_clk_scrl: td_click_or_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <200>;
+            tapping-term-ms = <250>;
             bindings = <&mkp RCLK>, <&mo 9>;  // tap/hold, double_tap
         };
 
@@ -182,9 +182,9 @@
 // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
     &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F   &kp G              &kp H               &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
 // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
-    &mkp LCLK        &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V              &kp B              &kp N               &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &td_clk_scrl
+    &td_cursor       &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V              &kp B              &kp N               &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &td_clk_scrl
 // ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴──────────────╯
-                                                                               &td_cursor    &lt NUM BACKSPACE  &lt NAV ESCAPE     &lt MOUSE RETURN   &lt SYM SPACE
+                                                                               &mkp LCLK    &lt NUM BACKSPACE  &lt NAV ESCAPE     &lt MOUSE RETURN   &lt SYM SPACE
                                                                           // ╰─────────────┴──────────────────┴───────────────╯  ╰──────────────────┴──────────────╯
             >;
         };
