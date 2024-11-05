@@ -57,7 +57,7 @@
                 &macro_tap &kp G &kp I &kp T &kp SPACE
                 &kp C &kp O &kp M &kp M &kp I &kp T &kp SPACE
                 &kp MINUS &kp A &kp M &kp SPACE
-                &kp DQT &kp W &kp I &kp P &kp DQT
+                &kp DQT &kp LS(W) &kp LS(I) &kp LS(P) &kp DQT
             >;
         };
 
@@ -67,7 +67,8 @@
             wait-ms = <10>;
             tap-ms = <20>;
             bindings = <
-                &macro_tap &kp LS(L) &kp LS(G) &kp LS(T) &kp LS(M)
+                &macro_tap
+                &kp LS(L) &kp LS(G) &kp LS(T) &kp LS(M)
                 &kp SPACE &kp MINUS &kp SPACE
                 &kp LS(A) &kp P &kp P &kp R &kp O &kp V &kp E &kp D &kp EXCL
             >;
@@ -198,19 +199,31 @@
         find: find { // FIND
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL &kp F &macro_release &kp LCTRL>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp F>
+                , <&macro_release &kp LCTRL>
+                ;
         };
         
         clip_hist: clip_hist { // CLIPBOARD_HISTORY
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp LGUI &kp V &macro_release &kp LGUI>;
+            bindings 
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp V>
+                , <&macro_release &kp LGUI>
+                ;
         };
         
         new_dir: new_dir { // NEW_DIRECTORY
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL &kp LSHFT &kp N &macro_release &kp LCTRL &kp LSHFT>;
+            bindings
+                = <&macro_press &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp N>
+                , <&macro_release &kp LCTRL &kp LSHFT>
+                ;
         };
     };
 };
