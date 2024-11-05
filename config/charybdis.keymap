@@ -78,10 +78,10 @@
         hm: homerow_mod {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <150>;
-            quick-tap-ms = <150>;
-            require-prior-idle-ms = <125>;
+            flavor = "tap-preferred"; // TODO - "group" holds on "O", capitalizing goes to the tap
+            tapping-term-ms = <175>; // triggers the hold behavior when the tapping-term-ms has expired
+            quick-tap-ms = <150>; // If you press a tapped hold-tap again within quick-tap-ms milliseconds of the first press, it will always trigger the tap behavior.
+            require-prior-idle-ms = <150>; // like quick-tap-ms however it will apply for any non-modifier key pressed before it
             bindings = <&kp>, <&kp>;  // hold, tap
         };
 
@@ -102,22 +102,14 @@
             bindings = <&mo>, <&to>;
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <200>;
-        };
-
-        ht_lclick: ht_lclick {
-            compatible = "zmk,behavior-hold-tap";
-            bindings = <&mkp>, <&mkp>; // hold, tap
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <200>;
+            tapping-term-ms = <125>;
         };
 
         td_clk_scrl: td_click_or_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <250>;
-            bindings = <&mkp LCLK>, <&mo 9>;  // tap/hold, double_tap
+            tapping-term-ms = <200>;
+            bindings = <&mkp RCLK>, <&mo 9>;  // tap/hold, double_tap
         };
 
         td_bore: BASE_or_EXTRA {
@@ -185,15 +177,15 @@
         compatible = "zmk,keymap";
         BASE {
             bindings = <
-// ╭────────────────────────┬──────────────┬─────────────────────────┬─────────────────────────────┬──────────────────┬───────────────╮  ╭──────────────────┬─────────────────┬──────────────────────────────────┬──────────────────────────────┬────────────────────────┬───────────╮
-    &kp C_AC_SEARCH          &kp Q           &kp W                     &kp E                         &kp R              &kp T              &kp Y               &kp U             &kp I                             &kp O                          &kp P                    &td_layers
-// ├────────────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼───────────┤
-    &hm LG(E) TAB            &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F   &kp G              &kp H               &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
-// ├────────────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼───────────┤
-    &td_clk_scrl             &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V              &kp B              &kp N               &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &mkp RCLK
-// ╰────────────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴───────────╯
-                                                                                       &td_cursor    &lt NUM BACKSPACE  &lt NAV ESCAPE     &lt MOUSE RETURN   &lt SYM SPACE
-                                                                                  // ╰─────────────┴──────────────────┴───────────────╯  ╰──────────────────┴──────────────╯
+// ╭────────────────┬──────────────┬─────────────────────────┬─────────────────────────────┬──────────────────┬───────────────╮  ╭──────────────────┬─────────────────┬──────────────────────────────────┬──────────────────────────────┬────────────────────────┬──────────────╮
+    &kp C_AC_SEARCH  &kp Q           &kp W                     &kp E                         &kp R              &kp T              &kp Y               &kp U             &kp I                             &kp O                          &kp P                    &td_layers
+// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
+    &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F   &kp G              &kp H               &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
+// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
+    &mkp LCLK        &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V              &kp B              &kp N               &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &td_clk_scrl
+// ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴──────────────╯
+                                                                               &td_cursor    &lt NUM BACKSPACE  &lt NAV ESCAPE     &lt MOUSE RETURN   &lt SYM SPACE
+                                                                          // ╰─────────────┴──────────────────┴───────────────╯  ╰──────────────────┴──────────────╯
             >;
         };
 
