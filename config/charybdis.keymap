@@ -5,6 +5,7 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/ext_power.h>
+#include "macros.dtsi"
 
 #define BASE    0
 #define NUM     1
@@ -137,7 +138,6 @@
             bindings = <&td_bore>;
             key-positions = <38 39>;
         };
-    };
 
         // GameLayer {
         //     bindings = <&tog 4>;
@@ -148,19 +148,6 @@
         //     bindings = <&tog 5>;
         //     key-positions = <2 3>;
         // };
-
-    macros {
-        VSplit: VSplit {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
-        };
-
-        HSplit: HSplit {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp LEFT_SHIFT &kp SEMI &kp LS(S) &kp LS(P) &kp RET>;
-        };
     };
 
 // ╭──────┬──────┬──────┬──────┬──────┬──────╮  ╭──────┬──────┬──────┬──────┬──────┬──────╮
@@ -182,7 +169,7 @@
 // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
     &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F   &kp G              &kp H               &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
 // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
-    &mkp LCLK        &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V              &kp B              &kp N               &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &td_clk_scrl
+    &mkp LCLK        &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V              &kp B              &kp N               &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &kp F12
 // ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴──────────────╯
                                                                                &td_cursor    &lt NUM BACKSPACE  &lt NAV ESCAPE     &lt MOUSE RETURN   &lt SYM SPACE
                                                                           // ╰─────────────┴──────────────────┴───────────────╯  ╰──────────────────┴──────────────╯
@@ -236,10 +223,10 @@
 
         EXTRAS {
             bindings = <
-&kp C_SLEEP  &none  &none  &none  &none  &kp C_BRIGHTNESS_MAXIMUM    &bt BT_SEL 0     &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3  &bt BT_CLR  &kp C_AL_COFFEE
-&kp C_POWER  &none  &none  &none  &none  &kp C_BRIGHTNESS_INC        &out OUT_TOG     &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_STOP    &kp C_NEXT  &none
-&bootloader  &none  &none  &none  &none  &kp C_BRIGHTNESS_DEC        &kp PRINTSCREEN  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp K_MUTE    &none       &bootloader
-                           &none  &none  &none                       &none            &none
+&kp C_SLEEP  &shrug &lgtm     &gcm      &none  &kp C_BRIGHTNESS_INC        &bt BT_SEL 0  &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3  &bt BT_CLR      &kp C_AL_COFFEE
+&kp C_POWER  &shit  &py_iter  &js_iter  &find  &kp C_BRIGHTNESS_DEC        &out OUT_TOG  &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_STOP    &kp C_NEXT      &none
+&bootloader  &none  &none     &none     &none  &clip_hist                  &new_dir      &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp K_MUTE    &kp PRINTSCREEN &bootloader
+                              &none     &none  &none                       &none         &none
             >;
         };
 
