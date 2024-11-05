@@ -114,9 +114,8 @@
         };
 
         td_clk_scrl: td_click_or_scroll {
-            compatible = "zmk,behavior-hold-tap";
+            compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            flavor = "balanced";
             tapping-term-ms = <200>;
             bindings = <&ht_lclick LCLK LCLK>, <&mo 9>;  // hold, tap, double_tap
         };
