@@ -15,8 +15,8 @@
 #define PHOTOS  5
 #define EXTRAS  6
 #define MOUSE   7
-#define SLOW    8
-#define SCROLL  9
+// #define SLOW    8
+// #define SCROLL  9
 
 / {
     chosen { zmk,matrix_transform = &default_transform; };
@@ -194,7 +194,7 @@
             bindings = <
 &none   &none   &none   &none   &none   &none     &none    &kp LS(LC(H))   &kp LS(LC(J))  &kp LS(LC(K))  &kp LS(LC(L))    &none
 &trans  &trans  &trans  &trans  &trans  &trans    &VSplit  &kp LEFT_ARROW  &kp DOWN       &kp UP         &kp RIGHT_ARROW  &none
-&trans  &none   &none   &none   &none   &none     &HSplit  &kp HOME        &kp PG_DN      &kp PG_UP      &kp END          &trans
+&none   &none   &none   &none   &trans  &none     &HSplit  &kp HOME        &kp PG_DN      &kp PG_UP      &kp END          &none
                         &none   &none   &trans    &trans   &trans
             >;
         };
@@ -229,7 +229,7 @@
         EXTRAS {
             bindings = <
 &kp C_SLEEP  &shrug &lgtm     &gcm      &none  &kp C_BRIGHTNESS_INC        &bt BT_SEL 0  &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3  &bt BT_CLR      &kp C_AL_COFFEE
-&kp C_POWER  &shit  &py_iter  &js_iter  &find  &kp C_BRIGHTNESS_DEC        &out OUT_TOG  &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_STOP    &kp C_NEXT      &none
+&kp C_POWER  &shit  &py_iter  &js_iter  &none  &kp C_BRIGHTNESS_DEC        &out OUT_TOG  &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_STOP    &kp C_NEXT      &none
 &bootloader  &none  &none     &none     &none  &clip_hist                  &new_dir      &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp K_MUTE    &kp PRINTSCREEN &bootloader
                               &none     &none  &none                       &none         &none
             >;
@@ -239,7 +239,7 @@
             bindings = <
 &none    &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
 &kp TAB  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LEFT_META  &none
-&trans   &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &trans
+&none    &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &none
                                          &trans          &trans           &trans             &kp RETURN              &trans
             >;
         };
