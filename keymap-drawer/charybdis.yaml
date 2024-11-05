@@ -35,7 +35,7 @@ layers:
   - {t: ',', h: HYPER}
   - {t: ., h: MEH}
   - /
-  - '&td_clk_scrl'
+  - F12
   - '&td_cursor'
   - {t: BACK SPACE, h: '1'}
   - {t: ESCAPE, h: '2'}
@@ -253,11 +253,11 @@ layers:
   - {t: ▽, type: trans}
   '6':
   - SLEEP
+  - '&shrug'
+  - '&lgtm'
+  - '&gcm'
   - ''
-  - ''
-  - ''
-  - ''
-  - BRIGHTNESS MAXIMUM
+  - BRIGHTNESS INC
   - {t: BT, h: '0'}
   - {t: BT, h: '1'}
   - {t: BT, h: '2'}
@@ -265,11 +265,11 @@ layers:
   - BT CLR
   - LOCK
   - POWER
-  - ''
-  - ''
-  - ''
-  - ''
-  - BRIGHTNESS INC
+  - '&shit'
+  - '&py_iter'
+  - '&js_iter'
+  - '&find'
+  - BRIGHTNESS DEC
   - OUT TOG
   - PREVIOUS
   - PLAY PAUSE
@@ -281,12 +281,12 @@ layers:
   - ''
   - ''
   - ''
-  - BRIGHTNESS DEC
-  - PRINT SCREEN
+  - '&clip_hist'
+  - '&new_dir'
   - VOLUME DOWN
   - VOLUME UP
   - MUTE
-  - ''
+  - PRINT SCREEN
   - BOOT LDR
   - ''
   - ''
