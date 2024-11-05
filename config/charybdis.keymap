@@ -182,9 +182,9 @@
 // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
     &hm LG(E) TAB    &hm LEFT_GUI A  &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F   &kp G              &kp H               &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LEFT_META SEMICOLON  &kp DEL
 // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
-    &td_cursor       &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V              &kp B              &kp N               &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &td_clk_scrl
+    &mkp LCLK        &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V              &kp B              &kp N               &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &td_clk_scrl
 // ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼───────────────┤  ├──────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴──────────────╯
-                                                                               &mkp LCLK    &lt NUM BACKSPACE  &lt NAV ESCAPE     &lt MOUSE RETURN   &lt SYM SPACE
+                                                                               &td_cursor    &lt NUM BACKSPACE  &lt NAV ESCAPE     &lt MOUSE RETURN   &lt SYM SPACE
                                                                           // ╰─────────────┴──────────────────┴───────────────╯  ╰──────────────────┴──────────────╯
             >;
         };
