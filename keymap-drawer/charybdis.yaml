@@ -24,7 +24,7 @@ layers:
   - {t: L, h: RIGHT ALT}
   - {t: ;, h: LEFT META}
   - DEL
-  - L CLK
+  - '&td_cursor'
   - Z
   - {t: X, h: MEH}
   - {t: C, h: HYPER}
@@ -36,7 +36,7 @@ layers:
   - {t: ., h: MEH}
   - /
   - '&td_clk_scrl'
-  - '&td_cursor'
+  - L CLK
   - {t: BACK SPACE, h: '1'}
   - {t: ESCAPE, h: '2'}
   - {t: RETURN, h: '7'}
