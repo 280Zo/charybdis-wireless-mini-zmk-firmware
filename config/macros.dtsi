@@ -24,7 +24,7 @@
                 , <&macro_release &kp LCTRL &kp LSHFT>
                 , <&macro_tap &kp N0 &kp N0 &kp A &kp F &kp SPC>
                 // \
-                , <&macro_tap &kp BSLH>
+                , <&macro_tap &kp BACKSLASH>
                 // _
                 , <&macro_tap &kp UNDER>
                 // (
@@ -193,16 +193,6 @@
                 , <&macro_tap &kp SPACE>                // space
                 , <&macro_tap &kp EXCL &kp EXCL>        // "!!"
                 , <&macro_tap &kp RET>                  // Enter key
-                ;
-        };
-        
-        find: find { // FIND
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&macro_press &kp LCTRL>
-                , <&macro_tap &kp F>
-                , <&macro_release &kp LCTRL>
                 ;
         };
         
