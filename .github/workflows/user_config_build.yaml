@@ -137,7 +137,12 @@ jobs:
                   sed -i 's/device = <&vtrackball>;/device = <\&trackball>;/g' "$base_config_path/charybdis.keymap"
                   grep "device = <" "$base_config_path/charybdis.keymap"
                   ;;
-              esac            fi
+              esac
+            fi
+
+            # Copy physical layout file to shield directory
+            mv -v "$base_config_path/charybdis-layouts.dtsi" \
+            "${GITHUB_WORKSPACE}/boards/shields/charybdis-${{ env.format }}/"
           fi
 
           # Remove untargeted shields so they don't get auto picked up by the west build command

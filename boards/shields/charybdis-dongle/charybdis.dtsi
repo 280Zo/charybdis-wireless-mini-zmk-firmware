@@ -1,9 +1,14 @@
 #include <dt-bindings/zmk/matrix_transform.h>
+#include "charybdis-layouts.dtsi"
 
 / {
+    // chosen {
+    //     zmk,kscan = &kscan0;
+    //     zmk,matrix_transform = &default_transform;
+    // };
     chosen {
         zmk,kscan = &kscan0;
-        zmk,matrix_transform = &default_transform;
+        zmk,physical-layout = &charybdis-layouts;
     };
 
     vbatt: vbatt {
