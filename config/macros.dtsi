@@ -25,6 +25,7 @@
                 , <&macro_tap &kp N0 &kp N0 &kp A &kp F &kp SPC>
                 // \
                 , <&macro_tap &kp BACKSLASH>
+                , <&macro_tap &kp BACKSLASH>
                 // _
                 , <&macro_tap &kp UNDER>
                 // (
@@ -162,13 +163,14 @@
                 , <&macro_tap &kp RPAR>                       // ")"
                 , <&macro_tap &kp SPACE>
                 , <&macro_tap &kp LBRC>                       // "{"
+                , <&macro_tap &kp RBRC>                       // "}"
+                , <&macro_tap &kp LEFT_ARROW>
                 , <&macro_tap &kp RET>                        // newline
                 , <&macro_tap &kp SPACE &kp SPACE &kp SPACE &kp SPACE>  // 4 spaces
                 , <&macro_tap &kp C &kp O &kp U &kp N &kp T>  // "count"
                 , <&macro_tap &kp PLUS &kp PLUS>              // "++"
                 , <&macro_tap &kp SEMI>                       // ";"
                 , <&macro_tap &kp RET>                        // newline
-                , <&macro_tap &kp SPACE &kp SPACE &kp SPACE &kp SPACE>  // 4 spaces
                 , <&macro_tap &kp C &kp O &kp N &kp S &kp O &kp L &kp E>  // "console"
                 , <&macro_tap &kp DOT>                        // "."
                 , <&macro_tap &kp L &kp O &kp G>              // "log"
@@ -179,7 +181,6 @@
                 , <&macro_tap &kp RPAR>                       // ")"
                 , <&macro_tap &kp SEMI>                       // ";"
                 , <&macro_tap &kp RET>                        // newline
-                , <&macro_tap &kp RBRC>                       // "}"
                 ;
         };
 
