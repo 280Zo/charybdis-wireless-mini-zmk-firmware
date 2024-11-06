@@ -37,8 +37,8 @@ layers:
   - /
   - DEV TOOLS
   - SCRL SLOW
-  - {t: BACK SPACE, h: NUM}
   - L CLK
+  - {t: BACK SPACE, h: NUM}
   - {t: RETURN, h: MOUSE}
   - {t: SPACE, h: SYM}
   NUM:
@@ -79,8 +79,8 @@ layers:
   - {t: '=', h: DEV TOOLS}
   - ''
   - {t: ▽, type: trans}
+  - ''
   - {type: held}
-  - {t: ▽, type: trans}
   - '0'
   - {t: ▽, type: trans}
   NAV:
@@ -423,9 +423,9 @@ combos:
 - p: [17, 18]
   k: CAPS WORD
   l: [BASE]
-- p: [28, 38]
+- p: [28, 37]
   k: M CLK
-- p: [16, 38]
+- p: [16, 37]
   k: R CLK
 - p: [38, 39]
   k: L_BASE L_EXTRA
