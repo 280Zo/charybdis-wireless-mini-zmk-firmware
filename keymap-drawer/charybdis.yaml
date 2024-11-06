@@ -37,8 +37,8 @@ layers:
   - /
   - DEV TOOLS
   - SCRL SLOW
-  - L CLK
   - {t: BACK SPACE, h: NUM}
+  - L CLK
   - {t: RETURN, h: MOUSE}
   - {t: SPACE, h: SYM}
   NUM:
@@ -79,8 +79,8 @@ layers:
   - {t: '=', h: DEV TOOLS}
   - ''
   - {t: ▽, type: trans}
-  - ''
   - {type: held}
+  - {t: ▽, type: trans}
   - '0'
   - {t: ▽, type: trans}
   NAV:
