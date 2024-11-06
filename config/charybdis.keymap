@@ -23,10 +23,6 @@
 // };
 
 / {
-    chosen { zmk,physical-layout = &charybdis_physical_layout; };
-};
-
-/ {
     /* input config for mouse move mode */
     trackball_listener {
         compatible = "zmk,input-behavior-listener";
