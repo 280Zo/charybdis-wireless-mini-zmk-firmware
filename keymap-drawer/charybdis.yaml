@@ -1,5 +1,5 @@
 layers:
-  '0':
+  BASE:
   - ESCAPE
   - Q
   - W
@@ -12,7 +12,7 @@ layers:
   - O
   - P
   - L_BASE L_PHOTO L_GAME
-  - {t: TAB, h: '2'}
+  - {t: TAB, h: NAV}
   - {t: A, h: LEFT GUI}
   - {t: S, h: LEFT ALT}
   - {t: D, h: LCTRL}
@@ -38,10 +38,10 @@ layers:
   - DEV TOOLS
   - SCRL SLOW
   - L CLK
-  - {t: BACK SPACE, h: '1'}
-  - {t: RETURN, h: '7'}
-  - {t: SPACE, h: '3'}
-  '1':
+  - {t: BACK SPACE, h: NUM}
+  - {t: RETURN, h: MOUSE}
+  - {t: SPACE, h: SYM}
+  NUM:
   - ''
   - ''
   - ''
@@ -83,7 +83,7 @@ layers:
   - {type: held}
   - '0'
   - {t: ▽, type: trans}
-  '2':
+  NAV:
   - ''
   - ''
   - ''
@@ -125,7 +125,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  '3':
+  SYM:
   - ''
   - +
   - '{'
@@ -167,7 +167,7 @@ layers:
   - {t: ▽, type: trans}
   - ''
   - {type: held}
-  '4':
+  GAME:
   - '1'
   - TAB
   - Q
@@ -179,7 +179,7 @@ layers:
   - ''
   - ''
   - ''
-  - {t: '0', h: toggle}
+  - {t: BASE, h: toggle}
   - '2'
   - LCTRL
   - A
@@ -209,7 +209,7 @@ layers:
   - LEFT ALT
   - ''
   - ''
-  '5':
+  PHOTOS:
   - {t: ▽, type: trans}
   - TAG Z
   - TAG E
@@ -245,13 +245,13 @@ layers:
   - ''
   - ''
   - ''
-  - {t: '0', h: toggle}
+  - {t: BASE, h: toggle}
   - {t: ▽, type: trans}
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  '6':
+  EXTRAS:
   - SLEEP
   - SHRUG
   - LGTM
@@ -293,7 +293,7 @@ layers:
   - ''
   - ''
   - ''
-  '7':
+  MOUSE:
   - ''
   - WHEEL L
   - WHEEL D
@@ -422,7 +422,7 @@ layers:
 combos:
 - p: [17, 18]
   k: CAPS WORD
-  l: ['0']
+  l: [BASE]
 - p: [28, 37]
   k: M CLK
 - p: [16, 37]
