@@ -18,9 +18,9 @@
 // #define SLOW    8
 // #define SCROLL  9
 
-/ {
-    chosen { zmk,matrix_transform = &default_transform; };
-};
+// / {
+//     chosen { zmk,matrix_transform = &default_transform; };
+// };
 
 / {
     /* input config for mouse move mode */
