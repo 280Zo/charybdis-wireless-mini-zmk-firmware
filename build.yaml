@@ -29,7 +29,7 @@ include:
   #   keymap: qwerty
   #   format: bt
   #   artifact-name: charybdis_qwerty_right
-  #   snippet: studio-rpc-usb-uart
+  # # snippet: studio-rpc-usb-uart
 
   # Colemak DH BT
   - board: nice_nano_v2
@@ -42,7 +42,7 @@ include:
     keymap: colemak_dh
     format: bt
     artifact-name: charybdis_colemak_right
-    snippet: studio-rpc-usb-uart
+    # snippet: studio-rpc-usb-uart
 
   # # QWERTY Dongle
   # - board: nice_nano_v2
@@ -60,7 +60,7 @@ include:
   #   keymap: qwerty
   #   format: dongle
   #   artifact-name: charybdis_qwerty_dongle
-  #   snippet: studio-rpc-usb-uart
+  # # snippet: studio-rpc-usb-uart
 
   # Colemak DH Dongle
   - board: nice_nano_v2
@@ -78,7 +78,7 @@ include:
     keymap: colemak_dh
     format: dongle
     artifact-name: charybdis_colemak_dongle
-    snippet: studio-rpc-usb-uart
+    # snippet: studio-rpc-usb-uart
 
   # Firmware Reset
   - board: nice_nano_v2
