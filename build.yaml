@@ -60,7 +60,6 @@ include:
   #   keymap: qwerty
   #   format: dongle
   #   artifact-name: charybdis_qwerty_dongle
-  #   snippet: studio-rpc-usb-uart
 
   # Colemak DH Dongle
   - board: nice_nano_v2
@@ -78,7 +77,6 @@ include:
     keymap: colemak_dh
     format: dongle
     artifact-name: charybdis_colemak_dongle
-    snippet: studio-rpc-usb-uart
 
   # Firmware Reset
   - board: nice_nano_v2
