@@ -8,7 +8,7 @@
     // };
     chosen {
         zmk,kscan = &kscan0;
-        zmk,physical-layout = &charybdis-layouts;
+        zmk,physical-layout = &charybdis_physical_layout;
     };
 
     vbatt: vbatt {
