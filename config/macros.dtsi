@@ -1,0 +1,219 @@
+/ {
+    macros {
+        VSplit: VSplit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(SEMI) &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
+        };
+
+        HSplit: HSplit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(SEMI) &kp LS(S) &kp LS(P) &kp RET>;
+        };
+
+        shrug: shrug { // shrug emoji ¯\_(ツ)_/¯
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <20>;
+            bindings
+                // ¯ (Macron)
+                = <&macro_press &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp U>
+                , <&macro_release &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp N0 &kp N0 &kp A &kp F &kp SPC>
+                // \
+                , <&macro_tap &kp BACKSLASH>
+                , <&macro_tap &kp BACKSLASH>
+                // _
+                , <&macro_tap &kp UNDER>
+                // (
+                , <&macro_tap &kp LPAR>
+                // ツ (Katakana Letter Tu)
+                , <&macro_press &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp U>
+                , <&macro_release &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp N3 &kp N0 &kp C &kp N4 &kp SPC>
+                // )
+                , <&macro_tap &kp RPAR>
+                // _
+                , <&macro_tap &kp UNDER>
+                // /
+                , <&macro_tap &kp FSLH>
+                // ¯ (Macron)
+                , <&macro_press &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp U>
+                , <&macro_release &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp N0 &kp N0 &kp A &kp F &kp SPC>
+                ;
+        };
+
+        gcm: gcm { // git commit WIP
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <20>;
+            bindings = <
+                &macro_tap &kp G &kp I &kp T &kp SPACE
+                &kp C &kp O &kp M &kp M &kp I &kp T &kp SPACE
+                &kp MINUS &kp A &kp M &kp SPACE
+                &kp DQT &kp LS(W) &kp LS(I) &kp LS(P) &kp DQT
+            >;
+        };
+
+        lgtm: lgtm { // LGTM Approval
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <20>;
+            bindings = <
+                &macro_tap
+                &kp LS(L) &kp LS(G) &kp LS(T) &kp LS(M)
+                &kp SPACE &kp MINUS &kp SPACE
+                &kp LS(A) &kp P &kp P &kp R &kp O &kp V &kp E &kp D &kp EXCL
+            >;
+        };
+
+        py_iter: py_iter { // PYTHON_ITERATION_WITH_INDEX
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <20>;
+            bindings
+                = <&macro_tap &kp C &kp O &kp U &kp N &kp T>  // "count"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp EQUAL>                      // "="
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp N0>                         // "0"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp HASH>                       // "#"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp I &kp N &kp SPACE &kp C &kp A &kp S &kp E &kp SPACE>  // "in case "
+                , <&macro_tap &kp I &kp T &kp E &kp M &kp S>  // "items"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp I &kp S &kp SPACE>          // "is "
+                , <&macro_tap &kp E &kp M &kp P &kp T &kp Y>  // "empty"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp A &kp N &kp D &kp SPACE>    // "and "
+                , <&macro_tap &kp Y &kp O &kp U &kp SPACE>    // "you "
+                , <&macro_tap &kp N &kp E &kp E &kp D &kp SPACE>  // "need "
+                , <&macro_tap &kp T &kp H &kp E &kp SPACE>    // "the "
+                , <&macro_tap &kp C &kp O &kp U &kp N &kp T>  // "count"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp A &kp F &kp T &kp E &kp R>  // "after"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp T &kp H &kp E &kp SPACE>    // "the "
+                , <&macro_tap &kp L &kp O &kp O &kp P>        // "loop"
+                , <&macro_tap &kp RET>                        // newline
+                , <&macro_tap &kp F &kp O &kp R &kp SPACE>    // "for "
+                , <&macro_tap &kp C &kp O &kp U &kp N &kp T>  // "count"
+                , <&macro_tap &kp COMMA &kp SPACE>            // ", "
+                , <&macro_tap &kp I &kp T &kp E &kp M>        // "item"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp I &kp N &kp SPACE>          // "in "
+                , <&macro_tap &kp E &kp N &kp U &kp M &kp E &kp R &kp A &kp T &kp E>  // "enumerate"
+                , <&macro_tap &kp LPAR>                       // "("
+                , <&macro_tap &kp I &kp T &kp E &kp M &kp S>  // "items"
+                , <&macro_tap &kp COMMA &kp SPACE>            // ", "
+                , <&macro_tap &kp S &kp T &kp A &kp R &kp T>  // "start"
+                , <&macro_tap &kp EQUAL>                      // "="
+                , <&macro_tap &kp N1>                         // "1"
+                , <&macro_tap &kp RPAR>                       // ")"
+                , <&macro_tap &kp COLON>                      // ":"
+                , <&macro_tap &kp RET>                        // newline
+                , <&macro_tap &kp SPACE &kp SPACE &kp SPACE &kp SPACE>  // 4 spaces
+                , <&macro_tap &kp P &kp R &kp I &kp N &kp T>  // "print"
+                , <&macro_tap &kp LPAR>                       // "("
+                , <&macro_tap &kp C &kp O &kp U &kp N &kp T>  // "count"
+                , <&macro_tap &kp COMMA &kp SPACE>            // ", "
+                , <&macro_tap &kp I &kp T &kp E &kp M>        // "item"
+                , <&macro_tap &kp RPAR>                       // ")"
+                ;
+        };
+
+        js_iter: js_iter { // JS_ITERATION_WITH_INDEX
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <20>;
+            bindings
+                = <&macro_tap &kp L &kp E &kp T &kp SPACE>    // "let "
+                , <&macro_tap &kp C &kp O &kp U &kp N &kp T>  // "count"
+                , <&macro_tap &kp SPACE &kp EQUAL &kp SPACE>  // " = "
+                , <&macro_tap &kp N0>                         // "0"
+                , <&macro_tap &kp SEMI>                       // ";"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp FSLH &kp FSLH>             // "//"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp I &kp N &kp SPACE &kp C &kp A &kp S &kp E &kp SPACE>  // "in case "
+                , <&macro_tap &kp I &kp T &kp E &kp M &kp S>  // "items"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp I &kp S &kp SPACE>          // "is "
+                , <&macro_tap &kp E &kp M &kp P &kp T &kp Y>  // "empty"
+                , <&macro_tap &kp RET>                        // newline
+                , <&macro_tap &kp F &kp O &kp R &kp SPACE>    // "for "
+                , <&macro_tap &kp LPAR>                       // "("
+                , <&macro_tap &kp C &kp O &kp N &kp S &kp T>  // "const"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp I &kp T &kp E &kp M>        // "item"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp O &kp F &kp SPACE>          // "of "
+                , <&macro_tap &kp I &kp T &kp E &kp M &kp S>  // "items"
+                , <&macro_tap &kp RPAR>                       // ")"
+                , <&macro_tap &kp SPACE>
+                , <&macro_tap &kp LBRC>                       // "{"
+                , <&macro_tap &kp RBRC>                       // "}"
+                , <&macro_tap &kp LEFT_ARROW>
+                , <&macro_tap &kp RET>                        // newline
+                , <&macro_tap &kp SPACE &kp SPACE &kp SPACE &kp SPACE>  // 4 spaces
+                , <&macro_tap &kp C &kp O &kp U &kp N &kp T>  // "count"
+                , <&macro_tap &kp PLUS &kp PLUS>              // "++"
+                , <&macro_tap &kp SEMI>                       // ";"
+                , <&macro_tap &kp RET>                        // newline
+                , <&macro_tap &kp C &kp O &kp N &kp S &kp O &kp L &kp E>  // "console"
+                , <&macro_tap &kp DOT>                        // "."
+                , <&macro_tap &kp L &kp O &kp G>              // "log"
+                , <&macro_tap &kp LPAR>                       // "("
+                , <&macro_tap &kp C &kp O &kp U &kp N &kp T>  // "count"
+                , <&macro_tap &kp COMMA &kp SPACE>            // ", "
+                , <&macro_tap &kp I &kp T &kp E &kp M>        // "item"
+                , <&macro_tap &kp RPAR>                       // ")"
+                , <&macro_tap &kp SEMI>                       // ";"
+                ;
+        };
+
+        shit: shit { // SUDO_BANG_BANG
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <20>;
+            bindings
+                = <&macro_tap &kp S &kp U &kp D &kp O>  // "sudo"
+                , <&macro_tap &kp SPACE>                // space
+                , <&macro_tap &kp EXCL &kp EXCL>        // "!!"
+                , <&macro_tap &kp RET>                  // Enter key
+                ;
+        };
+        
+        clip_hist: clip_hist { // CLIPBOARD_HISTORY
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings 
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp V>
+                , <&macro_release &kp LGUI>
+                ;
+        };
+        
+        new_dir: new_dir { // NEW_DIRECTORY
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp N>
+                , <&macro_release &kp LCTRL &kp LSHFT>
+                ;
+        };
+    };
+};

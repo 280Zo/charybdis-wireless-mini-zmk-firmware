@@ -236,6 +236,9 @@ parse_config:
     LA(KP_N1): "REJECT"
     LA(KP_N2): "PENDING"
     LA(KP_N3): "ACCEPT"
+    F12: "DEV TOOLS"
+    BRIGHTNESS INC: "BRIGHT ▲"
+    BRIGHTNESS DEC: "BRIGHT ▼"
   zmk_combos: {}
   zmk_preamble: "#define KEYMAP_DRAWER"
   zmk_additional_includes: []

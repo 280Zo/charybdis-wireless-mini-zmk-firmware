@@ -7,7 +7,9 @@ This repository offers pre-configured ZMK firmware designed for Wireless Charybd
 - Bluetooth and USB
 - Dongle
 
-Additionally, this repository also provides high level instructions and resources on how to customize and build the firmware to meet your specific needs.
+Additionally, this repository automatically generates SVG images of all layers in the keymap, and adds it to the README. It also provides high level instructions and resources on how to customize and build the firmware to meet your specific needs.
+
+Check out the [Charybdis Mini Wireless build guide](https://github.com/280Zo/charybdis-wireless-mini-3x6-build-guide?tab=readme-ov-file) if you haven't yet built your own Charybdis keyboard.
 
 ## Usage
 
@@ -28,7 +30,7 @@ There are a few things to note about how the pre-built firmware is configured:
 - To add support for the PMW3610 low power trackball sensor, badjeff's [zmk-pmw3610-driver](https://github.com/badjeff/zmk-pmw3610-driver), [ZMK Input Behavior Listener](https://github.com/badjeff/zmk-input-behavior-listener?tab=readme-ov-file), and [ZMK Split Peripheral Input Relay](https://github.com/badjeff/zmk-split-peripheral-input-relay) modules are included in the firmware.
 - eigatech's [zmk-configs](https://github.com/eigatech/zmk-config?tab=readme-ov-file) played a major role in getting badjeff's drivers and modules fully configured and are a great resource
 - A separate branch builds the Bluetooth/USB firmware using [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file) as an alternative to badjeff's driver.
-- [Petejohanson's individual work](https://github.com/petejohanson/zmk/blob/feat/pointers-move-scroll/docs/docs/behaviors/mouse-emulation.md) is also included in the build to allow mouse keys to function. This will be used until the main ZMK repo merges it.
+- Pete Johanson (creator and lead of the ZMK firmware) developed a feature ([pointers-move-scroll](https://github.com/zmkfirmware/zmk/pull/2027)) that allows mouse keys to move and scroll. A successor feature ([pointers-with-input-processors](https://github.com/zmkfirmware/zmk/pull/2477)) was then developed that allows more flexibility. This feature is what will eventually be merged into the main ZMK branch, and it's what is used by this repo to build the firmware. Although it's not guranteed to be stable, it hasn't caused any noticible issues. That being said, if you'd prefer to use pointers-move-scroll which is in a stable state, you can update the west.yaml and adapt the config files accordingly.
 
 ## Flashing the Firmware
 
@@ -44,22 +46,20 @@ Follow the steps below to flash the firmware
 - Repeat these steps for all devices.
 - You should now be able to use your keyboard
 
-Note - If the keyboard halves aren't connecting as expected, try pressing the reset button on both halves at the same time. If that doesn't work, follow the [ZMK Connection Issues](https://zmk.dev/docs/troubleshooting/connection-issues#acquiring-a-reset-uf2) documentation for more troubleshooting steps.
+> [!NOTE]  
+> If the keyboard halves aren't connecting as expected, try pressing the reset button on both halves at the same time. If that doesn't work, follow the [ZMK Connection Issues](https://zmk.dev/docs/troubleshooting/connection-issues#acquiring-a-reset-uf2) documentation for more troubleshooting steps.
 
 ## Keymaps & Layers
 
-Each layer has been heavily influenced by [Miryoku](https://github.com/manna-harbour/miryoku/) and [home row mods](https://precondition.github.io/home-row-mods) that use [bilateral combinations](https://sunaku.github.io/home-row-mods.html) to make typing as efficient and comfortable as possible, though some non-bilateral key options are also included for optional usage.
-To reduce hand movement, extra attention has also been given to making sure cursor, scrolling, and mouse button operations are as seamless as possible.
+The base layer uses [home row mods](https://precondition.github.io/home-row-mods) to make typing as efficient and comfortable as possible. To reduce hand movement, extra attention has also been given to making sure cursor, scrolling, and mouse button operations are as seamless as possible.
 
 Review the layer maps below to see how each one functions. Then either modify the keymap to fit your needs, or start using these defaults to become more familiar with them.
 
 Here are a few tips for a quick start:
 
-- When moving the trackball, the mouse layer will be automatically activated. When the trackball movement stops, the previous layer is activated again.
-
 - The bluetooth keys on the EXTRAS layer allow you to select which bluetooth pairing you want, BT-CLR clears the pairing on the selected profile.
 
-- The most left thumb button has multiple functions
+- The left most thumb button has multiple functions
   - When held, the function of the trackball is changed from moving the cursor to scrolling.
   - When double tapped, it will reduce the cursor speed for more precision, and activate the mouse layer.
   - When single tapped it will activate the base layer.
@@ -68,9 +68,19 @@ Here are a few tips for a quick start:
 
 ## Modify Key Mappings
 
-### Use a GUI
+### ZMK Studio
 
-Using a GUI to generate the keymap file content is the easiest option when getting started. Head over to nickcoutsos' keymap editor and follow the steps below.
+[ZMK Studio](https://zmk.studio/) allows users to update functionality during runtime. It's currently in beta, but the physical layout and updated config files are included in the BT/USB firmware for testing. The dongle firmware does not have this integration at the moment.
+
+To change the visual layout of the keys, the physical layout must be updated. This is the charybdis-layouts.dtsi file, which handles the actual physical positions of the keys. Though they may appear to be similar, this is different than the matrix transform file (charybdis.json) which handles the electrical matrix to keymap relationship.
+
+To easily modify the physical layout, or convert a matrix transform file, [caksoylar](https://github.com/caksoylar/zmk-physical-layout-converter) has built the [ZMK physical layouts converter](https://zmk-physical-layout-converter.streamlit.app/).
+
+For more details on how to use ZMK Studio, refer to the [ZMK documentation](https://zmk.dev/docs/features/studio).
+
+### Keymap GUI
+
+Using a GUI to generate the keymap file before building the firmware is another easy way to modify the key mappings. Head over to nickcoutsos' keymap editor and follow the steps below.
 
 - Fork/Clone this repo
 - Open a new tab to the [keymap editor](https://nickcoutsos.github.io/keymap-editor/)
@@ -81,7 +91,7 @@ Using a GUI to generate the keymap file content is the easiest option when getti
 - Wait for the pipeline to run
 - Download and flash the new firmware
 
-### Edit Code Directly
+### Edit Keymap Directly
 
 To change a key layout choose a behavior you'd like to assign to a key, then choose a parameter code. This process is more clearly outlined on ZMK's [Keymaps & Behaviors](https://zmk.dev/docs/features/keymaps) page.
 
@@ -118,10 +128,10 @@ This repo uses the excellent work of caksoylar's [Keymap Drawer](https://keymap-
 
 ## Upcoming ZMK Features
 
-ZMK is actively being developed and there are a few features that will be added to these builds as soon as they are released.
+ZMK is actively being developed and there are a few features that will be added to these builds if/when they are approved.
 
-- Mouse Pointer & Scrolling - [PR in review](https://github.com/zmkfirmware/zmk/pull/2027)
-- Layer Locks - [Layer locks will hopefully get merged in](https://github.com/zmkfirmware/zmk/pull/1984)
+- Layer Lock - [Open PR](https://github.com/zmkfirmware/zmk/pull/1984)
+- Unicode Support - [Issue](https://github.com/zmkfirmware/zmk/issues/232)
 
 ## Credits
 

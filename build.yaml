@@ -29,6 +29,7 @@ include:
     keymap: qwerty
     format: bt
     artifact-name: charybdis_qwerty_right
+    snippet: studio-rpc-usb-uart
 
   # Colemak DH BT
   - board: nice_nano_v2
@@ -41,6 +42,7 @@ include:
     keymap: colemak_dh
     format: bt
     artifact-name: charybdis_colemak_right
+    snippet: studio-rpc-usb-uart
 
   # QWERTY Dongle
   - board: nice_nano_v2

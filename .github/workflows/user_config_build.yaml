@@ -126,8 +126,13 @@ jobs:
             cp -R "${{ inputs.config_path }}"/* "$base_config_path/"
             echo "config files ready"
             
-            # Copy active keymap to the board directory & adjust for bt/dongle format
+            # Copy keymap & physical layouts
             if [ "${{ env.shield }}" != "settings_reset" ]; then
+              # Copy physical layout file to shield directory
+              mv -v "$base_config_path/charybdis-layouts.dtsi" \
+              "${GITHUB_WORKSPACE}/boards/shields/charybdis-${{ env.format }}/"
+
+              # Copy active keymap to the board directory & adjust for bt/dongle format
               cp -Rv "$GITHUB_WORKSPACE/${{ inputs.keymap_path }}/${{ env.keymap }}.keymap" \
                 "$base_config_path/charybdis.keymap"
               echo "format: ${{ env.format }}"
@@ -137,7 +142,8 @@ jobs:
                   sed -i 's/device = <&vtrackball>;/device = <\&trackball>;/g' "$base_config_path/charybdis.keymap"
                   grep "device = <" "$base_config_path/charybdis.keymap"
                   ;;
-              esac            fi
+              esac
+            fi
           fi
 
           # Remove untargeted shields so they don't get auto picked up by the west build command
