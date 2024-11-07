@@ -180,7 +180,6 @@
                 , <&macro_tap &kp I &kp T &kp E &kp M>        // "item"
                 , <&macro_tap &kp RPAR>                       // ")"
                 , <&macro_tap &kp SEMI>                       // ";"
-                , <&macro_tap &kp RET>                        // newline
                 ;
         };
 

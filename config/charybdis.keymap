@@ -228,9 +228,9 @@
 
         EXTRAS {
             bindings = <
-&kp C_SLEEP     &shrug &lgtm     &gcm      &none  &kp C_BRIGHTNESS_INC        &bt BT_SEL 0  &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3  &none           &kp C_AL_COFFEE
-&kp C_POWER     &shit  &py_iter  &js_iter  &none  &kp C_BRIGHTNESS_DEC        &out OUT_TOG  &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_STOP    &kp C_NEXT      &none
-&studio_unlock  &none  &none     &none     &none  &clip_hist                  &new_dir      &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp K_MUTE    &kp PRINTSCREEN &bt BT_CLR
+&kp C_SLEEP  &shrug  &lgtm     &gcm      &none  &kp C_BRIGHTNESS_INC    &bt BT_SEL 0  &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3  &none           &kp C_AL_COFFEE
+&kp C_POWER  &shit   &py_iter  &js_iter  &none  &kp C_BRIGHTNESS_DEC    &out OUT_TOG  &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_STOP    &kp C_NEXT      &none
+&bt BT_CLR   &none   &none     &none     &none  &clip_hist              &new_dir      &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp K_MUTE    &kp PRINTSCREEN &studio_unlock
                                  &none     &none  &none                       &none         &none
             >;
         };
