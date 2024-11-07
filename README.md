@@ -30,7 +30,7 @@ There are a few things to note about how the pre-built firmware is configured:
 - To add support for the PMW3610 low power trackball sensor, badjeff's [zmk-pmw3610-driver](https://github.com/badjeff/zmk-pmw3610-driver), [ZMK Input Behavior Listener](https://github.com/badjeff/zmk-input-behavior-listener?tab=readme-ov-file), and [ZMK Split Peripheral Input Relay](https://github.com/badjeff/zmk-split-peripheral-input-relay) modules are included in the firmware.
 - eigatech's [zmk-configs](https://github.com/eigatech/zmk-config?tab=readme-ov-file) played a major role in getting badjeff's drivers and modules fully configured and are a great resource
 - A separate branch builds the Bluetooth/USB firmware using [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file) as an alternative to badjeff's driver.
-- Pete Johanson (Creator and lead of the ZMK firmware) developed a feature ([pointers-move-scroll](https://github.com/zmkfirmware/zmk/pull/2027)) that allows mouse keys to move and scroll. A successor feature ([pointers-with-input-processors](https://github.com/zmkfirmware/zmk/pull/2477)) was then developed that allows more flexibility. This feature is what will eventually be merged into the main ZMK branch, and it's what is used by this repo to build the firmware. Although it's not guranteed to be stable, it hasn't caused any noticible issues. That being said, if you'd prefer to use pointers-move-scroll which is in a stable state, you can update the west.yaml and adapt the config files accordingly.
+- Pete Johanson (creator and lead of the ZMK firmware) developed a feature ([pointers-move-scroll](https://github.com/zmkfirmware/zmk/pull/2027)) that allows mouse keys to move and scroll. A successor feature ([pointers-with-input-processors](https://github.com/zmkfirmware/zmk/pull/2477)) was then developed that allows more flexibility. This feature is what will eventually be merged into the main ZMK branch, and it's what is used by this repo to build the firmware. Although it's not guranteed to be stable, it hasn't caused any noticible issues. That being said, if you'd prefer to use pointers-move-scroll which is in a stable state, you can update the west.yaml and adapt the config files accordingly.
 
 ## Flashing the Firmware
 
@@ -51,14 +51,11 @@ Follow the steps below to flash the firmware
 
 ## Keymaps & Layers
 
-Most layers have been heavily influenced by [Miryoku](https://github.com/manna-harbour/miryoku/) and [home row mods](https://precondition.github.io/home-row-mods) that use [bilateral combinations](https://sunaku.github.io/home-row-mods.html) to make typing as efficient and comfortable as possible.
-To reduce hand movement, extra attention has also been given to making sure cursor, scrolling, and mouse button operations are as seamless as possible.
+The base layer uses [home row mods](https://precondition.github.io/home-row-mods) to make typing as efficient and comfortable as possible. To reduce hand movement, extra attention has also been given to making sure cursor, scrolling, and mouse button operations are as seamless as possible.
 
 Review the layer maps below to see how each one functions. Then either modify the keymap to fit your needs, or start using these defaults to become more familiar with them.
 
 Here are a few tips for a quick start:
-
-- When moving the trackball, the mouse layer will be automatically activated. When the trackball movement stops, the previous layer is activated again.
 
 - The bluetooth keys on the EXTRAS layer allow you to select which bluetooth pairing you want, BT-CLR clears the pairing on the selected profile.
 
