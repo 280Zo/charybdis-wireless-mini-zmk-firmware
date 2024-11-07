@@ -262,7 +262,7 @@ layers:
   - {t: BT, h: '1'}
   - {t: BT, h: '2'}
   - {t: BT, h: '3'}
-  - BT CLR
+  - ''
   - LOCK
   - POWER
   - SHIT SUDO
@@ -276,7 +276,7 @@ layers:
   - STOP
   - NEXT
   - ''
-  - BOOT LDR
+  - '&studio_unlock'
   - ''
   - ''
   - ''
@@ -287,7 +287,7 @@ layers:
   - VOLUME UP
   - MUTE
   - PRINT SCREEN
-  - BOOT LDR
+  - BT CLR
   - ''
   - ''
   - ''
