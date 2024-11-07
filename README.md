@@ -62,7 +62,7 @@ Here are a few tips for a quick start:
 - The left most thumb button has multiple functions
   - When held, the function of the trackball is changed from moving the cursor to scrolling.
   - When double tapped, it will reduce the cursor speed for more precision, and activate the mouse layer.
-  - When single tapped it will activate the base layer.
+  - When single tapped it outputs the escape key.
 
 ![keymap images](keymap-drawer/charybdis.svg)
 
