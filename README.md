@@ -7,7 +7,7 @@ This repository offers pre-configured ZMK firmware designed for Wireless Charybd
 - Bluetooth and USB
 - Dongle
 
-Additionally, this repository also provides high level instructions and resources on how to customize and build the firmware to meet your specific needs.
+Additionally, this repository automatically generates SVG images of all layers in the keymap, and adds it to the README. It also provides high level instructions and resources on how to customize and build the firmware to meet your specific needs.
 
 Check out the [Charybdis Mini Wireless build guide](https://github.com/280Zo/charybdis-wireless-mini-3x6-build-guide?tab=readme-ov-file) if you haven't yet built your own Charybdis keyboard.
 
@@ -30,7 +30,7 @@ There are a few things to note about how the pre-built firmware is configured:
 - To add support for the PMW3610 low power trackball sensor, badjeff's [zmk-pmw3610-driver](https://github.com/badjeff/zmk-pmw3610-driver), [ZMK Input Behavior Listener](https://github.com/badjeff/zmk-input-behavior-listener?tab=readme-ov-file), and [ZMK Split Peripheral Input Relay](https://github.com/badjeff/zmk-split-peripheral-input-relay) modules are included in the firmware.
 - eigatech's [zmk-configs](https://github.com/eigatech/zmk-config?tab=readme-ov-file) played a major role in getting badjeff's drivers and modules fully configured and are a great resource
 - A separate branch builds the Bluetooth/USB firmware using [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file) as an alternative to badjeff's driver.
-- Petejohanson's [pointers-move-scroll ZMK](https://github.com/petejohanson/zmk/blob/feat/pointers-move-scroll/docs/docs/behaviors/mouse-emulation.md) branch is used to build the firmware because it allows mouse keys and scrolling to function. This will be used until [2477](https://github.com/zmkfirmware/zmk/pull/2477) becomes stable or is merged with the main ZMK repo.
+- Pete Johanson (Creator and lead of the ZMK firmware) developed a feature ([pointers-move-scroll](https://github.com/zmkfirmware/zmk/pull/2027)) that allows mouse keys to move and scroll. A successor feature ([pointers-with-input-processors](https://github.com/zmkfirmware/zmk/pull/2477)) was then developed that allows more flexibility. This firmware is what will eventually be merged into the main ZMK repo, and it's what is used in this repo. Although it's not guranteed to be stable, it hasn't caused any noticible issues. That being said, if you'd prefer to use pointers-move-scroll which is in a stable state, you can update the west.yaml and adapt the config files accordingly.
 
 ## Flashing the Firmware
 
@@ -62,7 +62,7 @@ Here are a few tips for a quick start:
 
 - The bluetooth keys on the EXTRAS layer allow you to select which bluetooth pairing you want, BT-CLR clears the pairing on the selected profile.
 
-- The most left thumb button has multiple functions
+- The left most thumb button has multiple functions
   - When held, the function of the trackball is changed from moving the cursor to scrolling.
   - When double tapped, it will reduce the cursor speed for more precision, and activate the mouse layer.
   - When single tapped it will activate the base layer.
@@ -71,9 +71,15 @@ Here are a few tips for a quick start:
 
 ## Modify Key Mappings
 
-### Use a GUI
+### ZMK Studio
 
-Using a GUI to generate the keymap file content is the easiest option when getting started. Head over to nickcoutsos' keymap editor and follow the steps below.
+[ZMK Studio](https://zmk.studio/) allows users to update functionality during runtime. It's currently in beta, but the physical layout and updated config files are included in the BT/USB firmware for testing. The dongle firmware does not have this integration at the moment.
+
+For more details on how to use ZMK Studio, refer to the [ZMK documentation](https://zmk.dev/docs/features/studio).
+
+### Keymap GUI
+
+Using a GUI to generate the keymap file before building the firmware is another easy way to modify the key mappings. Head over to nickcoutsos' keymap editor and follow the steps below.
 
 - Fork/Clone this repo
 - Open a new tab to the [keymap editor](https://nickcoutsos.github.io/keymap-editor/)
@@ -84,7 +90,7 @@ Using a GUI to generate the keymap file content is the easiest option when getti
 - Wait for the pipeline to run
 - Download and flash the new firmware
 
-### Edit Code Directly
+### Edit Keymap Directly
 
 To change a key layout choose a behavior you'd like to assign to a key, then choose a parameter code. This process is more clearly outlined on ZMK's [Keymaps & Behaviors](https://zmk.dev/docs/features/keymaps) page.
 
