@@ -5,7 +5,7 @@
         compatible = "zmk,physical-layout";
         display-name = "Charybdis 3x6";
 
-        kscan = <&kscan_0>;
+        kscan = <&kscan0>;
         transform = <&matrix_transform_0>;
 
         keys
