@@ -1,6 +1,6 @@
 layers:
   BASE:
-  - ESCAPE
+  - {t: BASE, h: toggle}
   - Q
   - W
   - E
@@ -12,8 +12,8 @@ layers:
   - O
   - P
   - L_BASE L_PHOTO L_GAME
-  - {t: TAB, h: NAV}
-  - {t: A, h: LEFT GUI}
+  - {t: TAB, h: LCMD}
+  - {t: A, h: NAV}
   - {t: S, h: LEFT ALT}
   - {t: D, h: LCTRL}
   - {t: F, h: LEFT SHIFT}
@@ -22,7 +22,7 @@ layers:
   - {t: J, h: LEFT SHIFT}
   - {t: K, h: RCTRL}
   - {t: L, h: RIGHT ALT}
-  - {t: ;, h: LEFT META}
+  - {t: ;, h: LCMD}
   - DEL
   - SEARCH
   - Z
@@ -96,8 +96,8 @@ layers:
   - PANE ▼
   - PANE ▶
   - ''
-  - {type: held}
   - {t: ▽, type: trans}
+  - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -139,7 +139,7 @@ layers:
   - ''''
   - ''
   - ''
-  - {t: '!', h: LEFT META}
+  - {t: '!', h: LCMD}
   - {t: (, h: LEFT ALT}
   - {t: ), h: LCTRL}
   - {t: SPACE, h: LEFT SHIFT}
@@ -276,7 +276,7 @@ layers:
   - RIGHT SHIFT
   - RCTRL
   - LEFT ALT
-  - LEFT META
+  - LCMD
   - ''
   - ''
   - UNDO
