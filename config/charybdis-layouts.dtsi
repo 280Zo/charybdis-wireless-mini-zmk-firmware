@@ -6,7 +6,7 @@
         display-name = "Charybdis 3x6";
 
         kscan = <&kscan0>;
-        transform = <&matrix_transform_0>;
+        transform = <&default_transform>;
 
         keys
             // Left Half - Main Keys
