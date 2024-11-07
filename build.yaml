@@ -18,18 +18,18 @@
 #
 ---
 include: # TODO - Uncomment all the shields before merging to main
-  # # QWERTY BT
-  # - board: nice_nano_v2
-  #   shield: charybdis_left
-  #   keymap: qwerty
-  #   format: bt
-  #   artifact-name: charybdis_qwerty_left
-  # - board: nice_nano_v2
-  #   shield: charybdis_right
-  #   keymap: qwerty
-  #   format: bt
-  #   artifact-name: charybdis_qwerty_right
-  #   snippet: studio-rpc-usb-uart
+  # QWERTY BT
+  - board: nice_nano_v2
+    shield: charybdis_left
+    keymap: qwerty
+    format: bt
+    artifact-name: charybdis_qwerty_left
+  - board: nice_nano_v2
+    shield: charybdis_right
+    keymap: qwerty
+    format: bt
+    artifact-name: charybdis_qwerty_right
+    snippet: studio-rpc-usb-uart
 
   # Colemak DH BT
   - board: nice_nano_v2
@@ -44,22 +44,22 @@ include: # TODO - Uncomment all the shields before merging to main
     artifact-name: charybdis_colemak_right
     snippet: studio-rpc-usb-uart
 
-  # # QWERTY Dongle
-  # - board: nice_nano_v2
-  #   shield: charybdis_left
-  #   keymap: qwerty
-  #   format: dongle
-  #   artifact-name: charybdis_qwerty_dongle_left
-  # - board: nice_nano_v2
-  #   shield: charybdis_right
-  #   keymap: qwerty
-  #   format: dongle
-  #   artifact-name: charybdis_qwerty_dongle_right
-  # - board: nice_nano_v2
-  #   shield: charybdis_dongle
-  #   keymap: qwerty
-  #   format: dongle
-  #   artifact-name: charybdis_qwerty_dongle
+  # QWERTY Dongle
+  - board: nice_nano_v2
+    shield: charybdis_left
+    keymap: qwerty
+    format: dongle
+    artifact-name: charybdis_qwerty_dongle_left
+  - board: nice_nano_v2
+    shield: charybdis_right
+    keymap: qwerty
+    format: dongle
+    artifact-name: charybdis_qwerty_dongle_right
+  - board: nice_nano_v2
+    shield: charybdis_dongle
+    keymap: qwerty
+    format: dongle
+    artifact-name: charybdis_qwerty_dongle
 
   # Colemak DH Dongle
   - board: nice_nano_v2
