@@ -170,7 +170,8 @@ jobs:
               "&shit": "SHIT SUDO",
               "&new_dir": "NEW DIR",
               "&py_iter": "PYTHON LOOP",
-              "&js_iter": "JS LOOP"
+              "&js_iter": "JS LOOP",
+              "&studio_unlock": "ZMK Studio"
             }
         run: |
           get_args() {
