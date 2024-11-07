@@ -42,7 +42,7 @@ layers:
   - {t: RETURN, h: MOUSE}
   - {t: SPACE, h: SYM}
   NUM:
-  - ''
+  - {t: ▽, type: trans}
   - ''
   - ''
   - ''
@@ -54,7 +54,7 @@ layers:
   - {t: '9', h: F9}
   - {t: '-', h: F10}
   - ''
-  - TAB
+  - {t: ▽, type: trans}
   - ''
   - ''
   - ''
@@ -65,7 +65,7 @@ layers:
   - {t: '5', h: F5}
   - {t: '6', h: F6}
   - {t: +, h: F11}
-  - ''
+  - {t: ▽, type: trans}
   - ''
   - ''
   - ''
@@ -78,7 +78,7 @@ layers:
   - {t: '3', h: F3}
   - {t: '=', h: DEV TOOLS}
   - ''
-  - {t: ▽, type: trans}
+  - ''
   - ''
   - {type: held}
   - '0'
@@ -101,7 +101,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - ''
   - VSPLIT
   - LEFT
   - DOWN
@@ -112,7 +112,7 @@ layers:
   - ''
   - ''
   - ''
-  - {t: ▽, type: trans}
+  - ''
   - ''
   - HSPLIT
   - HOME
@@ -167,48 +167,8 @@ layers:
   - {t: ▽, type: trans}
   - ''
   - {type: held}
-  GAME:
-  - '1'
-  - TAB
-  - Q
-  - W
-  - E
-  - R
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - {t: BASE, h: toggle}
-  - '2'
-  - LCTRL
-  - A
-  - S
-  - D
-  - F
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - '3'
-  - LSHFT
-  - Z
-  - X
-  - C
-  - V
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - {t: ▽, type: trans}
-  - SPACE
-  - LEFT ALT
-  - ''
-  - ''
+  GAME: ['1', TAB, Q, W, E, R, '', '', '', '', '', '', '2', LCTRL, A, S, D, F, '', '', '', '', '', '', '3', LSHFT, Z, X, C, V, '', '', '', '', '', '', '', SPACE,
+    LEFT ALT, '', '']
   PHOTOS:
   - {t: ▽, type: trans}
   - TAG Z
@@ -221,7 +181,7 @@ layers:
   - ''
   - ''
   - ''
-  - {t: ▽, type: trans}
+  - ''
   - FIT
   - LEFT
   - DOWN
@@ -233,7 +193,7 @@ layers:
   - ''
   - ''
   - ''
-  - ''
+  - {t: ▽, type: trans}
   - SHRED
   - SHOW TAGS
   - REJECT
@@ -245,14 +205,14 @@ layers:
   - ''
   - ''
   - ''
-  - {t: BASE, h: toggle}
-  - {t: ▽, type: trans}
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   EXTRAS:
-  - SLEEP
+  - POWER
   - SHRUG
   - LGTM
   - GIT COMMIT
@@ -262,32 +222,32 @@ layers:
   - {t: BT, h: '1'}
   - {t: BT, h: '2'}
   - {t: BT, h: '3'}
-  - ''
-  - LOCK
-  - POWER
+  - OUT TOG
+  - BT CLR
+  - SLEEP
   - SHIT SUDO
   - PYTHON LOOP
   - JS LOOP
   - ''
   - BRIGHTNESS DEC
-  - OUT TOG
+  - ''
   - PREVIOUS
   - PLAY PAUSE
   - STOP
   - NEXT
   - ''
-  - BT CLR
+  - LOCK
   - ''
   - ''
   - ''
   - ''
   - CLIP HIST
   - NEW DIR
+  - MUTE
   - VOLUME DOWN
   - VOLUME UP
-  - MUTE
   - PRINT SCREEN
-  - '&studio_unlock'
+  - ZMK Studio
   - ''
   - ''
   - ''
