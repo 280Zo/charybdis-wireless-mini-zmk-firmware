@@ -215,7 +215,7 @@
 &none  &kp PLUS       &kp LEFT_BRACE     &kp RIGHT_BRACE  &kp MINUS             &kp COLON        &kp K_SLEEP  &kp GRAVE             &kp DLLR          &kp CARET          &kp SLASH  &none
 &none  &hm LCMD EXCL  &hm LEFT_ALT LPAR  &hm LCTRL RPAR   &hm LEFT_SHIFT SPACE  &kp TILDE        &kp SLASH    &hm LEFT_SHIFT SPACE  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp SQT    &kp EQUAL
 &none  &kp EQUAL      &kp LBKT           &kp RBKT         &kp UNDERSCORE        &kp SEMICOLON    &kp PIPE     &kp ASTRK             &kp LESS_THAN     &kp GREATER_THAN   &kp MINUS  &none
-                                         &trans           &trans                &trans           &none        &trans
+                                         &trans           &trans                &trans           &kp LANG1    &kp LANGUAGE_2
             >;
         };
 
