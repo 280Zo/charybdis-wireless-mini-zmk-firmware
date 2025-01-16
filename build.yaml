@@ -65,6 +65,11 @@ include:
     keymap: qwerty
     format: dongle
     artifact-name: charybdis_qwerty_dongle_seeed
+  - board: seeeduino_xiao_ble
+    shield: charybdis_dongle
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_STUDIO=y
+    artifact-name: charybdis_qwerty_dongle_seeed_STUDIO
 
   # Colemak DH Dongle
   # - board: nice_nano_v2
