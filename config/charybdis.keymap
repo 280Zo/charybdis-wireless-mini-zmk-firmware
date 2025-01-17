@@ -16,13 +16,13 @@
     trackball_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
-        layers = <0 2 7>;
+        layers = <0 1 7>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
         scale-multiplier = <1>;
         scale-divisor = <2>;
-        // bindings = <&ib_toggle_layer 7>;
+        bindings = <&ib_toggle_layer 7>;
     };
 
     /* input config for snipe mode */
@@ -41,12 +41,12 @@
     trackball_scroll_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
-        layers = <9>;
+        layers = <2>;
         evt-type = <INPUT_EV_REL>;            
         x-input-code = <INPUT_REL_MISC>;
         y-input-code = <INPUT_REL_WHEEL>;
         y-invert;
-        bindings = <&ib_wheel_scaler 1 14>;
+        bindings = <&ib_wheel_scaler 1 8>;
     };
 
     /* define a resolution down scaler only for INPUT_REL_WHEEL */
@@ -112,6 +112,11 @@
     combos {
         compatible = "zmk,combos";
 
+        ToBase {
+            bindings = <&to 0>;
+            key-positions = <38 39>;
+        }; 
+
         CapsWord {
             bindings = <&caps_word>;
             key-positions = <17 18>;
@@ -128,10 +133,10 @@
             key-positions = <16 37>;
         };
 
-        BASE_or_EXTRAS {
-            bindings = <&td_bore>;
-            key-positions = <38 39>;
-        };
+        // BASE_or_EXTRAS {
+        //     bindings = <&td_bore>;
+        //     key-positions = <38 39>;
+        // };
 
         // GameLayer {
         //     bindings = <&tog 4>;
@@ -169,33 +174,33 @@
         BASE {
             bindings = <
 // ╭────────────────┬──────────────┬─────────────────────────┬─────────────────────────────┬──────────────────┬──────────────────╮  ╭────────────────┬─────────────────┬──────────────────────────────────┬──────────────────────────────┬────────────────────────┬──────────────╮
-    &to 0            &kp Q           &kp W                     &kp E                         &kp R              &kp T                 &kp Y             &kp U             &kp I                             &kp O                          &kp P                    &td_layers
+    &gresc           &kp Q           &kp W                     &kp E                         &kp R              &kp T                 &kp Y             &kp U             &kp I                             &kp O                          &kp P                    &kp MINUS
 // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
-    &hm LCMD TAB     &lt 2 A         &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F   &kp G                 &kp H             &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LCMD SEMICOLON       &kp DEL
+    &lt 2 TAB        &kp A           &kp S                     &kp D                         &kp F              &kp G                 &kp H             &kp J             &kp K                             &kp L                          &kp SEMICOLON            &kp SINGLE_QUOTE
 // ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
-    &kp C_AC_SEARCH  &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V              &kp B                 &kp N             &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &kp F12
+    &kp LCTRL         &kp Z          &kp X                     &kp C                         &kp V              &kp B                 &kp N             &kp M             &kp COMMA                         &kp PERIOD                     &kp FSLH                 &kp BSLH
 // ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴──────────────╯
-                                                                               &td_cursor    &mkp LCLK          &lt 1 BACKSPACE       &lt 7 RETURN      &lt 3 SPACE
-                                                                          // ╰─────────────┴──────────────────┴──────────────────╯  ╰────────────────┴──────────────╯
+                                                                               &td_cursor    &kp SPACE          &mt LSHFT RETURN      &mt RSHFT RETURN  &lt 1 BACKSPACE
+                                                                          // ╰─────────────┴──────────────────┴──────────────────╯  ╰────────────────┴─────────────────╯
             >;
         };
 
         NUM {
             bindings = <
-&trans   &none  &none  &none  &none          &none    &kp SLASH  &hm F7 N7  &hm F8 N8  &hm F9 N9  &hm F10 MINUS  &none
-&trans   &none  &none  &none  &kp BACKSPACE  &none    &kp ASTRK  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &trans
-&none    &none  &none  &none  &none          &none    &kp DOT    &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 EQUAL  &none
-                       &none  &none          &trans   &kp N0     &trans
+&trans   &kp EXCL  &kp AT &kp HASH &kp DOLLAR &kp PERCENT       &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR   &kp RPAR   &none
+&trans   &kp N1    &kp N2 &kp N3   &kp N4     &kp N5            &kp GRAVE  &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT   &trans
+&none    &kp N6    &kp N7 &kp N8   &kp N9     &kp N0            &kp TILDE  &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC   &none
+                          &none    &none      &trans            &kp N0     &trans
             >;
         };
 
         NAV {
             bindings = <
-&none   &none   &none   &none   &none   &none     &none    &kp LS(LC(H))   &kp LS(LC(J))  &kp LS(LC(K))  &kp LS(LC(L))    &none
-&trans  &trans  &trans  &trans  &trans  &none     &VSplit  &kp LEFT_ARROW  &kp DOWN       &kp UP         &kp RIGHT_ARROW  &none
-&none   &none   &none   &none   &none   &none     &HSplit  &kp HOME        &kp PG_DN      &kp PG_UP      &kp END          &none
-                        &none   &none   &trans    &trans   &trans
-            >;
+&none   &none   &none       &none       &none       &none         &none    &kp HOME    &none    &kp PG_UP  &kp LS(LC(L))    &none
+&none   &none   &mkp LCKL   &mpk MCLK   &mpk RCLK   &none         &none    &kp LEFT    &kp UP   &kp RIGHT  &kp RIGHT_ARROW  &none
+&none   &none   &none       &none       &none       &none         &none    &kp END     &kp DOWN &kp PG_DN  &kp END          &none
+                            &none       &none       &none         &none    &none
+            >; 
         };
 
         SYM {
@@ -236,10 +241,10 @@
 
         MOUSE {
             bindings = <
-&none    &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
-&kp TAB  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LCMD  &none
-&none    &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &none
-                                         &trans          &trans           &trans             &kp RETURN              &trans
+&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+                              &trans    &trans    &trans    &trans    &trans 
             >;
         };
 
