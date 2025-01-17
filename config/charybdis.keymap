@@ -197,7 +197,7 @@
         NAV {
             bindings = <
 &none   &none   &none       &none       &none       &none         &none    &kp HOME    &none    &kp PG_UP  &kp LS(LC(L))    &none
-&none   &none   &mkp LCKL   &mpk MCLK   &mpk RCLK   &none         &none    &kp LEFT    &kp UP   &kp RIGHT  &kp RIGHT_ARROW  &none
+&none   &none   &mkp LCKL   &mkp MCLK   &mkp RCLK   &none         &none    &kp LEFT    &kp UP   &kp RIGHT  &kp RIGHT_ARROW  &none
 &none   &none   &none       &none       &none       &none         &none    &kp END     &kp DOWN &kp PG_DN  &kp END          &none
                             &none       &none       &none         &none    &none
             >; 
