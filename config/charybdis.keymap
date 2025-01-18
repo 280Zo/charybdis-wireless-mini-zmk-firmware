@@ -162,7 +162,7 @@
         };
 
         LeftClick2 {
-            bindings <&mkp LCLK>;
+            bindings = <&mkp LCLK>;
             key-positions = <32 33>;
         };
 

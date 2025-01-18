@@ -387,6 +387,8 @@ combos:
   l: [BASE]
 - p: [15, 37]
   k: L CLK
+- p: [32, 33]
+  k: L CLK
 - p: [28, 37]
   k: M CLK
 - p: [16, 37]
