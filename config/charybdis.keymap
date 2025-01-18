@@ -143,6 +143,7 @@
         NavForOneHandScroll {
             bindings = <&mo 2>;
             key-positions = <32 33>;
+        };
 
         // BASE_or_EXTRAS {
         //     bindings = <&td_bore>;
