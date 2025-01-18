@@ -41,12 +41,12 @@
     trackball_scroll_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
-        layers = <2>;
+        layers = <9>;
         evt-type = <INPUT_EV_REL>;            
         x-input-code = <INPUT_REL_MISC>;
         y-input-code = <INPUT_REL_WHEEL>;
         y-invert;
-        bindings = <&ib_wheel_scaler 1 7>;
+        bindings = <&ib_wheel_scaler 1 20>;
     };
 
     /* define a resolution down scaler only for INPUT_REL_WHEEL */
@@ -116,8 +116,8 @@
         };
 
         bspc_del_num: backspace_delete_num {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
             bindings = <&mo 1>, <&bspc_del>;
         };
     };
@@ -203,7 +203,7 @@
 // ├────────────────┼──────────────┼──────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
     &kp LCTRL         &kp Z          &kp X                     &kp C                         &kp V              &kp B                 &kp N             &kp M             &kp COMMA                         &kp PERIOD                     &kp FSLH                 &mt RALT BSLH
 // ╰────────────────┴──────────────┴──────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴──────────────╯
-                                                               &none    &lt 9 SPACE          &mt LSHFT RETURN                       &mt RSHFT RETURN  &bspc_del_num
+                                                               &none                         &lt 9 SPACE        &mt LSHFT RETURN      &mt RSHFT RETURN  &bspc_del_num
                                                    // ╰─────────────┴──────────────────┴──────────────────╯                  ╰────────────────┴─────────────────╯
             >;
         };
