@@ -37,7 +37,7 @@ layers:
   - /
   - {t: \, h: RALT}
   - ''
-  - {t: SPACE, h: SCROLL}
+  - {t: SPACE, h: SCROLL, s: BACK SPACE}
   - {t: RETURN, h: LSHFT}
   - {t: RETURN, h: RSHFT}
   - {t: BACK SPACE, h: NUM, s: DELETE}
@@ -53,7 +53,7 @@ layers:
   - '*'
   - (
   - )
-  - ''
+  - {t: ▽, type: trans}
   - {t: TAB, h: NAV}
   - '1'
   - '2'
@@ -66,7 +66,7 @@ layers:
   - '['
   - ']'
   - {t: ▽, type: trans}
-  - ''
+  - {t: BACK SPACE, s: DELETE}
   - '6'
   - '7'
   - '8'
@@ -77,8 +77,8 @@ layers:
   - +
   - '{'
   - '}'
-  - ''
   - {t: ▽, type: trans}
+  - {t: BASE, h: toggle}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -94,118 +94,118 @@ layers:
   - HOME
   - ''
   - PG UP
-  - ''
-  - ''
+  - VOLUME DOWN
+  - VOLUME UP
   - {type: held}
   - ''
+  - ''
   - L CLK
-  - M CLK
   - R CLK
   - ''
   - ''
   - LEFT
   - UP
   - RIGHT
+  - PREVIOUS
+  - NEXT
+  - {t: ▽, type: trans}
   - ''
   - ''
   - ''
-  - ''
-  - ''
-  - ''
-  - ''
+  - M CLK
   - ''
   - ''
   - END
   - DOWN
   - PG DN
   - END
-  - ''
-  - {t: ▽, type: trans}
+  - PLAY PAUSE
+  - {t: NUM, h: toggle}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - ''
   SYM:
-  - ''
-  - +
-  - '{'
-  - '}'
-  - '-'
-  - ':'
-  - \
-  - '`'
-  - $
-  - ^
-  - ''''
-  - ''
-  - ''
-  - {t: '!', h: LCMD}
-  - {t: (, h: LEFT ALT}
-  - {t: ), h: LCTRL}
-  - {t: SPACE, h: LEFT SHIFT}
-  - '~'
-  - /
-  - {t: SPACE, h: LEFT SHIFT}
-  - {t: <, h: LCTRL}
-  - {t: '>', h: LEFT ALT}
-  - '#'
-  - ''
-  - ''
-  - '='
-  - '['
-  - ']'
-  - _
-  - ;
-  - '|'
-  - '*'
-  - '&'
-  - '%'
-  - '@'
-  - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   GAME: ['1', TAB, Q, W, E, R, '', '', '', '', '', '', '2', LCTRL, A, S, D, F, '', '', '', '', '', '', '3', LSHFT, Z, X, C, V, '', '', '', '', '', '', '', SPACE,
     LEFT ALT, '', '']
   PHOTOS:
   - {t: ▽, type: trans}
-  - TAG Z
-  - TAG E
-  - TAG A
-  - TAG S
-  - TAG B
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - FIT
-  - LEFT
-  - DOWN
-  - UP
-  - RIGHT
-  - LCTRL
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
   - {t: ▽, type: trans}
-  - SHRED
-  - SHOW TAGS
-  - REJECT
-  - PENDING
-  - ACCEPT
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -391,5 +391,9 @@ combos:
   k: M CLK
 - p: [16, 37]
   k: R CLK
-- p: [32, 33]
-  k: NAV
+- p: [31, 32]
+  k: SCROLL
+- p: [34, 35]
+  k: RIGHT
+- p: [33, 34]
+  k: LEFT

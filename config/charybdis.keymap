@@ -185,6 +185,7 @@
         LeftArrow {
             bindings = <&kp LEFT>;
             key-positions = <33 34>;
+        }; 
 
         // BASE_or_EXTRAS {
         //     bindings = <&td_bore>;
