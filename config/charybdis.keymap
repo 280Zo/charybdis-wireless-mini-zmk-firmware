@@ -16,7 +16,7 @@
     trackball_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
-        layers = <0 1 7>;
+        layers = <0 1 2 7>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
@@ -46,7 +46,8 @@
         x-input-code = <INPUT_REL_MISC>;
         y-input-code = <INPUT_REL_WHEEL>;
         y-invert;
-        bindings = <&ib_wheel_scaler 1 20>;
+        bindings = <&ib_wheel_scaler 1 14>;
+        scale-divisor = <3>;
     };
 
     /* define a resolution down scaler only for INPUT_REL_WHEEL */
