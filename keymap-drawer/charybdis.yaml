@@ -40,7 +40,7 @@ layers:
   - {t: SPACE, h: SCROLL}
   - {t: RETURN, h: LSHFT}
   - {t: RETURN, h: RSHFT}
-  - '&bspc_del_num'
+  - {t: BACK SPACE, h: NUM, s: DELETE}
   NUM:
   - ESC
   - '!'
@@ -82,7 +82,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {type: held}
   NAV:
   - ''
   - ''

@@ -110,17 +110,18 @@
 
         bspc_del: backspace_delete {
             compatible = "zmk,behavior-mod-morph";
+            label = "BACKSPACE_DELETE";
             #binding-cells = <0>;
             bindings = <&kp BACKSPACE>, <&kp DELETE>;
-            mods = <(MOD_LSFT)>; 
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
-        bspc_del_num: backspace_delete_num {
+        lt_bspc: layer_tap_bspc_del {
             compatible = "zmk,behavior-hold-tap";
-            bindings = <&mo 1>, <bspc_del>;
+            label = "LAYER_TAP_BACKSPACE_DELETE";
             #binding-cells = <2>;
-            flavor = "balanced";
-            // tapping-term-ms = <125>;
+            bindings = <&mo>, <&bspc_del>;
+            tapping-term-ms = <200>;
         };
     };
 
@@ -205,7 +206,7 @@
 // ├────────────────┼──────────────┼──────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
     &kp LCTRL         &kp Z          &kp X                     &kp C                         &kp V              &kp B                 &kp N             &kp M             &kp COMMA                         &kp PERIOD                     &kp FSLH                 &mt RALT BSLH
 // ╰────────────────┴──────────────┴──────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴──────────────╯
-                                                               &none                         &lt 9 SPACE        &mt LSHFT RETURN      &mt RSHFT RETURN  &bspc_del_num
+                                                               &none                         &lt 9 SPACE        &mt LSHFT RETURN      &mt RSHFT RETURN  &lt_bspc 1 0
                                                    // ╰─────────────┴──────────────────┴──────────────────╯                  ╰────────────────┴─────────────────╯
             >;
         };
