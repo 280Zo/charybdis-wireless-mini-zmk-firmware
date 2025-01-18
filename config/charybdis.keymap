@@ -161,6 +161,11 @@
             key-positions = <15 37>;
         };
 
+        LeftClick2 {
+            bindings <&mkp LCLK>;
+            key-positions = <32 33>;
+        };
+
         MiddleClick {
             bindings = <&mkp MCLK>;
             key-positions = <28 37>;
