@@ -35,14 +35,14 @@ layers:
   - ','
   - .
   - /
-  - \
-  - SCRL SLOW
+  - {t: \, h: RALT}
+  - ''
   - SPACE
   - {t: RETURN, h: LSHFT}
   - {t: RETURN, h: RSHFT}
-  - {t: BACK SPACE, h: NUM}
+  - '&bspc_del_num'
   NUM:
-  - {t: ▽, type: trans}
+  - ESC
   - '!'
   - '@'
   - '#'
@@ -54,7 +54,7 @@ layers:
   - (
   - )
   - ''
-  - {t: ▽, type: trans}
+  - {t: TAB, h: NAV}
   - '1'
   - '2'
   - '3'
@@ -78,11 +78,11 @@ layers:
   - '{'
   - '}'
   - ''
-  - ''
-  - ''
   - {t: ▽, type: trans}
-  - '0'
-  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   NAV:
   - ''
   - ''
@@ -94,7 +94,7 @@ layers:
   - HOME
   - ''
   - PG UP
-  - PANE ▶
+  - ''
   - ''
   - {type: held}
   - ''
@@ -120,10 +120,10 @@ layers:
   - PG DN
   - END
   - ''
-  - ''
-  - ''
-  - ''
-  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - ''
   SYM:
   - ''
@@ -385,7 +385,11 @@ combos:
 - p: [17, 18]
   k: CAPS WORD
   l: [BASE]
+- p: [15, 37]
+  k: L CLK
 - p: [28, 37]
   k: M CLK
 - p: [16, 37]
   k: R CLK
+- p: [32, 33]
+  k: NAV
