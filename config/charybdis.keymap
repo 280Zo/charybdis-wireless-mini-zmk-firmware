@@ -21,8 +21,8 @@
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
         scale-multiplier = <1>;
-        scale-divisor = <2>;
-        bindings = <&ib_toggle_layer 7>;
+        scale-divisor = <3>; // slower from 2 to 3
+        // bindings = <&ib_toggle_layer 7>; // unfortunately cant access scrolling if auto layer is on 
     };
 
     /* input config for snipe mode */
@@ -107,6 +107,13 @@
             #binding-cells = <0>;
             bindings = <&mo 6>, <&to 0>;
         };
+        bspc_del: backspace_delete {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp BACKSPACE>, <&kp DELETE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+            keep-mods = <(MOD_RSFT)>;
+        };
     };
 
     combos {
@@ -132,6 +139,10 @@
             bindings = <&mkp RCLK>;
             key-positions = <16 37>;
         };
+
+        NavForOneHandScroll {
+            bindings = <&mo 2>;
+            key-positions = <32 33>;
 
         // BASE_or_EXTRAS {
         //     bindings = <&td_bore>;
@@ -173,33 +184,33 @@
         compatible = "zmk,keymap";
         BASE {
             bindings = <
-// ╭────────────────┬──────────────┬─────────────────────────┬─────────────────────────────┬──────────────────┬──────────────────╮  ╭────────────────┬─────────────────┬──────────────────────────────────┬──────────────────────────────┬────────────────────────┬──────────────╮
+// ╭────────────────┬──────────────┬──────────────────┬─────────────────────────────┬──────────────────┬──────────────────╮  ╭────────────────┬─────────────────┬──────────────────────────────────┬──────────────────────────────┬────────────────────────┬──────────────╮
     &gresc           &kp Q           &kp W                     &kp E                         &kp R              &kp T                 &kp Y             &kp U             &kp I                             &kp O                          &kp P                    &kp MINUS
-// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
+// ├────────────────┼──────────────┼──────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
     &lt 2 TAB        &kp A           &kp S                     &kp D                         &kp F              &kp G                 &kp H             &kp J             &kp K                             &kp L                          &kp SEMICOLON            &kp SINGLE_QUOTE
-// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
-    &kp LCTRL         &kp Z          &kp X                     &kp C                         &kp V              &kp B                 &kp N             &kp M             &kp COMMA                         &kp PERIOD                     &kp FSLH                 &kp BSLH
-// ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴──────────────╯
-                                                                               &td_cursor    &kp SPACE          &mt LSHFT RETURN      &mt RSHFT RETURN  &lt 1 BACKSPACE
-                                                                          // ╰─────────────┴──────────────────┴──────────────────╯  ╰────────────────┴─────────────────╯
+// ├────────────────┼──────────────┼──────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
+    &kp LCTRL         &kp Z          &kp X                     &kp C                         &kp V              &kp B                 &kp N             &kp M             &kp COMMA                         &kp PERIOD                     &kp FSLH                 &mt RALT BSLH
+// ╰────────────────┴──────────────┴──────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴──────────────╯
+                                                               &none    &kp SPACE          &mt LSHFT RETURN                       &mt RSHFT RETURN  &lt 1 &bspc_del
+                                                   // ╰─────────────┴──────────────────┴──────────────────╯                  ╰────────────────┴─────────────────╯
             >;
         };
 
         NUM {
             bindings = <
-&trans   &kp EXCL  &kp AT &kp HASH &kp DOLLAR &kp PERCENT       &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR   &kp RPAR   &none
-&trans   &kp N1    &kp N2 &kp N3   &kp N4     &kp N5            &kp GRAVE  &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT   &trans
-&none    &kp N6    &kp N7 &kp N8   &kp N9     &kp N0            &kp TILDE  &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC   &none
-                          &none    &none      &trans            &kp N0     &trans
+&kp ESC   &kp EXCL  &kp AT &kp HASH &kp DOLLAR &kp PERCENT       &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR   &kp RPAR   &none
+&lt 2 TAB &kp N1    &kp N2 &kp N3   &kp N4     &kp N5            &kp GRAVE  &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT   &trans
+&none     &kp N6    &kp N7 &kp N8   &kp N9     &kp N0            &kp TILDE  &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC   &none
+                          &trans   &trans     &trans            &kp trans     &trans
             >;
         };
 
         NAV {
             bindings = <
-&none   &none   &none       &none       &none       &none         &none    &kp HOME    &none    &kp PG_UP  &kp LS(LC(L))  &none
-&none   &none   &mkp LCLK   &mkp MCLK   &mkp RCLK   &none         &none    &kp LEFT    &kp UP   &kp RIGHT  &none          &none
-&none   &none   &none       &none       &none       &none         &none    &kp END     &kp DOWN &kp PG_DN  &kp END        &none
-                            &none       &none       &none         &none    &none
+&none   &none   &none       &none       &none       &none         &none    &kp HOME    &none    &kp PG_UP  &none    &none
+&none   &none   &mkp LCLK   &mkp MCLK   &mkp RCLK   &none         &none    &kp LEFT    &kp UP   &kp RIGHT  &none    &none
+&none   &none   &none       &none       &none       &none         &none    &kp END     &kp DOWN &kp PG_DN  &kp END  &none
+                            &trans      &none       &none         &none    &none
             >; 
         };
 
