@@ -130,7 +130,7 @@
             label = "SPACE_BACKSPACE";
             #binding-cells = <0>;
             bindings = <&kp SPACE>, <&kp BACKSPACE>;
-            mods = <(MOD_LCTRL)>;
+            mods = <(MOD_LCTL)>;
         };
 
         lt_space_bs: layer_tap_space_bspc {
