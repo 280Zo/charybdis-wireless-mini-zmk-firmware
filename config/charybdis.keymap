@@ -117,7 +117,7 @@
 
         bspc_del_num: backspace_delete_num {
             compatible = "zmk,behavior-hold-tap";
-            bindings = <&mo 1>, <&bspc_del>;
+            bindings = <&mo 1>, <bspc_del>;
             #binding-cells = <2>;
             flavor = "balanced";
             // tapping-term-ms = <125>;
