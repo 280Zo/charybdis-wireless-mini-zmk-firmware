@@ -37,7 +37,7 @@ layers:
   - /
   - {t: \, h: RALT}
   - ''
-  - SPACE
+  - {t: SPACE, h: SCROLL}
   - {t: RETURN, h: LSHFT}
   - {t: RETURN, h: RSHFT}
   - '&bspc_del_num'
@@ -375,7 +375,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
