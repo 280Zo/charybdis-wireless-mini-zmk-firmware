@@ -128,7 +128,7 @@
         lt_lclk_scroll: lt_lclk_scroll_layer {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            bindings = <&mo 9>, <&mkp LCLK>;
+            bindings = <&mo 9 &mkp LCLK>;
         };
 
         spc_bspc: space_backspace {
