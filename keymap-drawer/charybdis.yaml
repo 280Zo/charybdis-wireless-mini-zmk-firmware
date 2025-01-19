@@ -36,8 +36,8 @@ layers:
   - .
   - /
   - {t: \, h: RALT}
-  - ''
-  - {t: SPACE, h: '9', s: BACK SPACE}
+  - {t: LCLK, h: SCROLL}
+  - {t: SPACE, s: BACK SPACE}
   - {t: RETURN, h: LSHFT}
   - {t: RETURN, h: RSHFT}
   - {t: BACK SPACE, h: NUM, s: DELETE}
@@ -369,12 +369,12 @@ layers:
   - V
   - B
   - N
-  - {t: M, type: held}
-  - {t: ',', type: held}
+  - M
+  - ','
   - .
   - /
   - {t: \, h: RALT}
-  - ''
+  - {type: held}
   - {t: SPACE, h: SCROLL, s: BACK SPACE}
   - {t: RETURN, h: LSHFT}
   - {t: RETURN, h: RSHFT}
