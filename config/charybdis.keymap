@@ -125,10 +125,10 @@
             tapping-term-ms = <200>;
         };
 
-        lt_lclk_scroll: lt_lclk_scroll_layer {
+        lt_clk: lt_mclick_layer {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            bindings = <&mo 9>, <&mkp LCLK>;
+            bindings = <&mo>, <&mkp>;
         };
 
         spc_bspc: space_backspace {
@@ -255,7 +255,7 @@
 // ├────────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤  ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
        &kp LCTRL         &kp Z          &kp X          &kp C           &kp V          &kp B             &kp N         &kp M        &kp COMMA      &kp PERIOD      &kp FSLH     &mt RALT BSLH
 // ╰────────────────┴──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤  ├──────────────┼──────────────┼──────────────┴──────────────┴──────────────┴──────────────╯
-                                                  &lt_lclk_scroll   &spc_bspc   &mt LSHFT RETURN  &mt RSHFT RETURN &lt_bspc 1 0
+                                                   &lt_clk 9 LCLK   &spc_bspc   &mt LSHFT RETURN  &mt RSHFT RETURN &lt_bspc 1 0
                                                // ╰──────────────┴──────────────┴──────────────╯  ╰──────────────┴──────────────╯
             >; 
         };
