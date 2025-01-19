@@ -151,7 +151,6 @@
             require-prior-idle-ms = <185>; // like quick-tap-ms however it will apply for any non-modifier key pressed before it
             bindings = <&kp>, <&spc_bspc>;  // hold, tap
         };
-        };
 
     combos {
         compatible = "zmk,combos";
