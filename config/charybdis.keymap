@@ -125,9 +125,11 @@
             tapping-term-ms = <200>;
         };
 
-        lt_clk: lt_mclick_layer {
+        lt_clk: lt_mouse_click {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <125>;
             bindings = <&mo>, <&mkp>;
         };
 
