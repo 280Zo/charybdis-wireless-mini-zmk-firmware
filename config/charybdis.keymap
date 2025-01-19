@@ -318,10 +318,15 @@
 
         SCROLL {
             bindings = <
-&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-                              &trans    &trans    &trans    &trans    &trans
+// ╭────────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮  ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
+       &gresc            &kp Q          &kp W          &kp E           &kp R          &kp T             &kp Y         &kp U          &kp I         &kp O           &kp P        &kp MINUS
+// ├────────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤  ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+       &lt 2 TAB         &kp A          &kp S          &kp D           &kp F          &kp G             &kp H         &kp J          &kp K         &kp L       &kp SEMICOLON  &kp SINGLE_QUOTE
+// ├────────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤  ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+       &kp LCTRL         &kp Z          &kp X          &kp C           &kp V          &kp B             &kp N         &kp M        &kp COMMA      &kp PERIOD      &kp FSLH     &mt RALT BSLH
+// ╰────────────────┴──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤  ├──────────────┼──────────────┼──────────────┴──────────────┴──────────────┴──────────────╯
+                                                       &none    &lt_space_bs 9 0 &mt LSHFT RETURN  &mt RSHFT RETURN &lt_bspc 1 0
+                                               // ╰──────────────┴──────────────┴──────────────╯  ╰──────────────┴──────────────╯
             >;
         };
     };
