@@ -78,7 +78,7 @@ layers:
   - '{'
   - '}'
   - {t: ▽, type: trans}
-  - {t: BASE, h: toggle}
+  - {t: ., s: ','}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -118,7 +118,7 @@ layers:
   - END
   - DOWN
   - PG DN
-  - END
+  - ''
   - PLAY PAUSE
   - {t: NUM, h: toggle}
   - {t: ▽, type: trans}
