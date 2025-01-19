@@ -142,6 +142,17 @@
         };
     };
 
+        hm_space: lt_space_with_hm {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <175>; // triggers the hold behavior when the tapping-term-ms has expired
+            quick-tap-ms = <150>; // If you press a tapped hold-tap again within quick-tap-ms milliseconds of the first press, it will always trigger the tap behavior.
+            require-prior-idle-ms = <185>; // like quick-tap-ms however it will apply for any non-modifier key pressed before it
+            bindings = <&kp>, <&spc_bspc>;  // hold, tap
+        };
+        };
+
     combos {
         compatible = "zmk,combos";
 
@@ -239,7 +250,7 @@
 // ├────────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤  ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
        &kp LCTRL         &kp Z          &kp X          &kp C           &kp V          &kp B             &kp N         &kp M        &kp COMMA      &kp PERIOD      &kp FSLH     &mt RALT BSLH
 // ╰────────────────┴──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤  ├──────────────┼──────────────┼──────────────┴──────────────┴──────────────┴──────────────╯
-                                                       &none    &lt_space_bs 9 0 &mt LSHFT RETURN  &mt RSHFT RETURN &lt_bspc 1 0
+                                                       &none    &hm_space 9 0 &mt LSHFT RETURN  &mt RSHFT RETURN &lt_bspc 1 0
                                                // ╰──────────────┴──────────────┴──────────────╯  ╰──────────────┴──────────────╯
             >; 
         };
