@@ -97,8 +97,8 @@ layers:
   - VOLUME DOWN
   - VOLUME UP
   - {type: held}
-  - ''
-  - ''
+  - Alt+ TAB
+  - Alt+Sft+ TAB
   - L CLK
   - R CLK
   - ''
@@ -399,3 +399,5 @@ combos:
   k: RIGHT
 - p: [33, 34]
   k: LEFT
+- p: [26, 27]
+  k: LGUI
