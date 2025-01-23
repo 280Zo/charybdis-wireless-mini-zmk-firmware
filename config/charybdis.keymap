@@ -183,7 +183,7 @@
 
         LeftClick {
             bindings = <&mkp LCLK>;
-            key-positions = <15 37>;
+            key-positions = <15 36>;
         };
 
         LeftClick2 {
@@ -193,12 +193,12 @@
 
         MiddleClick {
             bindings = <&mkp MCLK>;
-            key-positions = <28 37>;
+            key-positions = <28 36>;
         };
 
         RightClick {
             bindings = <&mkp RCLK>;
-            key-positions = <16 37>;
+            key-positions = <16 36>;
         };
 
         NavForOneHandScroll {
@@ -216,11 +216,6 @@
             bindings = <&kp LEFT>;
             key-positions = <33 34>;
         }; 
-
-        WindowsSS {
-            bindings = <&kp LGUI &kp LSHIFT &kp S>;
-            key-positions = <26 27>;
-        };
 
         // BASE_or_EXTRAS {
         //     bindings = <&td_bore>;
@@ -276,19 +271,19 @@
 
         NUM {
             bindings = <
-&kp ESC   &kp EXCL  &kp AT &kp HASH &kp DOLLAR &kp PERCENT       &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR   &kp RPAR   &trans 
-&lt_bspc 2 0 &kp N1 &kp N2 &kp N3   &kp N4     &kp N5            &kp GRAVE  &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT   &trans
-&kp LCTRL &kp N6    &kp N7 &kp N8   &kp N9     &kp N0            &kp TILDE  &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC   &trans
-                           &dot_com &trans     &trans            &trans     &trans
+&kp ESC      &kp EXCL  &kp AT &kp HASH &kp DOLLAR &kp PERCENT       &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR   &kp RPAR   &trans 
+&lt_bspc 2 0 &kp N1    &kp N2 &kp N3   &kp N4     &kp N5            &kp GRAVE  &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT   &trans
+&kp LCTRL    &kp N6    &kp N7 &kp N8   &kp N9     &kp N0            &kp TILDE  &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC   &trans
+                              &dot_com &lt 2 SPC  &trans            &trans     &trans
             >;
         };
 
         NAV {
             bindings = <
-&none   &none       &none           &none       &none       &none         &none    &kp HOME    &none    &kp PG_UP  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP
-&trans  &kp LA(TAB) &kp LA(LS(TAB)) &mkp LCLK   &mkp RCLK   &none         &none    &kp LEFT    &kp UP   &kp RIGHT  &kp C_PREVIOUS     &kp C_NEXT
-&trans  &none       &none           &none       &mkp MCLK   &none         &none    &kp END     &kp DOWN &kp PG_DN  &none              &kp C_PLAY_PAUSE
-                                    &to 1       &trans      &trans        &trans   &none
+&none   &none           &none       &none      &none       &none         &none    &kp HOME    &none    &kp PG_UP  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP
+&trans  &kp LGUI(LS(S)) &kp LALT    &kp RCTRL  &kp TAB     &none         &none    &kp LEFT    &kp UP   &kp RIGHT  &kp C_PREVIOUS     &kp C_NEXT
+&trans  &kp RC(Z)       &none       &none      &none       &none         &none    &kp END     &kp DOWN &kp PG_DN  &none              &kp C_PLAY_PAUSE
+                                    &to 1      &trans      &trans        &trans   &none
             >; 
         };
 
