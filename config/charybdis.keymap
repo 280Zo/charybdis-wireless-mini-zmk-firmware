@@ -281,7 +281,7 @@
         NAV {
             bindings = <
 &none   &none           &none       &none      &none       &none         &none    &kp HOME    &none    &kp PG_UP  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP
-&trans  &kp LGUI(LS(S)) &kp LALT    &kp RCTRL  &kp TAB     &none         &none    &kp LEFT    &kp UP   &kp RIGHT  &kp C_PREVIOUS     &kp C_NEXT
+&trans  &kp LG(LS(S))   &kp LALT    &kp LCTRL  &kp TAB     &none         &none    &kp LEFT    &kp UP   &kp RIGHT  &kp C_PREVIOUS     &kp C_NEXT
 &trans  &kp RC(Z)       &none       &none      &none       &none         &none    &kp END     &kp DOWN &kp PG_DN  &none              &kp C_PLAY_PAUSE
                                     &to 1      &trans      &trans        &trans   &none
             >; 

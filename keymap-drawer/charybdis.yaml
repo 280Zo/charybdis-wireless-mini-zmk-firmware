@@ -79,7 +79,7 @@ layers:
   - '}'
   - {t: ▽, type: trans}
   - {t: ., s: ','}
-  - {t: ▽, type: trans}
+  - {t: SPC, h: NAV}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {type: held}
@@ -97,10 +97,10 @@ layers:
   - VOLUME DOWN
   - VOLUME UP
   - {type: held}
-  - Alt+ TAB
-  - Alt+Sft+ TAB
-  - L CLK
-  - R CLK
+  - Gui+Sft+ S
+  - LALT
+  - LCTRL
+  - TAB
   - ''
   - ''
   - LEFT
@@ -109,10 +109,10 @@ layers:
   - PREVIOUS
   - NEXT
   - {t: ▽, type: trans}
+  - Ctl+ Z
   - ''
   - ''
   - ''
-  - M CLK
   - ''
   - ''
   - END
@@ -385,13 +385,13 @@ combos:
 - p: [17, 18]
   k: CAPS WORD
   l: [BASE]
-- p: [15, 37]
+- p: [15, 36]
   k: L CLK
 - p: [32, 33]
   k: L CLK
-- p: [28, 37]
+- p: [28, 36]
   k: M CLK
-- p: [16, 37]
+- p: [16, 36]
   k: R CLK
 - p: [31, 32]
   k: SCROLL
@@ -399,5 +399,3 @@ combos:
   k: RIGHT
 - p: [33, 34]
   k: LEFT
-- p: [26, 27]
-  k: LGUI
