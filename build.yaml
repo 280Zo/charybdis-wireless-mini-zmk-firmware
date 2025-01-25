@@ -61,7 +61,7 @@ include:
     format: dongle
     artifact-name: charybdis_qwerty_dongle
   - board: seeeduino_xiao_ble
-    shield: charybdis_dongle oled_dongle
+    shield: charybdis_dongle dongle_display
     keymap: qwerty
     format: dongle
     artifact-name: charybdis_qwerty_dongle_seeed
