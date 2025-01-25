@@ -3,6 +3,7 @@
 / {
     chosen {
         zmk,kscan = &mock_kscan;
+	zephyr,display = &oled;
     };
 
     mock_kscan: kscan_1 {
