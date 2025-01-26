@@ -170,6 +170,11 @@
     combos {
         compatible = "zmk,combos";
 
+        Bootloader { // combo invokes central board, i.e. dongle
+            bindings = <&bootloader>;
+            key-positions = <0 11>;
+        };
+
         ToBase {
             bindings = <&to 0>;
             key-positions = <38 39>;

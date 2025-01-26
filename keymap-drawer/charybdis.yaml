@@ -380,6 +380,8 @@ layers:
   - {t: RETURN, h: RSHFT}
   - {t: BACK SPACE, h: NUM, s: DELETE}
 combos:
+- p: [0, 11]
+  k: BOOT LDR
 - p: [38, 39]
   k: {t: BASE, h: toggle}
 - p: [17, 18]
