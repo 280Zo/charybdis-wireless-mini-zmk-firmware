@@ -124,7 +124,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: BACK SPACE, s: DELETE}
   SYM:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -212,47 +212,47 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   EXTRAS:
-  - POWER
-  - SHRUG
-  - LGTM
-  - GIT COMMIT
-  - ''
-  - BRIGHTNESS INC
-  - {t: BT, h: '0'}
-  - {t: BT, h: '1'}
-  - {t: BT, h: '2'}
-  - {t: BT, h: '3'}
-  - OUT TOG
-  - BT CLR
-  - SLEEP
-  - SHIT SUDO
-  - PYTHON LOOP
-  - JS LOOP
-  - ''
-  - BRIGHTNESS DEC
-  - ''
-  - PREVIOUS
-  - PLAY PAUSE
-  - STOP
-  - NEXT
-  - ''
-  - LOCK
-  - ''
-  - ''
-  - ''
-  - ''
-  - CLIP HIST
-  - NEW DIR
-  - MUTE
-  - VOLUME DOWN
-  - VOLUME UP
-  - PRINT SCREEN
-  - ZMK Studio
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   MOUSE:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
