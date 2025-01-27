@@ -247,16 +247,16 @@
 // ╰──────┴──────┴──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┴──────┴──────┴──────╯
 //                         36     37     38        39     40
 //                      ╰──────┴──────┴──────╯  ╰──────┴──────╯
-#define BASE    0
-#define NUM     1
-#define NAV     2
-#define SYM     3
-#define GAME    4
-#define PHOTOS  5
-#define EXTRAS  6
-#define MOUSE   7
-#define SLOW    8
-#define SCROLL  9
+//#define BASE    0
+//#define NUM     1
+//#define NAV     2
+//#define SYM     3
+//#define GAME    4
+//#define PHOTOS  5
+//#define EXTRAS  6
+//#define MOUSE   7
+//#define SLOW    8
+//#define SCROLL  9
 
     keymap {
         compatible = "zmk,keymap";

@@ -1,5 +1,5 @@
 layers:
-  BASE:
+  DEF:
   - {t: ESC, s: '`'}
   - Q
   - W
@@ -102,8 +102,8 @@ layers:
   - LCTRL
   - TAB
   - ''
-  - ''
   - LEFT
+  - DOWN
   - UP
   - RIGHT
   - PREVIOUS
@@ -116,7 +116,7 @@ layers:
   - ''
   - ''
   - END
-  - DOWN
+  - ''
   - PG DN
   - ''
   - PLAY PAUSE
@@ -124,7 +124,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - ''
+  - {t: ▽, type: trans}
   SYM:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -383,10 +383,10 @@ combos:
 - p: [0, 11]
   k: BOOT LDR
 - p: [38, 39]
-  k: {t: BASE, h: toggle}
+  k: {t: DEF, h: toggle}
 - p: [17, 18]
   k: CAPS WORD
-  l: [BASE]
+  l: [DEF]
 - p: [15, 36]
   k: L CLK
 - p: [32, 33]
