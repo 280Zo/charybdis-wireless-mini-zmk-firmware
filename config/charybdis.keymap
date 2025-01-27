@@ -21,7 +21,7 @@
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
         scale-multiplier = <1>;
-        scale-divisor = <3>; // slower from 2 to 3
+        scale-divisor = <2>; 
         // bindings = <&ib_toggle_layer 7>; // unfortunately cant access scrolling if auto layer is on 
     };
 
@@ -47,7 +47,7 @@
         y-input-code = <INPUT_REL_WHEEL>;
         y-invert;
         bindings = <&ib_wheel_scaler 1 14>;
-        scale-divisor = <4>;
+        scale-divisor = <3>;
     };
 
     /* define a resolution down scaler only for INPUT_REL_WHEEL */
