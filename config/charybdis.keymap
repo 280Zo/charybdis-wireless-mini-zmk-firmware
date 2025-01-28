@@ -117,8 +117,8 @@
 
         SYM {
             bindings = <
-&none  &none  &none  &none  &none   &none      &kp ASTRK   &kp AMPS       &kp LEFT_BRACE &kp TOSO &td_grave &kp EXCL
-&none  &none  &none  &none  &trans  &none      &td_hyphen  &kp SEMICOLON  &kp LPAR       &kp LBKT &kp DLLR  &kp PIPE
+&none  &none  &none  &none  &none   &none      &kp ASTRK   &kp AMPS       &kp LEFT_BRACE &kp DLLR &td_grave &kp EXCL
+&none  &none  &none  &none  &trans  &none      &td_hyphen  &kp SEMICOLON  &kp LPAR       &kp LBKT &kp PLUS  &kp PIPE
 &none  &none  &none  &none  &none   &none      &kp AT_SIGN &kp UNDERSCORE &kp LT         &kp HASH &kp PRCNT &kp BSLH
                    &trans  &trans  &trans      &trans      &trans
             >;
