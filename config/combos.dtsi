@@ -32,7 +32,7 @@
 
         RightBrace {
             bindings = <&kp RIGHT_BRACE>;
-            key-positions = <08 09>;
+            key-positions = <8 9>;
             layers = <3>;
         };
 
