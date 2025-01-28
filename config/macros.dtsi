@@ -9,31 +9,31 @@
         HSplit: HSplit {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp LCTRL(B) &kp DQT>;
+            bindings = <&kp LS(SEMI) &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
         };
 
         DetachSession: DetachSession {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp LCTRL(B) &kp D>;
+            bindings = <&kp LCTRL(B) &kp D>;
         };
 
         SyncPanes: SyncPanes {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp LCTRL(B) &kp SPACE>;
+            bindings = <&kp LCTRL(B) &kp SPACE>;
         };
 
         NextPane: NextPane {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp LCTRL(B) &kp O>;
+            bindings = <&kp LCTRL(B) &kp O>;
         };
 
         ShowSessions: ShowSessions {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp LCTRL(B) &kp S>;
+            bindings = <&kp LCTRL(B) &kp S>;
         };
 
         CreateOrAttach: CreateOrAttach {
