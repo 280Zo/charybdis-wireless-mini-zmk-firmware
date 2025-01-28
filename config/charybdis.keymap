@@ -108,9 +108,9 @@
 
         NAV {
             bindings = <
-&none   &none   &none   &none   &none   &none     &DetachSession  &CreateOrAttach  &NextPane  &ShowSessions  &SyncPanes       &none
-&trans  &trans  &trans  &trans  &trans  &none     &VSplit         &kp LEFT_ARROW   &kp DOWN   &kp UP         &kp RIGHT_ARROW  &none
-&none   &none   &none   &none   &none   &none     &HSplit         &kp HOME         &kp PG_DN  &kp PG_UP      &kp END          &none
+&none   &none   &none   &none   &none   &none     &none  &none  &none  &none  &none       &none
+&trans  &trans  &trans  &trans  &trans  &none     &none         &kp LEFT_ARROW   &kp DOWN   &kp UP         &kp RIGHT_ARROW  &none
+&none   &none   &none   &none   &none   &none     &none         &kp HOME         &kp PG_DN  &kp PG_UP      &kp END          &none
                         &none   &none   &trans    &trans   &trans
             >;
         };

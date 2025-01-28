@@ -3,44 +3,36 @@
         VSplit: VSplit {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(SEMI) &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
+            bindings = <&macro_tap &kp LCTRL(B) &kp PRCNT>;
         };
 
         HSplit: HSplit {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(SEMI) &kp LS(S) &kp LS(P) &kp RET>;
+            bindings = <&macro_tap &kp LCTRL(B) &kp DQT>;
         };
 
         DetachSession: DetachSession {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <40>;
-            tap-ms = <40>;
             bindings = <&macro_tap &kp LCTRL(B) &kp D>;
         };
 
         SyncPanes: SyncPanes {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <40>;
-            tap-ms = <40>;
             bindings = <&macro_tap &kp LCTRL(B) &kp SPACE>;
         };
 
         NextPane: NextPane {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <40>;
-            tap-ms = <40>;
             bindings = <&macro_tap &kp LCTRL(B) &kp O>;
         };
 
         ShowSessions: ShowSessions {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <40>;
-            tap-ms = <40>;
             bindings = <&macro_tap &kp LCTRL(B) &kp S>;
         };
 
