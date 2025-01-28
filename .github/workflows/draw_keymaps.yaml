@@ -144,7 +144,7 @@ jobs:
               "&bootloader": "BOOT LDR",
               "&mkp RCLK": "R CLK",
               "&mkp LCLK": "L CLK",
-              "&mkp MCLK": "M CLK",
+              "&mkp MCLK": "Mid CLK",
               "&mkp MB4": "BACK",
               "&mkp MB5": "FWD",
               "&mmv MOVE_UP": "MOVE UP",
