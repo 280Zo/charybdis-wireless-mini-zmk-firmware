@@ -3,7 +3,7 @@
         VSplit: VSplit {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp LCTRL(B) &kp PRCNT>;
+            bindings = <&kp LS(SEMI) &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
         };
 
         HSplit: HSplit {
