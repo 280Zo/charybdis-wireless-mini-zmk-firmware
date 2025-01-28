@@ -21,25 +21,25 @@
         RightParen {
             bindings = <&kp RCLK>;
             key-positions = <20 21>;
-            layers = <3>
+            layers = <3>;
         };
 
         RightBracket {
             bindings = <&kp RBKT>;
             key-positions = <21 22>;
-            layers = <3>
+            layers = <3>;
         };
 
         RightBrace {
             bindings = <&kp RIGHT_BRACE>;
             key-positions = <08 09>;
-            layers = <3>
+            layers = <3>;
         };
 
         RightGreaterThan {
             bindings = <&kp GT>;
             key-positions = <32 33>;
-            layers = <3>
+            layers = <3>;
         };
 
         BASE_or_EXTRAS {
