@@ -59,24 +59,24 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&kp GRAVE>, <&grave_macro>;
-        }
+        };
 
         td_hyphen: DoubleTap_Hyphen {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&kp MINUS>, <&minus_macro>;
-        }
+        };
 
         td_equals: DoubleTap_Equals {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&kp EQUAL>, <&equals_macro>;
-        }
+        };
 
         td_home: DoubleTap_Home {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&kp FSLH>, <&home_macro>;
-        }
+        };
     };
 };
