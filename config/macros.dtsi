@@ -12,31 +12,31 @@
             bindings = <&kp LS(SEMI) &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
         };
 
-        DetachSession: DetachSession {
+        detach_session: detach_session {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LCTRL(B) &kp D>;
         };
 
-        SyncPanes: SyncPanes {
+        sync_panes: sync_panes {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LCTRL(B) &kp SPACE>;
         };
 
-        NextPane: NextPane {
+        next_pane: next_pane {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LCTRL(B) &kp O>;
         };
 
-        ShowSessions: ShowSessions {
+        show_sessions: show_sessions {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LCTRL(B) &kp S>;
         };
 
-        CreateOrAttach: CreateOrAttach {
+        create_or_attach: create_or_attach {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -152,7 +152,7 @@
                 ;
         };
         
-        new_dir: new_dir { // NEW_DIRECTORY
+        new_dir: new_dir {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -162,7 +162,7 @@
                 ;
         };
 
-        grave_macro: grave_macro { // Grave_Macro
+        grave_macro: grave_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -172,7 +172,7 @@
                 ;
         };
 
-        minus_macro: minus_macro { // Minus_Macro
+        minus_macro: minus_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -182,7 +182,7 @@
                 ;
         };
 
-        equals_macro: equals_macro { // Equals_Macro
+        equals_macro: equals_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -192,7 +192,7 @@
                 ;
         };
 
-        home_macro: home_macro { // Home_Macro
+        home_macro: home_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
