@@ -1,39 +1,39 @@
 / {
     macros {
-        VSplit: VSplit {
+        v_split: v_split {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(SEMI) &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
+            bindings = <&macro_tap &kp LC(B) &kp PRCNT>;
         };
 
-        HSplit: HSplit {
+        h_split: h_split {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(SEMI) &kp LS(V) &kp LS(S) &kp LS(P) &kp RET>;
+            bindings = <&macro_tap &kp LC(B) &kp DQT>;
         };
 
         detach_session: detach_session {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LCTRL(B) &kp D>;
+            bindings = <&kp LC(B) &kp D>;
         };
 
         sync_panes: sync_panes {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LCTRL(B) &kp SPACE>;
+            bindings = <&kp LC(B) &kp SPACE>;
         };
 
         next_pane: next_pane {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LCTRL(B) &kp O>;
+            bindings = <&kp LC(B) &kp O>;
         };
 
         show_sessions: show_sessions {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LCTRL(B) &kp S>;
+            bindings = <&kp LC(B) &kp S>;
         };
 
         create_or_attach: create_or_attach {
