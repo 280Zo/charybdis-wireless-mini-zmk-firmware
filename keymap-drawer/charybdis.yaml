@@ -1,6 +1,6 @@
 layers:
   BASE:
-  - {t: BASE, h: toggle}
+  - DEV TOOLS
   - Q
   - W
   - E
@@ -34,8 +34,8 @@ layers:
   - M
   - {t: ',', h: HYPER}
   - {t: ., h: MEH}
-  - '&td_home'
-  - DEV TOOLS
+  - ~/
+  - CLIP HIST
   - SCRL SLOW
   - L CLK
   - '&td_bs'
@@ -72,7 +72,7 @@ layers:
   - ''
   - BACK SPACE
   - SPACE
-  - '&td_equals'
+  - '='
   - {t: '1', h: F1}
   - {t: '2', h: F2}
   - {t: '3', h: F3}
@@ -92,8 +92,8 @@ layers:
   - ''
   - '&detach_session'
   - '&create_or_attach'
-  - '&sync_panes'
-  - '&sync_panes'
+  - '&next_pane'
+  - '&show_sessions'
   - '&sync_panes'
   - ''
   - {t: ▽, type: trans}
@@ -102,7 +102,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - ''
-  - '&v_split'
+  - HSPLIT
   - LEFT
   - DOWN
   - UP
@@ -114,7 +114,7 @@ layers:
   - ''
   - ''
   - ''
-  - '&h_split'
+  - VSPLIT
   - HOME
   - PG DN
   - PG UP
@@ -281,7 +281,7 @@ layers:
   - ''
   - ''
   - ''
-  - CLIP HIST
+  - ''
   - NEW DIR
   - MUTE
   - VOLUME DOWN
