@@ -19,13 +19,13 @@
         };
 
         RightParen {
-            bindings = <&kp RCLK>;
+            bindings = <&kp RIGHT_PARENTHESIS>;
             key-positions = <20 21>;
             layers = <3>;
         };
 
         RightBracket {
-            bindings = <&kp RBKT>;
+            bindings = <&kp RIGHT_BRACKET>;
             key-positions = <21 22>;
             layers = <3>;
         };
@@ -37,7 +37,7 @@
         };
 
         RightGreaterThan {
-            bindings = <&kp GT>;
+            bindings = <&kp GREATER_THAN>;
             key-positions = <32 33>;
             layers = <3>;
         };
