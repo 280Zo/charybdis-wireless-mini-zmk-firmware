@@ -19,10 +19,10 @@ layers:
   - {t: F, h: LEFT SHIFT}
   - G
   - H
-  - {t: J, h: LEFT SHIFT}
+  - {t: J, h: RIGHT SHIFT}
   - {t: K, h: RCTRL}
   - {t: L, h: RIGHT ALT}
-  - {t: ;, h: LCMD}
+  - {t: ;, h: RCMD}
   - DEL
   - SEARCH
   - Z
