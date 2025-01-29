@@ -428,7 +428,7 @@ combos:
 - p: [16, 37]
   k: R CLK
 - p: [20, 21]
-  k: RCLK
+  k: )
   l: [SYM]
 - p: [21, 22]
   k: ']'
