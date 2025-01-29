@@ -6,10 +6,8 @@
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/ext_power.h>
 #include "macros.dtsi"
-
-// / {
-//     chosen { zmk,matrix_transform = &default_transform; };
-// };
+#include "behaviors.dtsi"
+#include "combos.dtsi"
 
 / {
     /* input config for mouse move mode */
@@ -20,8 +18,8 @@
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
-        scale-multiplier = <1>;
-        scale-divisor = <2>;
+        scale-multiplier = <4>;
+        scale-divisor = <5>;
         // bindings = <&ib_toggle_layer 7>;
     };
 
@@ -34,7 +32,7 @@
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
         scale-multiplier = <1>;
-        scale-divisor = <4>;
+        scale-divisor = <6>;
     };
 
     /* input config for mouse scroll mode */
@@ -63,87 +61,6 @@
         #binding-cells = <1>;
         time-to-live-ms = <750>;
     };
-
-    behaviors {
-        hm: homerow_mod {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <175>; // triggers the hold behavior when the tapping-term-ms has expired
-            quick-tap-ms = <150>; // If you press a tapped hold-tap again within quick-tap-ms milliseconds of the first press, it will always trigger the tap behavior.
-            require-prior-idle-ms = <185>; // like quick-tap-ms however it will apply for any non-modifier key pressed before it
-            bindings = <&kp>, <&kp>;  // hold, tap
-        };
-
-        td_cursor: td_scroll_or_cursor {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&lt 9 ESC>, <&to 8>; // hold, tap, double_tap
-        };
-
-        httl: ht_two_layers {
-            compatible = "zmk,behavior-hold-tap";
-            bindings = <&mo>, <&to>;
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <125>;
-        };
-
-        td_layers: td_layer_swap {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&to 0>, <&to 5>, <&to 4>; // tap, double_tap, tripple_tap
-        };
-
-        td_clk_scrl: td_click_or_scroll {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <250>;
-            bindings = <&mkp RCLK>, <&mo 9>;  // tap/hold, double_tap
-        };
-
-        td_bore: BASE_or_EXTRA {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&mo 6>, <&to 0>;
-        };
-    };
-
-    combos {
-        compatible = "zmk,combos";
-
-        CapsWord {
-            bindings = <&caps_word>;
-            key-positions = <17 18>;
-            layers = <0>;
-        };
-
-        MiddleClick {
-            bindings = <&mkp MCLK>;
-            key-positions = <28 37>;
-        };
-
-        RightClick {
-            bindings = <&mkp RCLK>;
-            key-positions = <16 37>;
-        };
-
-        BASE_or_EXTRAS {
-            bindings = <&td_bore>;
-            key-positions = <38 39>;
-        };
-
-        // GameLayer {
-        //     bindings = <&tog 4>;
-        //     key-positions = <8 9>;
-        // };
-
-        // PhotoLayer {
-        //     bindings = <&tog 5>;
-        //     key-positions = <2 3>;
-        // };
-    };
-
 // ╭──────┬──────┬──────┬──────┬──────┬──────╮  ╭──────┬──────┬──────┬──────┬──────┬──────╮
 //    00     01     02     03    04      05        06     07     08     09     10     11
 // ├──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┤
@@ -168,48 +85,48 @@
         compatible = "zmk,keymap";
         BASE {
             bindings = <
-// ╭────────────────┬──────────────┬─────────────────────────┬─────────────────────────────┬──────────────────┬──────────────────╮  ╭────────────────┬─────────────────┬──────────────────────────────────┬──────────────────────────────┬────────────────────────┬──────────────╮
-    &to 0            &kp Q           &kp W                     &kp E                         &kp R              &kp T                 &kp Y             &kp U             &kp I                             &kp O                          &kp P                    &td_layers
-// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
-    &hm LCMD TAB     &lt 2 A         &hm LEFT_ALT S            &hm LCTRL D                   &hm LEFT_SHIFT F   &kp G                 &kp H             &hm LEFT_SHIFT J  &hm RCTRL K                       &hm RIGHT_ALT L                &hm LCMD SEMICOLON       &kp DEL
-// ├────────────────┼──────────────┼─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┼──────────────────────────────┼────────────────────────┼──────────────┤
-    &kp C_AC_SEARCH  &kp Z           &hm LC(LA(LEFT_SHIFT)) X  &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V              &kp B                 &kp N             &kp M             &hm LA(LC(LG(LEFT_SHIFT))) COMMA  &hm LC(LA(LEFT_SHIFT)) PERIOD  &kp FSLH                 &kp F12
-// ╰────────────────┴──────────────┴─────────────────────────┼─────────────────────────────┼──────────────────┼──────────────────┤  ├────────────────┼─────────────────┼──────────────────────────────────┴──────────────────────────────┴────────────────────────┴──────────────╯
-                                                                               &td_cursor    &mkp LCLK          &lt 1 BACKSPACE       &lt 7 RETURN      &lt 3 SPACE
-                                                                          // ╰─────────────┴──────────────────┴──────────────────╯  ╰────────────────┴──────────────╯
+// ╭────────────────┬──────────────┬─────────────────────────────┬──────────────────────────────────┬──────────────────────┬────────╮  ╭────────────────┬─────────────────────────┬──────────────────────────────────────┬────────────────────────────────────┬────────────────────────┬──────────────╮
+    &kp F12          &kp Q           &kp W                          &kp E                              &kp R                  &kp T       &kp Y             &kp U                   &kp I                                   &kp O                                &kp P                    &td_layers
+// ├────────────────┼──────────────┼─────────────────────────────┼──────────────────────────────────┼──────────────────────┼────────┤  ├────────────────┼─────────────────────────┼──────────────────────────────────────┼────────────────────────────────────┼────────────────────────┼──────────────┤
+    &hm_left LCMD TAB  &lt 3 A      &hm_left LEFT_ALT S            &hm_left LCTRL D                   &hm_left LEFT_SHIFT F  &kp G       &kp H             &hm_right RIGHT_SHIFT J  &hm_right RCTRL K                       &hm_right RIGHT_ALT L                &hm_right RCMD SEMICOLON &kp DEL
+// ├────────────────┼──────────────┼─────────────────────────────┼──────────────────────────────────┼──────────────────────┼────────┤  ├────────────────┼─────────────────────────┼──────────────────────────────────────┼────────────────────────────────────┼────────────────────────┼──────────────┤
+    &kp C_AC_SEARCH    &kp Z        &hm_left LC(LA(LEFT_SHIFT)) X  &hm_left LA(LC(LG(LEFT_SHIFT))) C  &kp V                  &kp B       &kp N             &kp M                   &hm_right LA(LC(LG(LEFT_SHIFT))) COMMA  &hm_right LC(LA(LEFT_SHIFT)) PERIOD  &td_home                 &clip_hist
+// ╰────────────────┴──────────────┴─────────────────────────────┼──────────────────────────────────┼──────────────────────┼────────┤  ├────────────────┼─────────────────────────┼──────────────────────────────────────┴────────────────────────────────────┴────────────────────────┴──────────────╯
+                                                                               &td_cursor    &mkp LCLK          &td_bs                   &lt 7 RETURN      &td_space
+                                                                          // ╰─────────────┴──────────────────┴────────╯               ╰────────────────┴──────────────╯
             >;
         };
 
         NUM {
             bindings = <
-&trans   &none  &none  &none  &none          &none    &kp SLASH  &hm F7 N7  &hm F8 N8  &hm F9 N9  &hm F10 MINUS  &none
-&trans   &none  &none  &none  &kp BACKSPACE  &none    &kp ASTRK  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &trans
-&none    &none  &none  &none  &none          &none    &kp DOT    &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 EQUAL  &none
-                       &none  &none          &trans   &kp N0     &trans
+&trans   &none  &none  &none  &none          &none        &kp ASTRK  &hm F7 N7  &hm F8 N8  &hm F9 N9  &kp F10        &none
+&trans   &none  &none  &none  &none          &none        &kp MINUS  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &trans
+&none    &none  &none  &none  &kp BACKSPACE  &kp SPACE    &td_equals &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 SLASH  &none
+                       &none  &none          &trans       &kp DOT    &kp N0
             >;
         };
 
         NAV {
             bindings = <
-&none   &none   &none   &none   &none   &none     &none    &kp LS(LC(H))   &kp LS(LC(J))  &kp LS(LC(K))  &kp LS(LC(L))    &none
-&trans  &trans  &trans  &trans  &trans  &none     &VSplit  &kp LEFT_ARROW  &kp DOWN       &kp UP         &kp RIGHT_ARROW  &none
-&none   &none   &none   &none   &none   &none     &HSplit  &kp HOME        &kp PG_DN      &kp PG_UP      &kp END          &none
+&none   &none   &none   &none   &none   &none     &detach_session  &create_or_attach  &next_pane   &show_sessions  &sync_panes       &none
+&trans  &trans  &trans  &trans  &trans  &none     &h_split         &kp LEFT_ARROW     &kp DOWN     &kp UP          &kp RIGHT_ARROW   &none
+&none   &none   &none   &none   &none   &none     &v_split         &kp HOME           &kp PG_DN    &kp PG_UP       &kp END           &none
                         &none   &none   &trans    &trans   &trans
             >;
         };
 
         SYM {
             bindings = <
-&none  &kp PLUS            &kp LEFT_BRACE     &kp RIGHT_BRACE  &kp MINUS             &kp COLON      &kp BSLH   &kp GRAVE             &kp DLLR      &kp CARET        &kp SQT      &none
-&none  &hm LCMD EXCL  &hm LEFT_ALT LPAR  &hm LCTRL RPAR   &hm LEFT_SHIFT SPACE  &kp TILDE      &kp SLASH  &hm LEFT_SHIFT SPACE  &hm LCTRL LT  &hm LEFT_ALT GT  &kp HASH     &none
-&none  &kp EQUAL           &kp LBKT           &kp RBKT         &kp UNDERSCORE        &kp SEMICOLON  &kp PIPE   &kp ASTRK             &kp AMPS      &kp PRCNT        &kp AT_SIGN  &none
-                                              &trans           &trans                &trans         &none      &trans
+&none  &none  &none  &none  &none   &none      &kp ASTRK   &kp AMPS       &kp LEFT_BRACE &kp DLLR &td_grave &kp EXCL
+&none  &none  &none  &none  &trans  &none      &td_hyphen  &kp SEMICOLON  &kp LPAR       &kp LBKT &kp PLUS  &kp PIPE
+&none  &none  &none  &none  &none   &none      &kp AT_SIGN &kp UNDERSCORE &kp LT         &kp HASH &kp PRCNT &kp BSLH
+                   &trans  &trans  &trans      &trans      &trans
             >;
         };
 
         GAME {
             bindings = <
-&kp N1  &kp TAB    &kp Q  &kp W   &kp E      &kp R           &none  &none  &none  &none  &none  &none
+&kp N1  &kp TAB    &kp Q  &kp W   &kp E      &kp R           &none  &none  &none  &none  &none  &trans
 &kp N2  &kp LCTRL  &kp A  &kp S   &kp D      &kp F           &none  &none  &none  &none  &none  &none
 &kp N3  &kp LSHFT  &kp Z  &kp X   &kp C      &kp V           &none  &none  &none  &none  &none  &none
                           &none   &kp SPACE  &kp LEFT_ALT    &none  &none
@@ -218,7 +135,7 @@
 
         PHOTOS {
             bindings = <
-&trans          &kp LA(LC(LS(Z)))  &kp LA(LC(LS(E)))  &kp LA(LC(LS(A)))  &kp LA(LC(LS(S)))  &kp LA(LC(LS(B)))    &none   &none   &none  &none  &none  &none
+&trans          &kp LA(LC(LS(Z)))  &kp LA(LC(LS(E)))  &kp LA(LC(LS(A)))  &kp LA(LC(LS(S)))  &kp LA(LC(LS(B)))    &none   &none   &none  &none  &none  &trans
 &kp LC(LA(E))   &kp LEFT           &kp DOWN           &kp UP             &kp RIGHT          &kp LCTRL            &none   &none   &none  &none  &none  &trans
 &kp LS(DELETE)  &kp LA(LS(A))      &kp LA(KP_N1)      &kp LA(KP_N2)      &kp LA(KP_N3)      &none                &none   &none   &none  &none  &none  &none
                                                       &trans             &trans             &trans               &trans  &trans
@@ -228,8 +145,8 @@
         EXTRAS {
             bindings = <
 &kp C_POWER       &shrug  &lgtm     &gcm      &none  &kp C_BRIGHTNESS_INC    &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2       &bt BT_SEL 3  &out OUT_TOG     &bt BT_CLR
-&kp C_SLEEP       &shit   &py_iter  &js_iter  &none  &kp C_BRIGHTNESS_DEC    &none         &kp C_PREVIOUS  &kp C_PLAY_PAUSE   &kp C_STOP    &kp C_NEXT       &none
-&kp C_AL_COFFEE   &none   &none     &none     &none  &clip_hist              &new_dir      &kp K_MUTE      &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp PRINTSCREEN  &studio_unlock
+&kp C_SLEEP       &sudo   &none     &none     &none  &kp C_BRIGHTNESS_DEC    &none         &kp C_PREVIOUS  &kp C_PLAY_PAUSE   &kp C_STOP    &kp C_NEXT       &none
+&kp C_AL_COFFEE   &none   &none     &none     &none  &none                   &new_dir      &kp K_MUTE      &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp PRINTSCREEN  &studio_unlock
                                     &none     &none  &none                   &none         &none
             >;
         };
