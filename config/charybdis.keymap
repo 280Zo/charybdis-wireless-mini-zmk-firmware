@@ -109,8 +109,8 @@
         NAV {
             bindings = <
 &none   &none   &none   &none   &none   &none     &detach_session  &create_or_attach  &sync_panes  &sync_panes  &sync_panes       &none
-&trans  &trans  &trans  &trans  &trans  &none     &v_split         &kp LEFT_ARROW   &kp DOWN   &kp UP         &kp RIGHT_ARROW  &none
-&none   &none   &none   &none   &none   &none     &h_split         &kp HOME         &kp PG_DN  &kp PG_UP      &kp END          &none
+&trans  &trans  &trans  &trans  &trans  &none     &v_split         &kp LEFT_ARROW     &kp DOWN     &kp UP       &kp RIGHT_ARROW   &none
+&none   &none   &none   &none   &none   &none     &h_split         &kp HOME           &kp PG_DN    &kp PG_UP    &kp END           &none
                         &none   &none   &trans    &trans   &trans
             >;
         };

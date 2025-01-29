@@ -14,7 +14,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <150>;
+            tapping-term-ms = <100>;
             quick-tap-ms = <200>;
             require-prior-idle-ms = <185>;
             bindings = <&kp>, <&kp>;
@@ -25,7 +25,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <150>;
+            tapping-term-ms = <100>;
             quick-tap-ms = <200>;
             require-prior-idle-ms = <185>;
             bindings = <&kp>, <&kp>;
@@ -41,12 +41,14 @@
         td_space: td_space {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
+            tapping-term-ms = <100>;
             bindings = <&lt 2 SPACE>, <&kp SPACE>; // hold, tap, double_tap
         };
 
         td_bs: td_bs {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
+            tapping-term-ms = <100>;
             bindings = <&lt 1 BACKSPACE>, <&kp BACKSPACE>; // hold, tap, double_tap
         };
 
