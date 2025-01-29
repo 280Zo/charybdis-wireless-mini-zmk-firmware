@@ -41,14 +41,14 @@
         td_space: td_space {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <100>;
+            tapping-term-ms = <85>;
             bindings = <&lt 2 SPACE>, <&kp SPACE>; // hold, tap, double_tap
         };
 
         td_bs: td_bs {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <100>;
+            tapping-term-ms = <85>;
             bindings = <&lt 1 BACKSPACE>, <&kp BACKSPACE>; // hold, tap, double_tap
         };
 
