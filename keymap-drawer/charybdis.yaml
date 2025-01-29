@@ -1,6 +1,7 @@
+layout: {zmk_keyboard: charybdis}
 layers:
   BASE:
-  - {t: BASE, h: toggle}
+  - DEV TOOLS
   - Q
   - W
   - E
@@ -13,16 +14,16 @@ layers:
   - P
   - L_BASE L_PHOTO L_GAME
   - {t: TAB, h: LCMD}
-  - {t: A, h: NAV}
+  - {t: A, h: SYM}
   - {t: S, h: LEFT ALT}
   - {t: D, h: LCTRL}
   - {t: F, h: LEFT SHIFT}
   - G
   - H
-  - {t: J, h: LEFT SHIFT}
+  - {t: J, h: RIGHT SHIFT}
   - {t: K, h: RCTRL}
   - {t: L, h: RIGHT ALT}
-  - {t: ;, h: LCMD}
+  - {t: ;, h: RCMD}
   - DEL
   - SEARCH
   - Z
@@ -34,13 +35,13 @@ layers:
   - M
   - {t: ',', h: HYPER}
   - {t: ., h: MEH}
-  - /
-  - DEV TOOLS
+  - ~/
+  - CLIP HIST
   - SCRL SLOW
   - L CLK
-  - {t: BACK SPACE, h: NUM}
+  - '&td_bs'
   - {t: RETURN, h: MOUSE}
-  - {t: SPACE, h: SYM}
+  - '&td_space'
   NUM:
   - {t: ▽, type: trans}
   - ''
@@ -48,19 +49,19 @@ layers:
   - ''
   - ''
   - ''
-  - /
+  - '*'
   - {t: '7', h: F7}
   - {t: '8', h: F8}
   - {t: '9', h: F9}
-  - {t: '-', h: F10}
+  - F10
   - ''
   - {t: ▽, type: trans}
   - ''
   - ''
   - ''
-  - BACK SPACE
   - ''
-  - '*'
+  - ''
+  - '-'
   - {t: '4', h: F4}
   - {t: '5', h: F5}
   - {t: '6', h: F6}
@@ -70,19 +71,19 @@ layers:
   - ''
   - ''
   - ''
-  - ''
-  - ''
-  - .
+  - BACK SPACE
+  - SPACE
+  - '='
   - {t: '1', h: F1}
   - {t: '2', h: F2}
   - {t: '3', h: F3}
-  - {t: '=', h: DEV TOOLS}
+  - {t: /, h: DEV TOOLS}
   - ''
   - ''
   - ''
-  - {type: held}
-  - '0'
   - {t: ▽, type: trans}
+  - .
+  - '0'
   NAV:
   - ''
   - ''
@@ -90,19 +91,19 @@ layers:
   - ''
   - ''
   - ''
+  - '&detach_session'
+  - '&create_or_attach'
+  - '&next_pane'
+  - '&show_sessions'
+  - '&sync_panes'
   - ''
-  - PANE ◀
-  - PANE ▲
-  - PANE ▼
-  - PANE ▶
-  - ''
   - {t: ▽, type: trans}
-  - {type: held}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - ''
-  - VSPLIT
+  - HSPLIT
   - LEFT
   - DOWN
   - UP
@@ -114,7 +115,7 @@ layers:
   - ''
   - ''
   - ''
-  - HSPLIT
+  - VSPLIT
   - HOME
   - PG DN
   - PG UP
@@ -127,48 +128,88 @@ layers:
   - {t: ▽, type: trans}
   SYM:
   - ''
-  - +
-  - '{'
-  - '}'
-  - '-'
-  - ':'
-  - \
-  - '`'
-  - $
-  - ^
-  - ''''
   - ''
   - ''
-  - {t: '!', h: LCMD}
-  - {t: (, h: LEFT ALT}
-  - {t: ), h: LCTRL}
-  - {t: SPACE, h: LEFT SHIFT}
-  - '~'
-  - /
-  - {t: SPACE, h: LEFT SHIFT}
-  - {t: <, h: LCTRL}
-  - {t: '>', h: LEFT ALT}
-  - '#'
   - ''
   - ''
-  - '='
-  - '['
-  - ']'
-  - _
-  - ;
-  - '|'
+  - ''
   - '*'
   - '&'
-  - '%'
-  - '@'
-  - ''
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '{'
+  - $
+  - '&td_grave'
+  - '!'
   - ''
   - {type: held}
-  GAME: ['1', TAB, Q, W, E, R, '', '', '', '', '', '', '2', LCTRL, A, S, D, F, '', '', '', '', '', '', '3', LSHFT, Z, X, C, V, '', '', '', '', '', '', '', SPACE,
-    LEFT ALT, '', '']
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - ''
+  - '&td_hyphen'
+  - ;
+  - (
+  - '['
+  - +
+  - '|'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '@'
+  - _
+  - <
+  - '#'
+  - '%'
+  - \
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  GAME:
+  - '1'
+  - TAB
+  - Q
+  - W
+  - E
+  - R
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - '2'
+  - LCTRL
+  - A
+  - S
+  - D
+  - F
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '3'
+  - LSHFT
+  - Z
+  - X
+  - C
+  - V
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - SPACE
+  - LEFT ALT
+  - ''
+  - ''
   PHOTOS:
   - {t: ▽, type: trans}
   - TAG Z
@@ -181,7 +222,7 @@ layers:
   - ''
   - ''
   - ''
-  - ''
+  - {t: ▽, type: trans}
   - FIT
   - LEFT
   - DOWN
@@ -225,9 +266,9 @@ layers:
   - OUT TOG
   - BT CLR
   - SLEEP
-  - SHIT SUDO
-  - PYTHON LOOP
-  - JS LOOP
+  - '&sudo'
+  - ''
+  - ''
   - ''
   - BRIGHTNESS DEC
   - ''
@@ -241,7 +282,7 @@ layers:
   - ''
   - ''
   - ''
-  - CLIP HIST
+  - ''
   - NEW DIR
   - MUTE
   - VOLUME DOWN
@@ -283,7 +324,7 @@ layers:
   - CUT
   - COPY
   - PASTE
-  - M CLK
+  - Mid CLK
   - ''
   - ''
   - ''
@@ -384,8 +425,20 @@ combos:
   k: CAPS WORD
   l: [BASE]
 - p: [28, 37]
-  k: M CLK
+  k: Mid CLK
 - p: [16, 37]
   k: R CLK
+- p: [20, 21]
+  k: )
+  l: [SYM]
+- p: [21, 22]
+  k: ']'
+  l: [SYM]
+- p: [8, 9]
+  k: '}'
+  l: [SYM]
+- p: [32, 33]
+  k: '>'
+  l: [SYM]
 - p: [38, 39]
   k: L_BASE L_EXTRA
