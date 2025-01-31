@@ -10,17 +10,10 @@
             bindings = <&kp>, <&kp>;  // hold, tap
         };
 
-        // hm_right: homerow_mod_right {
-        //     compatible = "zmk,behavior-hold-tap";
-        //     #binding-cells = <2>;
-        //     // flavor = "tap-unless-interrupted";  // <---[[changes tapping-term-ms to acivate a tap]]
-        //     flavor = "tap-preferred";
-        //     tapping-term-ms = <150>;  // <---[[produces hold if held longer than tapping-term-ms]]
-        //     // quick-tap-ms = <200>;  // <---[[double tap within quick-tap-ms will trigger the tap behavior]]
-        //     // require-prior-idle-ms = <150>;
-        //     bindings = <&kp>, <&kp>;
-        //     hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38>;
-        // };
+        // tapping-term-ms = <150>;  // <---[[produces hold if held longer than tapping-term-ms]]
+        // quick-tap-ms = <15.>;  // <---[[double tap within quick-tap-ms will trigger the tap behavior]]
+        // require-prior-idle-ms = <185>; // like quick-tap-ms however it will apply for any non-modifier key pressed before it
+        // flavor = "tap-unless-interrupted";  // <---[[changes tapping-term-ms to acivate a tap]]
 
         hm_a: homerow_mod_a {
             compatible = "zmk,behavior-hold-tap";
