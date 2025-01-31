@@ -55,7 +55,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <125>;
+            tapping-term-ms = <150>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 19 20 21 22>;
         };
