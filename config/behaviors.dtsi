@@ -11,7 +11,7 @@
         };
 
         // tapping-term-ms = <150>;  // <---[[produces hold if held longer than tapping-term-ms]]
-        // quick-tap-ms = <15.>;  // <---[[double tap within quick-tap-ms will trigger the tap behavior]]
+        // quick-tap-ms = <150>;  // <---[[double tap within quick-tap-ms will trigger the tap behavior]]
         // require-prior-idle-ms = <185>; // like quick-tap-ms however it will apply for any non-modifier key pressed before it
         // flavor = "tap-unless-interrupted";  // <---[[changes tapping-term-ms to acivate a tap]]
 
@@ -47,6 +47,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <115>;
+            quick-tap-ms = <150>
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 39 40 16 15 14 12>;
         };
@@ -56,6 +57,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <150>;
+            require-prior-idle-ms = <170>
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 19 20 21 22>;
         };
