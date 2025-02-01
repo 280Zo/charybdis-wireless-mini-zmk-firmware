@@ -91,7 +91,12 @@ include:
   #   artifact-name: charybdis_colemak_dongle
 
   # Firmware Reset
-  # - board: nice_nano_v2
-  #   shield: settings_reset
-  #   format: reset
-  #   artifact-name: firmware_reset_nano_v2
+  - board: nice_nano_v2
+    shield: settings_reset
+    format: reset
+    artifact-name: firmware_reset_nano_v2
+
+  - board: seeeduino_xiao_ble
+    shield: settings_reset
+    format: reset
+    artifact-name: firmware_reset_seeed_xiao
