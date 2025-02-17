@@ -89,7 +89,7 @@ layers:
   - ''
   - ''
   - ''
-  - ''
+  - {t: PHOTOS, h: toggle}
   - ''
   - HOME
   - ''
@@ -167,7 +167,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  GAME: ['1', TAB, Q, W, E, R, '', '', '', '', '', '', '2', LCTRL, A, S, D, F, '', '', '', '', '', '', '3', LSHFT, Z, X, C, V, '', '', '', '', '', '', '', SPACE,
+  GAME: [ESC, '1', Q, W, E, R, '', '', '', '', '', '', TAB, LSHFT, A, S, D, F, '', '', '', '', '', '', F15, LCTRL, Z, X, C, V, '', '', '', '', '', '', NUM, SPACE,
     LEFT ALT, '', '']
   PHOTOS:
   - {t: ▽, type: trans}
