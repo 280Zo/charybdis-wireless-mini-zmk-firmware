@@ -6,10 +6,8 @@
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/ext_power.h>
 #include "macros.dtsi"
-
-// / {
-//     chosen { zmk,matrix_transform = &default_transform; };
-// };
+#include "behaviors.dtsi"
+#include "combos.dtsi"
 
 / {
     /* input config for mouse move mode */
@@ -20,9 +18,11 @@
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
+
         scale-multiplier = <1>;
         scale-divisor = <2>; 
         // bindings = <&ib_toggle_layer 7>; // unfortunately cant access scrolling if auto layer is on 
+
     };
 
     /* input config for snipe mode */
@@ -34,7 +34,7 @@
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
         scale-multiplier = <1>;
-        scale-divisor = <4>;
+        scale-divisor = <6>;
     };
 
     /* input config for mouse scroll mode */
@@ -282,6 +282,7 @@
 &lt_bspc 2 0 &kp N1    &kp N2 &kp N3   &kp N4     &kp N5            &kp GRAVE  &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT   &trans
 &kp LCTRL    &kp N6    &kp N7 &kp N8   &kp N9     &kp N0            &kp TILDE  &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC   &trans
                               &dot_com &lt 2 SPC  &trans            &trans     &trans
+
             >;
         };
 
@@ -293,6 +294,7 @@
 &trans  &kp RC(Z)       &none       &none      &none       &none         &none    &kp END     &none    &kp PG_DN  &none              &kp C_PLAY_PAUSE
                                     &to 1      &trans      &trans        &trans   &bspc_del
             >; 
+
         };
 
         SYM {
@@ -301,6 +303,7 @@
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
                               &trans    &trans    &trans    &trans    &trans
+
             >;
         };
 
@@ -319,6 +322,7 @@
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
                               &trans    &trans    &trans    &trans    &trans
+
             >;
         };
 
@@ -328,6 +332,7 @@
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
                               &trans    &trans    &trans    &trans    &trans
+
             >;
         };
 

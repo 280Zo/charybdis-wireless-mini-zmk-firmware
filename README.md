@@ -28,9 +28,6 @@ There are a few things to note about how the pre-built firmware is configured:
 - The Bluetooth/USB firmware can connect through Bluetooth, but the central side will have a shorter battery life because it needs to maintain that connection.
   - The central side can also be plugged in to USB and the keyboard can be used when Bluetooth on the host computer isn't available (e.g. BIOS navigation)
 - To add support for the PMW3610 low power trackball sensor, badjeff's [zmk-pmw3610-driver](https://github.com/badjeff/zmk-pmw3610-driver), [ZMK Input Behavior Listener](https://github.com/badjeff/zmk-input-behavior-listener?tab=readme-ov-file), and [ZMK Split Peripheral Input Relay](https://github.com/badjeff/zmk-split-peripheral-input-relay) modules are included in the firmware.
-- eigatech's [zmk-configs](https://github.com/eigatech/zmk-config?tab=readme-ov-file) played a major role in getting badjeff's drivers and modules fully configured and are a great resource
-- A separate branch builds the Bluetooth/USB firmware using [inorichi's driver](https://github.com/inorichi/zmk-pmw3610-driver?tab=readme-ov-file) as an alternative to badjeff's driver.
-- Pete Johanson (creator and lead of the ZMK firmware) developed a feature ([pointers-move-scroll](https://github.com/zmkfirmware/zmk/pull/2027)) that allows mouse keys to move and scroll. A successor feature ([pointers-with-input-processors](https://github.com/zmkfirmware/zmk/pull/2477)) was then developed that allows more flexibility. This feature is what will eventually be merged into the main ZMK branch, and it's what is used by this repo to build the firmware. Although it's not guranteed to be stable, it hasn't caused any noticible issues. That being said, if you'd prefer to use pointers-move-scroll which is in a stable state, you can update the west.yaml and adapt the config files accordingly.
 
 ## Flashing the Firmware
 
@@ -61,7 +58,7 @@ Here are a few tips for a quick start:
 
 - The left most thumb button has multiple functions
   - When held, the function of the trackball is changed from moving the cursor to scrolling.
-  - When double tapped, it will reduce the cursor speed for more precision, and activate the mouse layer.
+  - When double tapped and held, it will reduce the cursor speed for more precision.
   - When single tapped it outputs the escape key.
 
 ![keymap images](keymap-drawer/charybdis.svg)
@@ -125,13 +122,6 @@ To get this information, look at the PCB kcad files and follow the traces from k
 ## Creating Graphical Key Maps
 
 This repo uses the excellent work of caksoylar's [Keymap Drawer](https://keymap-drawer.streamlit.app/) to automatically generate a key mapping of each layer when the Github Actions are run.
-
-## Upcoming ZMK Features
-
-ZMK is actively being developed and there are a few features that will be added to these builds if/when they are approved.
-
-- Layer Lock - [Open PR](https://github.com/zmkfirmware/zmk/pull/1984)
-- Unicode Support - [Issue](https://github.com/zmkfirmware/zmk/issues/232)
 
 ## Credits
 

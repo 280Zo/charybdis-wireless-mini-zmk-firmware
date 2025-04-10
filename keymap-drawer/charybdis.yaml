@@ -1,6 +1,7 @@
 layers:
   DEF:
   - {t: ESC, s: '`'}
+
   - Q
   - W
   - E
@@ -25,6 +26,7 @@ layers:
   - ;
   - ''''
   - LCTRL
+
   - Z
   - X
   - C
@@ -102,6 +104,7 @@ layers:
   - LCTRL
   - TAB
   - ''
+
   - LEFT
   - DOWN
   - UP
@@ -115,6 +118,7 @@ layers:
   - ''
   - ''
   - ''
+
   - END
   - ''
   - PG DN
@@ -171,6 +175,7 @@ layers:
     LEFT ALT, '', '']
   PHOTOS:
   - {t: ▽, type: trans}
+
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -401,3 +406,4 @@ combos:
   k: RIGHT
 - p: [33, 34]
   k: LEFT
+
