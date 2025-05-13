@@ -88,7 +88,7 @@
 // ╭────────────────┬──────────────┬─────────────────────────────┬──────────────────────────────────┬──────────────────────┬────────╮  ╭────────────────┬─────────────────────────┬──────────────────────────────────────┬────────────────────────────────────┬────────────────────────┬──────────────╮
     &kp F12            &kp Q        &kp W                          &kp E                              &kp R                  &kp T       &kp Y             &kp U                   &kp I                                   &kp O                                &kp P                    &td_layers
 // ├────────────────┼──────────────┼─────────────────────────────┼──────────────────────────────────┼──────────────────────┼────────┤  ├────────────────┼─────────────────────────┼──────────────────────────────────────┼────────────────────────────────────┼────────────────────────┼──────────────┤
-    &hm_a LCMD TAB     &lt 3 A      &hm_r LEFT_ALT S               &hm_s LCTRL D                      &hm_t LEFT_SHIFT F     &kp G       &kp H             &hm_n RIGHT_SHIFT J     &hm_e RCTRL K                           &hm_i RIGHT_ALT L                    &hm_o RCMD SEMICOLON     &kp DEL
+    &hm_a LCMD TAB     &lt 3 A      &kp S                          &kp D                              &kp F                  &kp G       &kp H             &kp J                   &kp K                                   &kp L                                &kp SEMICOLON            &kp DEL
 // ├────────────────┼──────────────┼─────────────────────────────┼──────────────────────────────────┼──────────────────────┼────────┤  ├────────────────┼─────────────────────────┼──────────────────────────────────────┼────────────────────────────────────┼────────────────────────┼──────────────┤
     &kp C_AC_SEARCH    &kp Z        &hm LC(LA(LEFT_SHIFT)) X       &hm LA(LC(LG(LEFT_SHIFT))) C  &kp V                       &kp B       &kp N             &kp M                   &hm LA(LC(LG(LEFT_SHIFT))) COMMA        &hm LC(LA(LEFT_SHIFT)) PERIOD        &td_home                 &clip_hist
 // ╰────────────────┴──────────────┴─────────────────────────────┼──────────────────────────────────┼──────────────────────┼────────┤  ├────────────────┼─────────────────────────┼──────────────────────────────────────┴────────────────────────────────────┴────────────────────────┴──────────────╯
@@ -100,8 +100,8 @@
         NUM {
             bindings = <
 &trans   &none  &none  &none  &none          &none        &kp ASTRK  &hm F7 N7  &hm F8 N8  &hm F9 N9  &kp F10        &none
-&trans   &none  &none  &none  &none          &none        &kp MINUS  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &trans
-&none    &none  &none  &none  &kp BACKSPACE  &kp SPACE    &td_equals &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 SLASH  &none
+&trans   &none  &none  &none  &kp BACKSPACE  &kp SPACE    &kp MINUS  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &trans
+&none    &none  &none  &none  &none          &none        &td_equals &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 SLASH  &none
                        &none  &none          &trans       &kp DOT    &kp N0
             >;
         };

@@ -18,29 +18,77 @@
             key-positions = <16 37>;
         };
 
-        RightParen {
-            bindings = <&kp RIGHT_PARENTHESIS>;
-            key-positions = <20 21>;
-            layers = <3>;
+        LCmd {
+            bindings = <&kp LCMD>;
+            key-positions = <13 37>;
+            layers = <0>;
         };
 
-        RightBracket {
-            bindings = <&kp RIGHT_BRACKET>;
-            key-positions = <21 22>;
-            layers = <3>;
+        LAlt {
+            bindings = <&kp LEFT_ALT>;
+            key-positions = <14 37>;
+            layers = <0>;
         };
 
-        RightBrace {
-            bindings = <&kp RIGHT_BRACE>;
-            key-positions = <8 9>;
-            layers = <3>;
+        LCtrl {
+            bindings = <&kp LCTRL>;
+            key-positions = <15 37>;
+            layers = <0>;
         };
 
-        RightGreaterThan {
-            bindings = <&kp GREATER_THAN>;
-            key-positions = <32 33>;
-            layers = <3>;
+        LShift {
+            bindings = <&kp LEFT_SHIFT>;
+            key-positions = <16 37>;
+            layers = <0>;
         };
+
+        RCmd {
+            bindings = <&kp RCMD>;
+            key-positions = <22 40>;
+            layers = <0>;
+        };
+
+        RAlt {
+            bindings = <&kp LEFT_ALT>;
+            key-positions = <21 40>;
+            layers = <0>;
+        };
+
+        RCtrl {
+            bindings = <&kp RCTRL>;
+            key-positions = <20 40>;
+            layers = <0>;
+        };
+
+        RShift {
+            bindings = <&kp RIGHT_SHIFT>;
+            key-positions = <19 40>;
+            layers = <0>;
+        };
+
+        // RightParen {
+        //     bindings = <&kp RIGHT_PARENTHESIS>;
+        //     key-positions = <20 21>;
+        //     layers = <3>;
+        // };
+
+        // RightBracket {
+        //     bindings = <&kp RIGHT_BRACKET>;
+        //     key-positions = <21 22>;
+        //     layers = <3>;
+        // };
+
+        // RightBrace {
+        //     bindings = <&kp RIGHT_BRACE>;
+        //     key-positions = <8 9>;
+        //     layers = <3>;
+        // };
+
+        // RightGreaterThan {
+        //     bindings = <&kp GREATER_THAN>;
+        //     key-positions = <32 33>;
+        //     layers = <3>;
+        // };
 
         BASE_or_EXTRAS {
             bindings = <&td_bore>;
