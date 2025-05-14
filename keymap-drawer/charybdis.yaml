@@ -1,3 +1,4 @@
+layout: {zmk_keyboard: charybdis}
 layers:
   BASE:
   - DEV TOOLS
@@ -12,17 +13,17 @@ layers:
   - O
   - P
   - L_BASE L_PHOTO L_GAME
-  - {t: TAB, h: LCMD}
+  - TAB
   - {t: A, h: SYM}
-  - {t: S, h: LEFT ALT}
-  - {t: D, h: LCTRL}
-  - {t: F, h: LEFT SHIFT}
+  - S
+  - D
+  - F
   - G
   - H
-  - {t: J, h: RIGHT SHIFT}
-  - {t: K, h: RCTRL}
-  - {t: L, h: RIGHT ALT}
-  - {t: ;, h: RCMD}
+  - J
+  - K
+  - L
+  - ;
   - DEL
   - SEARCH
   - Z
@@ -58,8 +59,8 @@ layers:
   - ''
   - ''
   - ''
-  - ''
-  - ''
+  - BACK SPACE
+  - SPACE
   - '-'
   - {t: '4', h: F4}
   - {t: '5', h: F5}
@@ -70,8 +71,8 @@ layers:
   - ''
   - ''
   - ''
-  - BACK SPACE
-  - SPACE
+  - ''
+  - ''
   - '='
   - {t: '1', h: F1}
   - {t: '2', h: F2}
@@ -427,17 +428,29 @@ combos:
   k: Mid CLK
 - p: [16, 37]
   k: R CLK
-- p: [20, 21]
-  k: )
-  l: [SYM]
-- p: [21, 22]
-  k: ']'
-  l: [SYM]
-- p: [8, 9]
-  k: '}'
-  l: [SYM]
-- p: [32, 33]
-  k: '>'
-  l: [SYM]
+- p: [13, 37]
+  k: LCMD
+  l: [BASE]
+- p: [14, 37]
+  k: LEFT ALT
+  l: [BASE]
+- p: [15, 37]
+  k: LCTRL
+  l: [BASE]
+- p: [16, 37]
+  k: LEFT SHIFT
+  l: [BASE]
+- p: [22, 40]
+  k: RCMD
+  l: [BASE]
+- p: [21, 40]
+  k: LEFT ALT
+  l: [BASE]
+- p: [20, 40]
+  k: RCTRL
+  l: [BASE]
+- p: [19, 40]
+  k: RIGHT SHIFT
+  l: [BASE]
 - p: [38, 39]
   k: L_BASE L_EXTRA
