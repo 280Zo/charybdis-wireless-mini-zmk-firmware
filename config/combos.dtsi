@@ -145,61 +145,61 @@
             layers = <0>;
         };
 
-        combo_l_ctrl_shift {
+        combo_r_ctrl_shift {
             bindings = <&kp LC(LSHFT)>;
             key-positions = <20 19 40>;
             layers = <0>;
         };
 
-        combo_l_ctrl_cmd {
+        combo_r_ctrl_cmd {
             bindings = <&kp LC(LCMD)>;
             key-positions = <20 22 40>;
             layers = <0>;
         };
 
-        combo_l_alt_shift {
+        combo_r_alt_shift {
             bindings = <&kp LA(LSHFT)>;
             key-positions = <21 19 40>;
             layers = <0>;
         };
 
-        combo_l_alt_cmd {
+        combo_r_alt_cmd {
             bindings = <&kp LA(LCMD)>;
             key-positions = <21 22 40>;
             layers = <0>;
         };
 
-        combo_l_shift_cmd {
+        combo_r_shift_cmd {
             bindings = <&kp LS(LCMD)>;
             key-positions = <19 22 40>;
             layers = <0>;
         };
 
-        combo_l_ctrl_alt_shift {
+        combo_r_ctrl_alt_shift {
             bindings = <&kp LC(LA(LSHFT))>;
             key-positions = <33 40>;
             layers = <0>;
         };
 
-        combo_l_ctrl_alt_cmd {
+        combo_r_ctrl_alt_cmd {
             bindings = <&kp LC(LA(LCMD))>;
             key-positions = <20 21 22 40>;
             layers = <0>;
         };
 
-        combo_l_ctrl_shift_cmd {
+        combo_r_ctrl_shift_cmd {
             bindings = <&kp LC(LS(LCMD))>;
             key-positions = <20 19 22 40>;
             layers = <0>;
         };
 
-        combo_l_alt_shift_cmd {
+        combo_r_alt_shift_cmd {
             bindings = <&kp LA(LS(LCMD))>;
             key-positions = <21 19 22 40>;
             layers = <0>;
         };
 
-        combo_l_ctrl_alt_shift_cmd {
+        combo_r_ctrl_alt_shift_cmd {
             bindings = <&kp LC(LA(LS(LCMD)))>;
             key-positions = <32 40>;
             layers = <0>;
