@@ -27,14 +27,14 @@ layers:
   - DEL
   - SEARCH
   - Z
-  - {t: X, h: MEH}
-  - {t: C, h: HYPER}
+  - X
+  - C
   - V
   - B
   - N
   - M
-  - {t: ',', h: HYPER}
-  - {t: ., h: MEH}
+  - ','
+  - .
   - ~/
   - CLIP HIST
   - SCRL SLOW
@@ -60,7 +60,7 @@ layers:
   - ''
   - ''
   - BACK SPACE
-  - SPACE
+  - ''
   - '-'
   - {t: '4', h: F4}
   - {t: '5', h: F5}
@@ -82,8 +82,8 @@ layers:
   - ''
   - ''
   - {t: ▽, type: trans}
-  - .
   - '0'
+  - SPACE
   NAV:
   - ''
   - ''
@@ -424,9 +424,11 @@ combos:
 - p: [17, 18]
   k: CAPS WORD
   l: [BASE]
-- p: [28, 37]
+- p: [38, 39]
+  k: L_BASE L_EXTRA
+- p: [27, 37]
   k: Mid CLK
-- p: [16, 37]
+- p: [28, 37]
   k: R CLK
 - p: [13, 37]
   k: LCMD
@@ -440,6 +442,39 @@ combos:
 - p: [16, 37]
   k: LEFT SHIFT
   l: [BASE]
+- p: [15, 15, 37]
+  k: Ctl+ LALT
+  l: [BASE]
+- p: [15, 16, 37]
+  k: Ctl+ LSHFT
+  l: [BASE]
+- p: [15, 13, 37]
+  k: Ctl+ LCMD
+  l: [BASE]
+- p: [14, 16, 37]
+  k: Alt+ LSHFT
+  l: [BASE]
+- p: [14, 13, 37]
+  k: Alt+ LCMD
+  l: [BASE]
+- p: [16, 13, 37]
+  k: Sft+ LCMD
+  l: [BASE]
+- p: [26, 37]
+  k: Ctl+Alt+ LSHFT
+  l: [BASE]
+- p: [15, 14, 13, 37]
+  k: Ctl+Alt+ LCMD
+  l: [BASE]
+- p: [15, 16, 13, 37]
+  k: Ctl+Sft+ LCMD
+  l: [BASE]
+- p: [14, 16, 13, 37]
+  k: Alt+Sft+ LCMD
+  l: [BASE]
+- p: [27, 37]
+  k: Meh+ LCMD
+  l: [BASE]
 - p: [22, 40]
   k: RCMD
   l: [BASE]
@@ -452,5 +487,36 @@ combos:
 - p: [19, 40]
   k: RIGHT SHIFT
   l: [BASE]
-- p: [38, 39]
-  k: L_BASE L_EXTRA
+- p: [20, 21, 40]
+  k: Ctl+ LALT
+  l: [BASE]
+- p: [20, 19, 40]
+  k: Ctl+ LSHFT
+  l: [BASE]
+- p: [20, 22, 40]
+  k: Ctl+ LCMD
+  l: [BASE]
+- p: [21, 19, 40]
+  k: Alt+ LSHFT
+  l: [BASE]
+- p: [21, 22, 40]
+  k: Alt+ LCMD
+  l: [BASE]
+- p: [19, 22, 40]
+  k: Sft+ LCMD
+  l: [BASE]
+- p: [33, 40]
+  k: Ctl+Alt+ LSHFT
+  l: [BASE]
+- p: [20, 21, 22, 40]
+  k: Ctl+Alt+ LCMD
+  l: [BASE]
+- p: [20, 19, 22, 40]
+  k: Ctl+Sft+ LCMD
+  l: [BASE]
+- p: [21, 19, 22, 40]
+  k: Alt+Sft+ LCMD
+  l: [BASE]
+- p: [32, 40]
+  k: Meh+ LCMD
+  l: [BASE]
