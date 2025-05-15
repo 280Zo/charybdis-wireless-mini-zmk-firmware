@@ -5,7 +5,8 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 0 1 */2 *' # run every two months to keep artifacts from expiring
-        
+
+jobs:  
   prepare-keymaps:
     runs-on: ubuntu-latest
     outputs:
