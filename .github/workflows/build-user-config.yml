@@ -23,7 +23,7 @@ on:
         type: string
 
 jobs:
-  set-matrix:
+  build:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set.outputs.matrix }}
@@ -46,38 +46,27 @@ jobs:
           fi
           echo "::endgroup::"
 
-  checkout_config:
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout config
         uses: actions/checkout@v4
         with:
           path: config
 
-  checkout_zmk:
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout ZMK
         uses: actions/checkout@v4
         with:
           repository: zmkfirmware/zmk
           path: zmk
 
-  build:
-    needs: [set-matrix, checkout_config, checkout_zmk]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include: ${{ fromJson(needs.set-matrix.outputs.matrix) }}
-    steps:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.8'
 
-      - name: Install west and dependencies
+      - name: Install west
+        run: pip install west
+
+      - name: Initialize west
         run: |
-          pip install west
           west init -l config
           west update
           west zephyr-export
@@ -93,19 +82,28 @@ jobs:
             build
             zephyr/.zephyr
             modules
-          key: zmk-cache-${{ runner.os }}-${{ matrix.board }}-${{ matrix.shield }}-${{ matrix.keymap }}-${{ matrix.format }}
+          key: zmk-cache-${{ runner.os }}-${{ inputs.board || 'multi' }}-${{ inputs.shield || 'multi' }}-${{ inputs.keymap || 'multi' }}-${{ inputs.format || 'multi' }}
           restore-keys: |
             zmk-cache-${{ runner.os }}-
 
       - name: Build firmware
         run: |
-          west build -s config -d build \
-            -b ${{ matrix.board }} \
-            -- -DSHIELD=${{ matrix.shield }} \
-               -DCONF_FILE=prj.${{ matrix.format }}.conf
+          matrix=${{ steps.set.outputs.matrix }}
+          builds=$(echo "$matrix" | jq -c '.[]')
+          for item in $builds; do
+            board=$(echo $item | jq -r '.board')
+            shield=$(echo $item | jq -r '.shield')
+            keymap=$(echo $item | jq -r '.keymap')
+            format=$(echo $item | jq -r '.format')
+            echo "::group::Building $board-$shield-$keymap-$format"
+            west build -s config -d build/$shield-$keymap-$format \
+              -b $board \
+              -- -DSHIELD=$shield -DCONF_FILE=prj.$format.conf
+            echo "::endgroup::"
+          done
 
-      - name: Upload artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}_${{ matrix.format }}
-          path: build/zephyr/zmk.uf2
+          name: zmk-firmware
+          path: build/*/zephyr/zmk.uf2
