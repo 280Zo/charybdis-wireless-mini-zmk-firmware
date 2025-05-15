@@ -12,9 +12,6 @@ def main():
     # Create the parser
     parser = argparse.ArgumentParser(description="A script that converts ZMK keymap files from QWERTY <|> Colemak DH")
 
-    # Define flags and parameters
-    parser.add_argument('--list', action='store_true', help='List supported conversions and exit')
-
     parser.add_argument(
         '-c', '--convert', 
         type=str, 
@@ -32,13 +29,6 @@ def main():
 
     # Parse the arguments
     args = parser.parse_args()
-
-    # List options
-    if args.list:
-        print("Supported conversions:")
-        for k in LAYOUT_MAPS.keys():
-            print(f"  - {k}")
-        sys.exit(0)
 
     # Set the variable for the chosen option
     conversion_type = args.convert
@@ -91,74 +81,25 @@ def main():
     
     # Find and replace the 'BASE' keymap layer
     def replace_keymap(match):
-        before_keymap = match.group(1)
-        old_keymap = match.group(2)
-        after_keymap = match.group(3)
-        
-        print(f">> Found BASE keymap \n{old_keymap}")
+        before, block, after = match.group(1), match.group(2), match.group(3)
+        new_block = block
 
-        # Split the old keymap by lines
-        lines = old_keymap.strip().split('\n')
+        # For each mapping, do an in-place word-boundary replace.
+        # This touches only the key names (e.g. 'Q', 'X', 'SEMICOLON') 
+        # and leaves every space, comment, and box-drawing character untouched.
+        for old, new in initial_keymap.items():
+            # \b ensures we only match whole words like 'A' or 'SEMICOLON'
+            pattern = rf"\b{re.escape(old)}\b"
+            new_block = re.sub(pattern, new, new_block)
 
-        # Process each line
-        new_lines = []
-        print(">> Converting letter keys")
-        for line in lines:
-            # Split the line by spaces or other delimiters
-            parts = line.split()
-            new_parts = []
-
-            for part in parts:
-                if not part.startswith('&'):
-                    # Extract key (removing ZMK behavior commands)
-                    key = part.split()[1] if len(part.split()) > 1 else part
-                    # Map the key to the conversion type if applicable
-                    if key.upper() in initial_keymap:
-                        print(key.upper(),end=":")
-                        new_key = initial_keymap[key]
-                        print(new_key)
-                        new_parts.append(part.replace(key, new_key))
-                    else:
-                        new_parts.append(part)
-                else:
-                    new_parts.append(part)
-            # Join new parts for the line and add to new_lines
-            new_lines.append(' '.join(new_parts))
-
-        # Join new lines to form the new keymap keymap_contents
-        new_keymap = '\n'.join(new_lines)
-        print(f"\n>> Generated {out_file} \n{format_columns(new_keymap)}")
-        return before_keymap + format_columns(new_keymap) + after_keymap
+        return before + new_block + after
     
-    def format_columns(text):    
-        zmk_behavior = r'(&\w+)'
-
-        # Split the input text into lines
-        lines = text.strip().split('\n')
-        
-        # Split each line into columns
-        split_lines = [re.split(zmk_behavior,line) for line in lines]
-        
-        # Determine the number of columns
-        num_columns = max(len(line) for line in split_lines)
-        
-        # Calculate the maximum width for each column
-        column_widths = [0] * num_columns
-        for line in split_lines:
-            for i, item in enumerate(line):
-                column_widths[i] = max(column_widths[i], len(item))
-        
-        # Format each line with the calculated column widths
-        formatted_lines = []
-        for line in split_lines:
-            formatted_line = ''.join(f"{item:<{column_widths[i] + 1}}" for i, item in enumerate(line))
-            formatted_lines.append(formatted_line)
-        
-        # Join all formatted lines
-        formatted_text = '\n'.join(formatted_lines)
-        return formatted_text
-
     converted_map = convert_keymap(keymap_contents)
+
+    # ——— New: print the converted BASE layer for verification ———
+    print(">> Converted BASE layer:\n")
+    print(converted_map)  
+    print("—————————————————————————")
 
     # Write the new keymap_contents to the output file
     with open(out_full_path, 'w') as file:
