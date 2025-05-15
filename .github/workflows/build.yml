@@ -1,28 +1,23 @@
-name: Build ZMK Keymap Firmwares Serially
+name: Build ZMK Keymap Firmwares
 
 on:
   push:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 */2 *' # Run every two months
+    - cron: '0 0 1 */2 *'
 
 jobs:
   prepare-keymaps:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-
       - name: Generate additional keymaps
         run: |
           python scripts/convert_keymap.py -c q2c --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
           python scripts/convert_keymap.py -c q2g --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
-          # Add new layouts here
 
   parse-matrix:
     runs-on: ubuntu-latest
@@ -30,16 +25,12 @@ jobs:
       build-matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-
       - id: set-matrix
         run: |
           MATRIX=$(python scripts/generate_matrix.py)
-          echo "MATRIX: $MATRIX"
           echo "::set-output name=matrix::$MATRIX"
 
   build:
@@ -53,10 +44,3 @@ jobs:
       shield: ${{ matrix.shield }}
       keymap: ${{ matrix.keymap }}
       format: ${{ matrix.format }}
-
-  keymap_images:
-    needs: build
-    permissions:
-      contents: write
-    uses: ./.github/workflows/draw_keymaps.yaml
-    # credit to https://github.com/caksoylar/keymap-drawer
