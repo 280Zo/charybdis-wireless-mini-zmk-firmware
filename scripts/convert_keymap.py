@@ -2,6 +2,7 @@ import re
 import os
 import sys
 import argparse
+from layouts import LAYOUT_MAPS, OUTPUT_FILE_NAMES
 
 def main():
     #####################################################################
@@ -10,33 +11,46 @@ def main():
     
     # Create the parser
     parser = argparse.ArgumentParser(description="A script that converts ZMK keymap files from QWERTY <|> Colemak DH")
+
     # Define flags and parameters
+    parser.add_argument('--list', action='store_true', help='List supported conversions and exit')
+
     parser.add_argument(
         '-c', '--convert', 
         type=str, 
-        choices=['q2c', 'c2q'], 
+        choices=LAYOUT_MAPS.keys(),
         default='q2c',
         help="Specify the conversion: 'q2c' will convert QWERTY to Colemak DH, 'c2q' will convert Colemak DH to QWERTY (default: 'q2c')"
     )
+
     parser.add_argument(
         '--in-path',
         type=str,
         required=True,
         help="Path to the input keymap file. This is the path where the ouitput will be stored as well"
     )
+
     # Parse the arguments
     args = parser.parse_args()
+
+    # List options
+    if args.list:
+        print("Supported conversions:")
+        for k in LAYOUT_MAPS.keys():
+            print(f"  - {k}")
+        sys.exit(0)
+
     # Set the variable for the chosen option
     conversion_type = args.convert
     full_path = args.in_path
     
     # Check argument values and convert keymap
-    if conversion_type not in ['q2c','c2q']:
-        print("Error: Invalid conversion type selected.")
+    if conversion_type not in LAYOUT_MAPS:
+        print(f"Error: Invalid conversion type '{conversion_type}'.")
         sys.exit(1)
 
     path, in_file = os.path.split(full_path)
-    out_file = 'qwerty.keymap' if conversion_type == 'c2q' else 'colemak_dh.keymap'
+    out_file = OUTPUT_FILE_NAMES.get(conversion_type, f"{conversion_type}.keymap")
     out_full_path = os.path.join(path, out_file)
 
     print("#####################################################################")
@@ -48,26 +62,12 @@ def main():
 
     #####################################################################
     # Define conversions
-    #####################################################################
-    
-    if conversion_type == 'q2c':
-        initial_keymap = {
-            # Top row (numbers and symbols are not included in this example)
-            'Q': 'Q', 'W': 'W', 'E': 'F', 'R': 'P', 'T': 'B', 'Y': 'J', 'U': 'L', 'I': 'U', 'O': 'Y', 'P': 'APOS',
-            # Home row
-            'A': 'A', 'S': 'R', 'D': 'S', 'F': 'T', 'G': 'G', 'H': 'M', 'J': 'N', 'K': 'E', 'L': 'I', 'SEMICOLON': 'O',
-            # Bottom row
-            'Z': 'Z', 'X': 'X', 'C': 'C', 'V': 'D', 'B': 'V', 'N': 'K', 'M': 'H',
-        }
-    else:
-        initial_keymap = {
-            # Top row (numbers and symbols are not included in this example)
-            'Q': 'Q', 'W': 'W', 'F': 'E', 'P': 'R', 'B': 'T', 'J': 'Y', 'L': 'U', 'U': 'I', 'Y': 'O', 'APOS': 'P',
-            # Home row
-            'A': 'A', 'R': 'S', 'S': 'D', 'T': 'F', 'G': 'G', 'M': 'H', 'N': 'J', 'E': 'K', 'I': 'L', 'O': 'SEMICOLON',
-            # Bottom row
-            'Z': 'Z', 'X': 'X', 'C': 'C', 'D': 'V', 'V': 'B', 'K': 'N', 'H': 'M'
-        }
+    #####################################################################   
+    try:
+        initial_keymap = LAYOUT_MAPS[conversion_type]
+    except KeyError:
+        print(f"Unsupported conversion: {conversion_type}")
+        sys.exit(1)
     
     #####################################################################
     # Read and store input keymap 
@@ -84,6 +84,7 @@ def main():
     def convert_keymap(keymap_contents):   
         # Define regex pattern to find the 'Base' keymap section
         base_keymap_pattern = re.compile(r'(BASE\s*\{\s*bindings\s*=\s*<\s*)(.*?)(\s*>;)', re.DOTALL)     
+        
         # Apply regex substitution to convert keymap
         new_keymap_contents = base_keymap_pattern.sub(replace_keymap, keymap_contents)
         return new_keymap_contents
