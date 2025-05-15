@@ -162,4 +162,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.artifact_name }}
-          path: ${{ env.build_dir }}/artifact
+          path: ${{ env.build_dir }}/artifacts
