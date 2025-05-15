@@ -1,0 +1,78 @@
+name: Build ZMK user config (patched)
+
+on:
+  workflow_call:
+    inputs:
+      board:
+        required: false
+        type: string
+      shield:
+        required: false
+        type: string
+      keymap:
+        required: false
+        type: string
+      format:
+        required: false
+        type: string
+      build_matrix_path:
+        required: false
+        type: string
+      config_path:
+        required: true
+        type: string
+
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Generate matrix from inputs or file
+        id: set-matrix
+        run: |
+          echo "::group::Preparing build matrix"
+          if [[ -n "${{ inputs.board }}" && -n "${{ inputs.shield }}" ]]; then
+            echo "Using single firmware build from inputs..."
+            echo "::set-output name=matrix::[{\"board\":\"${{ inputs.board }}\",\"shield\":\"${{ inputs.shield }}\",\"keymap\":\"${{ inputs.keymap || 'default' }}\",\"format\":\"${{ inputs.format || 'bt' }}\"}]"
+          elif [[ -n "${{ inputs.build_matrix_path }}" ]]; then
+            echo "Loading full build matrix from ${{ inputs.build_matrix_path }}"
+            MATRIX=$(yq eval '.include' ${{ inputs.build_matrix_path }} | jq -c .)
+            echo "::set-output name=matrix::$MATRIX"
+          else
+            echo "No inputs or matrix file provided."
+            exit 1
+          fi
+          echo "::endgroup::"
+
+  build:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up build environment
+        run: |
+          west init -l app
+          west update
+
+      - name: Build firmware
+        run: |
+          west build -s app -d build \
+            -b ${{ matrix.board }} \
+            -- -DSHIELD=${{ matrix.shield }} \
+               -DCONF_FILE=prj.${{ matrix.format }}.conf
+
+      - name: Package firmware
+        run: |
+          mkdir -p artifact
+          cp build/zephyr/zmk.uf2 artifact/${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}_${{ matrix.format }}.uf2
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}_${{ matrix.format }}
+          path: artifact/
