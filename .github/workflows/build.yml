@@ -34,7 +34,6 @@ jobs:
     with:
       build_matrix_path: build.yaml
       config_path: config
-      keymap_path: config
 
   keymap_images:
     needs: build
