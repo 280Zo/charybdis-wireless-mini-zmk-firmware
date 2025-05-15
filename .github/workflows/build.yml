@@ -24,7 +24,7 @@ jobs:
           python scripts/convert_keymap.py -c q2g --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
 
       - name: Generate build.yaml matrix
-        run: python scripts/generate_matrix.py
+        run: python scripts/generate_matrix.py > build.yaml
 
   build-firmware:
     needs: prepare-keymaps
