@@ -22,10 +22,12 @@ jobs:
       - name: Install PyYAML
         run: pip install pyyaml
 
+      - name: Generate build.yaml
+        run: python scripts/generate_build_yaml.py
+
       - id: set-matrix
         run: |
           import yaml, json
-          from pathlib import Path
 
           with open("build.yaml", "r") as f:
               matrix = yaml.safe_load(f)
@@ -56,7 +58,7 @@ jobs:
           # Add new layouts here
 
   build:
-    needs: parse-matrix
+    needs: [parse-matrix, prepare-keymaps]
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
     with:
       build_matrix_path: build.yaml
@@ -82,7 +84,7 @@ jobs:
         run: |
           mkdir -p renamed
           ARTIFACT_ZIP=$(ls artifact/artifact-*.zip | head -n 1)
-          NEW_NAME="${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}.zip"
+          NEW_NAME="${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}_${{ matrix.format }}.zip"
           mv "$ARTIFACT_ZIP" "renamed/$NEW_NAME"
           echo "Renamed $ARTIFACT_ZIP to renamed/$NEW_NAME"
 

@@ -1,4 +1,6 @@
 # This file generates the GitHub Actions matrix.
+# The generate_build_yaml.py output will overwrite this list at runtime
+
 board:
   - nice_nano_v2
 
@@ -13,7 +15,6 @@ format:
   - dongle
   - reset
 
-# The dynamic keymap-matrix output will overwrite this list at runtime
 keymap:
   - qwerty
   - colemak_dh
