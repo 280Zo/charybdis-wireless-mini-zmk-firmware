@@ -21,7 +21,8 @@ for keymap in keymaps:
             "board": board,
             "keymap": keymap,
             "format": format_name,
-            "shields": shields
+            "shields": shields,
+            "artifact-name": f"charybdis-{keymap}-{format_name}"
         })
 
 # Add a single reset build
@@ -30,7 +31,8 @@ groups.append({
     "board": board,
     "keymap": "default",
     "format": "reset",
-    "shields": ["settings_reset"]
+    "shields": ["settings_reset"],
+    "artifact-name": "reset-nanov2"
 })
 
 print(json.dumps(groups))

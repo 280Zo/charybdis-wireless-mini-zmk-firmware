@@ -161,5 +161,5 @@ jobs:
       - name: Archive (${{ env.display_name }})
         uses: actions/upload-artifact@v4
         with:
-          name: artifact-${{ env.artifact_name }}
-          path: ${{ env.build_dir }}/artifacts
+          name: ${{ env.artifact_name }}
+          path: ${{ env.build_dir }}/artifact
