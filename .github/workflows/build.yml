@@ -56,8 +56,7 @@ jobs:
     needs: parse-matrix
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
     with:
-      board: ${{ matrix.board }}
-      shield: ${{ matrix.shield }}
+      build_matrix_path: build.yaml
       config_path: config
     strategy:
       matrix:
