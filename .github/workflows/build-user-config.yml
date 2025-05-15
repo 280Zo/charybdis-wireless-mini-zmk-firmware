@@ -1,109 +1,183 @@
-name: Build ZMK user config (patched from upstream)
+name: Reusable user config build
 
 on:
   workflow_call:
     inputs:
-      board:
-        required: false
-        type: string
-      shield:
-        required: false
-        type: string
-      keymap:
-        required: false
-        type: string
-      format:
-        required: false
-        type: string
       build_matrix_path:
+        description: "Path to the build matrix file"
+        default: "build.yaml"
         required: false
         type: string
       config_path:
-        required: true
+        description: "Path to the config directory"
+        default: "config"
+        required: false
+        type: string
+      fallback_binary:
+        description: "Fallback binary format, if no *.uf2 file was built"
+        default: "bin"
+        required: false
+        type: string
+      archive_name:
+        description: "Archive output file name"
+        default: "firmware"
+        required: false
         type: string
 
 jobs:
+  matrix:
+    runs-on: ubuntu-22.04
+    name: Fetch Build Keyboards
+    outputs:
+      build_matrix: ${{ env.build_matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yaml2json
+        run: python3 -m pip install remarshal
+
+      - name: Fetch Build Matrix
+        run: |
+          echo "build_matrix=$(yaml2json '${{ inputs.build_matrix_path }}' | jq -c .)" >> $GITHUB_ENV
+          yaml2json "${{ inputs.build_matrix_path }}" | jq
+
   build:
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set.outputs.matrix }}
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
+    needs: matrix
+    name: Build
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.matrix.outputs.build_matrix) }}
     steps:
-      - name: Set build matrix
-        id: set
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create build directory
         run: |
-          echo "::group::Preparing build matrix"
-          if [[ -n "${{ inputs.board }}" && -n "${{ inputs.shield }}" ]]; then
-            echo "Single entry mode: using provided inputs."
-            matrix='[{"board":"${{ inputs.board }}","shield":"${{ inputs.shield }}","keymap":"${{ inputs.keymap || 'default' }}","format":"${{ inputs.format || 'bt' }}"}]'
-            echo "matrix=$matrix" >> $GITHUB_OUTPUT
-          elif [[ -n "${{ inputs.build_matrix_path }}" ]]; then
-            echo "Matrix mode: reading from ${{ inputs.build_matrix_path }}"
-            matrix=$(yq eval '.include' "${{ inputs.build_matrix_path }}" | jq -c .)
-            echo "matrix=$matrix" >> $GITHUB_OUTPUT
+          echo "build_dir=$(mktemp -d)" >> $GITHUB_ENV
+
+      - name: Prepare variables
+        shell: sh -x {0}
+        env:
+          board: ${{ matrix.board }}
+          shield: ${{ matrix.shield }}
+          artifact_name: ${{ matrix.artifact-name }}
+          snippet: ${{ matrix.snippet }}
+        run: |
+          if [ -e zephyr/module.yml ]; then
+            export zmk_load_arg=" -DZMK_EXTRA_MODULES='${GITHUB_WORKSPACE}'"
+            new_tmp_dir="${TMPDIR:-/tmp}/zmk-config"
+            mkdir -p "${new_tmp_dir}"
+            echo "base_dir=${new_tmp_dir}" >> $GITHUB_ENV
           else
-            echo "::error::No board/shield inputs or build_matrix_path provided"
-            exit 1
+            echo "base_dir=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
           fi
-          echo "::endgroup::"
 
-      - name: Checkout config
-        uses: actions/checkout@v4
-        with:
-          path: config
+          if [ -n "${snippet}" ]; then
+            extra_west_args="-S \"${snippet}\""
+          fi
 
-      - name: Checkout ZMK
-        uses: actions/checkout@v4
-        with:
-          repository: zmkfirmware/zmk
-          path: zmk
+          echo "zephyr_version=${ZEPHYR_VERSION}" >> $GITHUB_ENV
+          echo "extra_west_args=${extra_west_args}" >> $GITHUB_ENV
+          echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"}${zmk_load_arg}" >> $GITHUB_ENV
+          echo "display_name=${shield:+$shield - }${board}" >> $GITHUB_ENV
+          echo "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk}" >> $GITHUB_ENV
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.8'
-
-      - name: Install west
-        run: pip install west
-
-      - name: Initialize west
+      - name: Copy config files to isolated temporary directory
         run: |
-          west init -l config
-          west update
-          west zephyr-export
-          pip install -r zmk/zephyr/scripts/requirements.txt
+          if [ "${{ env.base_dir }}" != "${GITHUB_WORKSPACE}" ]; then
+            mkdir "${{ env.base_dir }}/${{ inputs.config_path }}"
+            cp -R ${{ inputs.config_path }}/* "${{ env.base_dir }}/${{ inputs.config_path }}/"
+          fi
 
-      - name: Cache build artifacts
-        uses: actions/cache@v3
+      - name: Cache west modules
+        uses: actions/cache@v4
+        continue-on-error: true
+        env:
+          cache_name: cache-zephyr-${{ env.zephyr_version }}-modules
         with:
           path: |
-            ~/.cache
-            ~/.west
-            .west
-            build
-            zephyr/.zephyr
-            modules
-          key: zmk-cache-${{ runner.os }}-${{ inputs.board || 'multi' }}-${{ inputs.shield || 'multi' }}-${{ inputs.keymap || 'multi' }}-${{ inputs.format || 'multi' }}
+            ${{ env.base_dir }}/modules/
+            ${{ env.base_dir }}/tools/
+            ${{ env.base_dir }}/zephyr/
+            ${{ env.base_dir }}/bootloader/
+            ${{ env.base_dir }}/zmk/
+          key: ${{ runner.os }}-build-${{ env.cache_name }}-${{ hashFiles('**/west.yml', '**/build.yaml') }}
           restore-keys: |
-            zmk-cache-${{ runner.os }}-
+            ${{ runner.os }}-build-${{ env.cache_name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
-      - name: Build firmware
+      - name: West Init
+        working-directory: ${{ env.base_dir }}
+        run: west init -l "${{ env.base_dir }}/${{ inputs.config_path }}"
+
+      - name: West Update
+        working-directory: ${{ env.base_dir }}
+        run: west update
+
+      - name: West Zephyr export
+        working-directory: ${{ env.base_dir }}
+        run: west zephyr-export
+
+      - name: West Build (${{ env.display_name }})
+        working-directory: ${{ env.base_dir }}
+        shell: sh -x {0}
+        run: west build -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" ${{ env.extra_west_args }} -- -DZMK_CONFIG=${{ env.base_dir }}/${{ inputs.config_path }} ${{ env.extra_cmake_args }} ${{ matrix.cmake-args }}
+
+      - name: ${{ env.display_name }} Kconfig file
         run: |
-          matrix=${{ steps.set.outputs.matrix }}
-          builds=$(echo "$matrix" | jq -c '.[]')
-          for item in $builds; do
-            board=$(echo $item | jq -r '.board')
-            shield=$(echo $item | jq -r '.shield')
-            keymap=$(echo $item | jq -r '.keymap')
-            format=$(echo $item | jq -r '.format')
-            echo "::group::Building $board-$shield-$keymap-$format"
-            west build -s config -d build/$shield-$keymap-$format \
-              -b $board \
-              -- -DSHIELD=$shield -DCONF_FILE=prj.$format.conf
-            echo "::endgroup::"
-          done
+          if [ -f "${{ env.build_dir }}/zephyr/.config" ]; then
+            grep -v -e "^#" -e "^$" "${{ env.build_dir }}/zephyr/.config" | sort
+          else
+            echo "No Kconfig output"
+          fi
+        if: ${{ !cancelled() }}
 
-      - name: Upload artifacts
+      - name: ${{ env.display_name }} Devicetree file
+        run: |
+          if [ -f "${{ env.build_dir }}/zephyr/zephyr.dts" ]; then
+            cat "${{ env.build_dir }}/zephyr/zephyr.dts"
+          elif [ -f "${{ env.build_dir }}/zephyr/zephyr.dts.pre" ]; then
+            cat -s "${{ env.build_dir }}/zephyr/zephyr.dts.pre"
+          else
+            echo "No Devicetree output"
+          fi
+        if: ${{ !cancelled() }}
+
+      - name: Rename and zip artifacts
+        shell: sh -x {0}
+        run: |
+          mkdir -p "${{ env.build_dir }}/artifacts"
+          output_file=""
+          if [ -f "${{ env.build_dir }}/zephyr/zmk.uf2" ]; then
+            output_file="${{ env.artifact_name }}.uf2"
+            cp "${{ env.build_dir }}/zephyr/zmk.uf2" "${{ env.build_dir }}/artifacts/$output_file"
+          elif [ -f "${{ env.build_dir }}/zephyr/zmk.${{ inputs.fallback_binary }}" ]; then
+            output_file="${{ env.artifact_name }}.${{ inputs.fallback_binary }}"
+            cp "${{ env.build_dir }}/zephyr/zmk.${{ inputs.fallback_binary }}" "${{ env.build_dir }}/artifacts/$output_file"
+          fi
+          if [ -n "$output_file" ]; then
+            (cd "${{ env.build_dir }}/artifacts" && zip "${{ env.artifact_name }}.zip" "$output_file")
+          fi
+
+      - name: Archive (${{ env.display_name }})
         uses: actions/upload-artifact@v4
         with:
-          name: zmk-firmware
-          path: build/*/zephyr/zmk.uf2
+          name: artifact-${{ env.artifact_name }}
+          path: ${{ env.build_dir }}/artifacts/${{ env.artifact_name }}.zip
+
+  merge:
+    runs-on: ubuntu-latest
+    needs: build
+    name: Merge Output Artifacts
+    steps:
+      - name: Merge Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: ${{ inputs.archive_name }}
+          pattern: artifact-*
+          delete-merged: true
