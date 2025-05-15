@@ -51,16 +51,13 @@ jobs:
 
   build:
     needs: parse-matrix
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         include: ${{ fromJson(needs.parse-matrix.outputs.build-matrix) }}
-    steps:
-      - name: Run ZMK Build for ${{ matrix.shield }}-${{ matrix.keymap }}-${{ matrix.format }}
-        uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-        with:
-          build_matrix_path: build.yaml
-          config_path: config
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    with:
+      build_matrix_path: build.yaml
+      config_path: config
       
   rename-upload:
     needs: [build, parse-matrix]
