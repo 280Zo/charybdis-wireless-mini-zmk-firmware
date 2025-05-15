@@ -33,14 +33,15 @@ jobs:
           MATRIX=$(python scripts/generate_matrix.py)
           echo "::set-output name=matrix::$MATRIX"
 
-  build:
+  build-firmware:
     needs: [parse-matrix, prepare-keymaps]
     strategy:
       matrix:
         include: ${{ fromJson(needs.parse-matrix.outputs.build-matrix) }}
-    uses: ./.github/workflows/run-single-zmk.yml
+    uses: your-username/zmk/.github/workflows/build-user-config.yml@main
     with:
       board: ${{ matrix.board }}
       shield: ${{ matrix.shield }}
       keymap: ${{ matrix.keymap }}
       format: ${{ matrix.format }}
+      config_path: config
