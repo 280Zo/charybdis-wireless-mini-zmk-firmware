@@ -46,4 +46,3 @@ jobs:
     with:
       build_matrix_path: build.yaml
       config_path: config
-
