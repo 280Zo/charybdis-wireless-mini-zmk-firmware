@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         include: ${{ fromJson(needs.parse-matrix.outputs.build-matrix) }}
-    uses: your-username/zmk/.github/workflows/build-user-config.yml@main
+    uses: .github/workflows/build-user-config.yml
     with:
       board: ${{ matrix.board }}
       shield: ${{ matrix.shield }}
