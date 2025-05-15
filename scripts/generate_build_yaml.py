@@ -26,7 +26,6 @@ for keymap in keymaps:
 
 # === OUTPUT TO build.yaml ===
 build_yaml = {
-    "board": [board],
     "include": include
 }
 
