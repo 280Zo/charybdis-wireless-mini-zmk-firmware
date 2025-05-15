@@ -7,27 +7,34 @@ on:
     - cron: '0 0 1 */2 *' # run every two months to keep artifacts from expiring
 
 jobs:
-  convert-and-store-keymap:
+  prepare-keymaps:
     runs-on: ubuntu-latest
+    outputs:
+      keymap-matrix: ${{ steps.set-matrix.outputs.matrix }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - run: python scripts/convert_keymap.py -c q2c --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: keymap_files
-          path: ${{ github.workspace }}/config/*.keymap
+      - name: Generate additional keymaps
+        run: |
+          python scripts/convert_keymap.py -c q2c --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
+          python scripts/convert_keymap.py -c q2g --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
+          # Add new layouts here
 
   build:
-    needs: convert-and-store-keymap
-    uses: ./.github/workflows/user_config_build.yaml
-    # uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    needs: prepare-keymaps
+    # uses: ./.github/workflows/user_config_build.yaml
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    with:
+      build_matrix_path: build.yaml
+      config_path: config
+      keymap_path: config
 
   keymap_images:
     needs: build

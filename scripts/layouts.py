@@ -18,6 +18,9 @@ QWERTY_TO_GRAPHITE = {
 # Graphite → QWERTY
 GRAPHITE_TO_QWERTY = {v: k for k, v in QWERTY_TO_GRAPHITE.items()}
 
+# Add new layouts here, then update the maps below
+# then and add the new keymap in the .github/workflows/build.yml
+
 # Store maps
 LAYOUT_MAPS = {
     'q2c': QWERTY_TO_COLEMAK_DH,
