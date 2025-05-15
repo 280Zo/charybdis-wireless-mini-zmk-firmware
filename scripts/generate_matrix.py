@@ -11,19 +11,20 @@ format_shields = {
     "dongle": ["charybdis_left", "charybdis_right", "charybdis_dongle"]
 }
 
-# === GENERATE GROUPED BUILD MATRIX ===
+# === GENERATE INDIVIDUAL BUILD MATRIX ===
 groups = []
 
 for keymap in keymaps:
     for format_name, shields in format_shields.items():
-        groups.append({
-            "name": f"firmware-charybdis-{keymap}-{format_name}",
-            "board": board,
-            "keymap": keymap,
-            "format": format_name,
-            "shields": shields,
-            "artifact-name": f"charybdis-{keymap}-{format_name}"
-        })
+        for shield in shields:
+            groups.append({
+                "name": f"firmware-charybdis-{keymap}-{format_name}-{shield}",
+                "board": board,
+                "keymap": keymap,
+                "format": format_name,
+                "shield": shield,
+                "artifact-name": f"charybdis-{keymap}-{format_name}-{shield}"
+            })
 
 # Add a single reset build
 groups.append({
@@ -31,8 +32,9 @@ groups.append({
     "board": board,
     "keymap": "default",
     "format": "reset",
-    "shields": ["settings_reset"],
+    "shield": "settings_reset",
     "artifact-name": "reset-nanov2"
 })
 
+# Dump matrix as compact JSON (GitHub expects it this way)
 print(json.dumps(groups))
