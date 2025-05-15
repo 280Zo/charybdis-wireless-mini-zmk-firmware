@@ -5,37 +5,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 0 1 */2 *' # run every two months to keep artifacts from expiring
-
-jobs:
-  parse-matrix:
-    runs-on: ubuntu-latest
-    outputs:
-      build-matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-      
-      - name: Install PyYAML
-        run: pip install pyyaml
-
-      - name: Generate build.yaml
-        run: python scripts/generate_build_yaml.py
-
-      - id: set-matrix
-        run: |
-          import yaml, json
-
-          with open("build.yaml", "r") as f:
-              matrix = yaml.safe_load(f)
-
-          builds = [{"shield": item["shield"], "board": item["board"], "keymap": item.get("keymap", "default")} for item in matrix["include"]]
-
-          print(f"::set-output name=matrix::{json.dumps(builds)}")
-        shell: python
         
   prepare-keymaps:
     runs-on: ubuntu-latest
@@ -56,19 +25,37 @@ jobs:
           python scripts/convert_keymap.py -c q2c --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
           python scripts/convert_keymap.py -c q2g --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
           # Add new layouts here
+  
+  parse-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      build-matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install PyYAML
+        run: pip install pyyaml
+      - name: Generate build.yaml
+        run: python scripts/generate_build_yaml.py
+      - id: set-matrix
+        run: |
+          import yaml, json
+          with open("build.yaml") as f:
+              matrix = yaml.safe_load(f)
+          print(f"::set-output name=matrix::{json.dumps(matrix['include'])}")
+        shell: python
 
   build:
-    needs: [parse-matrix, prepare-keymaps]
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
     with:
       build_matrix_path: build.yaml
       config_path: config
-    strategy:
-      matrix:
-        include: ${{ fromJson(needs.parse-matrix.outputs.build-matrix) }}
       
   rename-upload:
-    needs: build
+    needs: [build, parse-matrix]
     strategy:
       matrix:
         include: ${{ fromJson(needs.parse-matrix.outputs.build-matrix) }}
