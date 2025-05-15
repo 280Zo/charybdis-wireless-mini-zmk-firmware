@@ -1,4 +1,4 @@
-name: Build ZMK user config (patched)
+name: Build ZMK user config (patched for single entry)
 
 on:
   workflow_call:
@@ -28,19 +28,18 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - name: Generate matrix from inputs or file
-        id: set-matrix
+      - id: set-matrix
         run: |
           echo "::group::Preparing build matrix"
           if [[ -n "${{ inputs.board }}" && -n "${{ inputs.shield }}" ]]; then
             echo "Using single firmware build from inputs..."
             echo "::set-output name=matrix::[{\"board\":\"${{ inputs.board }}\",\"shield\":\"${{ inputs.shield }}\",\"keymap\":\"${{ inputs.keymap || 'default' }}\",\"format\":\"${{ inputs.format || 'bt' }}\"}]"
           elif [[ -n "${{ inputs.build_matrix_path }}" ]]; then
-            echo "Loading full build matrix from ${{ inputs.build_matrix_path }}"
-            MATRIX=$(yq eval '.include' ${{ inputs.build_matrix_path }} | jq -c .)
-            echo "::set-output name=matrix::$MATRIX"
+            echo "Using build matrix from path: ${{ inputs.build_matrix_path }}"
+            matrix=$(yq eval '.include' "${{ inputs.build_matrix_path }}" | jq -c .)
+            echo "::set-output name=matrix::$matrix"
           else
-            echo "No inputs or matrix file provided."
+            echo "::error::No board/shield inputs or build_matrix_path provided"
             exit 1
           fi
           echo "::endgroup::"
@@ -54,14 +53,36 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up build environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Cache Zephyr build system
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache
+            ~/.west
+            .west
+            build
+            zephyr/.zephyr
+            modules
+          key: zephyr-${{ runner.os }}-${{ matrix.board }}-${{ matrix.shield }}-${{ matrix.keymap }}-${{ matrix.format }}
+          restore-keys: |
+            zephyr-${{ runner.os }}-
+
+      - name: Install west and dependencies
         run: |
-          west init -l app
+          pip install west
+          west init -l config
           west update
+          west zephyr-export
+          pip install -r config/zephyr/scripts/requirements.txt
 
       - name: Build firmware
         run: |
-          west build -s app -d build \
+          west build -s config -d build \
             -b ${{ matrix.board }} \
             -- -DSHIELD=${{ matrix.shield }} \
                -DCONF_FILE=prj.${{ matrix.format }}.conf
