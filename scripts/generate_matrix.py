@@ -1,5 +1,4 @@
-import json
-import sys
+import yaml
 
 # === CONFIGURATION ===
 board = "nice_nano_v2"
@@ -35,8 +34,12 @@ for keymap in keymaps:
             "format": format_name
         })
 
-# === DEBUG ===
-print(f"✅ Generated {len(include)} build combinations", file=sys.stderr)
+# === OUTPUT TO build.yaml ===
+build_yaml = {
+    "include": include
+}
 
-# === OUTPUT TO STDOUT FOR GitHub Actions ===
-print(json.dumps(include))
+with open("build.yaml", "w") as f:
+    yaml.dump(build_yaml, f, sort_keys=False)
+
+print(f"✅ build.yaml generated with {len(include)} entries.")
