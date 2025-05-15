@@ -35,11 +35,11 @@ jobs:
           if [[ -n "${{ inputs.board }}" && -n "${{ inputs.shield }}" ]]; then
             echo "Single entry mode: using provided inputs."
             matrix='[{"board":"${{ inputs.board }}","shield":"${{ inputs.shield }}","keymap":"${{ inputs.keymap || 'default' }}","format":"${{ inputs.format || 'bt' }}"}]'
-            echo "::set-output name=matrix::$matrix"
+            echo "matrix=$matrix" >> $GITHUB_OUTPUT
           elif [[ -n "${{ inputs.build_matrix_path }}" ]]; then
             echo "Matrix mode: reading from ${{ inputs.build_matrix_path }}"
             matrix=$(yq eval '.include' "${{ inputs.build_matrix_path }}" | jq -c .)
-            echo "::set-output name=matrix::$matrix"
+            echo "matrix=$matrix" >> $GITHUB_OUTPUT
           else
             echo "::error::No board/shield inputs or build_matrix_path provided"
             exit 1

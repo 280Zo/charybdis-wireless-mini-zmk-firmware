@@ -1,4 +1,5 @@
 import json
+import sys
 
 # === CONFIGURATION ===
 board = "nice_nano_v2"
@@ -35,7 +36,7 @@ for keymap in keymaps:
         })
 
 # === DEBUG ===
-print(f"✅ Generated {len(include)} build combinations")
+print(f"✅ Generated {len(include)} build combinations", file=sys.stderr)
 
 # === OUTPUT TO STDOUT FOR GitHub Actions ===
 print(json.dumps(include))
