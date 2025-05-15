@@ -14,10 +14,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
       - name: Generate additional keymaps
         run: |
           python scripts/convert_keymap.py -c q2c --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
           python scripts/convert_keymap.py -c q2g --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
+
+      - name: Generate build.yaml matrix
+        run: python scripts/generate_matrix.py
 
   parse-matrix:
     runs-on: ubuntu-latest
