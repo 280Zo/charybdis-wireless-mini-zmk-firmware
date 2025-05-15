@@ -34,5 +34,8 @@ for keymap in keymaps:
             "format": format_name
         })
 
+# === DEBUG ===
+print(f"✅ Generated {len(include)} build combinations")
+
 # === OUTPUT TO STDOUT FOR GitHub Actions ===
 print(json.dumps(include))
