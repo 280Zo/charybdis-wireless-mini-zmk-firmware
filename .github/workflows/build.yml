@@ -40,8 +40,5 @@ jobs:
         include: ${{ fromJson(needs.parse-matrix.outputs.build-matrix) }}
     uses: ./.github/workflows/build-user-config.yml
     with:
-      board: ${{ matrix.board }}
-      shield: ${{ matrix.shield }}
-      keymap: ${{ matrix.keymap }}
-      format: ${{ matrix.format }}
+      build_matrix_path: build.yaml
       config_path: config
