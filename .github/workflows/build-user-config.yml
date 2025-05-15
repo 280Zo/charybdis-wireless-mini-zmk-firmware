@@ -55,6 +55,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+
+      - name: Debug matrix values
+        run: |
+          echo "Matrix name: ${{ matrix.name }}"
+          echo "Board: ${{ matrix.board }}"
+          echo "Keymap: ${{ matrix.keymap }}"
+          echo "Format: ${{ matrix.format }}"
+          echo "Shield: ${{ matrix.shield }}"
+          echo "Artifact name: ${{ matrix.artifact-name }}"
+
       - name: Create build directory
         run: |
           echo "build_dir=$(mktemp -d)" >> $GITHUB_ENV
