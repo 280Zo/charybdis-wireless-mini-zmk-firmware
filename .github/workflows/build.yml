@@ -26,20 +26,6 @@ jobs:
       - name: Generate build.yaml matrix
         run: python scripts/generate_matrix.py
 
-  parse-matrix:
-    runs-on: ubuntu-latest
-    outputs:
-      build-matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-      - id: set-matrix
-        run: |
-          MATRIX=$(python scripts/generate_matrix.py)
-          echo "::set-output name=matrix::$MATRIX"
-
   build-firmware:
     needs: prepare-keymaps
     uses: ./.github/workflows/build-user-config.yml
