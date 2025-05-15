@@ -1,4 +1,4 @@
-import yaml
+import json
 
 # === CONFIGURATION ===
 board = "nice_nano_v2"
@@ -14,9 +14,6 @@ format_shields = {
 # === GENERATE BUILD MATRIX ===
 include = []
 
-# Only generate reset once per keymap per format
-reset_shields = ["settings_reset"]
-
 for keymap in keymaps:
     for format_name, shields in format_shields.items():
         for shield in shields:
@@ -27,20 +24,5 @@ for keymap in keymaps:
                 "format": format_name
             })
 
-        # Add settings_reset once per format per keymap
-        include.append({
-            "board": board,
-            "shield": "settings_reset",
-            "keymap": keymap,
-            "format": format_name
-        })
-
-# === OUTPUT TO build.yaml ===
-build_yaml = {
-    "include": include
-}
-
-with open("build.yaml", "w") as f:
-    yaml.dump(build_yaml, f, sort_keys=False)
-
-print("✅ build.yaml generated with", len(include), "entries.")
+# === OUTPUT TO STDOUT FOR GitHub Actions ===
+print(json.dumps(include))

@@ -1,17 +1,14 @@
-name: Build ZMK Keymap Firmwares Serially from build.yaml
+name: Build ZMK Keymap Firmwares Serially
 
 on:
   push:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 */2 *' # run every two months to keep artifacts from expiring
+    - cron: '0 0 1 */2 *' # Run every two months
 
-jobs:  
+jobs:
   prepare-keymaps:
     runs-on: ubuntu-latest
-    outputs:
-      keymap-matrix: ${{ steps.set-matrix.outputs.matrix }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,61 +23,36 @@ jobs:
           python scripts/convert_keymap.py -c q2c --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
           python scripts/convert_keymap.py -c q2g --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
           # Add new layouts here
-  
+
   parse-matrix:
     runs-on: ubuntu-latest
     outputs:
       build-matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - run: pip install pyyaml
-      - run: python scripts/generate_build_yaml.py
+
       - id: set-matrix
         run: |
-          import yaml, json
-          with open("build.yaml") as f:
-              matrix = yaml.safe_load(f)
-          print(f"::set-output name=matrix::{json.dumps(matrix['include'])}")
-        shell: python
+          MATRIX=$(python scripts/generate_matrix.py)
+          echo "MATRIX: $MATRIX"
+          echo "::set-output name=matrix::$MATRIX"
 
   build:
     needs: [parse-matrix, prepare-keymaps]
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         include: ${{ fromJson(needs.parse-matrix.outputs.build-matrix) }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Create one-entry build.yaml
-        run: |
-          echo "include:" > build.yaml
-          echo "  - board: ${{ matrix.board }}" >> build.yaml
-          echo "    shield: ${{ matrix.shield }}" >> build.yaml
-          echo "    keymap: ${{ matrix.keymap }}" >> build.yaml
-          echo "    format: ${{ matrix.format }}" >> build.yaml
-
-      - name: Run ZMK reusable build workflow
-        uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-        with:
-          build_matrix_path: build.yaml
-          config_path: config
-
-      - name: Rename firmware artifact
-        run: |
-          mkdir -p renamed
-          ZIP=$(ls artifact/artifact-*.zip | head -n 1)
-          NAME="${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}_${{ matrix.format }}.zip"
-          mv "$ZIP" "renamed/$NAME"
-
-      - name: Upload renamed artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}_${{ matrix.format }}
-          path: renamed/
+    uses: ./.github/workflows/run-single-zmk.yml
+    with:
+      board: ${{ matrix.board }}
+      shield: ${{ matrix.shield }}
+      keymap: ${{ matrix.keymap }}
+      format: ${{ matrix.format }}
 
   keymap_images:
     needs: build

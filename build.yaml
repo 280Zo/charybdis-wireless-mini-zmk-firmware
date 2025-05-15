@@ -1,5 +1,4 @@
 # This file generates the GitHub Actions matrix.
-# The generate_build_yaml.py output will overwrite this list at runtime
 
 board:
   - nice_nano_v2
@@ -20,7 +19,6 @@ keymap:
   - colemak_dh
   - graphite
 
-# only use `include:` for the one-off snippet overrides
 include:
   - board: nice_nano_v2
     shield: charybdis_right
