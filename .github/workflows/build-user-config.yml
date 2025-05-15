@@ -1,4 +1,4 @@
-name: Build ZMK user config (patched for single entry)
+name: Build ZMK user config (patched from upstream)
 
 on:
   workflow_call:
@@ -23,19 +23,21 @@ on:
         type: string
 
 jobs:
-  generate-matrix:
+  set-matrix:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      matrix: ${{ steps.set.outputs.matrix }}
     steps:
-      - id: set-matrix
+      - name: Set build matrix
+        id: set
         run: |
           echo "::group::Preparing build matrix"
           if [[ -n "${{ inputs.board }}" && -n "${{ inputs.shield }}" ]]; then
-            echo "Using single firmware build from inputs..."
-            echo "::set-output name=matrix::[{\"board\":\"${{ inputs.board }}\",\"shield\":\"${{ inputs.shield }}\",\"keymap\":\"${{ inputs.keymap || 'default' }}\",\"format\":\"${{ inputs.format || 'bt' }}\"}]"
+            echo "Single entry mode: using provided inputs."
+            matrix='[{"board":"${{ inputs.board }}","shield":"${{ inputs.shield }}","keymap":"${{ inputs.keymap || 'default' }}","format":"${{ inputs.format || 'bt' }}"}]'
+            echo "::set-output name=matrix::$matrix"
           elif [[ -n "${{ inputs.build_matrix_path }}" ]]; then
-            echo "Using build matrix from path: ${{ inputs.build_matrix_path }}"
+            echo "Matrix mode: reading from ${{ inputs.build_matrix_path }}"
             matrix=$(yq eval '.include' "${{ inputs.build_matrix_path }}" | jq -c .)
             echo "::set-output name=matrix::$matrix"
           else
@@ -44,21 +46,45 @@ jobs:
           fi
           echo "::endgroup::"
 
+  checkout_config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout user config
+        uses: actions/checkout@v4
+        with:
+          path: config
+
+  checkout_zmk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ZMK
+        uses: actions/checkout@v4
+        with:
+          repository: zmkfirmware/zmk
+          ref: main
+          path: zmk
+
   build:
-    needs: generate-matrix
+    needs: [set-matrix, checkout_config, checkout_zmk]
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+        include: ${{ fromJson(needs.set-matrix.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.8'
 
-      - name: Cache Zephyr build system
+      - name: Install west and dependencies
+        run: |
+          pip install west
+          west init -l config
+          west update
+          west zephyr-export
+          pip install -r zmk/zephyr/scripts/requirements.txt
+
+      - name: Cache Zephyr modules
         uses: actions/cache@v3
         with:
           path: |
@@ -72,14 +98,6 @@ jobs:
           restore-keys: |
             zephyr-${{ runner.os }}-
 
-      - name: Install west and dependencies
-        run: |
-          pip install west
-          west init -l config
-          west update
-          west zephyr-export
-          pip install -r config/zephyr/scripts/requirements.txt
-
       - name: Build firmware
         run: |
           west build -s config -d build \
@@ -87,13 +105,8 @@ jobs:
             -- -DSHIELD=${{ matrix.shield }} \
                -DCONF_FILE=prj.${{ matrix.format }}.conf
 
-      - name: Package firmware
-        run: |
-          mkdir -p artifact
-          cp build/zephyr/zmk.uf2 artifact/${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}_${{ matrix.format }}.uf2
-
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}_${{ matrix.format }}
-          path: artifact/
+          path: build/zephyr/zmk.uf2

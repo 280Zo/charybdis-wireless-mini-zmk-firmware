@@ -11,6 +11,8 @@ format_shields = {
     "dongle": ["charybdis_left", "charybdis_right", "charybdis_dongle"]
 }
 
+reset_shields = ["settings_reset"]
+
 # === GENERATE BUILD MATRIX ===
 include = []
 
@@ -23,6 +25,14 @@ for keymap in keymaps:
                 "keymap": keymap,
                 "format": format_name
             })
+
+        # Add settings_reset once per format per keymap
+        include.append({
+            "board": board,
+            "shield": "settings_reset",
+            "keymap": keymap,
+            "format": format_name
+        })
 
 # === OUTPUT TO STDOUT FOR GitHub Actions ===
 print(json.dumps(include))
