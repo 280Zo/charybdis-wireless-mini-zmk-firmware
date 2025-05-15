@@ -1,4 +1,4 @@
-import yaml
+import json
 
 # === CONFIGURATION ===
 board = "nice_nano_v2"
@@ -11,35 +11,26 @@ format_shields = {
     "dongle": ["charybdis_left", "charybdis_right", "charybdis_dongle"]
 }
 
-reset_shields = ["settings_reset"]
-
-# === GENERATE BUILD MATRIX ===
-include = []
+# === GENERATE GROUPED BUILD MATRIX ===
+groups = []
 
 for keymap in keymaps:
     for format_name, shields in format_shields.items():
-        for shield in shields:
-            include.append({
-                "board": board,
-                "shield": shield,
-                "keymap": keymap,
-                "format": format_name
-            })
-
-        # Add settings_reset once per format per keymap
-        include.append({
+        groups.append({
+            "name": f"firmware-charybdis-{keymap}-{format_name}",
             "board": board,
-            "shield": "settings_reset",
             "keymap": keymap,
-            "format": format_name
+            "format": format_name,
+            "shields": shields
         })
 
-# === OUTPUT TO build.yaml ===
-build_yaml = {
-    "include": include
-}
+# Add a single reset build
+groups.append({
+    "name": "firmware-reset-nanov2",
+    "board": board,
+    "keymap": "default",
+    "format": "reset",
+    "shields": ["settings_reset"]
+})
 
-with open("build.yaml", "w") as f:
-    yaml.dump(build_yaml, f, sort_keys=False)
-
-print(f"✅ build.yaml generated with {len(include)} entries.")
+print(json.dumps(groups))
