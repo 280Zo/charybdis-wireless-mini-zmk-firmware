@@ -33,14 +33,11 @@ jobs:
       build-matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Install PyYAML
-        run: pip install pyyaml
-      - name: Generate build.yaml
-        run: python scripts/generate_build_yaml.py
+      - run: pip install pyyaml
+      - run: python scripts/generate_build_yaml.py
       - id: set-matrix
         run: |
           import yaml, json
@@ -50,37 +47,40 @@ jobs:
         shell: python
 
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-    with:
-      build_matrix_path: build.yaml
-      config_path: config
-      
-  rename-upload:
-    needs: [build, parse-matrix]
+    needs: [parse-matrix, prepare-keymaps]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         include: ${{ fromJson(needs.parse-matrix.outputs.build-matrix) }}
-    runs-on: ubuntu-latest
     steps:
-      - name: Download artifact zip
-        uses: actions/download-artifact@v3
-        with:
-          name: artifact
-          path: artifact
+      - uses: actions/checkout@v4
 
-      - name: Rename artifact
+      - name: Create one-entry build.yaml
+        run: |
+          echo "include:" > build.yaml
+          echo "  - board: ${{ matrix.board }}" >> build.yaml
+          echo "    shield: ${{ matrix.shield }}" >> build.yaml
+          echo "    keymap: ${{ matrix.keymap }}" >> build.yaml
+          echo "    format: ${{ matrix.format }}" >> build.yaml
+
+      - name: Run ZMK reusable build workflow
+        uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+        with:
+          build_matrix_path: build.yaml
+          config_path: config
+
+      - name: Rename firmware artifact
         run: |
           mkdir -p renamed
-          ARTIFACT_ZIP=$(ls artifact/artifact-*.zip | head -n 1)
-          NEW_NAME="${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}_${{ matrix.format }}.zip"
-          mv "$ARTIFACT_ZIP" "renamed/$NEW_NAME"
-          echo "Renamed $ARTIFACT_ZIP to renamed/$NEW_NAME"
+          ZIP=$(ls artifact/artifact-*.zip | head -n 1)
+          NAME="${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}_${{ matrix.format }}.zip"
+          mv "$ZIP" "renamed/$NAME"
 
       - name: Upload renamed artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}
-          path: renamed/${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}.zip
+          name: ${{ matrix.board }}_${{ matrix.shield }}_${{ matrix.keymap }}_${{ matrix.format }}
+          path: renamed/
 
   keymap_images:
     needs: build

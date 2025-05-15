@@ -14,6 +14,9 @@ format_shields = {
 # === GENERATE BUILD MATRIX ===
 include = []
 
+# Only generate reset once per keymap per format
+reset_shields = ["settings_reset"]
+
 for keymap in keymaps:
     for format_name, shields in format_shields.items():
         for shield in shields:
@@ -23,6 +26,14 @@ for keymap in keymaps:
                 "keymap": keymap,
                 "format": format_name
             })
+
+        # Add settings_reset once per format per keymap
+        include.append({
+            "board": board,
+            "shield": "settings_reset",
+            "keymap": keymap,
+            "format": format_name
+        })
 
 # === OUTPUT TO build.yaml ===
 build_yaml = {
