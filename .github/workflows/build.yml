@@ -81,9 +81,12 @@ jobs:
             BUILD_PATH="${BUILD_DIR}/${NAME}"
             mkdir -p "$BUILD_PATH"
 
-            SHIELD_PATH="config/boards/shields/${SHIELD}"
-            if [ ! -d "$SHIELD_PATH" ] && ! find zephyr/modules/ -type d -name "$SHIELD" | grep -q .; then
-              echo "❌ Skipping invalid shield: $SHIELD (not found in config/boards or zephyr modules)"
+            SHIELD_MODULE="charybdis-${FORMAT}"
+            MODULE_PATH="$GITHUB_WORKSPACE/boards/shields/${SHIELD_MODULE}"
+            if [ ! -f "${MODULE_PATH}/${SHIELD}.overlay" ] && \
+               [ ! -f "${MODULE_PATH}/${SHIELD}.conf" ]; then
+              echo "❌ Skipping invalid shield: $SHIELD (no overlay/conf in $MODULE_PATH)"
+              echo "::endgroup::"
               continue
             fi
 
