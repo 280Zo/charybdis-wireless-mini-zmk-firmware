@@ -240,18 +240,19 @@ jobs:
         with:
           name: firmware
           path: artifacts/
-          
-      - name: List downloaded artifacts
+
+      - name: Show files for group ${{ matrix.group }}
         run: |
-          echo "---- contents of artifacts/ ----"
-          find artifacts -type f | sed 's/^/  /'
-          echo "-------------------------------"
+          find . -type f \
+            \( -name "charybdis-${{ matrix.group }}-*.uf2" \
+            -o -name "charybdis-${{ matrix.group }}-*.${{ env.FALLBACK_EXT }}" \) \
+          | sed 's/^/  /'
 
       - name: Merge group ${{ matrix.group }}
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: |
-            artifacts/**/charybdis-${{ matrix.group }}-*.uf2
-            artifacts/**/charybdis-${{ matrix.group }}-*.${{ env.FALLBACK_EXT }}
+            charybdis-${{ matrix.group }}-*.uf2
+            charybdis-${{ matrix.group }}-*.${{ env.FALLBACK_EXT }}
           name: firmware-${{ matrix.group }}
           delete-merged: true
