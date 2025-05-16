@@ -225,7 +225,7 @@ jobs:
           path: release_zips/*.zip
 
   cleanup:
-    needs: [setup, build]
+    needs: build
     runs-on: ubuntu-latest
     env:
       FALLBACK_EXT: bin
@@ -235,24 +235,16 @@ jobs:
         group: ${{ fromJson(needs.setup.outputs.groups) }}
 
     steps:
-      - name: Download all firmware artifacts
+      - name: Download all grouped zips
         uses: actions/download-artifact@v4
         with:
-          name: firmware
-          path: artifacts/
+          name: firmware-zips
+          path: release_zips/
 
-      - name: Show files for group ${{ matrix.group }}
-        run: |
-          find . -type f \
-            \( -name "charybdis-${{ matrix.group }}-*.uf2" \
-            -o -name "charybdis-${{ matrix.group }}-*.${{ env.FALLBACK_EXT }}" \) \
-          | sed 's/^/  /'
-
-      - name: Merge group ${{ matrix.group }}
-        uses: actions/upload-artifact/merge@v4
+      - name: Upload firmware-${{ matrix.group }}.zip
+        uses: actions/upload-artifact@v4
         with:
-          pattern: |
-            charybdis-${{ matrix.group }}-*.uf2
-            charybdis-${{ matrix.group }}-*.${{ env.FALLBACK_EXT }}
+          # this becomes the artifact name in the UI
           name: firmware-${{ matrix.group }}
-          delete-merged: true
+          # this points to the single zip file
+          path: release_zips/firmware-charybdis-${{ matrix.group }}.zip
