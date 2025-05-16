@@ -43,19 +43,13 @@ jobs:
           path: build.json
 
       - name: Make groups JSON
-        id: gen-matrix
+        id: make-groups
         run: |
           combos=$(jq -c '[.[] | select(.format!="reset") | "\(.keymap)-\(.format)"] | unique' build.json)
           resets=$(jq -c '[.[] | select(.format=="reset") | ."artifact-name"]' build.json)
-          # -c here makes groups a compact, one-line JSON array
           groups=$(jq -n -c --argjson a "$combos" --argjson b "$resets" '$a + $b')
-              echo "groups=$groups" >> $GITHUB_OUTPUT
-      - name: Make groups JSON
-        id: make-matrix
-        run: |
-          # … your jq calls …
           echo "groups=$groups" >> $GITHUB_OUTPUT
-          echo "::debug::groups was set to $groups"
+          echo "::debug:: groups was set to $groups"
 
   build:
     needs: setup
@@ -130,7 +124,7 @@ jobs:
       - name: Build all firmware
         shell: bash {0}
         run: |
-          set -euxo pipefail
+          set -euo pipefail
           jq -c '.[]' build.json | while IFS= read -r cfg; do
             NAME=$(echo "$cfg" | jq -r '.name')
             BOARD=$(echo "$cfg" | jq -r '.board')
@@ -139,20 +133,18 @@ jobs:
             FORMAT=$(echo "$cfg" | jq -r '.format')
             ARTIFACT=$(echo "$cfg" | jq -r '."artifact-name"')
 
-            # swap in the correct keymap for this build (only if it exists)
             if [ -f "${GITHUB_WORKSPACE}/config/${KEYMAP}.keymap" ]; then
               echo "🔄 Using custom keymap: ${KEYMAP}.keymap"
               cp "${GITHUB_WORKSPACE}/config/${KEYMAP}.keymap" \
                  "${BASE_DIR}/config/charybdis.keymap"
             else
-              echo "ℹ️  No custom keymap for '${KEYMAP}', leaving default charybdis.keymap"
+              echo "ℹ️  No custom keymap for '${KEYMAP}', leaving default"
             fi
 
             echo "::group::Building $NAME"
             BUILD_PATH="${BUILD_DIR}/${NAME}"
             mkdir -p "$BUILD_PATH"
 
-            # validate shield module
             SHIELD_MODULE="charybdis-${FORMAT}"
             MODULE_PATH="${BASE_DIR}/boards/shields/${SHIELD_MODULE}"
             if [ ! -f "${MODULE_PATH}/${SHIELD}.overlay" ] && [ ! -f "${MODULE_PATH}/${SHIELD}.conf" ]; then
@@ -161,7 +153,6 @@ jobs:
               continue
             fi
 
-            # build
             (
               cd "${BASE_DIR}"
               west build -s zmk/app \
@@ -170,23 +161,15 @@ jobs:
                 -- -DZMK_CONFIG="${BASE_DIR}/config" \
                     "${EXTRA_CMAKE_ARGS}" \
                     -DSHIELD="$SHIELD" \
-                > /dev/null #remove this to see build's output
+              > /dev/null
             )
 
             mkdir -p "$BUILD_PATH/artifacts"
             if [ -f "$BUILD_PATH/zephyr/zmk.uf2" ]; then
-              cp "$BUILD_PATH/zephyr/zmk.uf2" \
-                 "$BUILD_PATH/artifacts/${ARTIFACT}.uf2"
+              cp "$BUILD_PATH/zephyr/zmk.uf2" "$BUILD_PATH/artifacts/${ARTIFACT}.uf2"
             elif [ -f "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" ]; then
-              cp "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" \
-                 "$BUILD_PATH/artifacts/${ARTIFACT}.${FALLBACK_EXT}"
+              cp "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" "$BUILD_PATH/artifacts/${ARTIFACT}.${FALLBACK_EXT}"
             fi
-
-            # # debug dumps
-            # echo "🔧 Kconfig for $NAME"
-            # grep -v -e '^#' -e '^$' "$BUILD_PATH/zephyr/.config" | sort || true
-            # echo "🔧 DTS for $NAME"
-            # cat "$BUILD_PATH/zephyr/zephyr.dts" || true
 
             echo "::endgroup::"
           done
@@ -196,7 +179,7 @@ jobs:
         run: |
           jq -r '[.[] | "\(.keymap)-\(.format)"] | unique | .[]' build.json > merge-groups.txt
           echo "Groups to merge:" && cat merge-groups.txt
-      
+
       - name: Upload raw firmware artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -211,53 +194,31 @@ jobs:
           set -euxo pipefail
           mkdir -p release_zips
 
-          # First zip all the normal charybdis groups
           while IFS= read -r group; do
-            if [ "$group" = "default-reset" ]; then
+            if [ "$group" = "reset-nanov2" ]; then
               continue
             fi
-
             zipdir="firmware-charybdis-${group}"
             mkdir -p "$zipdir"
-
             find "${BUILD_DIR}" -type f \
               \( -name "charybdis-${group}-*.uf2" -o -name "charybdis-${group}-*.${FALLBACK_EXT}" \) \
               -exec cp {} "$zipdir"/ \;
-
-            echo "Artifacts for ${group}:"
-            ls -1 "$zipdir"
-
             zip -j "release_zips/${zipdir}.zip" "$zipdir"/*
           done < merge-groups.txt
 
-          # Now handle the one-off reset build
           artifact=$(jq -r '.[] | select(.format=="reset") | ."artifact-name"' build.json)
-          echo "Zipping reset artifact: $artifact"
-
-          # reset artifacts live here:
           reset_dir="${BUILD_DIR}/firmware-${artifact}/artifacts"
           zip -j "release_zips/firmware-${artifact}.zip" \
             "${reset_dir}/${artifact}.uf2" \
             "${reset_dir}/${artifact}.${FALLBACK_EXT}" \
             || true
 
-      # Upload all of the grouped firmware zips as build artifacts
       - name: Upload grouped firmware zips
         uses: actions/upload-artifact@v4
         with:
           name: firmware-zips
           path: release_zips/*.zip
 
-      # - name: Publish to GitHub Release
-      #   if: startsWith(github.ref, 'refs/tags/')
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     name: Firmware ${{ github.ref_name }}
-      #     tag_name: ${{ github.ref_name }}
-      #     files: release_zips/*.zip
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
   cleanup:
     needs: build
     runs-on: ubuntu-latest
