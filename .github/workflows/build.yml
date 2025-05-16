@@ -1,36 +1,116 @@
-name: Build ZMK Keymap Firmwares
+name: Build and Release ZMK Firmware
 
 on:
   push:
+    tags:
+      - "v*"
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 1 */2 *'
 
 jobs:
-  prepare-keymaps:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
 
-      - name: Install PyYAML
-        run: pip install pyyaml
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python and tools
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install remarshal and jq
+        run: |
+          pip install remarshal
+          apt-get update && apt-get install -y jq zip
 
       - name: Generate additional keymaps
         run: |
           python scripts/convert_keymap.py -c q2c --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
           python scripts/convert_keymap.py -c q2g --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
 
-      - name: Generate build.yaml matrix
+      - name: Generate build matrix and dump to build.yaml
         run: |
-          python scripts/generate_matrix.py > build.yaml
-          cat build.yaml | jq
+          python generate_matrix.py > build.json
+          cat build.json | remarshal -if json -of yaml > build.yaml
+          cat build.yaml
 
-  build-firmware:
-    needs: prepare-keymaps
-    uses: ./.github/workflows/build-user-config.yml
-    with:
-      build_matrix_path: build.yaml
-      config_path: config
+      - name: Prepare isolated build directory
+        run: echo "BUILD_DIR=$(mktemp -d)" >> $GITHUB_ENV
+
+      - name: West Init & Update (run once)
+        run: |
+          west init -l config
+          west update
+          west zephyr-export
+
+      - name: Build all firmware
+        run: |
+          cat build.json | jq -c '.[]' | while read config; do
+            NAME=$(echo "$config" | jq -r '.name')
+            BOARD=$(echo "$config" | jq -r '.board')
+            SHIELD=$(echo "$config" | jq -r '.shield')
+            KEYMAP=$(echo "$config" | jq -r '.keymap')
+            FORMAT=$(echo "$config" | jq -r '.format')
+            ARTIFACT=$(echo "$config" | jq -r '."artifact-name"')
+
+            echo "::group::Building $NAME"
+            BUILD_PATH="${BUILD_DIR}/${NAME}"
+            mkdir -p "$BUILD_PATH"
+
+            west build -s zmk/app -d "$BUILD_PATH" -b "$BOARD" \
+              -- -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
+                  -DSHIELD="$SHIELD" \
+                  -DCONFIG_ZMK_KEYMAP="$KEYMAP"
+
+            mkdir -p "$BUILD_PATH/artifacts"
+            if [ -f "$BUILD_PATH/zephyr/zmk.uf2" ]; then
+              cp "$BUILD_PATH/zephyr/zmk.uf2" "$BUILD_PATH/artifacts/${ARTIFACT}.uf2"
+            elif [ -f "$BUILD_PATH/zephyr/zmk.bin" ]; then
+              cp "$BUILD_PATH/zephyr/zmk.bin" "$BUILD_PATH/artifacts/${ARTIFACT}.bin"
+            fi
+
+            echo "::endgroup::"
+
+            echo "::group::Uploading $ARTIFACT"
+            tar -czf "${BUILD_PATH}/${ARTIFACT}.tar.gz" -C "$BUILD_PATH/artifacts" .
+            echo "artifact_path=${BUILD_PATH}/${ARTIFACT}.tar.gz" >> $GITHUB_ENV
+
+            # Upload each artifact immediately
+            echo "::endgroup::"
+          done
+
+      - name: Upload artifacts individually
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-firmware-artifacts
+          path: ${{ env.BUILD_DIR }}/**/*.uf2
+
+      - name: Get unique keymap/format groups from matrix
+        id: groups
+        run: |
+          jq -r '[.[] | "\(.keymap)-\(.format)"] | unique | @tsv' build.json > merge-groups.txt
+          echo "groups<<EOF" >> $GITHUB_OUTPUT
+          cat merge-groups.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Merge and zip each group
+        run: |
+          mkdir -p release_zips
+          while read group; do
+            name="firmware-charybdis-${group}"
+            mkdir -p "$name"
+            find $BUILD_DIR -type f -name "${name}-*.uf2" -exec cp {} "$name/" \;
+            zip -j "release_zips/${name}.zip" "$name"/*
+          done < merge-groups.txt
+
+      - name: Publish to GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Firmware ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          files: release_zips/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
