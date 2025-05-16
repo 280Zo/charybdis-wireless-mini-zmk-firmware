@@ -60,7 +60,7 @@ jobs:
         with:
           name: build-matrix
 
-      - name: Echo matrix and env
+      - name: Echo matrix and key env vars
         run: |
           echo "🧩 Matrix:" && cat build.json
           echo "🌐 ENV:" && env | grep -E 'BUILD_DIR|BASE_DIR|EXTRA_CMAKE_ARGS|FALLBACK_EXT'
@@ -72,7 +72,7 @@ jobs:
         id: prep
         shell: bash {0}
         run: |
-          set -eux
+          set -euxo pipefail
           if [ -f zephyr/module.yml ]; then
             ZMK_LOAD_ARG="-DZMK_EXTRA_MODULES=${GITHUB_WORKSPACE}"
             BASE_DIR="${TMPDIR:-/tmp}/zmk-config"
@@ -88,6 +88,7 @@ jobs:
 
       - name: Cache west & zephyr modules
         uses: actions/cache@v4
+        continue-on-error: true
         with:
           path: |
             ${{ env.BASE_DIR }}/modules/
@@ -108,7 +109,8 @@ jobs:
 
       - name: Build all firmware
         run: |
-          cat build.json | jq -c '.[]' | while read cfg; do
+          set -euxo pipefail
+          jq -c '.[]' build.json | while IFS= read -r cfg; do
             NAME=$(echo "$cfg" | jq -r '.name')
             BOARD=$(echo "$cfg" | jq -r '.board')
             SHIELD=$(echo "$cfg" | jq -r '.shield')
@@ -116,8 +118,14 @@ jobs:
             FORMAT=$(echo "$cfg" | jq -r '.format')
             ARTIFACT=$(echo "$cfg" | jq -r '."artifact-name"')
 
-            # swap in the current keymap
-            cp "config/charybdis_${KEYMAP}.keymap" "config/charybdis.keymap"
+            # swap in the correct keymap for this build (only if it exists)
+            if [ -f "${GITHUB_WORKSPACE}/config/charybdis_${KEYMAP}.keymap" ]; then
+              echo "🔄 Using custom keymap: charybdis_${KEYMAP}.keymap"
+              cp "${GITHUB_WORKSPACE}/config/charybdis_${KEYMAP}.keymap" \
+                "${BASE_DIR}/config/charybdis.keymap"
+            else
+              echo "ℹ️  No custom keymap for '${KEYMAP}', leaving default"
+            fi
 
             echo "::group::Building $NAME"
             BUILD_PATH="${BUILD_DIR}/${NAME}"
@@ -132,21 +140,31 @@ jobs:
               continue
             fi
 
-            # build (no CONFIG_ZMK_KEYMAP)
+            # build
             (
               cd "${BASE_DIR}"
-              west build -s zmk/app -d "$BUILD_PATH" -b "$BOARD" \
+              west build -s zmk/app \
+                -d "$BUILD_PATH" \
+                -b "$BOARD" \
                 -- -DZMK_CONFIG="${BASE_DIR}/config" \
-                    ${EXTRA_CMAKE_ARGS} \
+                    "${EXTRA_CMAKE_ARGS}" \
                     -DSHIELD="$SHIELD"
             )
 
             mkdir -p "$BUILD_PATH/artifacts"
             if [ -f "$BUILD_PATH/zephyr/zmk.uf2" ]; then
-              cp "$BUILD_PATH/zephyr/zmk.uf2" "$BUILD_PATH/artifacts/${ARTIFACT}.uf2"
+              cp "$BUILD_PATH/zephyr/zmk.uf2" \
+                 "$BUILD_PATH/artifacts/${ARTIFACT}.uf2"
             elif [ -f "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" ]; then
-              cp "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" "$BUILD_PATH/artifacts/${ARTIFACT}.${FALLBACK_EXT}"
+              cp "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" \
+                 "$BUILD_PATH/artifacts/${ARTIFACT}.${FALLBACK_EXT}"
             fi
+
+            # debug dumps
+            echo "🔧 Kconfig for $NAME"
+            grep -v -e '^#' -e '^$' "$BUILD_PATH/zephyr/.config" | sort || true
+            echo "🔧 DTS for $NAME"
+            cat "$BUILD_PATH/zephyr/zephyr.dts" || true
 
             echo "::endgroup::"
           done
@@ -159,12 +177,14 @@ jobs:
 
       - name: Merge and zip groups
         run: |
+          set -euxo pipefail
           mkdir -p release_zips
-          while read group; do
+          while IFS= read -r group; do
             name="firmware-charybdis-${group}"
             mkdir -p "$name"
-            find "${BUILD_DIR}" -type f -name "${name}-*.uf2" -o -name "${name}-*.${FALLBACK_EXT}" \
-              -exec cp {} "$name/" \;
+            find "${BUILD_DIR}" -type f \
+              \( -name "${name}-*.uf2" -o -name "${name}-*.${FALLBACK_EXT}" \) \
+              -exec cp {} "$name"/ \;
             zip -j "release_zips/${name}.zip" "$name"/*
           done < merge-groups.txt
 
@@ -176,4 +196,4 @@ jobs:
           tag_name: ${{ github.ref_name }}
           files: release_zips/*.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
