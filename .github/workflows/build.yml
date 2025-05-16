@@ -28,8 +28,9 @@ jobs:
 
       - name: Generate additional keymaps
         run: |
-          python scripts/convert_keymap.py -c q2c --in-path config/charybdis.keymap
-          python scripts/convert_keymap.py -c q2g --in-path config/charybdis.keymap
+          echo "UNCOMMENT AFTER TESTING"
+          # python scripts/convert_keymap.py -c q2c --in-path config/charybdis.keymap
+          # python scripts/convert_keymap.py -c q2g --in-path config/charybdis.keymap
 
       - name: Generate build matrix
         run: |
@@ -225,7 +226,7 @@ jobs:
           path: release_zips/*.zip
 
   cleanup:
-    needs: build
+    needs: [setup, build]
     runs-on: ubuntu-latest
     env:
       FALLBACK_EXT: bin
