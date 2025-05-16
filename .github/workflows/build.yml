@@ -49,62 +49,8 @@ jobs:
           groups=$(jq -c '[.[] | {keymap, format, shield, board, artifact: ."artifact-name"}]' build.json)
           echo "groups=$groups" >> $GITHUB_OUTPUT
 
-  cache:
-    runs-on: ubuntu-latest
-    container:
-      image: zmkfirmware/zmk-build-arm:stable
-
-    outputs:
-      base-dir: ${{ steps.prep.outputs.base-dir }}
-      extra-cmake-args: ${{ steps.prep.outputs.extra-cmake-args }}
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Prepare extra modules
-        id: prep
-        run: |
-          if [ -f zephyr/module.yml ]; then
-            ZMK_LOAD_ARG="-DZMK_EXTRA_MODULES=${GITHUB_WORKSPACE}"
-            BASE_DIR="${TMPDIR:-/tmp}/zmk-config"
-            mkdir -p "${BASE_DIR}/config" "${BASE_DIR}/boards/shields"
-            cp -r config/* "${BASE_DIR}/config/"
-            cp -r boards/shields/* "${BASE_DIR}/boards/shields/"
-          else
-            ZMK_LOAD_ARG=""
-            BASE_DIR="${GITHUB_WORKSPACE}"
-          fi
-          echo "base-dir=$BASE_DIR" >> $GITHUB_OUTPUT
-          echo "extra-cmake-args=$ZMK_LOAD_ARG" >> $GITHUB_OUTPUT
-
-      - name: Cache west & modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            ${{ steps.prep.outputs.base-dir }}/modules
-            ${{ steps.prep.outputs.base-dir }}/tools
-            ${{ steps.prep.outputs.base-dir }}/zephyr
-            ${{ steps.prep.outputs.base-dir }}/bootloader
-            ${{ steps.prep.outputs.base-dir }}/zmk
-          key: ${{ runner.os }}-zmk-${{ hashFiles('config/west.yml','boards/shields/**') }}
-          restore-keys: |
-            ${{ runner.os }}-zmk-
-
-      - name: West init & update
-        working-directory: ${{ steps.prep.outputs.base-dir }}
-        run: |
-          west init -l config
-          west update
-          west zephyr-export
-
-      - name: Upload cache workspace
-        uses: actions/upload-artifact@v4
-        with:
-          name: cache-workspace
-          path: ${{ steps.prep.outputs.base-dir }}
-
   build:
-    needs: [setup, cache]
+    needs: setup
     runs-on: ubuntu-latest
     container:
       image: zmkfirmware/zmk-build-arm:stable
@@ -121,22 +67,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download cache workspace
-        uses: actions/download-artifact@v4
-        with:
-          name: cache-workspace
-          path: ${{ env.BASE_DIR }}
-
       - name: Download generated keymaps
         uses: actions/download-artifact@v4
         with:
           name: generated-keymaps
           path: config/
 
+      - name: Prepare extra modules
+        run: |
+          BASE_DIR="${BASE_DIR}"
+          mkdir -p "${BASE_DIR}/config" "${BASE_DIR}/boards/shields"
+          cp -r config/* "${BASE_DIR}/config/"
+          cp -r boards/shields/* "${BASE_DIR}/boards/shields/"
+          echo "BASE_DIR=$BASE_DIR" >> $GITHUB_ENV
+          echo "EXTRA_CMAKE_ARGS=-DZMK_EXTRA_MODULES=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
+
+      - name: Init west & fetch deps
+        working-directory: ${{ env.BASE_DIR }}
+        run: |
+          west init -l config
+          west update
+          west zephyr-export
+
       - name: Build firmware ${{ matrix.firmware.artifact }}
+        shell: bash {0}
         run: |
           set -euxo pipefail
-
           KEYMAP="${{ matrix.firmware.keymap }}"
           FORMAT="${{ matrix.firmware.format }}"
           SHIELD="${{ matrix.firmware.shield }}"
@@ -144,12 +100,12 @@ jobs:
           ARTIFACT="${{ matrix.firmware.artifact }}"
           BUILD_PATH=$(mktemp -d)
 
-          # Handle reset special case
+          # Special handling for reset
           if [[ "$FORMAT" == "reset" ]]; then
             ARTIFACT="firmware-reset-nanov2"
           fi
 
-          # Copy custom keymap if exists
+          # Use custom keymap if available
           if [[ -f "config/${KEYMAP}.keymap" ]]; then
             cp "config/${KEYMAP}.keymap" "${BASE_DIR}/config/charybdis.keymap"
           fi
@@ -159,7 +115,7 @@ jobs:
             -b "$BOARD" \
             -- \
             -DZMK_CONFIG="${BASE_DIR}/config" \
-            ${{ needs.prepare.outputs.extra-cmake-args }} \
+            $EXTRA_CMAKE_ARGS \
             -DSHIELD="$SHIELD"
 
           mkdir -p "${KEYMAP}-${FORMAT}"
@@ -178,3 +134,4 @@ jobs:
         with:
           name: firmware-${{ matrix.firmware.artifact }}
           path: ${{ matrix.firmware.keymap }}-${{ matrix.firmware.format }}/*
+
