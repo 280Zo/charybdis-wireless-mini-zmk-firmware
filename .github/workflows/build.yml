@@ -149,7 +149,8 @@ jobs:
                 -b "$BOARD" \
                 -- -DZMK_CONFIG="${BASE_DIR}/config" \
                     "${EXTRA_CMAKE_ARGS}" \
-                    -DSHIELD="$SHIELD"
+                    -DSHIELD="$SHIELD" \
+                > /dev/null #remove this to see build's output
             )
 
             mkdir -p "$BUILD_PATH/artifacts"
@@ -181,28 +182,37 @@ jobs:
         run: |
           set -euxo pipefail
           mkdir -p release_zips
-          while IFS= read -r group; do
-            name="firmware-charybdis-${group}"
-            mkdir -p "$name"
 
-            # copy real artifacts (they begin with "charybdis-${group}-…")
+          # First zip all the normal charybdis groups
+          while IFS= read -r group; do
+            if [ "$group" = "default-reset" ]; then
+              continue
+            fi
+
+            zipdir="firmware-charybdis-${group}"
+            mkdir -p "$zipdir"
+
             find "${BUILD_DIR}" -type f \
               \( -name "charybdis-${group}-*.uf2" -o -name "charybdis-${group}-*.${FALLBACK_EXT}" \) \
-              -exec cp {} "$name"/ \;
+              -exec cp {} "$zipdir"/ \;
 
-            # debug: make sure we actually copied something
             echo "Artifacts for ${group}:"
-            ls -1 "$name" || echo "⚠️  No files in $name"
+            ls -1 "$zipdir"
 
-            zip -j "release_zips/${name}.zip" "${name}"/*
+            zip -j "release_zips/${zipdir}.zip" "$zipdir"/*
           done < merge-groups.txt
-      
-      - name: Upload individual firmware artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: firmware
-          path: ${{ env.BUILD_DIR }}/**/artifacts/*  
 
+          # Now handle the one-off reset build
+          artifact=$(jq -r '.[] | select(.format=="reset") | ."artifact-name"' build.json)
+          echo "Zipping reset artifact: $artifact"
+
+          # reset artifacts live here:
+          reset_dir="${BUILD_DIR}/firmware-${artifact}/artifacts"
+          zip -j "release_zips/firmware-${artifact}.zip" \
+            "${reset_dir}/${artifact}.uf2" \
+            "${reset_dir}/${artifact}.${FALLBACK_EXT}" \
+            || true
+            
       - name: Publish to GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
@@ -211,4 +221,4 @@ jobs:
           tag_name: ${{ github.ref_name }}
           files: release_zips/*.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
