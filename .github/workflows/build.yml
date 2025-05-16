@@ -29,8 +29,7 @@ jobs:
       - name: Generate build matrix
         run: |
           python scripts/generate_matrix.py > build.json
-          echo "🧩 Build Matrix:"
-          cat build.json
+          echo "🧩 Build Matrix:" && cat build.json
 
       - name: Upload build.json for build step
         uses: actions/upload-artifact@v4
@@ -44,11 +43,14 @@ jobs:
     container:
       image: zmkfirmware/zmk-build-arm:stable
 
+    env:
+      FALLBACK_EXT: bin
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install jq and zip
+      - name: Install tools
         run: |
           apt-get update
           apt-get install -y jq zip
@@ -58,6 +60,11 @@ jobs:
         with:
           name: build-matrix
 
+      - name: Echo matrix and env
+        run: |
+          echo "🧩 Matrix:" && cat build.json
+          echo "🌐 ENV:" && env | grep -E 'BUILD_DIR|BASE_DIR|EXTRA_CMAKE_ARGS|FALLBACK_EXT'
+
       - name: Prepare isolated build directory
         run: echo "BUILD_DIR=$(mktemp -d)" >> $GITHUB_ENV
 
@@ -65,19 +72,32 @@ jobs:
         id: prep
         shell: bash {0}
         run: |
-          set -eux                     # turn on -e, -u, -x
+          set -eux
           if [ -f zephyr/module.yml ]; then
-            export ZMK_LOAD_ARG=" -DZMK_EXTRA_MODULES=${GITHUB_WORKSPACE}"
-            export BASE_DIR="${TMPDIR:-/tmp}/zmk-config"
+            ZMK_LOAD_ARG="-DZMK_EXTRA_MODULES=${GITHUB_WORKSPACE}"
+            BASE_DIR="${TMPDIR:-/tmp}/zmk-config"
             mkdir -p "${BASE_DIR}/config" "${BASE_DIR}/boards/shields"
             cp -r config/*         "${BASE_DIR}/config/"
             cp -r boards/shields/* "${BASE_DIR}/boards/shields/"
           else
-            export ZMK_LOAD_ARG=""
-            export BASE_DIR="${GITHUB_WORKSPACE}"
+            ZMK_LOAD_ARG=""
+            BASE_DIR="${GITHUB_WORKSPACE}"
           fi
-          echo "BASE_DIR=${BASE_DIR}"       >> $GITHUB_ENV
-          echo "EXTRA_CMAKE_ARGS=${ZMK_LOAD_ARG}" >> $GITHUB_ENV
+          echo "BASE_DIR=$BASE_DIR"       >> $GITHUB_ENV
+          echo "EXTRA_CMAKE_ARGS=$ZMK_LOAD_ARG" >> $GITHUB_ENV
+
+      - name: Cache west & zephyr modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ env.BASE_DIR }}/modules/
+            ${{ env.BASE_DIR }}/tools/
+            ${{ env.BASE_DIR }}/zephyr/
+            ${{ env.BASE_DIR }}/bootloader/
+            ${{ env.BASE_DIR }}/zmk/
+          key: ${{ runner.os }}-zmk-${{ hashFiles('config/west.yml','boards/shields/**') }}
+          restore-keys: |
+            ${{ runner.os }}-zmk-
 
       - name: West Init & Update
         working-directory: ${{ env.BASE_DIR }}
@@ -88,47 +108,50 @@ jobs:
 
       - name: Build all firmware
         run: |
-          cat build.json | jq -c '.[]' | while read config; do
-            NAME=$(echo "$config" | jq -r '.name')
-            BOARD=$(echo "$config" | jq -r '.board')
-            SHIELD=$(echo "$config" | jq -r '.shield')
-            KEYMAP=$(echo "$config" | jq -r '.keymap')
-            FORMAT=$(echo "$config" | jq -r '.format')
-            ARTIFACT=$(echo "$config" | jq -r '."artifact-name"')
+          cat build.json | jq -c '.[]' | while read cfg; do
+            NAME=$(jq -r '.name' <<<"$cfg")
+            BOARD=$(jq -r '.board' <<<"$cfg")
+            SHIELD=$(jq -r '.shield' <<<"$cfg")
+            KEYMAP=$(jq -r '.keymap' <<<"$cfg")
+            FORMAT=$(jq -r '.format' <<<"$cfg")
+            ARTIFACT=$(jq -r '."artifact-name"' <<<"$cfg")
 
             echo "::group::Building $NAME"
             BUILD_PATH="${BUILD_DIR}/${NAME}"
             mkdir -p "$BUILD_PATH"
 
-            # Validate shield
+            # validate shield module
             SHIELD_MODULE="charybdis-${FORMAT}"
             MODULE_PATH="${BASE_DIR}/boards/shields/${SHIELD_MODULE}"
-            if [ ! -f "${MODULE_PATH}/${SHIELD}.overlay" ] && \
-               [ ! -f "${MODULE_PATH}/${SHIELD}.conf" ]; then
-              echo "❌ Skipping invalid shield: $SHIELD (missing overlay/conf in ${MODULE_PATH})"
+            if [ ! -f "${MODULE_PATH}/${SHIELD}.overlay" ] && [ ! -f "${MODULE_PATH}/${SHIELD}.conf" ]; then
+              echo "❌ Skipping invalid shield: $SHIELD"
               echo "::endgroup::"
               continue
             fi
 
-            # Run build from BASE_DIR with extra modules
+            # build
             (
               cd "${BASE_DIR}"
-              west build -s zmk/app \
-                -d "$BUILD_PATH" \
-                -b "$BOARD" \
-                -- \
-                -DZMK_CONFIG="${BASE_DIR}/config" \
-                ${EXTRA_CMAKE_ARGS} \
-                -DSHIELD="$SHIELD" \
-                -DCONFIG_ZMK_KEYMAP="$KEYMAP"
+              west build -s zmk/app -d "$BUILD_PATH" -b "$BOARD" \
+                -- -DZMK_CONFIG="${BASE_DIR}/config" \
+                    ${EXTRA_CMAKE_ARGS} \
+                    -DSHIELD="$SHIELD" \
+                    -DCONFIG_ZMK_KEYMAP="$KEYMAP"
             )
 
+            # copy artifact (uf2 or fallback)
             mkdir -p "$BUILD_PATH/artifacts"
             if [ -f "$BUILD_PATH/zephyr/zmk.uf2" ]; then
               cp "$BUILD_PATH/zephyr/zmk.uf2" "$BUILD_PATH/artifacts/${ARTIFACT}.uf2"
-            elif [ -f "$BUILD_PATH/zephyr/zmk.bin" ]; then
-              cp "$BUILD_PATH/zephyr/zmk.bin" "$BUILD_PATH/artifacts/${ARTIFACT}.bin"
+            elif [ -f "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" ]; then
+              cp "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" "$BUILD_PATH/artifacts/${ARTIFACT}.${FALLBACK_EXT}"
             fi
+
+            # debug dumps
+            echo "🔧 Kconfig for $NAME"
+            grep -v -e '^#' -e '^$' "$BUILD_PATH/zephyr/.config" | sort || true
+            echo "🔧 DTS for $NAME"
+            cat "$BUILD_PATH/zephyr/zephyr.dts" || true
 
             echo "::endgroup::"
           done
@@ -137,8 +160,7 @@ jobs:
         id: groups
         run: |
           jq -r '[.[] | "\(.keymap)-\(.format)"] | unique | .[]' build.json > merge-groups.txt
-          echo "Groups to merge:"
-          cat merge-groups.txt
+          echo "Groups to merge:" && cat merge-groups.txt
 
       - name: Merge and zip groups
         run: |
@@ -146,7 +168,8 @@ jobs:
           while read group; do
             name="firmware-charybdis-${group}"
             mkdir -p "$name"
-            find "${BUILD_DIR}" -type f -name "${name}-*.uf2" -exec cp {} "$name/" \;
+            find "${BUILD_DIR}" -type f -name "${name}-*.uf2" -o -name "${name}-*.${FALLBACK_EXT}" \
+              -exec cp {} "$name/" \;
             zip -j "release_zips/${name}.zip" "$name"/*
           done < merge-groups.txt
 
