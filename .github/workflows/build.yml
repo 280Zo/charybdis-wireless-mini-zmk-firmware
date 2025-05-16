@@ -25,8 +25,8 @@ jobs:
 
       - name: Install tools
         run: |
-          apt-get update
-          apt-get install -y jq
+          sudo apt-get update
+          sudo apt-get install -y jq
 
       - name: Generate additional keymaps
         run: |
