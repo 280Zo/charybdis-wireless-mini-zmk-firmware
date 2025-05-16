@@ -243,6 +243,8 @@ jobs:
       - name: Merge group ${{ matrix.group }}
         uses: actions/upload-artifact/merge@v4
         with:
-          pattern: "*-${{ matrix.group }}-*.{uf2,${{ env.FALLBACK_EXT }}}"
+          pattern: |
+            **/*-${{ matrix.group }}-*.uf2
+            **/*-${{ matrix.group }}-*.${{ env.FALLBACK_EXT }}
           name: "firmware-${{ matrix.group }}"
           delete-merged: true
