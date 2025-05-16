@@ -43,9 +43,9 @@ jobs:
           combos=$(jq -c '[.[] | select(.format!="reset") | "\(.keymap)-\(.format)"] | unique' build.json)
           # reset artifact-names
           resets=$(jq -c '[.[] | select(.format=="reset") | ."artifact-name"]' build.json)
-          # merge arrays
-          groups=$(jq -n --argjson a "$combos" --argjson b "$resets" '$a + $b')
-          echo "groups=$groups" >> $GITHUB_OUTPUT
+          # merge arrays in compact form (single line)
+          groups=$(jq -n -c --argjson a "$combos" --argjson b "$resets" '$a + $b')
+              echo "groups=$groups" >> $GITHUB_OUTPUT
 
   build:
     needs: setup
