@@ -45,13 +45,17 @@ jobs:
       - name: Make groups JSON
         id: make-matrix
         run: |
-          # keymap-format combos
           combos=$(jq -c '[.[] | select(.format!="reset") | "\(.keymap)-\(.format)"] | unique' build.json)
-          # reset artifact-names
           resets=$(jq -c '[.[] | select(.format=="reset") | ."artifact-name"]' build.json)
-          # merge arrays in compact form (single line)
+          # -c here makes groups a compact, one-line JSON array
           groups=$(jq -n -c --argjson a "$combos" --argjson b "$resets" '$a + $b')
               echo "groups=$groups" >> $GITHUB_OUTPUT
+      - name: Make groups JSON
+        id: make-matrix
+        run: |
+          # … your jq calls …
+          echo "groups=$groups" >> $GITHUB_OUTPUT
+          echo "::debug::groups was set to $groups"
 
   build:
     needs: setup
