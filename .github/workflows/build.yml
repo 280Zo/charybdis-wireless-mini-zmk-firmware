@@ -51,7 +51,7 @@ jobs:
           echo "groups=$groups" >> $GITHUB_OUTPUT
           echo "::debug:: groups was set to $groups"
 
-          # debug: show exactly what was written
+          # Show what was written
           echo "---- GITHUB_OUTPUT FILE ----"
           head -n 5 "$GITHUB_OUTPUT"
           echo "----------------------------"
@@ -230,20 +230,28 @@ jobs:
     env:
       FALLBACK_EXT: bin
     strategy:
+      fail-fast: false
       matrix:
         group: ${{ fromJson(needs.setup.outputs.groups) }}
+
     steps:
       - name: Download all firmware artifacts
         uses: actions/download-artifact@v4
         with:
           name: firmware
           path: artifacts/
+          
+      - name: List downloaded artifacts
+        run: |
+          echo "---- contents of artifacts/ ----"
+          find artifacts -type f | sed 's/^/  /'
+          echo "-------------------------------"
 
       - name: Merge group ${{ matrix.group }}
         uses: actions/upload-artifact/merge@v4
         with:
           pattern: |
-            **/*-${{ matrix.group }}-*.uf2
-            **/*-${{ matrix.group }}-*.${{ env.FALLBACK_EXT }}
-          name: "firmware-${{ matrix.group }}"
+            artifacts/**/charybdis-${{ matrix.group }}-*.uf2
+            artifacts/**/charybdis-${{ matrix.group }}-*.${{ env.FALLBACK_EXT }}
+          name: firmware-${{ matrix.group }}
           delete-merged: true
