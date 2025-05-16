@@ -58,6 +58,8 @@ jobs:
 
   build:
     needs: setup
+    outputs:
+      groups: ${{ steps.set-groups.outputs.groups }}
     runs-on: ubuntu-latest
     container:
       image: zmkfirmware/zmk-build-arm:stable
@@ -218,6 +220,17 @@ jobs:
             "${reset_dir}/${artifact}.${FALLBACK_EXT}" \
             || true
 
+      - name: Collect built firmware group names for grouping
+        id: set-groups
+        run: |
+          # merge-groups.txt already has each keymap-format combo
+          reset=$(jq -r '.[] | select(.format=="reset") | ."artifact-name"' build.json)
+          jq -r '.[]' merge-groups.txt > tmp.txt
+          echo "$reset" >> tmp.txt
+          # turn into a compact JSON array
+          groups=$(jq -R -s -c 'split("\n")|map(select(length>0))' < tmp.txt)
+          echo "groups=$groups" >> $GITHUB_OUTPUT
+
       - name: Upload grouped firmware zips
         uses: actions/upload-artifact@v4
         with:
@@ -232,7 +245,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: ${{ fromJson(needs.setup.outputs.groups) }}
+        group: ${{ fromJson(needs.build.outputs.groups) }}
 
     steps:
       - name: Download all grouped zips
