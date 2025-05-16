@@ -1,5 +1,8 @@
 name: Build and Release ZMK Firmware
 
+permissions:
+  contents: write
+
 on:
   push:
     tags:
@@ -11,6 +14,8 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
+    outputs:
+      groups: ${{ steps.make-matrix.outputs.groups }}
 
     steps:
       - name: Checkout repo
@@ -31,11 +36,16 @@ jobs:
           python scripts/generate_matrix.py > build.json
           echo "🧩 Build Matrix:" && cat build.json
 
-      - name: Upload build.json for build step
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-matrix
-          path: build.json
+      - name: Make groups JSON
+        id: make-matrix
+        run: |
+          # keymap-format combos
+          combos=$(jq -c '[.[] | select(.format!="reset") | "\(.keymap)-\(.format)"] | unique' build.json)
+          # reset artifact-names
+          resets=$(jq -c '[.[] | select(.format=="reset") | ."artifact-name"]' build.json)
+          # merge arrays
+          groups=$(jq -n --argjson a "$combos" --argjson b "$resets" '$a + $b')
+          echo "groups=$groups" >> $GITHUB_OUTPUT
 
   build:
     needs: setup
@@ -54,11 +64,6 @@ jobs:
         run: |
           apt-get update
           apt-get install -y jq zip
-
-      - name: Download build matrix
-        uses: actions/download-artifact@v4
-        with:
-          name: build-matrix
 
       - name: Echo matrix and key env vars
         run: |
@@ -177,12 +182,13 @@ jobs:
           jq -r '[.[] | "\(.keymap)-\(.format)"] | unique | .[]' build.json > merge-groups.txt
           echo "Groups to merge:" && cat merge-groups.txt
       
-      - name: Upload individual firmware artifacts
-        if: always()
+      - name: Upload raw firmware artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-artifacts
-          path: ${{ env.BUILD_DIR }}/*/artifacts/*
+          name: firmware
+          path: |
+            ${{ env.BUILD_DIR }}/*/artifacts/*.uf2
+            ${{ env.BUILD_DIR }}/*/artifacts/*.${{ env.FALLBACK_EXT }}
 
       - name: Merge and zip groups
         shell: bash {0}
@@ -220,12 +226,41 @@ jobs:
             "${reset_dir}/${artifact}.${FALLBACK_EXT}" \
             || true
 
-      - name: Publish to GitHub Release
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v1
+      # Upload all of the grouped firmware zips as build artifacts
+      - name: Upload grouped firmware zips
+        uses: actions/upload-artifact@v4
         with:
-          name: Firmware ${{ github.ref_name }}
-          tag_name: ${{ github.ref_name }}
-          files: release_zips/*.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: firmware-zips
+          path: release_zips/*.zip
+
+      # - name: Publish to GitHub Release
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     name: Firmware ${{ github.ref_name }}
+      #     tag_name: ${{ github.ref_name }}
+      #     files: release_zips/*.zip
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+  cleanup:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      FALLBACK_EXT: bin
+    strategy:
+      matrix:
+        group: ${{ fromJson(needs.setup.outputs.groups) }}
+    steps:
+      - name: Download all firmware artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: firmware
+          path: artifacts/
+
+      - name: Merge group ${{ matrix.group }}
+        uses: actions/upload-artifact/merge@v4
+        with:
+          pattern: "*-${{ matrix.group }}-*.{uf2,${{ env.FALLBACK_EXT }}}"
+          name: "firmware-${{ matrix.group }}"
+          delete-merged: true
