@@ -67,6 +67,14 @@ jobs:
           west update
           west zephyr-export
 
+      - name: Prepare extra modules
+        run: |
+          if [ -f zephyr/module.yml ]; then
+            echo "EXTRA_CMAKE_ARGS=-DZMK_EXTRA_MODULES=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
+          else
+            echo "EXTRA_CMAKE_ARGS=" >> $GITHUB_ENV
+          fi
+
       - name: Build all firmware
         run: |
           cat build.json | jq -c '.[]' | while read config; do
@@ -90,10 +98,14 @@ jobs:
               continue
             fi
 
-            west build -s zmk/app -d "$BUILD_PATH" -b "$BOARD" \
-              -- -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
-                  -DSHIELD="$SHIELD" \
-                  -DCONFIG_ZMK_KEYMAP="$KEYMAP"
+            west build -s zmk/app \
+              -d "$BUILD_PATH" \
+              -b "$BOARD" \
+              -- \
+              -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
+              $EXTRA_CMAKE_ARGS \
+              -DSHIELD="$SHIELD" \
+              -DCONFIG_ZMK_KEYMAP="$KEYMAP"
 
             mkdir -p "$BUILD_PATH/artifacts"
             if [ -f "$BUILD_PATH/zephyr/zmk.uf2" ]; then
