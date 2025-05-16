@@ -30,7 +30,7 @@ jobs:
       - name: Generate build matrix
         id: set
         run: |
-          python generate_matrix.py > build.json
+          python scripts/generate_matrix.py > build.json
           echo "build_matrix=$(cat build.json | jq -c .)" >> $GITHUB_OUTPUT
 
       - name: Upload build.json for build step
