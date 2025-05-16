@@ -15,7 +15,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      groups: ${{ steps.make-matrix.outputs.groups }}
+      groups: ${{ steps.make-groups.outputs.groups }}
 
     steps:
       - name: Checkout repo
