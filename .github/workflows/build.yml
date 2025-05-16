@@ -108,6 +108,7 @@ jobs:
           west zephyr-export
 
       - name: Build all firmware
+        shell: bash {0}
         run: |
           set -euxo pipefail
           jq -c '.[]' build.json | while IFS= read -r cfg; do
@@ -176,6 +177,7 @@ jobs:
           echo "Groups to merge:" && cat merge-groups.txt
 
       - name: Merge and zip groups
+        shell: bash {0}
         run: |
           set -euxo pipefail
           mkdir -p release_zips
