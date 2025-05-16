@@ -28,9 +28,8 @@ jobs:
 
       - name: Generate additional keymaps
         run: |
-          echo "UNCOMMENT AFTER TESTING"
-          # python scripts/convert_keymap.py -c q2c --in-path config/charybdis.keymap
-          # python scripts/convert_keymap.py -c q2g --in-path config/charybdis.keymap
+          python scripts/convert_keymap.py -c q2c --in-path config/charybdis.keymap
+          python scripts/convert_keymap.py -c q2g --in-path config/charybdis.keymap
 
       - name: Generate build matrix
         run: |
