@@ -43,7 +43,7 @@ jobs:
           path: build.json
 
       - name: Make groups JSON
-        id: make-matrix
+        id: gen-matrix
         run: |
           combos=$(jq -c '[.[] | select(.format!="reset") | "\(.keymap)-\(.format)"] | unique' build.json)
           resets=$(jq -c '[.[] | select(.format=="reset") | ."artifact-name"]' build.json)
