@@ -120,12 +120,12 @@ jobs:
             ARTIFACT=$(echo "$cfg" | jq -r '."artifact-name"')
 
             # swap in the correct keymap for this build (only if it exists)
-            if [ -f "${GITHUB_WORKSPACE}/config/charybdis_${KEYMAP}.keymap" ]; then
-              echo "🔄 Using custom keymap: charybdis_${KEYMAP}.keymap"
-              cp "${GITHUB_WORKSPACE}/config/charybdis_${KEYMAP}.keymap" \
-                "${BASE_DIR}/config/charybdis.keymap"
+            if [ -f "${GITHUB_WORKSPACE}/config/${KEYMAP}.keymap" ]; then
+              echo "🔄 Using custom keymap: ${KEYMAP}.keymap"
+              cp "${GITHUB_WORKSPACE}/config/${KEYMAP}.keymap" \
+                 "${BASE_DIR}/config/charybdis.keymap"
             else
-              echo "ℹ️  No custom keymap for '${KEYMAP}', leaving default"
+              echo "ℹ️  No custom keymap for '${KEYMAP}', leaving default charybdis.keymap"
             fi
 
             echo "::group::Building $NAME"
@@ -149,7 +149,8 @@ jobs:
                 -b "$BOARD" \
                 -- -DZMK_CONFIG="${BASE_DIR}/config" \
                     "${EXTRA_CMAKE_ARGS}" \
-                    -DSHIELD="$SHIELD"
+                    -DSHIELD="$SHIELD" \
+                > /dev/null #remove this to see build's srdout
             )
 
             mkdir -p "$BUILD_PATH/artifacts"
@@ -187,8 +188,15 @@ jobs:
             find "${BUILD_DIR}" -type f \
               \( -name "${name}-*.uf2" -o -name "${name}-*.${FALLBACK_EXT}" \) \
               -exec cp {} "$name"/ \;
-            zip -j "release_zips/${name}.zip" "$name"/*
+            # unquoted glob so the shell expands it
+            zip -j "release_zips/${name}.zip" ${name}/*
           done < merge-groups.txt
+      
+      - name: Upload individual firmware artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: ${{ env.BUILD_DIR }}/**/artifacts/*  
 
       - name: Publish to GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
