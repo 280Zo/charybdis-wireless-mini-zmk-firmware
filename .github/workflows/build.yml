@@ -31,6 +31,8 @@ jobs:
         id: set
         run: |
           python scripts/generate_matrix.py > build.json
+          echo "🧩 Build Matrix:"
+          cat build.json
           echo "build_matrix=$(cat build.json | jq -c .)" >> $GITHUB_OUTPUT
 
       - name: Upload build.json for build step
@@ -78,6 +80,12 @@ jobs:
             echo "::group::Building $NAME"
             BUILD_PATH="${BUILD_DIR}/${NAME}"
             mkdir -p "$BUILD_PATH"
+
+            SHIELD_PATH="config/boards/shields/${SHIELD}"
+            if [ ! -d "$SHIELD_PATH" ] && ! find zephyr/modules/ -type d -name "$SHIELD" | grep -q .; then
+              echo "❌ Skipping invalid shield: $SHIELD (not found in config/boards or zephyr modules)"
+              continue
+            fi
 
             west build -s zmk/app -d "$BUILD_PATH" -b "$BOARD" \
               -- -DZMK_CONFIG=$GITHUB_WORKSPACE/config \
