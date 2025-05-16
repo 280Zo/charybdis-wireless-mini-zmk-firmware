@@ -116,6 +116,9 @@ jobs:
             FORMAT=$(jq -r '.format' <<<"$cfg")
             ARTIFACT=$(jq -r '."artifact-name"' <<<"$cfg")
 
+            # swap in the current keymap
+            cp "config/charybdis_${KEYMAP}.keymap" "config/charybdis.keymap"
+
             echo "::group::Building $NAME"
             BUILD_PATH="${BUILD_DIR}/${NAME}"
             mkdir -p "$BUILD_PATH"
@@ -129,29 +132,21 @@ jobs:
               continue
             fi
 
-            # build
+            # build (no CONFIG_ZMK_KEYMAP)
             (
               cd "${BASE_DIR}"
               west build -s zmk/app -d "$BUILD_PATH" -b "$BOARD" \
                 -- -DZMK_CONFIG="${BASE_DIR}/config" \
                     ${EXTRA_CMAKE_ARGS} \
-                    -DSHIELD="$SHIELD" \
-                    -DCONFIG_ZMK_KEYMAP="$KEYMAP"
+                    -DSHIELD="$SHIELD"
             )
 
-            # copy artifact (uf2 or fallback)
             mkdir -p "$BUILD_PATH/artifacts"
             if [ -f "$BUILD_PATH/zephyr/zmk.uf2" ]; then
               cp "$BUILD_PATH/zephyr/zmk.uf2" "$BUILD_PATH/artifacts/${ARTIFACT}.uf2"
             elif [ -f "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" ]; then
               cp "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" "$BUILD_PATH/artifacts/${ARTIFACT}.${FALLBACK_EXT}"
             fi
-
-            # debug dumps
-            echo "🔧 Kconfig for $NAME"
-            grep -v -e '^#' -e '^$' "$BUILD_PATH/zephyr/.config" | sort || true
-            echo "🔧 DTS for $NAME"
-            cat "$BUILD_PATH/zephyr/zephyr.dts" || true
 
             echo "::endgroup::"
           done
