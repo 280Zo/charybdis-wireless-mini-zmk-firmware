@@ -109,12 +109,12 @@ jobs:
       - name: Build all firmware
         run: |
           cat build.json | jq -c '.[]' | while read cfg; do
-            NAME=$(jq -r '.name' <<<"$cfg")
-            BOARD=$(jq -r '.board' <<<"$cfg")
-            SHIELD=$(jq -r '.shield' <<<"$cfg")
-            KEYMAP=$(jq -r '.keymap' <<<"$cfg")
-            FORMAT=$(jq -r '.format' <<<"$cfg")
-            ARTIFACT=$(jq -r '."artifact-name"' <<<"$cfg")
+            NAME=$(echo "$cfg" | jq -r '.name')
+            BOARD=$(echo "$cfg" | jq -r '.board')
+            SHIELD=$(echo "$cfg" | jq -r '.shield')
+            KEYMAP=$(echo "$cfg" | jq -r '.keymap')
+            FORMAT=$(echo "$cfg" | jq -r '.format')
+            ARTIFACT=$(echo "$cfg" | jq -r '."artifact-name"')
 
             # swap in the current keymap
             cp "config/charybdis_${KEYMAP}.keymap" "config/charybdis.keymap"
