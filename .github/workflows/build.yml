@@ -149,8 +149,7 @@ jobs:
                 -b "$BOARD" \
                 -- -DZMK_CONFIG="${BASE_DIR}/config" \
                     "${EXTRA_CMAKE_ARGS}" \
-                    -DSHIELD="$SHIELD" \
-                > /dev/null #remove this to see build's srdout
+                    -DSHIELD="$SHIELD"
             )
 
             mkdir -p "$BUILD_PATH/artifacts"
@@ -162,11 +161,11 @@ jobs:
                  "$BUILD_PATH/artifacts/${ARTIFACT}.${FALLBACK_EXT}"
             fi
 
-            # debug dumps
-            echo "🔧 Kconfig for $NAME"
-            grep -v -e '^#' -e '^$' "$BUILD_PATH/zephyr/.config" | sort || true
-            echo "🔧 DTS for $NAME"
-            cat "$BUILD_PATH/zephyr/zephyr.dts" || true
+            # # debug dumps
+            # echo "🔧 Kconfig for $NAME"
+            # grep -v -e '^#' -e '^$' "$BUILD_PATH/zephyr/.config" | sort || true
+            # echo "🔧 DTS for $NAME"
+            # cat "$BUILD_PATH/zephyr/zephyr.dts" || true
 
             echo "::endgroup::"
           done
@@ -185,11 +184,17 @@ jobs:
           while IFS= read -r group; do
             name="firmware-charybdis-${group}"
             mkdir -p "$name"
+
+            # copy real artifacts (they begin with "charybdis-${group}-…")
             find "${BUILD_DIR}" -type f \
-              \( -name "${name}-*.uf2" -o -name "${name}-*.${FALLBACK_EXT}" \) \
+              \( -name "charybdis-${group}-*.uf2" -o -name "charybdis-${group}-*.${FALLBACK_EXT}" \) \
               -exec cp {} "$name"/ \;
-            # unquoted glob so the shell expands it
-            zip -j "release_zips/${name}.zip" ${name}/*
+
+            # debug: make sure we actually copied something
+            echo "Artifacts for ${group}:"
+            ls -1 "$name" || echo "⚠️  No files in $name"
+
+            zip -j "release_zips/${name}.zip" "${name}"/*
           done < merge-groups.txt
       
       - name: Upload individual firmware artifacts
