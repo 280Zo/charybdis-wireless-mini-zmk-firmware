@@ -176,6 +176,13 @@ jobs:
         run: |
           jq -r '[.[] | "\(.keymap)-\(.format)"] | unique | .[]' build.json > merge-groups.txt
           echo "Groups to merge:" && cat merge-groups.txt
+      
+      - name: Upload individual firmware artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-artifacts
+          path: ${{ env.BUILD_DIR }}/*/artifacts/*
 
       - name: Merge and zip groups
         shell: bash {0}
@@ -212,7 +219,7 @@ jobs:
             "${reset_dir}/${artifact}.uf2" \
             "${reset_dir}/${artifact}.${FALLBACK_EXT}" \
             || true
-            
+
       - name: Publish to GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
