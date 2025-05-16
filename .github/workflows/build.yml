@@ -195,7 +195,7 @@ jobs:
           mkdir -p release_zips
 
           while IFS= read -r group; do
-            if [ "$group" = "reset-nanov2" ]; then
+            if [ "$group" = "default-reset" ]; then
               continue
             fi
             zipdir="firmware-charybdis-${group}"
