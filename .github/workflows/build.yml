@@ -63,8 +63,9 @@ jobs:
 
       - name: Prepare extra modules
         id: prep
-        shell: bash -eux
+        shell: bash {0}
         run: |
+          set -eux                     # turn on -e, -u, -x
           if [ -f zephyr/module.yml ]; then
             export ZMK_LOAD_ARG=" -DZMK_EXTRA_MODULES=${GITHUB_WORKSPACE}"
             export BASE_DIR="${TMPDIR:-/tmp}/zmk-config"
