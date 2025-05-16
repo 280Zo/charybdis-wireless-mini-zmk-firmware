@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - "v*"
+    branches:
+      - "**"
   workflow_dispatch:
 
 jobs:
@@ -16,26 +18,18 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Python and tools
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-
-      - name: Install remarshal and jq
-        run: |
-          pip install remarshal
-          apt-get update && apt-get install -y jq zip
+      - name: Install jq and zip
+        run: apt-get update && apt-get install -y jq zip
 
       - name: Generate additional keymaps
         run: |
           python scripts/convert_keymap.py -c q2c --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
           python scripts/convert_keymap.py -c q2g --in-path "$GITHUB_WORKSPACE/config/charybdis.keymap"
 
-      - name: Generate build matrix and dump to build.yaml
+      - name: Generate build matrix
         run: |
           python generate_matrix.py > build.json
-          cat build.json | remarshal -if json -of yaml > build.yaml
-          cat build.yaml
+          cat build.json
 
       - name: Prepare isolated build directory
         run: echo "BUILD_DIR=$(mktemp -d)" >> $GITHUB_ENV
@@ -73,36 +67,22 @@ jobs:
             fi
 
             echo "::endgroup::"
-
-            echo "::group::Uploading $ARTIFACT"
-            tar -czf "${BUILD_PATH}/${ARTIFACT}.tar.gz" -C "$BUILD_PATH/artifacts" .
-            echo "artifact_path=${BUILD_PATH}/${ARTIFACT}.tar.gz" >> $GITHUB_ENV
-
-            # Upload each artifact immediately
-            echo "::endgroup::"
           done
 
-      - name: Upload artifacts individually
-        uses: actions/upload-artifact@v4
-        with:
-          name: all-firmware-artifacts
-          path: ${{ env.BUILD_DIR }}/**/*.uf2
-
-      - name: Get unique keymap/format groups from matrix
+      - name: Get unique keymap-format groups
         id: groups
         run: |
-          jq -r '[.[] | "\(.keymap)-\(.format)"] | unique | @tsv' build.json > merge-groups.txt
-          echo "groups<<EOF" >> $GITHUB_OUTPUT
-          cat merge-groups.txt >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          jq -r '[.[] | "\(.keymap)-\(.format)"] | unique | .[]' build.json > merge-groups.txt
+          echo "Groups to merge:"
+          cat merge-groups.txt
 
-      - name: Merge and zip each group
+      - name: Merge and zip groups
         run: |
           mkdir -p release_zips
           while read group; do
             name="firmware-charybdis-${group}"
             mkdir -p "$name"
-            find $BUILD_DIR -type f -name "${name}-*.uf2" -exec cp {} "$name/" \;
+            find "$BUILD_DIR" -type f -name "${name}-*.uf2" -exec cp {} "$name/" \;
             zip -j "release_zips/${name}.zip" "$name"/*
           done < merge-groups.txt
 
