@@ -51,6 +51,11 @@ jobs:
           echo "groups=$groups" >> $GITHUB_OUTPUT
           echo "::debug:: groups was set to $groups"
 
+          # debug: show exactly what was written
+          echo "---- GITHUB_OUTPUT FILE ----"
+          head -n 5 "$GITHUB_OUTPUT"
+          echo "----------------------------"
+
   build:
     needs: setup
     runs-on: ubuntu-latest
