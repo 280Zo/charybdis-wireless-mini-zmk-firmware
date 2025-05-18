@@ -176,6 +176,11 @@ jobs:
           for dir in */; do
             zip -r "../${dir%/}.zip" "$dir"
           done
+      
+      - name: List zipped firmware folders
+        run: |
+          echo "Zipped files:"
+          ls -lh *.zip
 
       - name: Upload zipped layouts
         uses: actions/upload-artifact@v4
@@ -184,17 +189,12 @@ jobs:
           path: |
             *.zip
 
-      - name: Upload to GitHub Release
+      - name: Upload each zip to GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v1
-        with:
-          name: "Firmware Release ${{ github.ref_name }}"
-          tag_name: ${{ github.ref_name }}
-          files: |
-            *.zip
-
-      - name: Delete per-shield firmware artifacts
-        if: always()
-        uses: geekyeggo/delete-artifact@v2
-        with:
-          name: firmware-*
+        shell: bash
+        run: |
+          for zipfile in *.zip; do
+            echo "Uploading $zipfile to GitHub Release"
+            gh release upload "$GITHUB_REF_NAME" "$zipfile" --clobber || echo "Warning: upload failed for $zipfile"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
