@@ -129,8 +129,62 @@ jobs:
             exit 1
           fi
 
-      - name: Upload firmware artifacts
+      # - name: Upload firmware artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: firmware-${{ matrix.firmware.artifact }}
+      #     path: ${{ matrix.firmware.keymap }}-${{ matrix.firmware.format }}/*
+  
+  group-firmware:
+    needs: build
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download all firmware artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-firmware
+      
+      - name: Install zip
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zip
+
+      - name: Group firmware into folders
+        shell: bash
+        run: |
+          find all-firmware -type f -name '*.uf2' | while read -r file; do
+            parent=$(basename "$(dirname "$file")")  # e.g., firmware-charybdis-qwerty-dongle-charybdis_right
+            filename=$(basename "$file")             # e.g., charybdis_right.uf2
+
+            IFS="-" read -r _ _ keymap format shield <<< "$parent"
+            outdir="${keymap}-${format}"
+            mkdir -p "$outdir"
+            cp "$file" "$outdir/${shield}.uf2"
+          done
+
+      - name: Zip each layout folder
+        run: |
+          for dir in */; do
+            zip -r "${dir%/}.zip" "$dir"
+          done
+
+      - name: Upload zipped layouts
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-${{ matrix.firmware.artifact }}
-          path: ${{ matrix.firmware.keymap }}-${{ matrix.firmware.format }}/*
+          name: firmware-zips
+          path: |
+            *.zip
+
+      - name: Upload to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "Firmware Release ${{ github.ref_name }}"
+          tag_name: ${{ github.ref_name }}
+          files: |
+            *.zip
