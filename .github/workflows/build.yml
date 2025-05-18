@@ -84,6 +84,7 @@ jobs:
 
       - name: Init west & fetch deps
         working-directory: ${{ env.BASE_DIR }}
+        shell: bash {0}
         run: |
           west init -l config
           west update
@@ -91,6 +92,7 @@ jobs:
 
       - name: Build firmware ${{ matrix.firmware.artifact }}
         shell: bash {0}
+        working-directory: ${{ env.BASE_DIR }}
         run: |
           set -euxo pipefail
           KEYMAP="${{ matrix.firmware.keymap }}"
@@ -100,14 +102,12 @@ jobs:
           ARTIFACT="${{ matrix.firmware.artifact }}"
           BUILD_PATH=$(mktemp -d)
 
-          # Special handling for reset
           if [[ "$FORMAT" == "reset" ]]; then
             ARTIFACT="firmware-reset-nanov2"
           fi
 
-          # Use custom keymap if available
           if [[ -f "config/${KEYMAP}.keymap" ]]; then
-            cp "config/${KEYMAP}.keymap" "${BASE_DIR}/config/charybdis.keymap"
+            cp "config/${KEYMAP}.keymap" "config/charybdis.keymap"
           fi
 
           west build -s zmk/app \
@@ -115,15 +115,15 @@ jobs:
             -b "$BOARD" \
             -- \
             -DZMK_CONFIG="${BASE_DIR}/config" \
-            $EXTRA_CMAKE_ARGS \
+            -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" \
             -DSHIELD="$SHIELD"
 
-          mkdir -p "${KEYMAP}-${FORMAT}"
+          mkdir -p "${GITHUB_WORKSPACE}/${KEYMAP}-${FORMAT}"
 
           if [[ -f "$BUILD_PATH/zephyr/zmk.uf2" ]]; then
-            cp "$BUILD_PATH/zephyr/zmk.uf2" "${KEYMAP}-${FORMAT}/${SHIELD}.uf2"
+            cp "$BUILD_PATH/zephyr/zmk.uf2" "${GITHUB_WORKSPACE}/${KEYMAP}-${FORMAT}/${SHIELD}.uf2"
           elif [[ -f "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" ]]; then
-            cp "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" "${KEYMAP}-${FORMAT}/${SHIELD}.${FALLBACK_EXT}"
+            cp "$BUILD_PATH/zephyr/zmk.${FALLBACK_EXT}" "${GITHUB_WORKSPACE}/${KEYMAP}-${FORMAT}/${SHIELD}.${FALLBACK_EXT}"
           else
             echo "⚠️ No build artifact found for ${KEYMAP}-${FORMAT}-${SHIELD}"
             exit 1
@@ -134,4 +134,3 @@ jobs:
         with:
           name: firmware-${{ matrix.firmware.artifact }}
           path: ${{ matrix.firmware.keymap }}-${{ matrix.firmware.format }}/*
-
