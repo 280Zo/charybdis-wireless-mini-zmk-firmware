@@ -189,6 +189,23 @@ jobs:
           path: |
             *.zip
 
+      - name: Debug release ref
+        run: |
+          echo "GITHUB_REF=$GITHUB_REF"
+          echo "Tag name: ${GITHUB_REF##*/}"
+
+      - name: Ensure release exists
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "Firmware Release ${{ github.ref_name }}"
+          tag_name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          body: "Auto-generated firmware release for ${{ github.ref_name }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload each zip to GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
         shell: bash
@@ -197,5 +214,5 @@ jobs:
         run: |
           for zipfile in *.zip; do
             echo "Uploading $zipfile to GitHub Release"
-            gh release upload "$GITHUB_REF_NAME" "$zipfile" --clobber || echo "Warning: upload failed for $zipfile"
+            gh release upload "${GITHUB_REF##*/}" "$zipfile" --clobber || echo "Warning: upload failed for $zipfile"
           done
