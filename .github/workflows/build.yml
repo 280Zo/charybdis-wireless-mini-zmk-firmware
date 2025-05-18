@@ -129,11 +129,11 @@ jobs:
             exit 1
           fi
 
-      # - name: Upload firmware artifacts
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: firmware-${{ matrix.firmware.artifact }}
-      #     path: ${{ matrix.firmware.keymap }}-${{ matrix.firmware.format }}/*
+      - name: Upload firmware artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-${{ matrix.firmware.artifact }}
+          path: ${{ matrix.firmware.keymap }}-${{ matrix.firmware.format }}/*
   
   group-firmware:
     needs: build
@@ -144,33 +144,37 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Download all firmware artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: all-firmware
-      
       - name: Install zip
         run: |
           sudo apt-get update
           sudo apt-get install -y zip
 
+      - name: Download all firmware artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-firmware
+          merge-multiple: false
+
       - name: Group firmware into folders
         shell: bash
         run: |
+          mkdir grouped
           find all-firmware -type f -name '*.uf2' | while read -r file; do
-            parent=$(basename "$(dirname "$file")")  # e.g., firmware-charybdis-qwerty-dongle-charybdis_right
-            filename=$(basename "$file")             # e.g., charybdis_right.uf2
+            artifact_dir=$(basename "$(dirname "$file")")  # e.g., firmware-charybdis-qwerty-dongle-charybdis_right
+            filename=$(basename "$file")                   # e.g., charybdis_right.uf2
 
-            IFS="-" read -r _ _ keymap format shield <<< "$parent"
-            outdir="${keymap}-${format}"
+            IFS="-" read -r _ _ keymap format shield <<< "$artifact_dir"
+            outdir="grouped/${keymap}-${format}"
             mkdir -p "$outdir"
             cp "$file" "$outdir/${shield}.uf2"
           done
 
-      - name: Zip each layout folder
+      - name: Zip each layout-format folder
+        shell: bash
         run: |
+          cd grouped
           for dir in */; do
-            zip -r "${dir%/}.zip" "$dir"
+            zip -r "../${dir%/}.zip" "$dir"
           done
 
       - name: Upload zipped layouts
@@ -188,3 +192,9 @@ jobs:
           tag_name: ${{ github.ref_name }}
           files: |
             *.zip
+
+      - name: Delete per-shield firmware artifacts
+        if: always()
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: firmware-*
