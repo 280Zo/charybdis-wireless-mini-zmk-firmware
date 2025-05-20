@@ -63,6 +63,7 @@ jobs:
           echo "groups=$groups"
 
   build:
+    name: Build (${{ matrix.combo.name }})
     needs: setup
     runs-on: ubuntu-latest
     container: zmkfirmware/zmk-build-arm:stable
@@ -160,87 +161,37 @@ jobs:
       - name: Upload grouped firmware ${{ matrix.combo.name }}
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-${{ matrix.combo.name }}
+          name: charybdis-${{ matrix.combo.name }}
           path: out/${{ matrix.combo.name }}/**
-  
-  group-firmware:
+
+  release-firmware:
+    name: Release Firmware
     needs: build
     runs-on: ubuntu-latest
-    if: always()
-
+    if: startsWith(github.ref, 'refs/tags/')
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Install zip
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y zip
-
-      - name: Download all firmware artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: all-firmware
-          merge-multiple: false
-
-      - name: Group firmware into folders
-        shell: bash
-        run: |
-          mkdir grouped
-          find all-firmware -type f -name '*.uf2' | while read -r file; do
-            artifact_dir=$(basename "$(dirname "$file")")  # e.g., firmware-charybdis-qwerty-dongle-charybdis_right
-            filename=$(basename "$file")                   # e.g., charybdis_right.uf2
-
-            IFS="-" read -r _ _ keymap format shield <<< "$artifact_dir"
-            outdir="grouped/${keymap}-${format}"
-            mkdir -p "$outdir"
-            cp "$file" "$outdir/${shield}.uf2"
-          done
-
-      - name: Zip each layout-format folder
-        shell: bash
-        run: |
-          cd grouped
-          for dir in */; do
-            zip -r "../${dir%/}.zip" "$dir"
-          done
-      
-      - name: List zipped firmware folders
-        run: |
-          echo "Zipped files:"
-          ls -lh *.zip
-
-      - name: Upload zipped layouts
-        uses: actions/upload-artifact@v4
-        with:
-          name: firmware-zips
-          path: |
-            *.zip
-
       - name: Debug release ref
         run: |
           echo "GITHUB_REF=$GITHUB_REF"
           echo "Tag name: ${GITHUB_REF##*/}"
 
-      - name: Ensure release exists
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v1
+      - name: Download all combo artifacts
+        uses: actions/download-artifact@v4
         with:
-          name: "Firmware Release ${{ github.ref_name }}"
-          tag_name: ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-          body: "Auto-generated firmware release for ${{ github.ref_name }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: charybdis-*
+          path: combo-artifacts/
 
-      - name: Upload each zip to GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        shell: bash
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+
+      - name: Upload each combo to GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          for zipfile in *.zip; do
-            echo "Uploading $zipfile to GitHub Release"
-            gh release upload "${GITHUB_REF##*/}" "$zipfile" --clobber || echo "Warning: upload failed for $zipfile"
+          TAG=${GITHUB_REF##*/}
+          for f in combo-artifacts/*; do
+            echo "Uploading $(basename "$f") to release $TAG"
+            gh release upload "$TAG" "$f" --clobber
           done
