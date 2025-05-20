@@ -74,6 +74,7 @@ jobs:
           path: config/
 
       - name: Prepare extra modules
+        shell: bash
         run: |
           mkdir -p "$BASE_DIR"/{config,boards/shields}
           cp -r config/*      "$BASE_DIR/config/"
