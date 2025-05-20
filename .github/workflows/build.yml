@@ -43,10 +43,22 @@ jobs:
         run: |
           python scripts/generate_matrix.py > build.json
 
-      - name: Generate firmware matrix JSON
+      - name: Make groups JSON
         id: make-groups
         run: |
-          groups=$(jq -c '[.[] | {keymap, format, shield, board, artifact: ."artifact-name"}]' build.json)
+          # load the raw build.json into a variable
+          raw=$(cat build.json)
+
+          # Use jq to transform each object {keymap,format,name,board}
+          groups=$(jq -c '
+            map({
+              keymap: .keymap,
+              format: .format,
+              name: .name,
+              board: .board
+            })
+          ' <<<"$raw")
+
           echo "groups=$groups" >> $GITHUB_OUTPUT
 
   build:
