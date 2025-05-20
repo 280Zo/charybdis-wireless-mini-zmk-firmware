@@ -60,6 +60,7 @@ jobs:
           ' <<<"$raw")
 
           echo "groups=$groups" >> $GITHUB_OUTPUT
+          echo "groups=$groups"
 
   build:
     needs: setup
@@ -88,10 +89,13 @@ jobs:
       - name: Prepare extra modules
         shell: bash
         run: |
-          mkdir -p "$BASE_DIR"/{config,boards/shields}
-          cp -r config/*      "$BASE_DIR/config/"
-          cp -r boards/shields/* "$BASE_DIR/boards/shields/"
-          echo "BASE_DIR=$BASE_DIR" >> $GITHUB_ENV
+          # make sandbox
+          mkdir -p "${BASE_DIR}/config" "${BASE_DIR}/boards/shields"
+          # copy everything from repo's config including the stock charybdis.keymap
+          cp -r config/* "${BASE_DIR}/config/"
+          # copy custom shields
+          cp -r boards/shields/* "${BASE_DIR}/boards/shields/"
+          echo "BASE_DIR=$BASE_DIR"       >> $GITHUB_ENV
           echo "EXTRA_CMAKE_ARGS=-DZMK_EXTRA_MODULES=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
 
       - name: Init west & fetch deps
@@ -110,6 +114,7 @@ jobs:
           KM=${{ matrix.combo.keymap }}
           FM=${{ matrix.combo.format }}
           NM=${{ matrix.combo.name }}
+          BD=${{ matrix.combo.board }}
 
           # map format → shields again in bash
           declare -A SH_MAP=(
@@ -135,10 +140,11 @@ jobs:
             # run the build
             west build -s zmk/app \
               -d "$BUILD_DIR" \
-              -b "${{ matrix.combo.board }}" \
-              -- -DZMK_CONFIG=config \
+              -b "$BD" \
+              -- -DZMK_CONFIG="${BASE_DIR}/config" \
                  -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" \
-                 -DSHIELD=$SH
+                 -DSHIELD=$SH \
+                 -DZEPHYR_EXTRA_DTC_OVERLAY_FILE="${BASE_DIR}/config/charybdis.keymap"
 
             # collect output
             mkdir -p "${GITHUB_WORKSPACE}/out/$NM"
