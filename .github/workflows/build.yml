@@ -177,6 +177,13 @@ jobs:
         with:
           path: combo-artifacts/
 
+      - name: Zip each combo
+        working-directory: combo-artifacts
+        run: |
+          for dir in */; do
+            zip -j "${dir%/}.zip" "$dir"/*
+          done
+
       - name: Create or update GitHub Release
         uses: softprops/action-gh-release@v1
         with:
