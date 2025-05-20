@@ -190,12 +190,13 @@ jobs:
           sudo apt-get install -y gh
 
       - name: Upload each combo to GitHub Release
-        working-directory: ${{ github.workspace }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG=${GITHUB_REF##*/}
           for f in combo-artifacts/*; do
             echo "Uploading $(basename "$f") to release $TAG"
-            gh release upload "$TAG" "$f" --clobber
+            gh release upload "$TAG" "$f" \
+              --repo "${{ github.repository }}" \
+              --clobber
           done
