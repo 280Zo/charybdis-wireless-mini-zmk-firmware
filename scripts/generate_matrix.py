@@ -17,14 +17,16 @@ for keymap in keymaps:
         groups.append({
             "keymap": keymap,
             "format": fmt,
-            "name": f"{keymap}-{fmt}"
+            "name": f"{keymap}-{fmt}",
+            "board": board,
         })
 
 # single reset entry
 groups.append({
     "keymap": "default",
     "format": "reset",
-    "name": "reset-nanov2"
+    "name": "reset-nanov2",
+    "board": board,
 })
 
 # Dump matrix as compact JSON (GitHub expects it this way)
