@@ -40,7 +40,7 @@ layers:
   - ESC SCRL SLOW
   - SYM
   - NUM
-  - '&lt ENTER'
+  - ENTER
   - SPACE NAV
   NUM:
   - {t: ▽, type: trans}
