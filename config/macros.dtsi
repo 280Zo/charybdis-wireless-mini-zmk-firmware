@@ -162,43 +162,43 @@
                 ;
         };
 
-        grave_macro: grave_macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&macro_tap &kp GRAVE>
-                , <&macro_tap &kp GRAVE>
-                , <&macro_tap &kp LEFT_ARROW>
-                ;
-        };
+        // grave_macro: grave_macro {
+        //     compatible = "zmk,behavior-macro";
+        //     #binding-cells = <0>;
+        //     bindings
+        //         = <&macro_tap &kp GRAVE>
+        //         , <&macro_tap &kp GRAVE>
+        //         , <&macro_tap &kp LEFT_ARROW>
+        //         ;
+        // };
 
-        minus_macro: minus_macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&macro_tap &kp SPACE>
-                , <&macro_tap &kp MINUS>
-                , <&macro_tap &kp SPACE>
-                ;
-        };
+        // minus_macro: minus_macro {
+        //     compatible = "zmk,behavior-macro";
+        //     #binding-cells = <0>;
+        //     bindings
+        //         = <&macro_tap &kp SPACE>
+        //         , <&macro_tap &kp MINUS>
+        //         , <&macro_tap &kp SPACE>
+        //         ;
+        // };
 
-        equals_macro: equals_macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&macro_tap &kp SPACE>
-                , <&macro_tap &kp EQUAL>
-                , <&macro_tap &kp SPACE>
-                ;
-        };
+        // equals_macro: equals_macro {
+        //     compatible = "zmk,behavior-macro";
+        //     #binding-cells = <0>;
+        //     bindings
+        //         = <&macro_tap &kp SPACE>
+        //         , <&macro_tap &kp EQUAL>
+        //         , <&macro_tap &kp SPACE>
+        //         ;
+        // };
 
-        home_macro: home_macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&macro_tap &kp TILDE>
-                , <&macro_tap &kp FSLH>
-                ;
-        };
+        // home_macro: home_macro {
+        //     compatible = "zmk,behavior-macro";
+        //     #binding-cells = <0>;
+        //     bindings
+        //         = <&macro_tap &kp TILDE>
+        //         , <&macro_tap &kp FSLH>
+        //         ;
+        // };
     };
 };
