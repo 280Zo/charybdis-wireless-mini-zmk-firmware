@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: charybdis}
 layers:
   BASE:
-  - L_BASE L_PHOTO L_GAME
+  - L_BASE L_GAME
   - Q
   - W
   - E
@@ -37,11 +37,11 @@ layers:
   - {t: ., s: ':'}
   - {t: '?', s: '!'}
   - RSHFT
-  - '&td_esc_scrl_slow'
+  - ESC SCRL SLOW
   - SYM
   - NUM
-  - {t: RETURN, h: NAV}
-  - '&td_space_nav'
+  - '&lt ENTER'
+  - SPACE NAV
   NUM:
   - {t: ▽, type: trans}
   - ''
@@ -91,11 +91,11 @@ layers:
   - ''
   - ''
   - ''
-  - '&detach_session'
-  - '&create_or_attach'
-  - '&next_pane'
-  - '&show_sessions'
-  - '&sync_panes'
+  - TMUX DETCH
+  - TMUX ATTCH
+  - TMUX NEXT
+  - TMUX SESH
+  - TMUX SYNC
   - ''
   - {t: ▽, type: trans}
   - BACK
@@ -124,7 +124,7 @@ layers:
   - ''
   - ''
   - {t: ▽, type: trans}
-  - {type: held}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   SYM:
   - ''
@@ -224,7 +224,7 @@ layers:
   - OUT TOG
   - BT CLR
   - SLEEP
-  - '&sudo'
+  - sudo!!
   - ''
   - ''
   - ''
