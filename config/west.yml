@@ -15,7 +15,6 @@ manifest:
     - name: zmk-pmw3610-driver
       remote: badjeff
       revision: main
-      path: modules/zmk-pmw3610-driver
 
   self:
     path: config

@@ -106,11 +106,6 @@ jobs:
           west update
           west zephyr-export
 
-      - name: List files in zmk-pmw3610-driver module
-        run: |
-          echo "Contents of zmk-pmw3610-driver module:"
-          ls -R modules/zmk-pmw3610-driver
-
       - name: Build all shields for ${{ matrix.combo.name }}
         shell: bash
         working-directory: ${{ env.BASE_DIR }}
@@ -148,7 +143,7 @@ jobs:
               -d "$BUILD_DIR" \
               -b "$BD" \
               -- -DZMK_CONFIG="${BASE_DIR}/config" \
-                 -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}/modules/zmk-pmw3610-driver" \
+                 -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" \
                  -DSHIELD=$SH \
                  -DZEPHYR_EXTRA_DTC_OVERLAY_FILE="${BASE_DIR}/config/charybdis.keymap;${BASE_DIR}/config/trackball.dtsi"
 
