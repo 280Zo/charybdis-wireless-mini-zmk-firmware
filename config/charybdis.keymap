@@ -12,7 +12,6 @@
 #include "behaviors.dtsi"
 #include "macros.dtsi"
 #include "combos.dtsi"
-#include "trackball.dtsi"
 
 / {
 // ╭──────┬──────┬──────┬──────┬──────┬──────╮  ╭──────┬──────┬──────┬──────┬──────┬──────╮

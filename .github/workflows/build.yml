@@ -145,7 +145,7 @@ jobs:
               -- -DZMK_CONFIG="${BASE_DIR}/config" \
                  -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" \
                  -DSHIELD=$SH \
-                 -DZEPHYR_EXTRA_DTC_OVERLAY_FILE="${BASE_DIR}/config/charybdis.keymap"
+                 -DZEPHYR_EXTRA_DTC_OVERLAY_FILE="${BASE_DIR}/config/charybdis.keymap;${BASE_DIR}/config/trackball.dtsi"
 
             # collect output
             mkdir -p "${GITHUB_WORKSPACE}/out/$NM"
