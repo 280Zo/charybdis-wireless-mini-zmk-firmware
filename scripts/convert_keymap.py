@@ -9,32 +9,27 @@ def main():
     # Define variables & write output keymap file
     #####################################################################
     
-    # Create the parser
-    parser = argparse.ArgumentParser(description="A script that converts ZMK keymap files from QWERTY <|> Colemak DH")
-
+    parser = argparse.ArgumentParser(
+        description="Convert ZMK keymap files between layouts (e.g. QWERTY⇄Colemak DH)"
+    )
     parser.add_argument(
         '-c', '--convert', 
         type=str, 
         choices=LAYOUT_MAPS.keys(),
         default='q2c',
-        help="Specify the conversion: 'q2c' will convert QWERTY to Colemak DH, 'c2q' will convert Colemak DH to QWERTY (default: 'q2c')"
+        help="Conversion: 'q2c' QWERTY→ColemakDH, 'c2q' ColemakDH→QWERTY, etc."
     )
-
     parser.add_argument(
         '--in-path',
         type=str,
         required=True,
-        help="Path to the input keymap file. This is the path where the ouitput will be stored as well"
+        help="Path to the input keymap file. Output is written alongside it."
     )
-
-    # Parse the arguments
     args = parser.parse_args()
 
-    # Set the variable for the chosen option
     conversion_type = args.convert
     full_path = args.in_path
-    
-    # Check argument values and convert keymap
+
     if conversion_type not in LAYOUT_MAPS:
         print(f"Error: Invalid conversion type '{conversion_type}'.")
         sys.exit(1)
@@ -44,69 +39,63 @@ def main():
     out_full_path = os.path.join(path, out_file)
 
     print("#####################################################################")
-    print(f"Selected conversion type: {conversion_type}")
-    print(f"path:........{path}")
-    print(f"input_file:..{in_file}")
-    print(f"out_file:....{out_file}")
+    print(f"Conversion: {conversion_type}")
+    print(f"Input:      {in_file}")
+    print(f"Output:     {out_file}")
     print("#####################################################################")
 
+    # your mapping dict, e.g. {'Q':'Q', 'W':'W', 'E':'F', …}
+    initial_keymap = LAYOUT_MAPS[conversion_type]
+
+    # Read original keymap
+    with open(full_path, 'r') as f:
+        keymap_contents = f.read()
+
     #####################################################################
-    # Define conversions
-    #####################################################################   
-    try:
-        initial_keymap = LAYOUT_MAPS[conversion_type]
-    except KeyError:
-        print(f"Unsupported conversion: {conversion_type}")
-        sys.exit(1)
-    
-    #####################################################################
-    # Read and store input keymap 
+    # Conversion functions
     #####################################################################
 
-    # Read the content of the keymap_contents
-    with open(full_path, 'r') as keymap_file:
-        keymap_contents = keymap_file.read()
-    
-    #####################################################################
-    # Functions
-    #####################################################################
+    # 1) Precisely capture only the BASE bindings block
+    base_pattern = re.compile(
+        r'(^\s*BASE\s*\{\s*bindings\s*=\s*<\s*\n)'  # start of BASE layer
+        r'(.*?)'                                    # everything inside
+        r'(^\s*>\s*;)',                             # closing >;
+        re.MULTILINE | re.DOTALL
+    )
 
-    def convert_keymap(keymap_contents):   
-        # Define regex pattern to find the 'Base' keymap section
-        base_keymap_pattern = re.compile(r'(BASE\s*\{\s*bindings\s*=\s*<\s*)(.*?)(\s*>;)', re.DOTALL)     
-        
-        # Apply regex substitution to convert keymap
-        new_keymap_contents = base_keymap_pattern.sub(replace_keymap, keymap_contents)
-        return new_keymap_contents
-    
-    # Find and replace the 'BASE' keymap layer
+    # 2) Regex to match any all-caps token (your keycodes)
+    code_pattern = re.compile(r'\b([A-Z][A-Z0-9_]*)\b')
+
     def replace_keymap(match):
-        before, block, after = match.group(1), match.group(2), match.group(3)
-        new_block = block
+        prefix, block, suffix = match.group(1), match.group(2), match.group(3)
+        # single-pass substitution: only swap tokens present in initial_keymap
+        def repl(tok_match):
+            token = tok_match.group(1)
+            return initial_keymap.get(token, token)
+        new_block = code_pattern.sub(repl, block)
+        return prefix + new_block + suffix
 
-        # For each mapping, do an in-place word-boundary replace.
-        # This touches only the key names (e.g. 'Q', 'X', 'SEMICOLON') 
-        # and leaves every space, comment, and box-drawing character untouched.
-        for old, new in initial_keymap.items():
-            # \b ensures we only match whole words like 'A' or 'SEMICOLON'
-            pattern = rf"\b{re.escape(old)}\b"
-            new_block = re.sub(pattern, new, new_block)
+    # Perform conversion
+    converted = base_pattern.sub(replace_keymap, keymap_contents)
 
-        return before + new_block + after
-    
-    converted_map = convert_keymap(keymap_contents)
-
-    # ——— New: print the converted BASE layer for verification ———
+    # Print out the new BASE layer for verification
     print(">> Converted BASE layer:\n")
-    print(converted_map)  
-    print("—————————————————————————")
+    # extract and print only the updated BASE block
+    base_only = base_pattern.search(converted)
+    if base_only:
+        print(base_only.group(1) + base_only.group(2) + base_only.group(3))
+    else:
+        print("⚠️  Warning: BASE layer not found in output!")
 
-    # Write the new keymap_contents to the output file
-    with open(out_full_path, 'w') as file:
-        file.write(converted_map)
-    
+    print("\n—————————————————————————")
+
+    # Write to output file
+    with open(out_full_path, 'w') as f:
+        f.write(converted)
+
     print("#####################################################################")
-    print(f"Updated keymap written to {out_full_path}")
+    print(f"Wrote updated keymap to {out_full_path}")
     print("#####################################################################")
+
 if __name__ == "__main__":
     main()
