@@ -79,7 +79,7 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <250>;
-            bindings = <&mkp RCLK>, <&mo =8>;  // tap/hold, double_tap
+            bindings = <&mkp RCLK>, <&mo 8>;  // tap/hold, double_tap
         };
 
         td_bore: BASE_or_EXTRA {
