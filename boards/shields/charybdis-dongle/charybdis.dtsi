@@ -6,12 +6,6 @@
         zmk,matrix_transform = &default_transform;
     };
 
-    // ZMK Studio
-    // chosen {
-    //     zmk,kscan = &kscan0;
-    //     zmk,physical-layout = &charybdis_physical_layout;
-    // };
-
     vbatt: vbatt {
 	compatible = "zmk,battery-nrf-vddh";
     };
