@@ -25,7 +25,7 @@
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
             hold-trigger-on-release;
-        )
+        };
 
         // Right-hand HRMs.
         ht_right: right_side_homerow_mod {
@@ -38,7 +38,7 @@
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
-        )
+        };
 
         td_esc_scrl_slow: td_scroll_or_cursor {
             compatible = "zmk,behavior-tap-dance";
