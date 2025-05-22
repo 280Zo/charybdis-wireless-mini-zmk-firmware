@@ -30,18 +30,14 @@
 		;
 };
 
-&spi0 {
-    status = "okay";
-};
-
-&trackball {
-    status = "okay";
-};
-
-// https://github.com/badjeff/zmk-pmw3610-driver
 / {
-  trackball_listener {
-    compatible = "zmk,input-listener";
-    device = <&trackball>;
-  };
+	vtrackball: virtual_input_trackball {
+		compatible = "zmk,virtual-input";
+	};
+
+	input_relay_config_trackball {
+		compatible = "zmk,split-peripheral-input-relay";
+		device = <&trackball>;
+		relay-channel = <111>;
+	};
 };
