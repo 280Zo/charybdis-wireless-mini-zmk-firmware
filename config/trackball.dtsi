@@ -1,4 +1,8 @@
 / {
+    intentional_build_break {};
+};
+
+/ {
     /* input config for mouse move mode */
     trackball_listener {
         compatible = "zmk,input-behavior-listener";
