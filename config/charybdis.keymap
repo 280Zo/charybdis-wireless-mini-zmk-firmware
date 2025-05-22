@@ -8,10 +8,10 @@
 #include <dt-bindings/zmk/ext_power.h>
 
 /* local overlays */
-#include "charybdis-layouts.dtsi"
-#include "behaviors.dtsi"
 #include "macros.dtsi"
+#include "behaviors.dtsi"
 #include "combos.dtsi"
+#include "charybdis-layouts.dtsi"
 
 / {
 // ╭──────┬──────┬──────┬──────┬──────┬──────╮  ╭──────┬──────┬──────┬──────┬──────┬──────╮
