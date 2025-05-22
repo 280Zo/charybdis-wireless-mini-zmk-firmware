@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: charybdis}
 layers:
   BASE:
-  - DEV TOOLS
+  - L_BASE L_PHOTO L_GAME
   - Q
   - W
   - E
@@ -12,20 +12,20 @@ layers:
   - I
   - O
   - P
-  - L_BASE L_PHOTO L_GAME
+  - DEL
   - TAB
-  - {t: A, h: SYM}
-  - S
-  - D
-  - F
+  - {t: A, h: LCMD}
+  - {t: S, h: LALT}
+  - {t: D, h: LSHFT}
+  - {t: F, h: LCTRL}
   - G
   - H
-  - J
-  - K
-  - L
-  - ;
-  - DEL
-  - SEARCH
+  - {t: J, h: RCTRL}
+  - {t: K, h: RSHFT}
+  - {t: L, h: LALT}
+  - {t: ;, h: RCMD}
+  - BSPC
+  - LSHFT
   - Z
   - X
   - C
@@ -33,15 +33,15 @@ layers:
   - B
   - N
   - M
-  - ','
-  - .
-  - ~/
-  - CLIP HIST
-  - SCRL SLOW
-  - L CLK
-  - '&td_bs'
-  - {t: RETURN, h: MOUSE}
-  - '&td_space'
+  - {t: ',', s: ;}
+  - {t: ., s: ':'}
+  - {t: '?', s: '!'}
+  - RSHFT
+  - '&td_esc_scrl_slow'
+  - SYM
+  - NUM
+  - {t: RETURN, h: NAV}
+  - '&td_space_nav'
   NUM:
   - {t: ▽, type: trans}
   - ''
@@ -81,7 +81,7 @@ layers:
   - ''
   - ''
   - ''
-  - {t: ▽, type: trans}
+  - {type: held}
   - '0'
   - SPACE
   NAV:
@@ -98,11 +98,11 @@ layers:
   - '&sync_panes'
   - ''
   - {t: ▽, type: trans}
+  - BACK
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - ''
+  - FWD
   - HSPLIT
   - LEFT
   - DOWN
@@ -124,7 +124,7 @@ layers:
   - ''
   - ''
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {type: held}
   - {t: ▽, type: trans}
   SYM:
   - ''
@@ -137,15 +137,15 @@ layers:
   - '&'
   - '{'
   - $
-  - '&td_grave'
+  - '`'
   - '!'
   - ''
-  - {type: held}
+  - ''
   - ''
   - ''
   - {t: ▽, type: trans}
   - ''
-  - '&td_hyphen'
+  - '-'
   - ;
   - (
   - '['
@@ -164,7 +164,7 @@ layers:
   - '%'
   - \
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -210,50 +210,8 @@ layers:
   - LEFT ALT
   - ''
   - ''
-  PHOTOS:
-  - {t: ▽, type: trans}
-  - TAG Z
-  - TAG E
-  - TAG A
-  - TAG S
-  - TAG B
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - {t: ▽, type: trans}
-  - FIT
-  - LEFT
-  - DOWN
-  - UP
-  - RIGHT
-  - LCTRL
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - {t: ▽, type: trans}
-  - SHRED
-  - SHOW TAGS
-  - REJECT
-  - PENDING
-  - ACCEPT
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
   EXTRAS:
-  - POWER
+  - ZMK Studio
   - SHRUG
   - LGTM
   - GIT COMMIT
@@ -276,66 +234,66 @@ layers:
   - PLAY PAUSE
   - STOP
   - NEXT
-  - ''
+  - SEARCH
   - LOCK
-  - ''
-  - ''
-  - ''
-  - ''
+  - UNDO
+  - CUT
+  - COPY
+  - PASTE
   - ''
   - NEW DIR
   - MUTE
   - VOLUME DOWN
   - VOLUME UP
   - PRINT SCREEN
-  - ZMK Studio
+  - CLIP HIST
   - ''
   - ''
   - ''
   - ''
   - ''
   MOUSE:
-  - ''
-  - WHEEL L
-  - WHEEL D
-  - MOVE UP
-  - WHEEL U
-  - WHEEL R
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - TAB
-  - BACK
-  - MOVE L
-  - MOVE D
-  - MOVE R
-  - FWD
-  - ''
-  - RIGHT SHIFT
-  - RCTRL
-  - LEFT ALT
-  - LCMD
-  - ''
-  - ''
-  - UNDO
-  - CUT
-  - COPY
-  - PASTE
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - L CLK
   - Mid CLK
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: RETURN, type: held}
-  - {t: ▽, type: trans}
+  - R CLK
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
   SLOW:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -426,97 +384,11 @@ combos:
   l: [BASE]
 - p: [38, 39]
   k: L_BASE L_EXTRA
-- p: [27, 37]
+- p: [25, 26]
+  k: L CLK
+- p: [26, 27]
   k: Mid CLK
-- p: [28, 37]
+- p: [27, 28]
   k: R CLK
-- p: [13, 37]
-  k: LCMD
-  l: [BASE]
-- p: [14, 37]
-  k: LEFT ALT
-  l: [BASE]
-- p: [15, 37]
-  k: LCTRL
-  l: [BASE]
-- p: [16, 37]
-  k: LEFT SHIFT
-  l: [BASE]
-- p: [15, 15, 37]
-  k: Ctl+ LALT
-  l: [BASE]
-- p: [15, 16, 37]
-  k: Ctl+ LSHFT
-  l: [BASE]
-- p: [15, 13, 37]
-  k: Ctl+ LCMD
-  l: [BASE]
-- p: [14, 16, 37]
-  k: Alt+ LSHFT
-  l: [BASE]
-- p: [14, 13, 37]
-  k: Alt+ LCMD
-  l: [BASE]
-- p: [16, 13, 37]
-  k: Sft+ LCMD
-  l: [BASE]
-- p: [26, 37]
-  k: Ctl+Alt+ LSHFT
-  l: [BASE]
-- p: [15, 14, 13, 37]
-  k: Ctl+Alt+ LCMD
-  l: [BASE]
-- p: [15, 16, 13, 37]
-  k: Ctl+Sft+ LCMD
-  l: [BASE]
-- p: [14, 16, 13, 37]
-  k: Alt+Sft+ LCMD
-  l: [BASE]
-- p: [27, 37]
-  k: Meh+ LCMD
-  l: [BASE]
-- p: [22, 40]
-  k: RCMD
-  l: [BASE]
-- p: [21, 40]
-  k: LEFT ALT
-  l: [BASE]
-- p: [20, 40]
-  k: RCTRL
-  l: [BASE]
-- p: [19, 40]
-  k: RIGHT SHIFT
-  l: [BASE]
-- p: [20, 21, 40]
-  k: Ctl+ LALT
-  l: [BASE]
-- p: [20, 19, 40]
-  k: Ctl+ LSHFT
-  l: [BASE]
-- p: [20, 22, 40]
-  k: Ctl+ LCMD
-  l: [BASE]
-- p: [21, 19, 40]
-  k: Alt+ LSHFT
-  l: [BASE]
-- p: [21, 22, 40]
-  k: Alt+ LCMD
-  l: [BASE]
-- p: [19, 22, 40]
-  k: Sft+ LCMD
-  l: [BASE]
-- p: [33, 40]
-  k: Ctl+Alt+ LSHFT
-  l: [BASE]
-- p: [20, 21, 22, 40]
-  k: Ctl+Alt+ LCMD
-  l: [BASE]
-- p: [20, 19, 22, 40]
-  k: Ctl+Sft+ LCMD
-  l: [BASE]
-- p: [21, 19, 22, 40]
-  k: Alt+Sft+ LCMD
-  l: [BASE]
-- p: [32, 40]
-  k: Meh+ LCMD
-  l: [BASE]
+- p: [13, 22]
+  k: {t: MOUSE, h: toggle}
