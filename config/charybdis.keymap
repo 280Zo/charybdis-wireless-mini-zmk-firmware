@@ -1,10 +1,12 @@
-#include <behaviors.dtsi>
+/* upstream bindings and behaviors */
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/outputs.h>
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/ext_power.h>
+
+/* local overlays */
 #include "charybdis-layouts.dtsi"
 #include "behaviors.dtsi"
 #include "macros.dtsi"

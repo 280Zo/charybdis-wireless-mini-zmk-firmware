@@ -49,3 +49,7 @@
 		relay-channel = <111>;
 	};
 };
+
+/* after vtrackball exists, bring in our behavior definitions */
+#include "trackball.dtsi"
+#include "keymap.dtsi"

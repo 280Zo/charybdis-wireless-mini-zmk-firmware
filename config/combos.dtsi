@@ -35,8 +35,6 @@
 
 
 
-
-
         // // Left Side Home Row Mods
         // combo_l_cmd {
         //     bindings = <&kp LCMD>;
