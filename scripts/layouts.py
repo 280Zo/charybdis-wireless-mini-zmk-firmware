@@ -10,7 +10,7 @@ COLEMAK_DH_TO_QWERTY = {v: k for k, v in QWERTY_TO_COLEMAK_DH.items()}
 
 # QWERTY → Graphite
 QWERTY_TO_GRAPHITE = {
-    'Q': 'B', 'W': 'L', 'E': 'D', 'R': 'W', 'Z': "'", 'Y': 'F', 'U': 'O', 'I': 'U', 'O': 'J', 'P': 'DEL',
+    'Q': 'B', 'W': 'L', 'E': 'D', 'R': 'W', 'T': "Z", 'Y': "SQT", 'U': 'F', 'I': 'O', 'O': 'U', 'P': 'J',
     'A': 'N', 'S': 'R', 'D': 'T', 'F': 'S', 'G': 'G', 'H': 'Y', 'J': 'H', 'K': 'A', 'L': 'E', 'SEMICOLON': 'I',
     'Z': 'Q', 'X': 'X', 'C': 'M', 'V': 'C', 'B': 'V', 'N': 'K', 'M': 'P',
 }

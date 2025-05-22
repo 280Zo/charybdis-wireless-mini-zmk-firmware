@@ -9,59 +9,9 @@
 #include "behaviors.dtsi"
 #include "macros.dtsi"
 #include "combos.dtsi"
+#include "trackball.dtsi"
 
 / {
-    /* input config for mouse move mode */
-    trackball_listener {
-        compatible = "zmk,input-behavior-listener";
-        device = <&vtrackball>;
-        layers = <0 2 7>;
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_X>;
-        y-input-code = <INPUT_REL_Y>;
-        scale-multiplier = <4>;
-        scale-divisor = <5>;
-        // bindings = <&ib_toggle_layer 7>;
-    };
-
-    /* input config for snipe mode */
-    trackball_snipe_listener {
-        compatible = "zmk,input-behavior-listener";   
-        device = <&vtrackball>;
-        layers = <8>;
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_X>;
-        y-input-code = <INPUT_REL_Y>;
-        scale-multiplier = <1>;
-        scale-divisor = <6>;
-    };
-
-    /* input config for mouse scroll mode */
-    trackball_scroll_listener {
-        compatible = "zmk,input-behavior-listener";
-        device = <&vtrackball>;
-        layers = <9>;
-        evt-type = <INPUT_EV_REL>;            
-        x-input-code = <INPUT_REL_MISC>;
-        y-input-code = <INPUT_REL_WHEEL>;
-        y-invert;
-        bindings = <&ib_wheel_scaler 1 14>;
-    };
-
-    /* define a resolution down scaler only for INPUT_REL_WHEEL */
-    ib_wheel_scaler: ib_wheel_scaler {
-        compatible = "zmk,input-behavior-scaler";
-        #binding-cells = <2>;
-        evt-type = <INPUT_EV_REL>;
-        input-code = <INPUT_REL_WHEEL>;
-    };
-
-    /* adjust cooldown waiting period for mouse key layer after activated */
-    ib_toggle_layer: ib_toggle_layer {
-        compatible = "zmk,input-behavior-tog-layer";
-        #binding-cells = <1>;
-        time-to-live-ms = <750>;
-    };
 // ╭──────┬──────┬──────┬──────┬──────┬──────╮  ╭──────┬──────┬──────┬──────┬──────┬──────╮
 //    00     01     02     03    04      05        06     07     08     09     10     11
 // ├──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┤
@@ -76,43 +26,42 @@
 // #define NAV     2
 // #define SYM     3
 // #define GAME    4
-// #define PHOTOS  5
-// #define EXTRAS  6
-// #define MOUSE   7
-// #define SLOW    8
-// #define SCROLL  9
+// #define EXTRAS  5
+// #define MOUSE   6
+// #define SLOW    7
+// #define SCROLL  8
 
     keymap {
         compatible = "zmk,keymap";
         BASE {
             bindings = <
-// ╭────────────────┬────────────┬─────────┬────────┬────────┬────────╮  ╭────────┬─────────┬───────────┬─────────────┬────────────────┬──────────────╮
-    &kp F12            &kp Q      &kp W      &kp E    &kp R    &kp T       &kp Y     &kp U   &kp I        &kp O         &kp P            &td_layers
-// ├────────────────┼────────────┼─────────┼────────┼────────┼────────┤  ├────────┼─────────┼───────────┼─────────────┼────────────────┼──────────────┤
-    &kp TAB            &lt 3 A    &kp S      &kp D    &kp F    &kp G       &kp H     &kp J   &kp K        &kp L         &kp SEMICOLON    &kp DEL
-// ├────────────────┼────────────┼─────────┼────────┼────────┼────────┤  ├────────┼─────────┼───────────┼─────────────┼────────────────┼──────────────┤
-    &kp C_AC_SEARCH    &kp Z      &kp X      &kp C    &kp V    &kp B       &kp N     &kp M   &kp COMMA    &kp PERIOD    &td_home         &clip_hist
-// ╰────────────────┴────────────┴─────────┼────────┼────────┼────────┤  ├────────┼─────────┼───────────┴─────────────┴────────────────┴──────────────╯
-                                    &td_cursor    &mkp LCLK    &td_bs      &lt 7 RETURN      &td_space
-                               // ╰─────────────┴────────────┴────────╯  ╰────────────────┴──────────────╯
+// ╭──────────┬────────────────┬────────────────┬─────────────────┬─────────────────┬──────╮  ╭──────┬──────────────────┬──────────────────┬─────────────────┬────────────────────────┬───────────╮
+    &td_layers &kp Q            &kp W            &kp E             &kp R             &kp T     &kp Y  &kp U              &kp I              &kp O             &kp P                     &kp DEL
+// ├──────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼───────────┤
+    &kp TAB    &ht_left LCMD A  &ht_left LALT S  &ht_left LSHFT D  &ht_left LCTRL F  &kp G     &kp H  &ht_right RCTRL J  &ht_right RSHFT K  &ht_right LALT L  &ht_right RCMD SEMICOLON  &kp BSPC
+// ├──────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼───────────┤
+    &kp LSHFT  &kp Z            &kp X            &kp C             &kp V             &kp B     &kp N  &kp M              &mm_cm_sc          &mm_pr_col        &mm_qm_ex                 &kp RSHFT
+// ╰──────────┴────────────────┴────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┴─────────────────┴────────────────────────┴───────────╯
+                                                           &td_esc_scrl_slow  &mo 3  &mo 1     &lt 2 RETURN  &td_space_nav
+                                                       // ╰──────────────────┴──────┴──────╯  ╰─────────────┴──────────────╯
             >;
         };
 
         NUM {
             bindings = <
-&trans   &none  &none  &none  &none          &none            &kp ASTRK  &hm F7 N7  &hm F8 N8  &hm F9 N9  &kp F10        &none
-&trans   &none  &none  &none  &kp BACKSPACE  &none            &kp MINUS  &hm F4 N4  &hm F5 N5  &hm F6 N6  &hm F11 PLUS   &trans
-&none    &none  &none  &none  &none          &none            &td_equals &hm F1 N1  &hm F2 N2  &hm F3 N3  &hm F12 SLASH  &none
-                       &none  &none          &trans           &kp N0    &kp SPACE
+&trans   &none  &none  &none  &none          &none            &kp ASTRK  &ht_num_func F7 N7  &ht_num_func F8 N8  &ht_num_func F9 N9  &kp F10                 &none
+&trans   &none  &none  &none  &kp BACKSPACE  &none            &kp MINUS  &ht_num_func F4 N4  &ht_num_func F5 N5  &ht_num_func F6 N6  &ht_num_func F11 PLUS   &trans
+&none    &none  &none  &none  &none          &none            &kp EQUAL  &ht_num_func F1 N1  &ht_num_func F2 N2  &ht_num_func F3 N3  &ht_num_func F12 SLASH  &none
+                       &none  &none          &trans           &kp N0     &kp SPACE
             >;
         };
 
         NAV {
             bindings = <
-&none   &none   &none   &none   &none   &none     &detach_session  &create_or_attach  &next_pane   &show_sessions  &sync_panes       &none
-&trans  &trans  &trans  &trans  &trans  &none     &h_split         &kp LEFT_ARROW     &kp DOWN     &kp UP          &kp RIGHT_ARROW   &none
-&none   &none   &none   &none   &none   &none     &v_split         &kp HOME           &kp PG_DN    &kp PG_UP       &kp END           &none
-                        &none   &none   &trans    &trans   &trans
+&none   &none     &none   &none   &none   &none        &detach_session  &create_or_attach  &next_pane   &show_sessions  &sync_panes       &none
+&trans  &mkp MB4  &trans  &trans  &trans  &mkp MB5     &h_split         &kp LEFT_ARROW     &kp DOWN     &kp UP          &kp RIGHT_ARROW   &none
+&none   &none     &none   &none   &none   &none        &v_split         &kp HOME           &kp PG_DN    &kp PG_UP       &kp END           &none
+                        &none   &none   &trans         &trans   &trans
             >;
         };
 
@@ -134,30 +83,21 @@
             >;
         };
 
-        PHOTOS {
-            bindings = <
-&trans          &kp LA(LC(LS(Z)))  &kp LA(LC(LS(E)))  &kp LA(LC(LS(A)))  &kp LA(LC(LS(S)))  &kp LA(LC(LS(B)))    &none   &none   &none  &none  &none  &trans
-&kp LC(LA(E))   &kp LEFT           &kp DOWN           &kp UP             &kp RIGHT          &kp LCTRL            &none   &none   &none  &none  &none  &trans
-&kp LS(DELETE)  &kp LA(LS(A))      &kp LA(KP_N1)      &kp LA(KP_N2)      &kp LA(KP_N3)      &none                &none   &none   &none  &none  &none  &none
-                                                      &trans             &trans             &trans               &trans  &trans
-            >;
-        };
-
         EXTRAS {
             bindings = <
-&kp C_POWER       &shrug  &lgtm     &gcm      &none  &kp C_BRIGHTNESS_INC    &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2       &bt BT_SEL 3  &out OUT_TOG     &bt BT_CLR
-&kp C_SLEEP       &sudo   &none     &none     &none  &kp C_BRIGHTNESS_DEC    &none         &kp C_PREVIOUS  &kp C_PLAY_PAUSE   &kp C_STOP    &kp C_NEXT       &none
-&kp C_AL_COFFEE   &none   &none     &none     &none  &none                   &new_dir      &kp K_MUTE      &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp PRINTSCREEN  &studio_unlock
-                                    &none     &none  &none                   &none         &none
+&studio_unlock    &shrug          &lgtm           &gcm            &none           &kp C_BRIGHTNESS_INC    &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2       &bt BT_SEL 3  &out OUT_TOG         &bt BT_CLR
+&kp C_SLEEP       &sudo           &none           &none           &none           &kp C_BRIGHTNESS_DEC    &none         &kp C_PREVIOUS  &kp C_PLAY_PAUSE   &kp C_STOP    &kp C_NEXT           &kp C_AC_SEARCH
+&kp C_AL_COFFEE   &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE  &none                   &new_dir      &kp K_MUTE      &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp PRINTSCREEN  &clip_hist
+                                                                                   &none  &none  &none    &none         &none
             >;
         };
 
         MOUSE {
             bindings = <
-&none    &msc MOVE_LEFT  &msc MOVE_UP    &mmv MOVE_UP    &msc MOVE_DOWN   &msc MOVE_RIGHT    &none  &none            &none      &none         &none          &none
-&kp TAB  &mkp MB4        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &mkp MB5           &none  &kp RIGHT_SHIFT  &kp RCTRL  &kp LEFT_ALT  &kp LCMD  &none
-&none    &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE   &mkp MCLK          &none  &none            &none      &none         &none          &none
-                                         &trans          &trans           &trans             &kp RETURN              &trans
+&to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0
+&to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0
+&to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0
+                              &mkp LCLK    &mkp MCLK    &mkp RCLK    &to 0    &to 0
             >;
         };
 
