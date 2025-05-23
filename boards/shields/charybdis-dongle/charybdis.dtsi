@@ -1,6 +1,12 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 
 / {
+    vtrackball: virtual_input_trackball {
+        compatible = "zmk,virtual-input";
+    };
+};
+
+/ {
     chosen {
         zmk,kscan = &kscan0;
         zmk,matrix_transform = &default_transform;

@@ -138,14 +138,7 @@ jobs:
               ART_NAME="reset-nanov2"
             fi
 
-            OVERLAYS=""
-
-            # Only include the keymap overlay on host builds
-            if [[ "$SH" == "charybdis_right" && "$FM" == "bt" ]]; then
-              OVERLAYS="${BASE_DIR}/config/charybdis.keymap"
-            elif [[ "$SH" == "charybdis_dongle" && "$FM" == "dongle" ]]; then
-              OVERLAYS="${BASE_DIR}/config/charybdis.keymap"
-            fi
+            echo "Building $SH in $FM format; overlays → »$OVERLAYS«"
 
             # run the build
             west build -s zmk/app \
