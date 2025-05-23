@@ -139,19 +139,20 @@ jobs:
             fi
 
             OVERLAYS=""
+            if [[ "$FM" != "reset" ]]; then
+              OVERLAYS="${BASE_DIR}/config/charybdis.keymap"
 
-            OVERLAYS="${BASE_DIR}/config/charybdis.keymap"
+              if [[ ("$SH" == "charybdis_right" && "$FM" == "bt") || ("$SH" == "charybdis_dongle" && "$FM" == "dongle") ]]; then
+                OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/behavior-listeners.dtsi"
+                OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/virtual-device.dtsi"
+              fi
 
-            # Host builds: charybdis_right (bt) or charybdis_dongle (dongle)
-            if [[ ("$SH" == "charybdis_right" && "$FM" == "bt") || ("$SH" == "charybdis_dongle" && "$FM" == "dongle") ]]; then
-              OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/behavior-listeners.dtsi"
-              OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/virtual-device.dtsi"
+              if [[ ("$SH" == "charybdis_left") || ("$SH" == "charybdis_right" && "$FM" == "dongle") ]]; then
+                OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/relay-config.dtsi"
+              fi
             fi
 
-            # Peripheral builds: charybdis_left (any) or charybdis_right (dongle)
-            if [[ ("$SH" == "charybdis_left") || ("$SH" == "charybdis_right" && "$FM" == "dongle") ]]; then
-              OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/relay-config.dtsi"
-            fi
+            echo "Using overlays: $OVERLAYS"
 
             # run the build
             west build -s zmk/app \
