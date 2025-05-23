@@ -140,14 +140,15 @@ jobs:
 
             OVERLAYS=""
 
-            OVERLAYS="${BASE_DIR}/config/charybdis.keymap;${BASE_DIR}/config/trackball/behavior-listeners.dtsi"
+            OVERLAYS="${BASE_DIR}/config/charybdis.keymap"
 
-            # Host device? Add vtrackball
+            # Host builds: charybdis_right (bt) or charybdis_dongle (dongle)
             if [[ ("$SH" == "charybdis_right" && "$FM" == "bt") || ("$SH" == "charybdis_dongle" && "$FM" == "dongle") ]]; then
+              OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/behavior-listeners.dtsi"
               OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/virtual-device.dtsi"
             fi
 
-            # Peripheral device? Add relay config
+            # Peripheral builds: charybdis_left (any) or charybdis_right (dongle)
             if [[ ("$SH" == "charybdis_left") || ("$SH" == "charybdis_right" && "$FM" == "dongle") ]]; then
               OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/relay-config.dtsi"
             fi
