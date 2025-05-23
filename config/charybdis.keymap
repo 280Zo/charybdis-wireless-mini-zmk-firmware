@@ -121,4 +121,55 @@
             >;
         };
     };
+    /* input config for mouse move mode */
+    trackball_move_listener {
+        compatible = "zmk,input-behavior-listener";
+        device = <&vtrackball>;
+        layers = <0 6>;
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+        scale-multiplier = <4>;
+        scale-divisor = <5>;
+        // bindings = <&ib_toggle_layer 7>;
+    };
+
+    /* input config for slow move mode */
+    trackball_snipe_listener {
+        compatible = "zmk,input-behavior-listener";   
+        device = <&vtrackball>;
+        layers = <7>;
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+        scale-multiplier = <1>;
+        scale-divisor = <6>;
+    };
+
+    /* input config for mouse scroll mode */
+    trackball_scroll_listener {
+        compatible = "zmk,input-behavior-listener";
+        device = <&vtrackball>;
+        layers = <8>;
+        evt-type = <INPUT_EV_REL>;            
+        x-input-code = <INPUT_REL_MISC>;
+        y-input-code = <INPUT_REL_WHEEL>;
+        y-invert;
+        bindings = <&ib_wheel_scaler 1 14>;
+    };
+
+    /* define a resolution down scaler only for INPUT_REL_WHEEL */
+    ib_wheel_scaler: ib_wheel_scaler {
+        compatible = "zmk,input-behavior-scaler";
+        #binding-cells = <2>;
+        evt-type = <INPUT_EV_REL>;
+        input-code = <INPUT_REL_WHEEL>;
+    };
+
+    /* adjust cooldown waiting period for mouse key layer after activated */
+    ib_toggle_layer: ib_toggle_layer {
+        compatible = "zmk,input-behavior-tog-layer";
+        #binding-cells = <1>;
+        time-to-live-ms = <750>;
+    };
 };

@@ -1,5 +1,0 @@
-/ {
-    vtrackball: virtual_input_trackball {
-        compatible = "zmk,virtual-input";
-    };
-};

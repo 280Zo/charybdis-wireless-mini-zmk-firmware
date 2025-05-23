@@ -141,18 +141,7 @@ jobs:
             OVERLAYS=""
             if [[ "$FM" != "reset" ]]; then
               OVERLAYS="${BASE_DIR}/config/charybdis.keymap"
-
-              if [[ ("$SH" == "charybdis_right" && "$FM" == "bt") || ("$SH" == "charybdis_dongle" && "$FM" == "dongle") ]]; then
-                OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/behavior-listeners.dtsi"
-                OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/virtual-device.dtsi"
-              fi
-
-              if [[ ("$SH" == "charybdis_left") || ("$SH" == "charybdis_right" && "$FM" == "dongle") ]]; then
-                OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/relay-config.dtsi"
-              fi
             fi
-
-            echo "Using overlays: $OVERLAYS"
 
             # run the build
             west build -s zmk/app \

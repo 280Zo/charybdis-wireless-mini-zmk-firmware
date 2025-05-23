@@ -29,3 +29,9 @@
 		, <&pro_micro 9 GPIO_ACTIVE_HIGH>
 		;
 };
+
+/ {
+    vtrackball: virtual_input_trackball {
+        compatible = "zmk,virtual-input";
+    };
+};
