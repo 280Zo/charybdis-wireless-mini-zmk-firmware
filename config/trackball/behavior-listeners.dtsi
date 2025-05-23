@@ -1,16 +1,16 @@
 / {
-    /* input config for mouse move mode */
-    trackball_move_listener {
-        compatible = "zmk,input-behavior-listener";
-        device = <&vtrackball>;
-        layers = <0 6>;
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_X>;
-        y-input-code = <INPUT_REL_Y>;
-        scale-multiplier = <4>;
-        scale-divisor = <5>;
-        // bindings = <&ib_toggle_layer 7>;
-    };
+    // /* input config for mouse move mode */
+    // trackball_move_listener {
+    //     compatible = "zmk,input-behavior-listener";
+    //     device = <&vtrackball>;
+    //     layers = <0 6>;
+    //     evt-type = <INPUT_EV_REL>;
+    //     x-input-code = <INPUT_REL_X>;
+    //     y-input-code = <INPUT_REL_Y>;
+    //     scale-multiplier = <4>;
+    //     scale-divisor = <5>;
+    //     // bindings = <&ib_toggle_layer 7>;
+    // };
 
     /* input config for slow move mode */
     trackball_snipe_listener {
@@ -28,7 +28,8 @@
     trackball_scroll_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&vtrackball>;
-        layers = <8>;
+        // layers = <8>;
+        layers = <3>;
         evt-type = <INPUT_EV_REL>;            
         x-input-code = <INPUT_REL_MISC>;
         y-input-code = <INPUT_REL_WHEEL>;
