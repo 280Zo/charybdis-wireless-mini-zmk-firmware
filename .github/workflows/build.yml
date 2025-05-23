@@ -146,8 +146,7 @@ jobs:
               -b "$BD" \
               -- -DZMK_CONFIG="${BASE_DIR}/config" \
                  -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" \
-                 -DSHIELD=$SH \
-                 ${OVERLAYS:+-DEXTRA_DTC_OVERLAY_FILE="$OVERLAYS"}
+                 -DSHIELD=$SH
 
             # collect output
             mkdir -p "${GITHUB_WORKSPACE}/out/$NM"
