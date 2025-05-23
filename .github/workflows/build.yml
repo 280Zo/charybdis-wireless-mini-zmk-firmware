@@ -139,7 +139,9 @@ jobs:
             fi
 
             OVERLAYS=""
-            if [[ "$FM" != "reset" ]]; then
+
+            # Only include keymap on host shields
+            if [[ ("$SH" == "charybdis_right" && "$FM" == "bt") || ("$SH" == "charybdis_dongle" && "$FM" == "dongle") ]]; then
               OVERLAYS="${BASE_DIR}/config/charybdis.keymap"
             fi
 
