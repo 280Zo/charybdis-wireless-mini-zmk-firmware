@@ -138,8 +138,6 @@ jobs:
               ART_NAME="reset-nanov2"
             fi
 
-            echo "Building $SH in $FM format; overlays → »$OVERLAYS«"
-
             # run the build
             west build -s zmk/app \
               -d "$BUILD_DIR" \
