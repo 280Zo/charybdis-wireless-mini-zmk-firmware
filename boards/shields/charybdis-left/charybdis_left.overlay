@@ -20,3 +20,12 @@
 		, <&pro_micro 9 GPIO_ACTIVE_HIGH>
 		;
 };
+
+/ {
+    /* Relay all trackball events over to the central half */
+    input_relay_config_trackball {
+        compatible = "zmk,split-peripheral-input-relay";
+        device = <&trackball>;      /* or &vtrackball if you’re using virtual_input */
+        relay-channel = <111>;      /* match your host’s listener channel */
+    };
+};

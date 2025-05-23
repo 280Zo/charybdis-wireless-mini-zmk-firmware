@@ -1,0 +1,13 @@
+# charybdis-dongle/Kconfig.defconfig
+if SHIELD_CHARYBDIS_DONGLE
+
+config ZMK_KEYBOARD_NAME
+    default "Charybdis"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+config ZMK_SPLIT
+    default y
+
+endif

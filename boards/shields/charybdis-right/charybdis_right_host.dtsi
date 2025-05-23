@@ -1,9 +1,9 @@
-&trackball { status = "okay"; };
-
-&{
+/ {
     trackball_listener {
-        compatible = "zmk,input-listener";
-        device      = <&trackball>;
-        destination = <&vtrackball>;
+        compatible    = "zmk,input-listener";
+        device        = <&trackball>;
+        destination   = <&vtrackball>;
+        split-role    = "central";
+        status        = "okay";
     };
 };

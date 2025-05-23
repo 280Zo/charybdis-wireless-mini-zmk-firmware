@@ -1,7 +1,9 @@
 / {
     input_relay_config_trackball {
-        compatible = "zmk,split-peripheral-input-relay";
-        device = <&trackball>;
-        relay-channel = <111>;
+        compatible     = "zmk,split-peripheral-input-relay";
+        device         = <&trackball>;
+        relay-channel  = <111>;
+        split-role     = "peripheral";
+        status         = "okay";
     };
 };

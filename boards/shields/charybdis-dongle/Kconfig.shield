@@ -1,0 +1,3 @@
+# boards/shields/charybdis-dongle/Kconfig.shield
+config SHIELD_CHARYBDIS_DONGLE
+    def_bool $(shields_list_contains,charybdis_dongle)

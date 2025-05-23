@@ -1,0 +1,14 @@
+# charybdis-left/Kconfig.defconfig
+if SHIELD_CHARYBDIS_LEFT
+
+config ZMK_KEYBOARD_NAME
+    default "Charybdis"
+
+# left is always a peripheral
+config ZMK_SPLIT_ROLE_PERIPHERAL
+    default y
+
+config ZMK_SPLIT
+    default y
+
+endif

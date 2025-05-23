@@ -1,0 +1,3 @@
+# boards/shields/charybdis-left/Kconfig.shield
+config SHIELD_CHARYBDIS_LEFT
+    def_bool $(shields_list_contains,charybdis_left)
