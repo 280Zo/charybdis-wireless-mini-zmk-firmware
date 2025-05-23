@@ -30,13 +30,16 @@
 		;
 };
 
+#ifdef HOST_ROLE
 / {
     vtrackball: virtual_input_trackball {
         compatible = "zmk,virtual-input";
     };
 };
+#endif
 
-
+/* Only in dongle format: */
+#ifdef PERIPHERAL_ROLE
 / {
     input_relay_config_trackball {
         compatible = "zmk,split-peripheral-input-relay";
@@ -44,3 +47,4 @@
         relay-channel = <111>;
     };
 };
+#endif
