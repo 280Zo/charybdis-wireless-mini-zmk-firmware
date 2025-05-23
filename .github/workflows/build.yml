@@ -138,10 +138,10 @@ jobs:
               ART_NAME="reset-nanov2"
             fi
 
-            # debug - test if overlay files exist
-            echo "Checking overlay files:"
-            ls -l "${BASE_DIR}/config/charybdis.keymap"
-            ls -l "${BASE_DIR}/config/trackball.dtsi"
+            OVERLAYS=""
+            if [[ "$FM" != "reset" ]]; then
+              OVERLAYS="${BASE_DIR}/config/charybdis.keymap;${BASE_DIR}/config/trackball.dtsi"
+            fi
 
             # run the build
             west build -s zmk/app \
@@ -150,7 +150,7 @@ jobs:
               -- -DZMK_CONFIG="${BASE_DIR}/config" \
                  -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" \
                  -DSHIELD=$SH \
-                 -DEXTRA_DTC_OVERLAY_FILE="${BASE_DIR}/config/charybdis.keymap;${BASE_DIR}/config/trackball.dtsi"
+                 ${OVERLAYS:+-DEXTRA_DTC_OVERLAY_FILE="$OVERLAYS"}
 
             # collect output
             mkdir -p "${GITHUB_WORKSPACE}/out/$NM"
