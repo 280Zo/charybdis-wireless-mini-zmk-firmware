@@ -1,4 +1,5 @@
 #include <dt-bindings/zmk/matrix_transform.h>
+#include "charybdis-layouts.dtsi"
 
 / {
     vtrackball: virtual_input_trackball {
@@ -9,7 +10,7 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-        zmk,physical-layout = &charybdis_physical_layout;
+        zmk,matrix_transform = &default_transform;
     };
 
     vbatt: vbatt {

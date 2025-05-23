@@ -1,0 +1,8 @@
+#include <dt-bindings/zmk/matrix_transform.h>
+#include "charybdis-layouts.dtsi"
+
+&{  /* top level */
+    vtrackball: virtual_input_trackball {
+        compatible = "zmk,virtual-input";
+    };
+};

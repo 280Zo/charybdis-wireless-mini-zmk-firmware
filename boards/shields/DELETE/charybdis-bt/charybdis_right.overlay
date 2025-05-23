@@ -30,6 +30,11 @@
 		;
 };
 
+/* activate the sensor on this half */
+&trackball {
+    status = "okay";
+};
+
 / {
     trackball_listener {
         compatible = "zmk,input-listener";

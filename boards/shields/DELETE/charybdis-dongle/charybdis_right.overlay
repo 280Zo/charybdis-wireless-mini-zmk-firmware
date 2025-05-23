@@ -29,3 +29,16 @@
 		, <&pro_micro 9 GPIO_ACTIVE_HIGH>
 		;
 };
+
+/* activate the sensor on this half */
+&trackball {
+    status = "okay";
+};
+
+/ {
+	input_relay_config_trackball {
+		compatible = "zmk,split-peripheral-input-relay";
+		device = <&trackball>;
+		relay-channel = <111>;
+	};
+};

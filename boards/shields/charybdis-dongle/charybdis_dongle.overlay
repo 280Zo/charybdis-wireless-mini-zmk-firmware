@@ -1,6 +1,7 @@
 #include "charybdis.dtsi"
+#include "pmw3610-common.dtsi"   /* ← optional; keeps label roster complete */
 
-/ {
+&{  /* mock matrix so central image links */
     chosen {
         zmk,kscan = &mock_kscan;
     };
@@ -8,15 +9,7 @@
     mock_kscan: kscan_1 {
         compatible = "zmk,kscan-mock";
         columns = <0>;
-        rows = <0>;
-        events = <0>;
-    };
-};
-
-/ {
-    trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-        destination = <&vtrackball>;
+        rows    = <0>;
+        events  = <0>;
     };
 };
