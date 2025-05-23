@@ -1,5 +1,4 @@
 #include "charybdis.dtsi"
-#include "charybdis_pmw3610.dtsi"
 
 &kscan0 {
 	compatible = "zmk,kscan-gpio-matrix";

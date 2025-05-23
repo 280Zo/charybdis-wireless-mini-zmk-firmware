@@ -35,3 +35,11 @@
         compatible = "zmk,virtual-input";
     };
 };
+
+/ {
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+        destination = <&vtrackball>;
+    };
+};
