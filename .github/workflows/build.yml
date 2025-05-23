@@ -139,8 +139,17 @@ jobs:
             fi
 
             OVERLAYS=""
-            if [[ "$SH" == "charybdis_right" && "$FM" == "bt" ]] || [[ "$SH" == "charybdis_dongle" && "$FM" == "dongle" ]]; then
-              OVERLAYS="${BASE_DIR}/config/charybdis.keymap;${BASE_DIR}/config/trackball.dtsi"
+
+            OVERLAYS="${BASE_DIR}/config/charybdis.keymap;${BASE_DIR}/config/trackball/behavior-listeners.dtsi"
+
+            # Host device? Add vtrackball
+            if [[ ("$SH" == "charybdis_right" && "$FM" == "bt") || ("$SH" == "charybdis_dongle" && "$FM" == "dongle") ]]; then
+              OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/virtual-device.dtsi"
+            fi
+
+            # Peripheral device? Add relay config
+            if [[ ("$SH" == "charybdis_left") || ("$SH" == "charybdis_right" && "$FM" == "dongle") ]]; then
+              OVERLAYS="$OVERLAYS;${BASE_DIR}/config/trackball/relay-config.dtsi"
             fi
 
             # run the build
