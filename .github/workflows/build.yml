@@ -138,21 +138,31 @@ jobs:
               ART_NAME="reset-nanov2"
             fi
 
-            ROLE_OVERLAY=""
+            # ROLE_OVERLAY=""
 
-            if [[ "$FM" == "bt" && "$SH" == "charybdis_right" ]]; then
-              ROLE_OVERLAY="${BASE_DIR}/boards/shields/charybdis-right/charybdis_right_host.dtsi"
-            elif [[ "$FM" == "dongle" && "$SH" == "charybdis_right" ]]; then
-              ROLE_OVERLAY="${BASE_DIR}/boards/shields/charybdis-right/charybdis_right_periph.dtsi"
-            fi
+            # if [[ "$FM" == "bt" && "$SH" == "charybdis_right" ]]; then
+            #   ROLE_OVERLAY="${BASE_DIR}/boards/shields/charybdis-right/charybdis_right_host.dtsi"
+            # elif [[ "$FM" == "dongle" && "$SH" == "charybdis_right" ]]; then
+            #   ROLE_OVERLAY="${BASE_DIR}/boards/shields/charybdis-right/charybdis_right_periph.dtsi"
+            # fi
+
+            # west build -s zmk/app \
+            #   -d "$BUILD_DIR" \
+            #   -b "$BD" \
+            #   -- -DZMK_CONFIG="${BASE_DIR}/config" \
+            #     -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" \
+            #     -DSHIELD=$SH \
+            #     -DDTC_INCLUDE_DIRS="$BASE_DIR/config" \
+            #     ${ROLE_OVERLAY:+-DEXTRA_DTC_OVERLAY_FILE="$ROLE_OVERLAY"}
 
             west build -s zmk/app \
               -d "$BUILD_DIR" \
               -b "$BD" \
-              -- -DZMK_CONFIG="${BASE_DIR}/config" \
+              -- \
+                -DZMK_CONFIG="${BASE_DIR}/config" \
                 -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" \
-                -DSHIELD=$SH \
-                ${ROLE_OVERLAY:+-DEXTRA_DTC_OVERLAY_FILE="$ROLE_OVERLAY"}
+                -DSHIELD="$SH" \
+                -DDTC_INCLUDE_DIRS="${BASE_DIR}/config"
 
             # collect output
             mkdir -p "${GITHUB_WORKSPACE}/out/$NM"
