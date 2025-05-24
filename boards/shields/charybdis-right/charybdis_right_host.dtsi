@@ -1,4 +1,12 @@
 / {
+    /* define the virtual interface */
+    vtrackball: virtual_input_trackball {
+        compatible = "zmk,virtual-input";
+        split-role = "central";
+        status     = "okay";
+    };
+
+    /* listen on that interface and re-emit host events */
     trackball_listener {
         compatible    = "zmk,input-listener";
         device        = <&trackball>;

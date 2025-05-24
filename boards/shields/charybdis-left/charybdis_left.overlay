@@ -1,5 +1,5 @@
-#include "charybdis.dtsi"
-#include "pmw3610-common.dtsi"
+#include <charybdis.dtsi>        /* keymatrix, transforms, chosen nodes */
+#include <pmw3610-common.dtsi>   /* PMW3610 sensor & SPI setup */
 
 &kscan0 {
 	compatible = "zmk,kscan-gpio-matrix";
@@ -21,11 +21,13 @@
 		;
 };
 
+/* Relay all trackball events over to the central half */
 / {
-    /* Relay all trackball events over to the central half */
     input_relay_config_trackball {
-        compatible = "zmk,split-peripheral-input-relay";
-        device = <&trackball>;      /* or &vtrackball if you’re using virtual_input */
-        relay-channel = <111>;      /* match your host’s listener channel */
+        compatible     = "zmk,split-peripheral-input-relay";
+        device         = <&trackball>;   /* or &vtrackball if using virtual_input */
+        relay-channel  = <111>;           /* match host’s listener channel */
+        split-role     = "peripheral";
+        status         = "okay";
     };
 };

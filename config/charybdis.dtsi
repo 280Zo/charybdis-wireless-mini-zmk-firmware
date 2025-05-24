@@ -1,8 +1,21 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "charybdis-layouts.dtsi"
 
-&{  /* top level */
-    vtrackball: virtual_input_trackball {
-        compatible = "zmk,virtual-input";
+/ {
+    /* which scanner & transform to use */
+    chosen {
+        zmk,kscan             = &kscan0;
+        zmk,matrix_transform  = &default_transform;
+    };
+
+    /* battery monitor on the dongle (if used) */
+    vbatt: vbatt {
+        compatible = "zmk,battery-nrf-vddh";
+    };
+
+    /* your rows/cols are set per‐shield in that shield’s .overlay */
+    kscan0: kscan {
+        compatible      = "zmk,kscan-gpio-matrix";
+        diode-direction = "row2col";
     };
 };
