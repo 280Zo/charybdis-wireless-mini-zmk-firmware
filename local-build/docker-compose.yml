@@ -1,0 +1,10 @@
+# local_build/docker-compose.yml
+services:
+  builder:
+    image: zmkfirmware/zmk-dev-arm:stable
+    volumes:
+      - ../zmk:/workspaces/zmk           # upstream ZMK firmware repo
+      - ../config:/workspaces/zmk-config # local keymap/overlay/config files
+      - ../boards:/workspaces/zmk-boards # local board and shield files
+    working_dir: /workspaces/zmk
+    command: bash

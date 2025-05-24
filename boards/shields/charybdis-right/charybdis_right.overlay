@@ -1,5 +1,5 @@
-#include <charybdis.dtsi>
-#include <pmw3610-common.dtsi>
+#include "charybdis.dtsi"
+#include "pmw3610-common.dtsi"
 
 // The matrix transform is 6 columns over because the left half is 6 columns wide.
 &default_transform {

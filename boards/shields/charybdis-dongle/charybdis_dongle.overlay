@@ -1,5 +1,5 @@
-#include <charybdis.dtsi>
-#include <pmw3610-common.dtsi>   /* ← optional; keeps label roster complete */
+#include "charybdis.dtsi"
+#include "pmw3610-common.dtsi"   /* ← optional; keeps label roster complete */
 
 &{  /* mock matrix so central image links */
     chosen {
