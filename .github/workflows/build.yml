@@ -155,6 +155,9 @@ jobs:
             #     -DDTC_INCLUDE_DIRS="$BASE_DIR/config" \
             #     ${ROLE_OVERLAY:+-DEXTRA_DTC_OVERLAY_FILE="$ROLE_OVERLAY"}
 
+            echo "DEBUG:"
+            ls -R ${BASE_DIR}/config
+
             west build -s zmk/app \
               -d "$BUILD_DIR" \
               -b "$BD" \
