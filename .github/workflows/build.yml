@@ -155,8 +155,10 @@ jobs:
             #     -DDTC_INCLUDE_DIRS="$BASE_DIR/config" \
             #     ${ROLE_OVERLAY:+-DEXTRA_DTC_OVERLAY_FILE="$ROLE_OVERLAY"}
 
-            echo "DEBUG:"
             ls -R ${BASE_DIR}/config
+            ls -R /tmp/zmk-config/boards/shields/charybdis-left
+            ls -R /tmp/zmk-config/boards/shields/charybdis-right
+            ls -R /tmp/zmk-config/boards/shields/charybdis-dongle
 
             west build -s zmk/app \
               -d "$BUILD_DIR" \
