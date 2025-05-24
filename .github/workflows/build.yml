@@ -167,7 +167,7 @@ jobs:
                 -DZMK_CONFIG="${BASE_DIR}/config" \
                 -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" \
                 -DSHIELD="$SH" \
-                -DZEPHYR_EXTRA_DTC_FLAGS="-I${BASE_DIR}/config"
+                -DZEPHYR_EXTRA_DTC_FLAGS=-I${BASE_DIR}/config
 
 
             # collect output
