@@ -17,6 +17,7 @@ Make sure you have:
 
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
+- `git submodule add https://github.com/zmkfirmware/zmk.git zmk` to add zmk to this repo if it's not already there
 
 The cloned repo will contain:
 - `zmk/` → full ZMK source repo
@@ -60,10 +61,12 @@ Examples:
 ## right side in bluetooth format
 west build -p -d build/right-bt -s app -b nice_nano_v2 \
   -- \
-    -DBOARD_ROOT:STRING="/workspaces/zmk/app;/workspaces" \
     -DSHIELD=charybdis_right \
-    -DZMK_CONFIG=/workspaces/zmk-config \
-    -DZMK_EXTRA_MODULES=/workspaces/zmk
+    -DDTS_EXTRA_CPPFLAGS="-I/workspaces/zmk-config -I/workspaces/zmk/app/include" \
+    -DZMK_CONFIG=/workspaces/zmk-config
+    -DZMK_EXTRA_MODULES=/workspaces/zmk \
+    -DZEPHYR_EXTRA_DTC_OVERLAY_FILE="/workspaces/zmk-config/config/boards/shields/charybdis_right_host.dtsi"
+
 
 
 ## right side in dongle format

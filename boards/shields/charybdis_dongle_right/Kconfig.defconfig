@@ -4,10 +4,7 @@ if SHIELD_CHARYBDIS_RIGHT
 config ZMK_KEYBOARD_NAME
     default "Charybdis"
 
-config ZMK_SPLIT_BLE_ROLE_CENTRAL   # <- BT build needs BLE-Central
-    default y
-
-config ZMK_SPLIT                   # <- both halves are split
+config ZMK_SPLIT
     default y
 
 endif

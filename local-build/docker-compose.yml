@@ -1,10 +1,14 @@
-# local_build/docker-compose.yml
 services:
   builder:
     image: zmkfirmware/zmk-dev-arm:stable
     volumes:
-      - ../zmk:/workspaces/zmk           # upstream ZMK firmware repo
-      - ../config:/workspaces/zmk-config # local keymap/overlay/config files
-      - ../boards:/workspaces/zmk-boards # local board and shield files
+      - ../zmk:/workspaces/zmk                 # upstream ZMK repo
+      - ../config:/workspaces/zmk-config:ro    # local ZMK keymap / overlays / .dtsi
+      - ../boards:/workspaces/zmk-boards:ro    # local ZMK boards
+      - ../scripts:/workspaces/zmk-scripts:ro  # local ZMK scripts
+      - ./build_setup.sh:/entrypoint.sh:ro     # script to run on container start
+      - ../zephyr:/workspaces/zephyr:ro        # zephyr module
+      - ../firmwares:/workspaces/zmk-firmwares  # ZMK firmware storage
     working_dir: /workspaces/zmk
-    command: bash
+    entrypoint: ["bash", "/entrypoint.sh"]
+    command: ["bash"]
