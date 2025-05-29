@@ -88,18 +88,18 @@ for shield in "${shields[@]}"; do
   if [ -d "$REPO_ROOT/zmk/modules" ]; then cp -r "$REPO_ROOT/zmk/modules" "$BUILD_REPO/zmk/modules"; fi
 
   # Install only the custom shield into the ZMK module’s shields directory
-echo "📂 Installing custom shield into ZMK module"
-ZMK_SHIELDS_DIR="$BUILD_REPO/zmk/app/boards/shields"
-rm -rf "$ZMK_SHIELDS_DIR"/*
-mv "$BUILD_REPO/$SHIELD_PATH/$shield" "$ZMK_SHIELDS_DIR/"
+  echo "📂 Installing custom shield into ZMK module"
+  ZMK_SHIELDS_DIR="$BUILD_REPO/zmk/app/boards/shields"
+  rm -rf "$ZMK_SHIELDS_DIR"/*
+  mv "$BUILD_REPO/$SHIELD_PATH/$shield" "$ZMK_SHIELDS_DIR/"
 
-# Ensure charybdis-layouts.dtsi is in the shield directory for overlay includes
-LAYOUTS_SRC="$BASE_DIR/$CONFIG_PATH/charybdis-layouts.dtsi"
-if [ -f "$LAYOUTS_SRC" ]; then
-  cp "$LAYOUTS_SRC" "$ZMK_SHIELDS_DIR/$shield/charybdis-layouts.dtsi"
-fi
+  # Ensure charybdis-layouts.dtsi is in the shield directory for overlay includes
+  LAYOUTS_SRC="$BASE_DIR/$CONFIG_PATH/charybdis-layouts.dtsi"
+  if [ -f "$LAYOUTS_SRC" ]; then
+    cp "$LAYOUTS_SRC" "$ZMK_SHIELDS_DIR/$shield/charybdis-layouts.dtsi"
+  fi
 
-# Initialize and export west workspace inside the zmk module folder
+ # Initialize and export west workspace inside the zmk module folder
   cd "$BUILD_REPO/zmk"
   if [ ! -d ".west" ]; then
     echo "🔄 Initializing west workspace in sandbox (zmk/.west)..."
@@ -155,9 +155,21 @@ fi
       fi
 
       # Create keymap-specific directory and use target as the filename
-      FIRMWARES_DIR="/workspaces/zmk-firmwares/${keymap}"
-      mkdir -p "$FIRMWARES_DIR"
-      chmod 777 "$FIRMWARES_DIR"
+      FIRMWARES_FORMAT_DIR="/workspaces/zmk-firmwares/${shield}"
+      FIRMWARES_DIR="${FIRMWARES_FORMAT_DIR}/${keymap}"
+
+      # If format directory doesn't exist, create and chmod it
+      if [ ! -d "$FIRMWARES_FORMAT_DIR" ]; then
+        mkdir -p "$FIRMWARES_FORMAT_DIR"
+        chmod 777 "$FIRMWARES_FORMAT_DIR"
+      fi
+
+      # If keymap directory doesn't exist, create and chmod it
+      if [ ! -d "$FIRMWARES_DIR" ]; then
+        mkdir -p "$FIRMWARES_DIR"
+        chmod 777 "$FIRMWARES_DIR"
+      fi
+
       DEST="$FIRMWARES_DIR/${target}.${ARTIFACT_EXT}"
       echo "🚚 Publishing $ARTIFACT_SRC → $DEST"
       cp "$ARTIFACT_SRC" "$DEST"
