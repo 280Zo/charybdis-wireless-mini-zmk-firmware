@@ -121,6 +121,11 @@
             >;
         };
     };
+};
+
+
+#ifdef CONFIG_ZMK_SPLIT_ROLE_CENTRAL
+/ {
     /* input config for mouse move mode */
     trackball_move_listener {
         compatible = "zmk,input-behavior-listener";
@@ -173,3 +178,15 @@
         time-to-live-ms = <750>;
     };
 };
+#endif
+
+#ifdef CONFIG_ZMK_SPLIT_ROLE_PERIPHERAL
+/ {
+    input_relay_config_trackball {
+        compatible     = "zmk,split-peripheral-input-relay";
+        device         = <&trackball>;
+        relay-channel  = <111>;
+        status         = "okay";
+    };
+};
+#endif

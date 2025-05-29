@@ -79,23 +79,21 @@ def main():
     converted = base_pattern.sub(replace_keymap, keymap_contents)
 
     # Print out the new BASE layer for verification
-    print(">> Converted BASE layer:\n")
-    # extract and print only the updated BASE block
     base_only = base_pattern.search(converted)
-    if base_only:
-        print(base_only.group(1) + base_only.group(2) + base_only.group(3))
-    else:
+    if not base_only:
         print("⚠️  Warning: BASE layer not found in output!")
+    # uncomment to print new baselayer to stdout
+    # else:
+        # print(">> Converted BASE layer:\n")
+        # print(base_only.group(1) + base_only.group(2) + base_only.group(3))
+        
 
-    print("\n—————————————————————————")
 
     # Write to output file
     with open(out_full_path, 'w') as f:
         f.write(converted)
 
-    print("#####################################################################")
-    print(f"Wrote updated keymap to {out_full_path}")
-    print("#####################################################################")
+    print(f">> Wrote updated keymap to {out_full_path}")
 
 if __name__ == "__main__":
     main()

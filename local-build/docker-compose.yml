@@ -2,13 +2,14 @@ services:
   builder:
     image: zmkfirmware/zmk-dev-arm:stable
     volumes:
-      - ../zmk:/workspaces/zmk                 # upstream ZMK repo
-      - ../config:/workspaces/zmk-config:ro    # local ZMK keymap / overlays / .dtsi
-      - ../boards:/workspaces/zmk-boards:ro    # local ZMK boards
-      - ../scripts:/workspaces/zmk-scripts:ro  # local ZMK scripts
-      - ./build_setup.sh:/entrypoint.sh:ro     # script to run on container start
-      - ../zephyr:/workspaces/zephyr:ro        # zephyr module
-      - ../firmwares:/workspaces/zmk-firmwares  # ZMK firmware storage
+      # Bind-mount entire repo read-only
+      - ../:/workspaces/zmk:ro
+      # Persist built firmware to host
+      - ../firmwares:/workspaces/zmk-firmwares:rw
     working_dir: /workspaces/zmk
-    entrypoint: ["bash", "/entrypoint.sh"]
-    command: ["bash"]
+    entrypoint: []
+    command:
+      - bash
+      - ./local-build/build_setup.sh
+    tty: true
+    stdin_open: true

@@ -1,3 +1,14 @@
+# for a bash prompt
+docker-compose run --rm --entrypoint bash builder
+- Then execute the script?
+
+# for no bash prompt
+docker-compose run --rm builder
+
+
+
+---
+
 # 🛠️ Local ZMK Firmware Builds (Dockerized)
 
 This setup provides a **fast, containerized build environment** for [ZMK Firmware](https://zmk.dev), allowing you to compile firmware locally without pushing changes to GitHub or installing any toolchains on your system.

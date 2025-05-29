@@ -1,5 +1,7 @@
 #include "charybdis.dtsi"
-#include "pmw3610-common.dtsi"
+#include "charybdis_pmw3610.dtsi"
+
+// This file provides a shield description in devicetree format that is merged with the board’s devicetree before compilation.
 
 // The matrix transform is 6 columns over because the left half is 6 columns wide.
 &default_transform {
@@ -30,13 +32,18 @@
 		;
 };
 
+&spi0 {
+    status = "okay";
+};
+
+&trackball {
+    status = "okay";
+};
+
+// https://github.com/badjeff/zmk-pmw3610-driver
 / {
-    /* forward raw sensor events when in peripheral role */
-    input_relay_config_trackball {
-        compatible     = "zmk,split-peripheral-input-relay";
-        device         = <&trackball>;
-        relay-channel  = <111>;
-        split-role     = "peripheral";
-        status         = "okay";
-    };
+  trackball_listener {
+    compatible = "zmk,input-listener";
+    device = <&trackball>;
+  };
 };
