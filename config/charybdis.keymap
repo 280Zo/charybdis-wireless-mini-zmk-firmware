@@ -11,7 +11,6 @@
 #include "macros.dtsi"
 #include "behaviors.dtsi"
 #include "combos.dtsi"
-#include "charybdis-layouts.dtsi"
 
 / {
 // ╭──────┬──────┬──────┬──────┬──────┬──────╮  ╭──────┬──────┬──────┬──────┬──────┬──────╮
@@ -180,13 +179,13 @@
 };
 #endif
 
-#ifdef CONFIG_ZMK_SPLIT_ROLE_PERIPHERAL
-/ {
-    input_relay_config_trackball {
-        compatible     = "zmk,split-peripheral-input-relay";
-        device         = <&trackball>;
-        relay-channel  = <111>;
-        status         = "okay";
-    };
-};
-#endif
+// #ifdef CONFIG_ZMK_SPLIT_ROLE_PERIPHERAL
+// / {
+//     input_relay_config_trackball {
+//         compatible     = "zmk,split-peripheral-input-relay";
+//         device         = <&trackball>;
+//         relay-channel  = <111>;
+//         status         = "okay";
+//     };
+// };
+// #endif

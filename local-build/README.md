@@ -64,6 +64,16 @@ Once inside the shell, you can execute the script manually, or go troubleshootin
 bash ./local-build/build_setup.sh
 ```
 
+### Only Build QWERTY
+
+If you only want to build the firmware for QWERTY keyboards, open the `local-build/build_setup.sh` script, and comment out the lines that run the convert_keymap.py script. An example is below:
+
+```bash
+# echo "🔧 Generating additional keymaps"
+# python3 "$SCRIPT_PATH" -c q2c --in-path "$KEYMAP_TEMP/charybdis.keymap"
+# python3 "$SCRIPT_PATH" -c q2g --in-path "$KEYMAP_TEMP/charybdis.keymap"
+```
+
 ---
 
 ## Troubleshooting

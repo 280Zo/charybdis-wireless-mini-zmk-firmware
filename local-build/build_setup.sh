@@ -99,6 +99,12 @@ for shield in "${shields[@]}"; do
     cp "$LAYOUTS_SRC" "$ZMK_SHIELDS_DIR/$shield/charybdis-layouts.dtsi"
   fi
 
+  # Ensure charybdis_pmw3610.dtsi is in the shield directory for overlay includes
+  LAYOUTS_SRC="$BASE_DIR/$CONFIG_PATH/charybdis_pmw3610.dtsi"
+  if [ -f "$LAYOUTS_SRC" ]; then
+    cp "$LAYOUTS_SRC" "$ZMK_SHIELDS_DIR/$shield/charybdis_pmw3610.dtsi"
+  fi
+
  # Initialize and export west workspace inside the zmk module folder
   cd "$BUILD_REPO/zmk"
   if [ ! -d ".west" ]; then
@@ -125,21 +131,30 @@ for shield in "${shields[@]}"; do
     for keymap in "${keymaps[@]}"; do
       board="nice_nano_v2"
       artifact_name="${target}-${keymap}-${board}-zmk"
-      echo "⚙️  Building: shield=$target, keymap=$keymap, board=$board"
+      echo "⚙️  Building: shield=$shield, target=$target keymap=$keymap, board=$board"
 
       BUILD_DIR=$(mktemp -d)
       echo "  → Build dir: $BUILD_DIR"
 
+      # turn on ZMK Studio for bluetooth build
+      if [[ "$shield" == *bt* ]]; then
+        STUDIO_SNIPPET="-S studio-rpc-usb-uart"
+      else
+        STUDIO_SNIPPET=""
+      fi
+
+      # load in the keymap
       cp "$KEYMAP_TEMP/${keymap}.keymap" \
          "$BASE_DIR/$CONFIG_PATH/charybdis.keymap"
 
       west build --pristine -s app \
         -d "$BUILD_DIR" \
         -b "$board" \
-        -S studio-rpc-usb-uart \
+        $STUDIO_SNIPPET \
         -- \
           -DZMK_CONFIG="$BASE_DIR/$CONFIG_PATH" \
           -DSHIELD="$target" $ZMK_LOAD_ARG
+          # -DCMAKE_VERBOSE_MAKEFILE=ON # verbose logging
       
       # Find the built firmware (prefer .uf2, else fallback)
       ARTIFACT_SRC=""
