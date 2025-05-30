@@ -1,15 +1,20 @@
-#include "charybdis.dtsi"
-
 / {
     chosen {
         zmk,kscan = &mock_kscan;
     };
 
+    // Create mock layout and keymap to prevent linking errors on dongle build
     mock_kscan: kscan_1 {
         compatible = "zmk,kscan-mock";
-        columns = <0>;
-        rows = <0>;
-        events = <0>;
+        columns = <1>;
+        rows = <1>;
+        events = <1>;
+    };
+
+    dongle_keymap {
+        compatible = "zmk,keymap";
+        label = "Dummy dongle keymap";
+        bindings = <&none>;
     };
 };
 

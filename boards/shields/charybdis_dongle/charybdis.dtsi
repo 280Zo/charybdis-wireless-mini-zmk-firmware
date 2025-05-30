@@ -7,11 +7,11 @@
     //     zmk,matrix_transform = &default_transform;
     // };
 
+    // Replacement for matrix_transform
     chosen {
         zmk,kscan = &kscan0;
         zmk,physical-layout = &charybdis_physical_layout;
     };
-
 
     /* battery monitor*/
     vbatt: vbatt {
