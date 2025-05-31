@@ -35,16 +35,34 @@ docker-compose run --rm builder
 
 ### 3. Firmware Output
 
-Firmware files will be placed under firmwares/ on your host, in subdirectories by keymap. Each file is named for the shield/side (e.g. charybdis_left.uf2). Example:
+Firmware files will be placed in under the firmwares directory in the root of the repo on your host. They will be grouped by format (bt/dongle) and keymap:
 
 ```bash
 firmwares/
-  qwerty/
-    charybdis_left.uf2
-    charybdis_right.uf2
-  colemak_dh/
-    charybdis_left.uf2
-    charybdis_right.uf2
+├── charybdis_bt
+│   ├── colemak_dh
+│   │   ├── charybdis_left.uf2
+│   │   └── charybdis_right.uf2
+│   ├── graphite
+│   │   ├── charybdis_left.uf2
+│   │   └── charybdis_right.uf2
+│   └── qwerty
+│       ├── charybdis_left.uf2
+│       └── charybdis_right.uf2
+├── charybdis_dongle
+│   ├── colemak_dh
+│   │   ├── charybdis_dongle.uf2
+│   │   ├── charybdis_left.uf2
+│   │   └── charybdis_right.uf2
+│   ├── graphite
+│   │   ├── charybdis_dongle.uf2
+│   │   ├── charybdis_left.uf2
+│   │   └── charybdis_right.uf2
+│   └── qwerty
+│       ├── charybdis_dongle.uf2
+│       ├── charybdis_left.uf2
+│       └── charybdis_right.uf2
+└── settings_reset.uf2
 ```
 
 ---
@@ -80,7 +98,10 @@ If you only want to build the firmware for QWERTY keyboards, open the `local-bui
 
 - If the firmware is not output as expected, use the shell method above to inspect `/workspaces/zmk-firmwares` or rerun the script with debugging.
 
-- Check the script output for any warnings or errors about missing shields, keymaps, or build failures.
+- Check the script output for any warnings or errors about missing shields, keymaps, or build failures. If you'd like to save the script output to a file for local parsing in a text editor start the build container with this command:
+  ```bash
+  docker-compose run --rm builder > logs.txt 2>&1
+  ```
 
 ---
 

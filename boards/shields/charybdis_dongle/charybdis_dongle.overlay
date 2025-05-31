@@ -1,3 +1,4 @@
+// Documentation: https://zmk.dev/docs/development/hardware-integration/dongle#building-the-firmware
 / {
     chosen {
         zmk,kscan = &mock_kscan;

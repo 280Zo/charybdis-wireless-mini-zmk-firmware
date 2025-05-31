@@ -93,7 +93,7 @@ def main():
     with open(out_full_path, 'w') as f:
         f.write(converted)
 
-    print(f">> Wrote updated keymap to {out_full_path}")
+    print(f"→ Wrote updated keymap to {out_full_path}")
 
 if __name__ == "__main__":
     main()
