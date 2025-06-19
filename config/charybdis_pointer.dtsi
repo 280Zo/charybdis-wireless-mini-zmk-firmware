@@ -3,7 +3,7 @@
 
 &trackball_listener {
     /* base processor chain on all layers */
-    input-processors = <&zip_xy_scaler 4 5>;
+    input-processors = <&zip_xy_scaler 5 5>;
 
     /* layer-8 scroll override */
     scroller: scroller {
@@ -20,7 +20,3 @@
         input-processors = <&zip_xy_scaler 1 6>;
     };
 };
-
-
-// Set pointer speed higher
-// Fix error so vertical scroll is not reversed
