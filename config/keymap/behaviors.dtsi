@@ -14,7 +14,7 @@
             bindings = <&kp>, <&kp>;  // hold, tap
         };
 
-        // Left-hand HRMs.
+        // Left-hand HRM
         ht_left: left_side_homerow_mod {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -27,7 +27,7 @@
             hold-trigger-on-release;
         };
 
-        // Right-hand HRMs.
+        // Right-hand HRM
         ht_right: right_side_homerow_mod {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
