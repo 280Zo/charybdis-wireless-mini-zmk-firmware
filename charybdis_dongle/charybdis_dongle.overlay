@@ -1,4 +1,6 @@
 // Documentation: https://zmk.dev/docs/development/hardware-integration/dongle#building-the-firmware
+#include "charybdis_pointer.dtsi"
+
 / {
     chosen {
         zmk,kscan = &mock_kscan;
@@ -17,16 +19,18 @@
         label = "Dummy dongle keymap";
         bindings = <&none>;
     };
+
+    #ifdef CONFIG_ZMK_SPLIT_ROLE_CENTRAL
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&input_trackball>;
+    };
+    #endif
 };
 
-/ {
-	vtrackball: virtual_input_trackball {
-		compatible = "zmk,virtual-input";
-	};
 
-	input_relay_config_trackball {
-		compatible = "zmk,split-peripheral-input-relay";
-		device = <&vtrackball>;
-		relay-channel = <111>;
-	};
+&trackball_listener {
+  status           = "okay";
+  device           = <&input_trackball>;
+  /* …input-processors & processor-layers… */
 };

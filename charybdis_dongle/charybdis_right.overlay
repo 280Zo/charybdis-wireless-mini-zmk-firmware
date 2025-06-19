@@ -30,22 +30,27 @@
 		;
 };
 
-&spi0 {
+// Overrides for the input listener node
+&trackball_listener {
     status = "okay";
+    device = <&trackball>;
 };
 
-&trackball {
-    status = "okay";
-};
+
 
 / {
-	vtrackball: virtual_input_trackball {
-		compatible = "zmk,virtual-input";
-	};
+    input_trackball: input_split_device {
+        compatible = "zmk,input-split-device";
+        device = <&trackball>;
+    };
+}
 
-	input_relay_config_trackball {
-		compatible = "zmk,split-peripheral-input-relay";
-		device = <&trackball>;
-		relay-channel = <111>;
-	};
-};
+/* Input Processors */
+// TODO
+// / {
+//     glidepoint_listener {
+//         compatible = "zmk,input-listener";
+//         device = <&glidepoint>;
+//         input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
+//     };
+// };

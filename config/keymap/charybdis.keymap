@@ -13,6 +13,62 @@
 #include "combos.dtsi"
 
 / {
+    // /* --- PMW3610 TRACKBALL SENSOR CONFIG --- */
+    // #ifdef CONFIG_ZMK_SPLIT_ROLE_CENTRAL
+    // /* input config for mouse move mode */
+    // trackball_move_listener {
+    //     compatible = "zmk,input-listener";
+    //     device = <&vtrackball>;
+    //     layers = <0 6>;
+    //     evt-type = <INPUT_EV_REL>;
+    //     x-input-code = <INPUT_REL_X>;
+    //     y-input-code = <INPUT_REL_Y>;
+    //     scale-multiplier = <4>;
+    //     scale-divisor = <5>;
+    //     // bindings = <&ib_toggle_layer 7>;
+    // };
+
+    // /* input config for slow move mode */
+    // trackball_snipe_listener {
+    //     compatible = "zmk,input-listener";   
+    //     device = <&vtrackball>;
+    //     layers = <7>;
+    //     evt-type = <INPUT_EV_REL>;
+    //     x-input-code = <INPUT_REL_X>;
+    //     y-input-code = <INPUT_REL_Y>;
+    //     scale-multiplier = <1>;
+    //     scale-divisor = <6>;
+    // };
+
+    // /* input config for mouse scroll mode */
+    // trackball_scroll_listener {
+    //     compatible = "zmk,input-listener";
+    //     device = <&vtrackball>;
+    //     layers = <8>;
+    //     evt-type = <INPUT_EV_REL>;            
+    //     x-input-code = <INPUT_REL_MISC>;
+    //     y-input-code = <INPUT_REL_WHEEL>;
+    //     y-invert;
+    //     bindings = <&ib_wheel_scaler 1 14>;
+    // };
+
+    // /* define a resolution down scaler only for INPUT_REL_WHEEL */
+    // ib_wheel_scaler: ib_wheel_scaler {
+    //     compatible = "zmk,input-scaler";
+    //     #binding-cells = <2>;
+    //     evt-type = <INPUT_EV_REL>;
+    //     input-code = <INPUT_REL_WHEEL>;
+    // };
+
+    // /* adjust cooldown waiting period for mouse key layer after activated */
+    // ib_toggle_layer: ib_toggle_layer {
+    //     compatible = "zmk,input-tog-layer";
+    //     #binding-cells = <1>;
+    //     time-to-live-ms = <750>;
+    // };
+    // #endif
+
+    /* --- KEYMAP CONFIG --- */
 // ╭──────┬──────┬──────┬──────┬──────┬──────╮  ╭──────┬──────┬──────┬──────┬──────┬──────╮
 //    00     01     02     03    04      05        06     07     08     09     10     11
 // ├──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┤
@@ -43,7 +99,7 @@
 // ├──────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼───────────┤
     &kp LSHFT  &kp Z            &kp X            &kp C             &kp V             &kp B     &kp N  &kp M              &mm_cm_sc          &mm_pr_col        &mm_qm_ex                 &kp RSHFT
 // ╰──────────┴────────────────┴────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┴─────────────────┴────────────────────────┴───────────╯
-                                                           &td_esc_scrl_slow  &mo 3  &mo 1     &kp ENTER  &td_space_nav
+                                                           &mo 8  &mo 3  &mo 1     &kp ENTER  &td_space_nav
                                                        // ╰──────────────────┴──────┴──────╯  ╰──────────┴──────────────╯
             >;
         };
@@ -106,7 +162,7 @@
             bindings = <
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+&trans    &trans    &trans    &trans    &kp N7    &trans    &trans    &trans    &trans    &trans    &trans    &trans
                               &trans    &trans    &trans    &trans    &trans
             >;
         };
@@ -115,77 +171,9 @@
             bindings = <
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+&trans    &trans    &trans    &trans    &kp N8    &trans    &trans    &trans    &trans    &trans    &trans    &trans
                               &trans    &trans    &trans    &trans    &trans
             >;
         };
     };
 };
-
-
-#ifdef CONFIG_ZMK_SPLIT_ROLE_CENTRAL
-/ {
-    /* input config for mouse move mode */
-    trackball_move_listener {
-        compatible = "zmk,input-behavior-listener";
-        device = <&vtrackball>;
-        layers = <0 6>;
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_X>;
-        y-input-code = <INPUT_REL_Y>;
-        scale-multiplier = <4>;
-        scale-divisor = <5>;
-        // bindings = <&ib_toggle_layer 7>;
-    };
-
-    /* input config for slow move mode */
-    trackball_snipe_listener {
-        compatible = "zmk,input-behavior-listener";   
-        device = <&vtrackball>;
-        layers = <7>;
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_X>;
-        y-input-code = <INPUT_REL_Y>;
-        scale-multiplier = <1>;
-        scale-divisor = <6>;
-    };
-
-    /* input config for mouse scroll mode */
-    trackball_scroll_listener {
-        compatible = "zmk,input-behavior-listener";
-        device = <&vtrackball>;
-        layers = <8>;
-        evt-type = <INPUT_EV_REL>;            
-        x-input-code = <INPUT_REL_MISC>;
-        y-input-code = <INPUT_REL_WHEEL>;
-        y-invert;
-        bindings = <&ib_wheel_scaler 1 14>;
-    };
-
-    /* define a resolution down scaler only for INPUT_REL_WHEEL */
-    ib_wheel_scaler: ib_wheel_scaler {
-        compatible = "zmk,input-behavior-scaler";
-        #binding-cells = <2>;
-        evt-type = <INPUT_EV_REL>;
-        input-code = <INPUT_REL_WHEEL>;
-    };
-
-    /* adjust cooldown waiting period for mouse key layer after activated */
-    ib_toggle_layer: ib_toggle_layer {
-        compatible = "zmk,input-behavior-tog-layer";
-        #binding-cells = <1>;
-        time-to-live-ms = <750>;
-    };
-};
-#endif
-
-// #ifdef CONFIG_ZMK_SPLIT_ROLE_PERIPHERAL
-// / {
-//     input_relay_config_trackball {
-//         compatible     = "zmk,split-peripheral-input-relay";
-//         device         = <&trackball>;
-//         relay-channel  = <111>;
-//         status         = "okay";
-//     };
-// };
-// #endif

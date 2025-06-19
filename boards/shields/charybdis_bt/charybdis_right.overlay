@@ -1,7 +1,6 @@
 #include "charybdis.dtsi"
 #include "charybdis_pmw3610.dtsi"
-
-// This file provides a shield description in devicetree format that is merged with the board’s devicetree before compilation.
+#include "charybdis_pointer.dtsi"
 
 // The matrix transform is 6 columns over because the left half is 6 columns wide.
 &default_transform {
@@ -12,6 +11,7 @@
 	col-offset = <5>;
 };
 
+// KSCAN matrix
 &kscan0 {
 	compatible = "zmk,kscan-gpio-matrix";
 	
@@ -32,18 +32,9 @@
 		;
 };
 
-&spi0 {
-    status = "okay";
-};
 
-&trackball {
+/* enable the listener on central */
+&trackball_listener {
     status = "okay";
-};
-
-// https://github.com/badjeff/zmk-pmw3610-driver
-/ {
-  trackball_listener {
-    compatible = "zmk,input-listener";
     device = <&trackball>;
-  };
 };

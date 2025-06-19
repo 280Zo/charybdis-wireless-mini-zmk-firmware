@@ -1,0 +1,18 @@
+#include <input/processors.dtsi>
+
+&trackball_listener {
+    /* base processor chain on all layers */
+    input-processors = <&zip_xy_scaler 4 5>;
+
+    /* layer-8 scroll override */
+    scroller: scroller {
+        layers           = <8>;
+        input-processors = <&zip_xy_to_scroll_mapper>;
+    };
+
+    /* layer-7 slow-pointer override */
+    slow_pointer: slow_pointer {
+        layers           = <7>;
+        input-processors = <&zip_xy_scaler 1 6>;
+    };
+};

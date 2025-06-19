@@ -40,7 +40,7 @@
             hold-trigger-on-release;
         };
 
-        td_esc_scrl_slow: td_scroll_or_cursor {
+        td_esc_scrl_slow: td_esc_scrl_slow {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <85>;

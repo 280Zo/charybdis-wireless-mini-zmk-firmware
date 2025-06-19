@@ -4,6 +4,7 @@
 set -euo pipefail
 start_time=$(date +%s)
 
+
 # --- CONFIGURABLE SETTINGS ---
 REPO_ROOT="${REPO_ROOT:-$PWD}"                   # path to original repo root
 SHIELD_PATH="${SHIELD_PATH:-boards/shields}"     # where shield folders live relative to repo root
@@ -11,11 +12,13 @@ CONFIG_PATH="${CONFIG_PATH:-config}"              # where source keymaps/config 
 FALLBACK_BINARY="${FALLBACK_BINARY:-bin}"         # fallback firmware extension
 SCRIPT_PATH="$REPO_ROOT/scripts/convert_keymap.py"
 
+
+# --- CONFIGURABLE KEYMAPS ---
 # Prepare temporary keymap directory
 echo "📁 Copying source keymaps from $CONFIG_PATH to temporary directory"
 KEYMAP_TEMP="/tmp/keymaps"
 rm -rf "$KEYMAP_TEMP" && mkdir -p "$KEYMAP_TEMP"
-cp "$REPO_ROOT/$CONFIG_PATH"/*.keymap "$KEYMAP_TEMP/"
+cp "$REPO_ROOT/$CONFIG_PATH/keymap"/*.keymap "$KEYMAP_TEMP/"
 
 # Generate additional keymaps
 ## Comment these lines out to prevent building different keymaps
@@ -53,6 +56,7 @@ fi
 # Clear previous firmwares
 rm -rf /workspaces/zmk-firmwares/*
 
+
 # --- PMW3610 Driver Setup ---
 # Clone PMW3610 Driver
 echo "Setting up PMW3610 driver..."
@@ -79,11 +83,41 @@ setup_sandbox() {
 
   # Copy in zmk base repo to the sandbox
   echo ""
-  echo "🏖️  Setting up sandbox for shield: $shield"
+  echo "🏖️  Setting up sandbox for shield: $shield..."
   WORKSPACE_COPY=$(mktemp -d)
   cp -r "$REPO_ROOT/." "$WORKSPACE_COPY/"
   BUILD_REPO="$WORKSPACE_COPY"
   cd "$BUILD_REPO"
+
+  # --- ZMK SOURCE CHECK & UPDATE ---
+  echo "→ Checking ZMK repo status..."
+  ZMK_DIR="$BUILD_REPO/zmk"
+  echo "→ Checking ZMK repo status in $ZMK_DIR..."
+  # Allow git to operate on the mounted submodule safely
+  git config --global --add safe.directory $ZMK_DIR
+  # Check if the submodule exists
+  if [ ! -f "$ZMK_DIR/.git" ]; then
+    echo "❌ Error: $ZMK_DIR does not appear to be a Git submodule."
+    exit 1
+  fi
+  # Add upstream remote if missing
+  if ! git -C "$ZMK_DIR" remote get-url upstream &>/dev/null; then
+    echo "→ Adding upstream remote for zmkfirmware/zmk"
+    git -C "$ZMK_DIR" remote add upstream https://github.com/zmkfirmware/zmk.git
+  fi
+  echo "→ Fetching upstream ZMK main..."
+  git -C "$ZMK_DIR" fetch upstream
+  echo "→ Rebasing onto upstream/main..."
+  git -C "$ZMK_DIR" rebase upstream/main || {
+    echo "⚠️ Rebase failed. Please resolve conflicts manually, then re-run the build."
+    exit 1
+  }
+  echo "✅ ZMK repo is up to date with upstream/main."
+
+  cd "/workspaces/zmk"
+  
+  # Move the keymap files (macros, combos, etc) to the partent config directory
+  mv "$BUILD_REPO/config/keymap/"* "$BUILD_REPO/config/"
 
   # Determine module mode, set BASE_DIR, copy user config
   if [ -f zmk/module.yml ]; then
@@ -147,6 +181,12 @@ for shield in "${shields[@]}"; do
   LAYOUTS_SRC="$BASE_DIR/$CONFIG_PATH/charybdis_pmw3610.dtsi"
   if [ -f "$LAYOUTS_SRC" ]; then
     cp "$LAYOUTS_SRC" "$ZMK_SHIELDS_DIR/$shield/charybdis_pmw3610.dtsi"
+  fi
+
+  # Ensure charybdis_pointer.dtsi is in the shield directory for overlay includes
+  LAYOUTS_SRC="$BASE_DIR/$CONFIG_PATH/charybdis_pointer.dtsi"
+  if [ -f "$LAYOUTS_SRC" ]; then
+    cp "$LAYOUTS_SRC" "$ZMK_SHIELDS_DIR/$shield/charybdis_pointer.dtsi"
   fi
 
   # Find all shield targets (e.g. charybdis_right, charybdis_left) in this shield folder

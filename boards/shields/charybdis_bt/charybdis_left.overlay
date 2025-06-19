@@ -1,7 +1,6 @@
 #include "charybdis.dtsi"
 #include "charybdis_pmw3610.dtsi"
-
-// This file provides a shield description in devicetree format that is merged with the board’s devicetree before compilation.
+#include "charybdis_pointer.dtsi"
 
 &kscan0 {
 	compatible = "zmk,kscan-gpio-matrix";
@@ -21,12 +20,4 @@
 		, <&pro_micro 4 GPIO_ACTIVE_HIGH>
 		, <&pro_micro 9 GPIO_ACTIVE_HIGH>
 		;
-};
-
-// https://github.com/badjeff/zmk-pmw3610-driver
-/ {
-  trackball_listener {
-    compatible = "zmk,input-listener";
-    device = <&trackball>;
-  };
 };

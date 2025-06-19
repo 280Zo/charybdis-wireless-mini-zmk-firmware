@@ -2,11 +2,6 @@
 #include "charybdis-layouts.dtsi"
 
 / {
-    // chosen {
-    //     zmk,kscan = &kscan0;
-    //     zmk,matrix_transform = &default_transform;
-    // };
-
     // Replacement for matrix_transform
     chosen {
         zmk,kscan = &kscan0;
