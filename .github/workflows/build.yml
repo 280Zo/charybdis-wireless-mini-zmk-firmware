@@ -68,7 +68,10 @@ jobs:
     - name: Initialize West workspace
       shell: bash
       run: |
-        west init -l zmk/app
+        # Ensure we are at the repo root
+        cd "$GITHUB_WORKSPACE"
+        # Initialize workspace using manifest in zmk/app, write .west here
+        west init -l zmk/app "$GITHUB_WORKSPACE"
         west update
         west zephyr-export
 
