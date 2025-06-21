@@ -142,7 +142,7 @@ jobs:
         KEYMAP_ARG=""
         if [[ "$FM" != "reset" && -f "$src/${KM}.keymap" ]]; then
           cp  "$src/${KM}.keymap" "$dst/charybdis.keymap"
-          cp  "$src/${KM}_"*.dtsi "$dst/" 2>/dev/null || true
+          cp "$src/"*.dtsi "$dst/" 2>/dev/null || true
           KEYMAP_ARG="-DKEYMAP_FILE=$dst/charybdis.keymap"
         fi
 
