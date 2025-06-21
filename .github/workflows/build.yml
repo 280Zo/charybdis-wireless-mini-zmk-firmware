@@ -150,12 +150,13 @@ jobs:
           BUILD_DIR=$(mktemp -d)
 
           # Only right BT half gets Studio RPC
-          STUDIO=""; [[ "$FM" == "bt" && "$SH" == *right ]] && STUDIO="-S studio-rpc-usb-uart"
+          STUDIO_FLAG=""
+          [[ "$FM" == "bt" && "$SH" == *right ]] && STUDIO_FLAG="-DSNIPPET=studio-rpc-usb-uart"
 
           west build -p \
             -d "$BUILD_DIR" \
             -b "$BD" \
-            $STUDIO \
+            $STUDIO_FLAG \
             -- -DZMK_CONFIG="$dst" \
                -DZMK_EXTRA_MODULES="$EXTRA_MODULES" \
                -DSHIELD="$SH" \
