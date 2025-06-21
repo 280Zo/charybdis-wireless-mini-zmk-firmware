@@ -135,37 +135,34 @@ jobs:
 
         mkdir -p "$GITHUB_WORKSPACE/out/$NM"
 
-        # Copy keymap + helpers once per combo
-        src="$GITHUB_WORKSPACE/config/keymap"
+        # ── Copy keymap + helpers once per combo ──────────────────────
+        src="$GITHUB_WORKSPACE/config/keymap"      # artifact landed here
         dst="$GITHUB_WORKSPACE/config"
 
-        KEYMAP_NEEDED=false
-        if [[ "$FM" != "reset" && -f "$src/${KM}.keymap" ]]; then
-          cp  "$src/${KM}.keymap"   "$dst/charybdis.keymap"
-          cp  "$src/"*.dtsi         "$dst/" 2>/dev/null || true   # all helpers
-          KEYMAP_NEEDED=true
+        if [[ "$FM" != "reset" ]]; then
+          cp  "$src/${KM}.keymap" "$dst/charybdis.keymap"
+          cp  "$src/"*.dtsi       "$dst/" 2>/dev/null || true   # all helpers
         fi
+        # ──────────────────────────────────────────────────────────────
 
         for SH in ${LIST[$FM]}; do
           BUILD_DIR=$(mktemp -d)
 
-          # ── Build the CMake argument list ────────────────────────────
           cmake_args=(
             -DZMK_CONFIG="$dst"
             -DZMK_EXTRA_MODULES="$EXTRA_MODULES"
             -DSHIELD="$SH"
           )
 
-          # Right BT half gets the Studio RPC snippet
+          # Right BT half gets Studio RPC snippet
           if [[ "$FM" == "bt" && "$SH" == *right ]]; then
             cmake_args+=(-DSNIPPET=studio-rpc-usb-uart)
           fi
 
-          # Keymap overlay for bt & dongle formats
-          if $KEYMAP_NEEDED; then
-            cmake_args+=(-DKEYMAP_FILE=charybdis.keymap)   # name only, no path
+          # Every bt & dongle build uses the same keymap file
+          if [[ "$FM" != "reset" ]]; then
+            cmake_args+=(-DKEYMAP_FILE=charybdis.keymap)   # name only
           fi
-          # ─────────────────────────────────────────────────────────────
 
           west build -p \
             -d "$BUILD_DIR" \
