@@ -135,7 +135,7 @@ jobs:
 
         mkdir -p "$GITHUB_WORKSPACE/out/$NM"
 
-        # ── Copy keymap + helpers once per combo ──────────────────────
+        # ── Copy keymap + helpers once per combo ───
         src="$GITHUB_WORKSPACE/config/keymap"
         dst="$GITHUB_WORKSPACE/config"
 
@@ -150,10 +150,10 @@ jobs:
 
           # Make keymap visible
           if [[ "$FM" != "reset" ]]; then
-            ln -s "$dst/charybdis.keymap" "$BUILD_DIR/charybdis.keymap"
+            # copy into source overlay dir
+            cp "$dst/charybdis.keymap" zmk/app/
+            # or: ln -s "$dst/charybdis.keymap" zmk/app/charybdis.keymap
             KEYMAP_OPTION="-DKEYMAP_FILE=charybdis.keymap"
-          else
-            KEYMAP_OPTION=""
           fi
 
           # Studio RPC only on right half of BT builds
@@ -162,6 +162,25 @@ jobs:
           else
             SNIPPET_OPTION=""
           fi
+
+          # ───────── DEBUG LOGS ─────────
+          # Debug: show current directory and file layout
+          echo "→ pwd: $(pwd)"
+          echo "→ Build dir: $BUILD_DIR"
+          ls -la "$BUILD_DIR" || true
+
+          echo "→ Config dir: $dst"
+          ls -la "$dst" || true
+
+          # Debug: does the keymap really exist?
+          if [[ -f "$dst/charybdis.keymap" ]]; then
+            echo "✅ Found keymap at $dst/charybdis.keymap"
+          else
+            echo "❌ Keymap missing at $dst/charybdis.keymap"
+          fi
+
+          echo "KEYMAP_OPTION='$KEYMAP_OPTION'"
+          echo "SNIPPET_OPTION='$SNIPPET_OPTION'"
 
           west build -p \
             -d "$BUILD_DIR" \
