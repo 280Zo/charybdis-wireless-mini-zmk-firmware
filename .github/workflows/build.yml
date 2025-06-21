@@ -151,7 +151,7 @@ jobs:
           # Only right BT half gets Studio RPC
           STUDIO=""; [[ "$FM" == "bt" && "$SH" == *right ]] && STUDIO="-S studio-rpc-usb-uart"
 
-          west build -p -Q \
+          west build -p \
             -d "$BUILD_DIR" \
             -b "$BD" \
             $STUDIO \
