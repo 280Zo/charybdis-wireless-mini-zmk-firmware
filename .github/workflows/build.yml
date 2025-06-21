@@ -136,38 +136,38 @@ jobs:
         mkdir -p "$GITHUB_WORKSPACE/out/$NM"
 
         # ── Copy keymap + helpers once per combo ──────────────────────
-        src="$GITHUB_WORKSPACE/config/keymap"      # artifact landed here
+        src="$GITHUB_WORKSPACE/config/keymap"
         dst="$GITHUB_WORKSPACE/config"
 
         if [[ "$FM" != "reset" ]]; then
           cp  "$src/${KM}.keymap" "$dst/charybdis.keymap"
-          cp  "$src/"*.dtsi       "$dst/" 2>/dev/null || true   # all helpers
+          cp  "$src/"*.dtsi       "$dst/" 2>/dev/null || true
         fi
         # ──────────────────────────────────────────────────────────────
 
         for SH in ${LIST[$FM]}; do
           BUILD_DIR=$(mktemp -d)
 
-          cmake_args=(
-            -DZMK_CONFIG="$dst"
-            -DZMK_EXTRA_MODULES="$EXTRA_MODULES"
-            -DSHIELD="$SH"
-          )
-
-          # Right BT half gets Studio RPC snippet
-          if [[ "$FM" == "bt" && "$SH" == *right ]]; then
-            cmake_args+=(-DSNIPPET=studio-rpc-usb-uart)
-          fi
-
-          # Every bt & dongle build uses the same keymap file
+          # Make keymap visible
           if [[ "$FM" != "reset" ]]; then
-            cmake_args+=(-DKEYMAP_FILE=charybdis.keymap)   # name only
+            ln -s "$dst/charybdis.keymap" "$BUILD_DIR/charybdis.keymap"
+            KEYMAP_OPTION="-DKEYMAP_FILE=charybdis.keymap"
+          else
+            KEYMAP_OPTION=""
           fi
 
-          west build -p \
-            -d "$BUILD_DIR" \
-            -b "$BD" \
-            -- "${cmake_args[@]}"
+          # Studio RPC only on right half of BT builds
+          if [[ "$FM" == "bt" && "$SH" == *right ]]; then
+            SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
+          else
+            SNIPPET_OPTION=""
+          fi
+
+          west build … -- \
+            "-DZMK_CONFIG=$dst" \
+            "-DSHIELD=$SH" \
+            "$KEYMAP_OPTION" \
+            "$SNIPPET_OPTION"
 
           ART=$(if [[ -f "$BUILD_DIR/zephyr/zmk.uf2" ]]; then echo zmk.uf2; else echo zmk.${FALLBACK_EXT}; fi)
           cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"
