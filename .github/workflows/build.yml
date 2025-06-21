@@ -111,7 +111,7 @@ jobs:
     # ───────── Build loop ─────────
     - name: Build combo ${{ matrix.combo.name }}
       shell: bash
-      working-directory: zmk/app
+      working-directory: ${{ github.workspace }}
       run: |
         set -euo pipefail
 
