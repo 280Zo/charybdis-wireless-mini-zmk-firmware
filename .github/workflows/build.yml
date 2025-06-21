@@ -148,7 +148,8 @@ jobs:
             cp "$src/${KM}.keymap" "$dst/charybdis.keymap"
 
             # copy any helper DTSIs (ignore error if none exist)
-            cp "$src/${KM}_"*.dtsi "$dst/" 2>/dev/null || true          fi
+            cp "$src/${KM}_"*.dtsi "$dst/" 2>/dev/null || true
+          fi
 
           # Only right BT half gets Studio RPC
           STUDIO=""; [[ "$FM" == "bt" && "$SH" == *right ]] && STUDIO="-S studio-rpc-usb-uart"
