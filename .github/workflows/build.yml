@@ -67,10 +67,14 @@ jobs:
     - name: Clone & init ZMK workspace
       shell: bash
       run: |
+        # Grab the latest upstream ZMK source
         git clone --depth 1 https://github.com/zmkfirmware/zmk.git zmk
-        west init -l zmk/app            # create .west manifest pointing at zmk/app
+        # Turn *zmk/* itself into the west workspace root
+        cd zmk
+        west init -l app               # creates .west inside ./zmk
         west update                    # fetch Zephyr & module deps
-        west zephyr-export             # export env vars for Zephyr includes
+        west zephyr-export             # export env vars for this shell
+        cd ..                          # back to repo root so rest of script works
 
     - name: Download keymaps
       uses: actions/download-artifact@v4
