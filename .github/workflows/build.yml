@@ -25,7 +25,6 @@ jobs:
     - name: OS deps
       run: sudo apt-get update && sudo apt-get install -y jq
 
-    # extra keymaps exactly like build_setup.sh
     - name: Generate extra keymaps
       run: |
         echo "⚙️ Generating additional keymaps"
@@ -36,7 +35,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       with: { name: generated-keymaps, path: config/keymap/ }
 
-    - name: Build-matrix JSON (identical to local auto-discover)
+    - name: Build-matrix JSON
       run: python scripts/generate_matrix.py > build.json
 
     - id: make-groups
@@ -136,17 +135,19 @@ jobs:
 
         mkdir -p "$GITHUB_WORKSPACE/out/$NM"
 
+        # Copy the selected keymap into config & rename keymap
+        src="$GITHUB_WORKSPACE/config/keymap"
+        dst="$GITHUB_WORKSPACE/config"
+
+        KEYMAP_ARG=""
+        if [[ "$FM" != "reset" && -f "$src/${KM}.keymap" ]]; then
+          cp  "$src/${KM}.keymap" "$dst/charybdis.keymap"
+          cp  "$src/${KM}_"*.dtsi "$dst/" 2>/dev/null || true
+          KEYMAP_ARG="-DKEYMAP_FILE=$dst/charybdis.keymap"
+        fi
+
         for SH in ${LIST[$FM]}; do
           BUILD_DIR=$(mktemp -d)
-
-          # Copy the selected keymap into config & rename keymap
-          src="$GITHUB_WORKSPACE/config/keymap"
-          dst="$GITHUB_WORKSPACE/config"
-
-          if [[ -f "$src/${KM}.keymap" ]]; then
-            cp "$src/${KM}.keymap" "$dst/charybdis.keymap"
-            cp "$src/${KM}_"*.dtsi "$dst/" 2>/dev/null || true
-          fi
 
           # Only right BT half gets Studio RPC
           STUDIO=""; [[ "$FM" == "bt" && "$SH" == *right ]] && STUDIO="-S studio-rpc-usb-uart"
@@ -158,7 +159,7 @@ jobs:
             -- -DZMK_CONFIG="$dst" \
                -DZMK_EXTRA_MODULES="$EXTRA_MODULES" \
                -DSHIELD="$SH" \
-               -DKEYMAP_FILE="$dst/charybdis.keymap"
+               $KEYMAP_ARG
 
           ART=$(if [ -f "$BUILD_DIR/zephyr/zmk.uf2" ]; then echo "zmk.uf2"; else echo "zmk.${FALLBACK_EXT}"; fi)
           cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"
