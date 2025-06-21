@@ -68,7 +68,7 @@ jobs:
       shell: bash
       run: |
         git clone --depth 1 https://github.com/zmkfirmware/zmk.git zmk
-        west init -l zmk
+        west init -l zmk/app
         west update
         west zephyr-export
 
