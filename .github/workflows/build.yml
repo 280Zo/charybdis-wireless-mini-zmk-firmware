@@ -67,13 +67,10 @@ jobs:
 
     - name: Initialize West workspace
       shell: bash
-      working-directory: zmk/app
+      working-directory: ${{ github.workspace }}
       run: |
-        # Initialize West workspace in zmk/app (west.yml is here)
-        west init .
-        # Fetch Zephyr & module dependencies
+        west init -l zmk/app .
         west update
-        # Export Zephyr environment variables
         west zephyr-export
 
     - name: Download keymaps
