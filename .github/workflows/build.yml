@@ -163,11 +163,15 @@ jobs:
             SNIPPET_OPTION=""
           fi
 
-          west build … -- \
+          west build -p \
+            -d "$BUILD_DIR" \
+            -b "$BD" \
+            -- \
             "-DZMK_CONFIG=$dst" \
             "-DSHIELD=$SH" \
             "$KEYMAP_OPTION" \
             "$SNIPPET_OPTION"
+
 
           ART=$(if [[ -f "$BUILD_DIR/zephyr/zmk.uf2" ]]; then echo zmk.uf2; else echo zmk.${FALLBACK_EXT}; fi)
           cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"
