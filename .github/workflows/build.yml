@@ -30,10 +30,10 @@ jobs:
       run: |
         python scripts/convert_keymap.py -c q2c --in-path config/keymap/charybdis.keymap
         python scripts/convert_keymap.py -c q2g --in-path config/keymap/charybdis.keymap
-        mv config/charybdis.keymap config/qwerty.keymap
+        mv config/keymap/charybdis.keymap config/keymap/qwerty.keymap
 
     - uses: actions/upload-artifact@v4
-      with: { name: generated-keymaps, path: config/*.keymap }
+      with: { name: generated-keymaps, path: config/keymap/*.keymap }
 
     - name: Build‑matrix JSON (identical to local auto‑discover)
       run: python scripts/generate_matrix.py > build.json
