@@ -59,8 +59,19 @@
 };
 
 / {
-trackball_listener: trackball_listener {
-    compatible = "zmk,input-listener";
-    status = "disabled"; // overridden on central
+    split_inputs {
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        trackball_split: trackball_split@0 {
+            compatible = "zmk,input-split";
+            reg = <0>;
+        };
+    };
+
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        status = "disabled"; // overridden on central
+        device = <&trackball_split>;
     };
 };

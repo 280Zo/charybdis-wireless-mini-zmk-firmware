@@ -163,7 +163,7 @@ for shield in "${shields[@]}"; do
   cd "$BUILD_REPO/zmk"
 
   # Always include the sandbox as extra_module so custom shields are found
-  ZMK_LOAD_ARG="-DZMK_EXTRA_MODULES=$BUILD_REPO;/tmp/pmw3610-driver"
+  ZMK_LOAD_ARG="-DZMK_EXTRA_MODULES=/tmp/pmw3610-driver"
 
   # Install only the custom shield into the ZMK module’s shields directory
   printf "⚙️  %s\n" "→ Installing custom shield ($shield) into ZMK module"
