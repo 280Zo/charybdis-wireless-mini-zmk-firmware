@@ -59,15 +59,18 @@ jobs:
       FALLBACK_EXT: bin
 
     steps:
-    # ───────── repo & inputs ─────────
-    - name: Checkout workflow repo (no submodules)
+    # ───────── zmk sub-repo ─────────
+    - name: Checkout workflow repo (with submodules)
       uses: actions/checkout@v4
-
-    # ───────── Set up West workspace via dedicated Action ─────────
-    - name: Setup Zephyr & West
-      uses: zephyrproject-rtos/zephyr-west-action@v2
       with:
-        manifest-path: zmk/app/west.yml
+        submodules: recursive
+
+    - name: Initialize West workspace
+      shell: bash
+      run: |
+        west init -l zmk/app
+        west update
+        west zephyr-export
 
     - name: Download keymaps
       uses: actions/download-artifact@v4
