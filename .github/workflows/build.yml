@@ -69,11 +69,11 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Initialize West workspace
+    - name: Initialise West workspace
       shell: bash
-      working-directory: ${{ github.workspace }}
       run: |
-        west init -l zmk/app
+        set -euxo pipefail
+        west init -l --mf zmk/app/west.yml .
         west update
         west zephyr-export
 
