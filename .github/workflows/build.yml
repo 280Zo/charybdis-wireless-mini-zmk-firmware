@@ -67,13 +67,10 @@ jobs:
     - name: Clone & init ZMK workspace
       shell: bash
       run: |
-        # Grab the latest upstream ZMK source
-        git clone --depth 1 https://github.com/zmkfirmware/zmk.git zmk
-        # Turn *zmk/* itself into the west workspace root
-        west init -l zmk               # creates .west inside ./zmk
-        west update                    # fetch Zephyr & module deps
-        west zephyr-export             # export env vars for this shell
-        cd ..                          # back to repo root so rest of script works
+        <mark>git clone --depth 1 https://github.com/zmkfirmware/zmk.git zmk</mark>
+        <mark>west init -l zmk</mark>
+        <mark>west update</mark>
+        <mark>west zephyr-export</mark>
 
     - name: Download keymaps
       uses: actions/download-artifact@v4
@@ -168,7 +165,7 @@ jobs:
       with: { path: combo-artifacts/ }
     - name: Zip each combo
       working-directory: combo-artifacts
-      run: for d in */; do zip -j "${d%/}.zip" "$d"*; done
+      run: for d in */; do zip -j "${d%/}.zip" "\$d"*; done
     - uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ github.ref_name }}
