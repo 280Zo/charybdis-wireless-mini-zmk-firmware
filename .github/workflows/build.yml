@@ -1,67 +1,49 @@
 name: Build and Release ZMK Firmware
-
 on:
   push:
-    tags:
-      - "v*"
-    branches:
-      - "**"
+    tags: ["v*"]
+    branches: ["**"]
   workflow_dispatch:
 
 jobs:
+# ──────────────────────────────────────────────────────────────
+#  SET‑UP ░ build‑matrix + keymaps (does **not** fetch ZMK)
+# ──────────────────────────────────────────────────────────────
   setup:
     runs-on: ubuntu-latest
     outputs:
       groups: ${{ steps.make-groups.outputs.groups }}
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+    - name: Checkout repo (no submodules)
+      uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with: { python-version: "3.x" }
 
-      - name: Install tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
+    - name: OS deps
+      run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Generate additional keymaps
-        run: |
-          python scripts/convert_keymap.py -c q2c --in-path config/charybdis.keymap
-          python scripts/convert_keymap.py -c q2g --in-path config/charybdis.keymap
+    # extra keymaps exactly like build_setup.sh
+    - name: Generate extra keymaps
+      run: |
+        python scripts/convert_keymap.py -c q2c --in-path config/charybdis.keymap
+        python scripts/convert_keymap.py -c q2g --in-path config/charybdis.keymap
+        mv config/charybdis.keymap config/qwerty.keymap
 
-      - name: Upload generated keymaps
-        uses: actions/upload-artifact@v4
-        with:
-          name: generated-keymaps
-          path: config/*.keymap
+    - uses: actions/upload-artifact@v4
+      with: { name: generated-keymaps, path: config/*.keymap }
 
-      - name: Generate build matrix
-        run: |
-          python scripts/generate_matrix.py > build.json
+    - name: Build‑matrix JSON (identical to local auto‑discover)
+      run: python scripts/generate_matrix.py > build.json
 
-      - name: Make groups JSON
-        id: make-groups
-        run: |
-          # load the raw build.json into a variable
-          raw=$(cat build.json)
+    - id: make-groups
+      run: echo "groups=$(jq -c 'map({keymap,format,name,board})' build.json)" >>"$GITHUB_OUTPUT"
 
-          # Use jq to transform each object {keymap,format,name,board}
-          groups=$(jq -c '
-            map({
-              keymap: .keymap,
-              format: .format,
-              name: .name,
-              board: .board
-            })
-          ' <<<"$raw")
-
-          echo "groups=$groups" >> $GITHUB_OUTPUT
-          echo "groups=$groups"
-
+# ──────────────────────────────────────────────────────────────
+#  BUILD ░ clones *fresh* ZMK upstream each run (keeps you up‑to‑date)
+# ──────────────────────────────────────────────────────────────
   build:
     name: Build (${{ matrix.combo.name }})
     needs: setup
@@ -75,149 +57,124 @@ jobs:
 
     env:
       FALLBACK_EXT: bin
-      BASE_DIR: /tmp/zmk-config
 
     steps:
-      - name: Checkout & fetch generated files
-        uses: actions/checkout@v4
+    # ───────── repo & inputs ─────────
+    - name: Checkout workflow repo (no submodules)
+      uses: actions/checkout@v4
 
-      - name: Download generated-keymaps
-        uses: actions/download-artifact@v4
-        with:
-          name: generated-keymaps
-          path: config/
+    # ───────── Clone latest ZMK and set up west workspace ─────────
+    - name: Clone & init ZMK workspace
+      shell: bash
+      run: |
+        git clone --depth 1 https://github.com/zmkfirmware/zmk.git zmk
+        west init -l zmk/app            # create .west manifest pointing at zmk/app
+        west update                    # fetch Zephyr & module deps
+        west zephyr-export             # export env vars for Zephyr includes
 
-      - name: Prepare extra modules
-        shell: bash
-        run: |
-          # make sandbox
-          mkdir -p "${BASE_DIR}/config" "${BASE_DIR}/boards/shields"
-          # copy everything from repo's config including the stock charybdis.keymap
-          cp -r config/* "${BASE_DIR}/config/"
-          # copy custom shields
-          cp -r boards/shields/* "${BASE_DIR}/boards/shields/"
-          echo "BASE_DIR=$BASE_DIR"       >> $GITHUB_ENV
-          echo "EXTRA_CMAKE_ARGS=-DZMK_EXTRA_MODULES=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
+    - name: Download keymaps
+      uses: actions/download-artifact@v4
+      with: { name: generated-keymaps, path: config/ }
 
-      - name: Init west & fetch deps
-        working-directory: ${{ env.BASE_DIR }}
-        run: |
-          west init -l config
-          west update
-          west zephyr-export
+    # ───────── PMW3610 driver + vendor patch ─────────
+    - name: Set‑up PMW3610 driver
+      shell: bash
+      run: |
+        git clone --depth 1 https://github.com/badjeff/zmk-pmw3610-driver.git /tmp/pmw3610-driver
+        printf "pixart\tPixArt Imaging, Inc.\n" >> /tmp/pmw3610-driver/dts/bindings/vendor-prefixes.txt
+        # YAML‑safe generation of CMakeLists.txt (no here‑doc)
+        printf '%s\n' \
+          'if(CONFIG_PMW3610)' \
+          '  zephyr_library()' \
+          '  zephyr_library_sources(src/pmw3610.c)' \
+          '  zephyr_include_directories(${APPLICATION_SOURCE_DIR}/include)' \
+          'endif()' > /tmp/pmw3610-driver/CMakeLists.txt
+        echo "EXTRA_MODULES=${GITHUB_WORKSPACE};/tmp/pmw3610-driver" >> "$GITHUB_ENV"
 
-      - name: Build all shields for ${{ matrix.combo.name }}
-        shell: bash
-        working-directory: ${{ env.BASE_DIR }}
-        run: |
-          set -euxo pipefail
-
-          KM=${{ matrix.combo.keymap }}
-          FM=${{ matrix.combo.format }}
-          NM=${{ matrix.combo.name }}
-          BD=${{ matrix.combo.board }}
-
-          # map format → shields again in bash
-          declare -A SH_MAP=(
-            [bt]="charybdis_left charybdis_right"
-            [dongle]="charybdis_left charybdis_right charybdis_dongle"
-            [reset]="settings_reset"
-          )
-
-          for SH in ${SH_MAP[$FM]}; do
-            BUILD_DIR=$(mktemp -d)
-
-            # swap in the proper keymap if it exists
-            if [[ -f config/${KM}.keymap ]]; then
-              cp config/${KM}.keymap config/charybdis.keymap
-            fi
-
-            # special reset naming
-            ART_NAME="$NM"
-            if [[ "$FM" == "reset" ]]; then
-              ART_NAME="reset-nanov2"
-            fi
-
-            # ROLE_OVERLAY=""
-
-            # if [[ "$FM" == "bt" && "$SH" == "charybdis_right" ]]; then
-            #   ROLE_OVERLAY="${BASE_DIR}/boards/shields/charybdis-right/charybdis_right_host.dtsi"
-            # elif [[ "$FM" == "dongle" && "$SH" == "charybdis_right" ]]; then
-            #   ROLE_OVERLAY="${BASE_DIR}/boards/shields/charybdis-right/charybdis_right_periph.dtsi"
-            # fi
-
-            # west build -s zmk/app \
-            #   -d "$BUILD_DIR" \
-            #   -b "$BD" \
-            #   -- -DZMK_CONFIG="${BASE_DIR}/config" \
-            #     -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" \
-            #     -DSHIELD=$SH \
-            #     -DDTC_INCLUDE_DIRS="$BASE_DIR/config" \
-            #     ${ROLE_OVERLAY:+-DEXTRA_DTC_OVERLAY_FILE="$ROLE_OVERLAY"}
-
-            ls -R ${BASE_DIR}/config
-            ls -R /tmp/zmk-config/boards/shields/charybdis-left
-            ls -R /tmp/zmk-config/boards/shields/charybdis-right
-            ls -R /tmp/zmk-config/boards/shields/charybdis-dongle
-
-            west build -s zmk/app \
-              -d "$BUILD_DIR" \
-              -b "$BD" \
-              -- \
-                -DZMK_CONFIG="${BASE_DIR}/config" \
-                -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" \
-                -DSHIELD="$SH" \
-                -DZEPHYR_EXTRA_DTC_FLAGS=-I${BASE_DIR}/config
-
-
-            # collect output
-            mkdir -p "${GITHUB_WORKSPACE}/out/$NM"
-            if [[ -f $BUILD_DIR/zephyr/zmk.uf2 ]]; then
-              cp $BUILD_DIR/zephyr/zmk.uf2 \
-                "${GITHUB_WORKSPACE}/out/$NM/$SH.uf2"
-            else
-              cp $BUILD_DIR/zephyr/zmk.${FALLBACK_EXT} \
-                "${GITHUB_WORKSPACE}/out/$NM/$SH.${FALLBACK_EXT}"
-            fi
+    # ───────── Inject custom shields & helper DTSI files ─────────
+    - name: Install custom shields into ZMK
+      shell: bash
+      run: |
+        ZMK_SHIELDS_DIR="$GITHUB_WORKSPACE/zmk/app/boards/shields"
+        mkdir -p "$ZMK_SHIELDS_DIR"
+        cp -r boards/shields/* "$ZMK_SHIELDS_DIR/"
+        for d in "$ZMK_SHIELDS_DIR"/*; do
+          for f in charybdis-layouts.dtsi charybdis_pmw3610.dtsi charybdis_pointer.dtsi; do
+            [ -f "config/$f" ] && cp "config/$f" "$d/" || true
           done
+        done
 
-      - name: Upload grouped firmware ${{ matrix.combo.name }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: charybdis-${{ matrix.combo.name }}
-          path: out/${{ matrix.combo.name }}/**
+    # ───────── Build loop ─────────
+    - name: Build combo ${{ matrix.combo.name }}
+      shell: bash
+      run: |
+        set -euo pipefail
 
+        KM="${{ matrix.combo.keymap }}"
+        FM="${{ matrix.combo.format }}"   # bt | dongle | reset
+        NM="${{ matrix.combo.name }}"
+        BD="${{ matrix.combo.board }}"    # nice_nano_v2
+
+        declare -A LIST=(
+          [bt]="charybdis_left charybdis_right"
+          [dongle]="charybdis_left charybdis_right charybdis_dongle"
+          [reset]="settings_reset"
+        )
+
+        mkdir -p out/$NM
+
+        for SH in ${LIST[$FM]}; do
+          BUILD_DIR=$(mktemp -d)
+
+          if [[ -f config/${KM}.keymap ]]; then
+            cp config/${KM}.keymap config/charybdis.keymap
+          fi
+
+          STUDIO=""; [[ "$FM" == "bt" && "$SH" == *right ]] && STUDIO="-S studio-rpc-usb-uart"
+
+          west -v build -s zmk/app \
+            -d "$BUILD_DIR" \
+            -b "$BD" \
+            $STUDIO \
+            -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" \
+               -DZMK_EXTRA_MODULES="$EXTRA_MODULES" \
+               -DSHIELD="$SH"
+
+          ART=$(if [ -f "$BUILD_DIR/zephyr/zmk.uf2" ]; then echo "zmk.uf2"; else echo "zmk.${FALLBACK_EXT}"; fi)
+          cp "$BUILD_DIR/zephyr/$ART" "out/$NM/$SH.${ART##*.}"
+        done
+
+    - name: Upload firmware bundle
+      uses: actions/upload-artifact@v4
+      with:
+        name: charybdis-${{ matrix.combo.name }}
+        path: out/${{ matrix.combo.name }}/**
+
+# ──────────────────────────────────────────────────────────────
+#  RELEASE + keymap‑image workflow trigger
+# ──────────────────────────────────────────────────────────────
   release-firmware:
     name: Release Firmware
     needs: build
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
-    permissions:
-      contents: write
+    permissions: { contents: write }
+
     steps:
-      - name: Download all combo artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: combo-artifacts/
-
-      - name: Zip each combo
-        working-directory: combo-artifacts
-        run: |
-          for dir in */; do
-            zip -j "${dir%/}.zip" "$dir"/*
-          done
-
-      - name: Create or update GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: Firmware Release ${{ github.ref_name }}
-          files: combo-artifacts/*.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/download-artifact@v4
+      with: { path: combo-artifacts/ }
+    - name: Zip each combo
+      working-directory: combo-artifacts
+      run: for d in */; do zip -j "${d%/}.zip" "$d"*; done
+    - uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ github.ref_name }}
+        name: Firmware Release ${{ github.ref_name }}
+        files: combo-artifacts/*.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   keymap_images:
     needs: build
-    permissions:
-      contents: write
+    permissions: { contents: write }
     uses: ./.github/workflows/draw_keymaps.yaml
