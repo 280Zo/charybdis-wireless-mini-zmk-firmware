@@ -135,13 +135,13 @@ jobs:
 
         mkdir -p "$GITHUB_WORKSPACE/out/$NM"
 
-        # Copy the selected keymap into config & rename keymap
+        # Copy keymap + helpers once per combo
         src="$GITHUB_WORKSPACE/config/keymap"
         dst="$GITHUB_WORKSPACE/config"
 
         KEYMAP_ARG=""
         if [[ "$FM" != "reset" && -f "$src/${KM}.keymap" ]]; then
-          cp  "$src/${KM}.keymap" "$dst/charybdis.keymap"
+          cp "$src/${KM}.keymap" "$dst/charybdis.keymap"
           cp "$src/"*.dtsi "$dst/" 2>/dev/null || true
           KEYMAP_ARG="-DKEYMAP_FILE=$dst/charybdis.keymap"
         fi
@@ -149,20 +149,27 @@ jobs:
         for SH in ${LIST[$FM]}; do
           BUILD_DIR=$(mktemp -d)
 
-          # Only right BT half gets Studio RPC
+          # Right-BT half gets Studio snippet
           STUDIO_FLAG=""
-          [[ "$FM" == "bt" && "$SH" == *right ]] && STUDIO_FLAG="-DSNIPPET=studio-rpc-usb-uart"
+          if [[ "$FM" == "bt" && "$SH" == *right ]]; then
+            STUDIO_FLAG="-DSNIPPET=studio-rpc-usb-uart"
+          fi
+
+          # Build CMake argument list
+          cmake_args=(
+            -DZMK_CONFIG="$dst"
+            -DZMK_EXTRA_MODULES="$EXTRA_MODULES"
+            -DSHIELD="$SH"
+          )
+          [[ -n "$STUDIO_FLAG" ]] && cmake_args+=("$STUDIO_FLAG")
+          [[ -n "$KEYMAP_ARG"  ]] && cmake_args+=("$KEYMAP_ARG")
 
           west build -p \
             -d "$BUILD_DIR" \
             -b "$BD" \
-            $STUDIO_FLAG \
-            -- -DZMK_CONFIG="$dst" \
-               -DZMK_EXTRA_MODULES="$EXTRA_MODULES" \
-               -DSHIELD="$SH" \
-               $KEYMAP_ARG
+            -- "${cmake_args[@]}"
 
-          ART=$(if [ -f "$BUILD_DIR/zephyr/zmk.uf2" ]; then echo "zmk.uf2"; else echo "zmk.${FALLBACK_EXT}"; fi)
+          ART=$(if [[ -f "$BUILD_DIR/zephyr/zmk.uf2" ]]; then echo zmk.uf2; else echo zmk.${FALLBACK_EXT}; fi)
           cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"
         done
 
