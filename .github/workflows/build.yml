@@ -65,17 +65,6 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Initialize West workspace
-      shell: bash
-      working-directory: zmk/app
-      run: |
-        # Initialize West workspace in zmk/app (west.yml is here)
-        west init .
-        # Fetch Zephyr & module dependencies
-        west update
-        # Export Zephyr environment variables
-        west zephyr-export
-
     - name: Download keymaps
       uses: actions/download-artifact@v4
       with: { name: generated-keymaps, path: config/ }
