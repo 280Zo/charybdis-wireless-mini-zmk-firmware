@@ -155,9 +155,10 @@ jobs:
             -d "$BUILD_DIR" \
             -b "$BD" \
             $STUDIO \
-            -- -DZMK_CONFIG="$GITHUB_WORKSPACE/config" \
+            -- -DZMK_CONFIG="$dst" \
                -DZMK_EXTRA_MODULES="$EXTRA_MODULES" \
-               -DSHIELD="$SH"
+               -DSHIELD="$SH" \
+               -DKEYMAP_FILE=charybdis.keymap
 
           ART=$(if [ -f "$BUILD_DIR/zephyr/zmk.uf2" ]; then echo "zmk.uf2"; else echo "zmk.${FALLBACK_EXT}"; fi)
           cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"
