@@ -34,7 +34,7 @@ jobs:
         mv config/keymap/charybdis.keymap config/keymap/qwerty.keymap
 
     - uses: actions/upload-artifact@v4
-      with: { name: generated-keymaps, path: config/keymap/*.keymap }
+      with: { name: generated-keymaps, path: config/keymap/ }
 
     - name: Build-matrix JSON (identical to local auto-discover)
       run: python scripts/generate_matrix.py > build.json
@@ -140,14 +140,11 @@ jobs:
           BUILD_DIR=$(mktemp -d)
 
           # Copy the selected keymap into config & rename keymap
-          if [[ -f "$GITHUB_WORKSPACE/config/${KM}.keymap" ]]; then
-            src="$GITHUB_WORKSPACE/config/keymap"
-            dst="$GITHUB_WORKSPACE/config"
+          src="$GITHUB_WORKSPACE/config/keymap"
+          dst="$GITHUB_WORKSPACE/config"
 
-            # copy & rename the main keymap
+          if [[ -f "$src/${KM}.keymap" ]]; then
             cp "$src/${KM}.keymap" "$dst/charybdis.keymap"
-
-            # copy any helper DTSIs (ignore error if none exist)
             cp "$src/${KM}_"*.dtsi "$dst/" 2>/dev/null || true
           fi
 
@@ -170,7 +167,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: charybdis-${{ matrix.combo.name }}
-        path: $GITHUB_WORKSPACE/out/${{ matrix.combo.name }}/**
+        path: ${{ github.workspace }}/out/${{ matrix.combo.name }}/**
 
 # ──────────────────────────────────────────────────────────────
 #  RELEASE + keymap-image workflow trigger
