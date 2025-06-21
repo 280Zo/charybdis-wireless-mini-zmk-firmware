@@ -71,7 +71,7 @@ jobs:
         git clone --depth 1 https://github.com/zmkfirmware/zmk.git zmk
         # Enter the ZMK directory and set up the west workspace
         cd zmk
-        west init -l .        # use zmk/west.yml as manifest
+        west init -m zmk/west.yml .        # use zmk/west.yml as manifest
         west update           # fetch Zephyr & module dependencies
         west zephyr-export    # export Zephyr environment variables
         cd ..                 # return to repo root
