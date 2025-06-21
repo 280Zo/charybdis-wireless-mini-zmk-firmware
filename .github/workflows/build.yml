@@ -73,7 +73,7 @@ jobs:
       shell: bash
       working-directory: ${{ github.workspace }}
       run: |
-        west init -l zmk/app .
+        west init -l zmk/app
         west update
         west zephyr-export
 
