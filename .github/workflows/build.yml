@@ -151,14 +151,14 @@ jobs:
           # Only right BT half gets Studio RPC
           STUDIO=""; [[ "$FM" == "bt" && "$SH" == *right ]] && STUDIO="-S studio-rpc-usb-uart"
 
-          west -v build -p \
+          west build -p -Q \
             -d "$BUILD_DIR" \
             -b "$BD" \
             $STUDIO \
             -- -DZMK_CONFIG="$dst" \
                -DZMK_EXTRA_MODULES="$EXTRA_MODULES" \
                -DSHIELD="$SH" \
-               -DKEYMAP_FILE=charybdis.keymap
+               -DKEYMAP_FILE="$dst/charybdis.keymap"
 
           ART=$(if [ -f "$BUILD_DIR/zephyr/zmk.uf2" ]; then echo "zmk.uf2"; else echo "zmk.${FALLBACK_EXT}"; fi)
           cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"
