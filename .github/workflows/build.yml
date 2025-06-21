@@ -154,10 +154,6 @@ jobs:
       with:
         name: charybdis-${{ matrix.combo.name }}
         path: out/${{ matrix.combo.name }}/**
-      uses: actions/upload-artifact@v4
-      with:
-        name: charybdis-${{ matrix.combo.name }}
-        path: out/${{ matrix.combo.name }}/**
 
 # ──────────────────────────────────────────────────────────────
 #  RELEASE + keymap‑image workflow trigger
