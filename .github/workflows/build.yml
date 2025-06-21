@@ -70,8 +70,7 @@ jobs:
         # Grab the latest upstream ZMK source
         git clone --depth 1 https://github.com/zmkfirmware/zmk.git zmk
         # Turn *zmk/* itself into the west workspace root
-        cd zmk
-        west init -l app               # creates .west inside ./zmk
+        west init -l zmk               # creates .west inside ./zmk
         west update                    # fetch Zephyr & module deps
         west zephyr-export             # export env vars for this shell
         cd ..                          # back to repo root so rest of script works
