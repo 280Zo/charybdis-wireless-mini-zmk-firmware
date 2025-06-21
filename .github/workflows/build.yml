@@ -69,7 +69,7 @@ jobs:
       shell: bash
       working-directory: ${{ github.workspace }}
       run: |
-        west init -l zmk/app .
+        west init -l zmk/app
         west update
         west zephyr-export
 
@@ -108,7 +108,7 @@ jobs:
     # ───────── Build loop ─────────
     - name: Build combo ${{ matrix.combo.name }}
       shell: bash
-      working-directory: ${{ github.workspace }}
+      working-directory: zmk/app
       run: |
         set -euo pipefail
 
@@ -123,30 +123,37 @@ jobs:
           [reset]="settings_reset"
         )
 
-        mkdir -p out/$NM
+        mkdir -p "$GITHUB_WORKSPACE/out/$NM"
 
         for SH in ${LIST[$FM]}; do
           BUILD_DIR=$(mktemp -d)
 
-          if [[ -f config/${KM}.keymap ]]; then
-            cp config/${KM}.keymap config/charybdis.keymap
+          # Copy the selected keymap into config
+          if [[ -f "$GITHUB_WORKSPACE/config/${KM}.keymap" ]]; then
+            cp "$GITHUB_WORKSPACE/config/${KM}.keymap" "$GITHUB_WORKSPACE/config/charybdis.keymap"
           fi
 
+          # Only right BT half gets Studio RPC
           STUDIO=""; [[ "$FM" == "bt" && "$SH" == *right ]] && STUDIO="-S studio-rpc-usb-uart"
 
-          west -v build -s zmk/app \
+          # We are already inside the workspace (zmk/app)
+          west -v build -p \
             -d "$BUILD_DIR" \
             -b "$BD" \
             $STUDIO \
-            -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" \
+            -- -DZMK_CONFIG="$GITHUB_WORKSPACE/config" \
                -DZMK_EXTRA_MODULES="$EXTRA_MODULES" \
                -DSHIELD="$SH"
 
           ART=$(if [ -f "$BUILD_DIR/zephyr/zmk.uf2" ]; then echo "zmk.uf2"; else echo "zmk.${FALLBACK_EXT}"; fi)
-          cp "$BUILD_DIR/zephyr/$ART" "out/$NM/$SH.${ART##*.}"
+          cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"
         done
 
     - name: Upload firmware bundle
+      uses: actions/upload-artifact@v4
+      with:
+        name: charybdis-${{ matrix.combo.name }}
+        path: out/${{ matrix.combo.name }}/**
       uses: actions/upload-artifact@v4
       with:
         name: charybdis-${{ matrix.combo.name }}
