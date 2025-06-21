@@ -1,8 +1,11 @@
 import json
+from pathlib import Path
 
 # === CONFIGURATION ===
 board = "nice_nano_v2"
-keymaps = ["qwerty", "colemak_dh", "graphite"]
+# automatically find all *.keymap filenames under ../config/keymap
+keymap_dir = Path(__file__).parent.parent / "config" / "keymap"
+keymaps = sorted(p.stem for p in keymap_dir.glob("*.keymap"))
 
 # Map each format to the shields it should build
 format_shields = {

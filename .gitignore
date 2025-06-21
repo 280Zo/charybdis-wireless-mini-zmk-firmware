@@ -1,3 +1,5 @@
 boards/shields/charybdis/charybdis.keymap
 drivers/
 local-build/logs.txt
+scripts/__pycache__
+notes

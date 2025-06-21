@@ -7,7 +7,7 @@ on:
 
 jobs:
 # ──────────────────────────────────────────────────────────────
-#  SET‑UP ░ build‑matrix + keymaps (does **not** fetch ZMK)
+#  SET-UP build-matrix + keymaps
 # ──────────────────────────────────────────────────────────────
   setup:
     runs-on: ubuntu-latest
@@ -28,6 +28,7 @@ jobs:
     # extra keymaps exactly like build_setup.sh
     - name: Generate extra keymaps
       run: |
+        echo "⚙️ Generating additional keymaps"
         python scripts/convert_keymap.py -c q2c --in-path config/keymap/charybdis.keymap
         python scripts/convert_keymap.py -c q2g --in-path config/keymap/charybdis.keymap
         mv config/keymap/charybdis.keymap config/keymap/qwerty.keymap
@@ -35,14 +36,17 @@ jobs:
     - uses: actions/upload-artifact@v4
       with: { name: generated-keymaps, path: config/keymap/*.keymap }
 
-    - name: Build‑matrix JSON (identical to local auto‑discover)
+    - name: Build-matrix JSON (identical to local auto-discover)
       run: python scripts/generate_matrix.py > build.json
 
     - id: make-groups
-      run: echo "groups=$(jq -c 'map({keymap,format,name,board})' build.json)" >>"$GITHUB_OUTPUT"
+      run: |
+        echo "groups=$(jq -c 'map({keymap,format,name,board})' build.json)" >>"$GITHUB_OUTPUT"
+        echo "⚙️ Build Matrix Created"
+        cat build.json | jq .
 
 # ──────────────────────────────────────────────────────────────
-#  BUILD ░ clones *fresh* ZMK upstream each run (keeps you up‑to‑date)
+#  BUILD clones *fresh* ZMK upstream each run (keeps you up-to-date)
 # ──────────────────────────────────────────────────────────────
   build:
     name: Build (${{ matrix.combo.name }})
@@ -59,7 +63,7 @@ jobs:
       FALLBACK_EXT: bin
 
     steps:
-    # ───────── zmk sub-repo ─────────
+    # ───────── update zmk sub-repo ─────────
     - name: Checkout workflow repo (with submodules)
       uses: actions/checkout@v4
       with:
@@ -69,21 +73,28 @@ jobs:
       shell: bash
       working-directory: ${{ github.workspace }}
       run: |
-        west init -l zmk/app
+        west init -l zmk/app .
         west update
         west zephyr-export
 
+    # ───────── pull in keymaps ─────────
     - name: Download keymaps
       uses: actions/download-artifact@v4
       with: { name: generated-keymaps, path: config/ }
 
-    # ───────── PMW3610 driver + vendor patch ─────────
-    - name: Set‑up PMW3610 driver
+    # ───────── pull in PMW3610 driver and patch it ─────────
+    - name: Setup PMW3610 driver
       shell: bash
       run: |
+        echo "Setting up PMW3610 driver..."
         git clone --depth 1 https://github.com/badjeff/zmk-pmw3610-driver.git /tmp/pmw3610-driver
+
+        # Register the pixart vendor prefix in the Devicetree bindings so Zephyr doesn't complain
+        echo "🛠️  Patching pmw3610-driver to register the pixart vendor..."
         printf "pixart\tPixArt Imaging, Inc.\n" >> /tmp/pmw3610-driver/dts/bindings/vendor-prefixes.txt
-        # YAML‑safe generation of CMakeLists.txt (no here‑doc)
+
+        # Patch the CMakeLists to prevent 'No SOURCES given to Zephyr library' warning
+        echo "🛠️  Patching pmw3610-driver CMakeLists.txt to avoid empty Zephyr target warning..."
         printf '%s\n' \
           'if(CONFIG_PMW3610)' \
           '  zephyr_library()' \
@@ -136,7 +147,6 @@ jobs:
           # Only right BT half gets Studio RPC
           STUDIO=""; [[ "$FM" == "bt" && "$SH" == *right ]] && STUDIO="-S studio-rpc-usb-uart"
 
-          # We are already inside the workspace (zmk/app)
           west -v build -p \
             -d "$BUILD_DIR" \
             -b "$BD" \
@@ -153,10 +163,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: charybdis-${{ matrix.combo.name }}
-        path: out/${{ matrix.combo.name }}/**
+        path: $GITHUB_WORKSPACE/out/${{ matrix.combo.name }}/**
 
 # ──────────────────────────────────────────────────────────────
-#  RELEASE + keymap‑image workflow trigger
+#  RELEASE + keymap-image workflow trigger
 # ──────────────────────────────────────────────────────────────
   release-firmware:
     name: Release Firmware
