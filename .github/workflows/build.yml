@@ -188,7 +188,6 @@ jobs:
             -d "$BUILD_DIR" \
             -b "$BD" \
             -- \
-            "-s"
             "-DZMK_CONFIG=$CONFIG_DIR" \
             "-DZMK_EXTRA_MODULES=$EXTRA_MODULES" \
             "-DSHIELD=$SH" \
