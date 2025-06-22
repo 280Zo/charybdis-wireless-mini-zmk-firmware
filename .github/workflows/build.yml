@@ -65,6 +65,8 @@ jobs:
     # ───────── update zmk sub-repo ─────────
     - name: Checkout workflow repo
       uses: actions/checkout@v4
+      with:
+        path: .
 
     - name: Initialise West workspace
       shell: bash
@@ -85,7 +87,6 @@ jobs:
         pwd
         tree .
         echo ""
-        echo "PWD $pwd"
         echo "GITHUB_WORKSPACE:"
         tree $GITHUB_WORKSPACE
         echo ""
