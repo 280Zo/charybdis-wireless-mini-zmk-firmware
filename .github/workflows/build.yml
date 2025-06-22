@@ -188,6 +188,7 @@ jobs:
             -b "$BD" \
             -- \
             "-DZMK_CONFIG=$CONFIG_DIR" \
+            "-DZMK_EXTRA_MODULES=$EXTRA_MODULES" \
             "-DSHIELD=$SH" \
             "$KEYMAP_OPTION" \
             "$SNIPPET_OPTION"
