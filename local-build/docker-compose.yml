@@ -2,10 +2,8 @@ services:
   builder:
     image: zmkfirmware/zmk-dev-arm:stable
     volumes:
-      # Bind-mount entire repo read-only
-      - ../:/workspaces/zmk:ro
-      # Persist built firmware to host
-      - ../firmwares:/workspaces/zmk-firmwares:rw
+      # Bind-mount entire repo
+      - ../:/workspaces/zmk:rw
     working_dir: /workspaces/zmk
     entrypoint: []
     command:

@@ -6,11 +6,41 @@ start_time=$(date +%s)
 
 
 # --- CONFIGURABLE SETTINGS ---
-REPO_ROOT="${REPO_ROOT:-$PWD}"                   # path to original repo root
-SHIELD_PATH="${SHIELD_PATH:-boards/shields}"     # where shield folders live relative to repo root
-CONFIG_PATH="${CONFIG_PATH:-config}"              # where source keymaps/config live
-FALLBACK_BINARY="${FALLBACK_BINARY:-bin}"         # fallback firmware extension
-SCRIPT_PATH="$REPO_ROOT/scripts/convert_keymap.py"
+REPO_ROOT="${REPO_ROOT:-$PWD}"                     # path to original repo root
+SHIELD_PATH="${SHIELD_PATH:-boards/shields}"       # where shield folders live relative to repo root
+CONFIG_PATH="${CONFIG_PATH:-config}"               # where source keymaps/config live
+FALLBACK_BINARY="${FALLBACK_BINARY:-bin}"          # fallback firmware extension
+SCRIPT_PATH="$REPO_ROOT/scripts/convert_keymap.py" # path to script that converts keymaps
+
+
+# --- ZMK WORKSPACE ---
+echo "🛠️  Setting up ZMK workspace with west..."
+
+# Only init if not already initialized (i.e., .west folder doesn't exist)
+if [ ! -d ".west" ]; then
+    echo "Initializing west workspace..."
+    west init -l config
+fi
+
+# Mark ZMK source as a safe Git directory
+git config --global --add safe.directory /workspaces/zmk/zephyr
+git config --global --add safe.directory /workspaces/zmk/zmk
+
+# Always update to fetch all modules and dependencies
+echo "🛠️  Updating west modules..."
+west update
+
+# Set environment variables in the current shell
+echo "🛠️  Setting Zephyr build environment..."
+west zephyr-export
+
+# Set permissions so users can delete them
+echo "🛠️  Setting permissions on ZMK resources:"
+chmod -R 777 .west zmk zephyr modules zmk-pmw3610-driver
+
+# Optional: confirm checkout
+echo "🛠️  West workspace ready. Project structure:"
+west list
 
 
 # --- CONFIGURABLE KEYMAPS ---
@@ -53,22 +83,15 @@ else
   echo "⚠️ No keymaps found in $KEYMAP_TEMP"
 fi
 
-# Clear previous firmwares
-rm -rf /workspaces/zmk-firmwares/*
 
-
-# --- PMW3610 Driver Setup ---
-# Clone PMW3610 Driver
-echo "Setting up PMW3610 driver..."
-git clone https://github.com/badjeff/zmk-pmw3610-driver.git /tmp/pmw3610-driver
-
+# --- PATCH PMW3610 DRIVER ---
 # Register the pixart vendor prefix in the Devicetree bindings so Zephyr doesn't complain
 echo "🛠️  Patching pmw3610-driver to register the pixart vendor..."
-printf "pixart\tPixArt Imaging, Inc.\n" >> /tmp/pmw3610-driver/dts/bindings/vendor-prefixes.txt
+printf "pixart\tPixArt Imaging, Inc.\n" >> zmk-pmw3610-driver/dts/bindings/vendor-prefixes.txt
 
 # Patch the CMakeLists to prevent 'No SOURCES given to Zephyr library' warning
 echo "🛠️  Patching pmw3610-driver CMakeLists.txt to avoid empty Zephyr target warning..."
-cat > /tmp/pmw3610-driver/CMakeLists.txt << 'EOF'
+cat > zmk-pmw3610-driver/CMakeLists.txt << 'EOF'
 if(CONFIG_PMW3610)
   zephyr_library()
   zephyr_library_sources(src/pmw3610.c)
@@ -84,37 +107,10 @@ setup_sandbox() {
   # Copy in zmk base repo to the sandbox
   echo ""
   echo "🏖️  Setting up sandbox for shield: $shield..."
-  WORKSPACE_COPY=$(mktemp -d)
-  cp -r "$REPO_ROOT/." "$WORKSPACE_COPY/"
-  BUILD_REPO="$WORKSPACE_COPY"
+  BUILD_REPO=$(mktemp -d)
+  printf "⚙️  %s\n" "→ Copying files into sandbox.."
+  cp -r "$REPO_ROOT/." "$BUILD_REPO/"
   cd "$BUILD_REPO"
-
-  # --- ZMK SOURCE CHECK & UPDATE ---
-  echo "→ Checking ZMK repo status..."
-  ZMK_DIR="$BUILD_REPO/zmk"
-  echo "→ Checking ZMK repo status in $ZMK_DIR..."
-  # Allow git to operate on the mounted submodule safely
-  git config --global --add safe.directory $ZMK_DIR
-  # Check if the submodule exists
-  if [ ! -f "$ZMK_DIR/.git" ]; then
-    echo "❌ Error: $ZMK_DIR does not appear to be a Git submodule."
-    exit 1
-  fi
-  # Add upstream remote if missing
-  if ! git -C "$ZMK_DIR" remote get-url upstream &>/dev/null; then
-    echo "→ Adding upstream remote for zmkfirmware/zmk"
-    git -C "$ZMK_DIR" remote add upstream https://github.com/zmkfirmware/zmk.git
-  fi
-  echo "→ Fetching upstream ZMK main..."
-  git -C "$ZMK_DIR" fetch upstream
-  echo "→ Rebasing onto upstream/main..."
-  git -C "$ZMK_DIR" rebase upstream/main || {
-    echo "⚠️ Rebase failed. Please resolve conflicts manually, then re-run the build."
-    exit 1
-  }
-  echo "✅ ZMK repo is up to date with upstream/main."
-
-  cd "/workspaces/zmk"
   
   # Move the keymap files (macros, combos, etc) to the partent config directory
   mv "$BUILD_REPO/config/keymap/"* "$BUILD_REPO/config/"
@@ -131,30 +127,14 @@ setup_sandbox() {
     else
       BASE_DIR="$BUILD_REPO"
   fi
-
-  # Copy the main repo's .west and modules directories to sandbox—no west init/update/export per build
-  if [ -d "$BUILD_REPO/zmk/.west" ]; then rm -rf "$BUILD_REPO/zmk/.west"; fi
-  if [ -d "$REPO_ROOT/zmk/.west" ]; then cp -r "$REPO_ROOT/zmk/.west" "$BUILD_REPO/zmk/.west"; fi
-  if [ -d "$BUILD_REPO/zmk/modules" ]; then rm -rf "$BUILD_REPO/zmk/modules"; fi
-  if [ -d "$REPO_ROOT/zmk/modules" ]; then cp -r "$REPO_ROOT/zmk/modules" "$BUILD_REPO/zmk/modules"; fi
-
- # Initialize and export west workspace inside the zmk module folder
-  cd "$BUILD_REPO/zmk"
-  if [ ! -d ".west" ]; then
-    echo " → Initializing west workspace in sandbox (zmk/.west)..."
-    west init -l "$BASE_DIR/$CONFIG_PATH"
-  else
-    echo " → West workspace already initialized in sandbox — skipping init"
-  fi
-  echo " → Updating west modules..."
-  west update
-  echo " → Exporting west environment..."
-  west zephyr-export
 }
 
 
 # --- BUILD LOOP FOR EACH SHIELD x KEYMAP ---
-echo "Starting build loop for each shield × keymap"
+echo "🚦 Starting build loop for each shield x keymap"
+
+# Clear previous firmwares
+rm -rf /workspaces/zmk/firmwares/*
 
 for shield in "${shields[@]}"; do
 
@@ -162,8 +142,8 @@ for shield in "${shields[@]}"; do
   setup_sandbox "$shield"
   cd "$BUILD_REPO/zmk"
 
-  # Always include the sandbox as extra_module so custom shields are found
-  ZMK_LOAD_ARG="-DZMK_EXTRA_MODULES=/tmp/pmw3610-driver"
+  # Load in modules (e.g. PMW3610 module)
+  ZMK_LOAD_ARG="-DZMK_EXTRA_MODULES=$BUILD_REPO/zmk-pmw3610-driver"
 
   # Install only the custom shield into the ZMK module’s shields directory
   printf "⚙️  %s\n" "→ Installing custom shield ($shield) into ZMK module"
@@ -241,7 +221,7 @@ for shield in "${shields[@]}"; do
       fi
 
       # Create keymap-specific directory and use target as the filename
-      FIRMWARES_FORMAT_DIR="/workspaces/zmk-firmwares/${shield}"
+      FIRMWARES_FORMAT_DIR="/workspaces/zmk/firmwares/${shield}"
       FIRMWARES_DIR="${FIRMWARES_FORMAT_DIR}/${keymap}"
 
       # If format directory doesn't exist, create and chmod it
@@ -265,7 +245,7 @@ for shield in "${shields[@]}"; do
   done
   # Clean up sandbox
   echo "Cleaning up sandbox..."
-  rm -rf $WORKSPACE_COPY
+  rm -rf $BUILD_REPO
 done
 
 
@@ -274,7 +254,7 @@ setup_sandbox "settings_reset"
 cd "$BUILD_REPO/zmk"
 RESET_BOARD="nice_nano_v2"
 BUILD_DIR=$(mktemp -d)
-FIRM_PATH="/workspaces/zmk-firmwares/settings_reset.uf2"
+FIRM_PATH="/workspaces/zmk/firmwares/settings_reset.uf2"
 printf "🗂  %s\n" "→ Build dir: $BUILD_DIR"
 printf "🔧  %s\n" "→ Building settings_reset firmware..."
 

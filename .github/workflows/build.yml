@@ -58,9 +58,6 @@ jobs:
       matrix:
         combo: ${{ fromJson(needs.setup.outputs.groups) }}
 
-    env:
-      FALLBACK_EXT: bin
-
     steps:
     # ───────── update zmk sub-repo ─────────
     - name: Checkout workflow repo
@@ -193,7 +190,7 @@ jobs:
             "$KEYMAP_OPTION" \
             "$SNIPPET_OPTION"
 
-          ART=$(if [[ -f "$BUILD_DIR/zephyr/zmk.uf2" ]]; then echo zmk.uf2; else echo zmk.${FALLBACK_EXT}; fi)
+          ART=$(if [[ -f "$BUILD_DIR/zephyr/zmk.uf2" ]]; then echo zmk.uf2; else echo zmk.bin; fi)
           cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"
         done
 
