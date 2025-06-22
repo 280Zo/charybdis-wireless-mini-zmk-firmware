@@ -70,29 +70,21 @@ jobs:
       shell: bash
       run: |
         set -euxo pipefail
-        cd "$GITHUB_WORKSPACE"
         echo "✨ Initializing the west workspace with the local manifest from config/west.yml."
         west init -l --mf $GITHUB_WORKSPACE/config/west.yml "$GITHUB_WORKSPACE/config"
         echo "🔄 Updating and synchronizing all repositories in the workspace."
         west update
         echo "📦 Exporting Zephyr for external build system integration."
         west zephyr-export
-        echo "🔍 West workspace ready. Project structure:"
-        west list
 
         # ───────── DEBUG LOGS ─────────
         echo ""
+        echo "🪳 Debug Logs"
         echo "👀 Top dir  : $(west topdir)"
         echo "👀 Projects :"
         ls -1 $(west topdir)     # you'll see zmk, zephyr, modules/ …
-        echo ""
-        echo "📍 Showing current directory and listing contents:"
-        pwd
-        tree .
-        # echo ""
-        # echo "GITHUB_WORKSPACE:"
-        # tree $GITHUB_WORKSPACE
-        # echo ""
+        echo "👀 West workspace ready. Project structure:"
+        west list
 
     # ───────── pull in keymaps ─────────
     - name: Download keymaps
@@ -193,6 +185,7 @@ jobs:
           fi
 
           # ───────── DEBUG LOGS ─────────
+          echo "🪳 Debug Logs"
           echo "Build Variables:"
           echo "→ Keymap       (KM): $KM"
           echo "→ Format       (FM): $FM"
@@ -204,13 +197,11 @@ jobs:
           echo "→ Build dir        : $BUILD_DIR"
           echo "→ Directory contents:"
           tree .
-
           echo ""
+          echo "📍 Showing current build directory and listing contents:"
           echo "GITHUB_WORKSPACE:"
           tree $GITHUB_WORKSPACE
           echo ""
-
-
 
           echo "🛠 Kicking off the firmware build..."
           west build -p \
