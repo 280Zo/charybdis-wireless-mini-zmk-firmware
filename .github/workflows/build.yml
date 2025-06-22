@@ -59,6 +59,9 @@ jobs:
         combo: ${{ fromJson(needs.setup.outputs.groups) }}
 
     steps:
+    - name: Install tree
+      run: sudo apt-get update && sudo apt-get install -y tree
+
     # ───────── update zmk sub-repo ─────────
     - name: Checkout workflow repo
       uses: actions/checkout@v4
@@ -76,8 +79,8 @@ jobs:
       uses: actions/download-artifact@v4
       with: { name: generated-keymaps, path: config/keymap }
 
-    # ───────── stage keymaps ─────────
-    - name: Stage keymap overlays into source tree
+    # ───────── stage keymaps and helper files ─────────
+    - name: Stage keymaps, overlays, and dtsi files into source tree
       shell: bash
       run: |
         # Create overlays directory inside zmk/app
@@ -132,7 +135,7 @@ jobs:
     # ───────── Build loop ─────────
     - name: Build combo ${{ matrix.combo.name }}
       shell: bash
-      working-directory: zmk
+      working-directory: zmk/app
       run: |
         set -euo pipefail
 
@@ -141,14 +144,14 @@ jobs:
         NM="${{ matrix.combo.name }}"
         BD="${{ matrix.combo.board }}"    # nice_nano_v2
 
-        echo "ℹ️ Build Variables:"
-        echo "  Keymap       (KM): $KM"
-        echo "  Format       (FM): $FM"
-        echo "  Name         (NM): $NM"
-        echo "  Board        (BD): $BD"
+        echo "Build Variables:"
+        echo "→ Keymap       (KM): $KM"
+        echo "→ Format       (FM): $FM"
+        echo "→ Name         (NM): $NM"
+        echo "→ Board        (BD): $BD"
         echo "→ Current directory: $(pwd)"
         echo "→ Directory contents:"
-        ls -la
+        tree .
 
         declare -A LIST=(
           [bt]="charybdis_left charybdis_right"
@@ -190,7 +193,7 @@ jobs:
           echo "SNIPPET_OPTION='$SNIPPET_OPTION'"
 
 
-          west build -p -s app \
+          west build -p \
             -d "$BUILD_DIR" \
             -b "$BD" \
             -- \
