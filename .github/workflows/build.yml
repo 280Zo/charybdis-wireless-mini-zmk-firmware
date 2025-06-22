@@ -65,8 +65,6 @@ jobs:
     # ───────── update zmk sub-repo ─────────
     - name: Checkout workflow repo
       uses: actions/checkout@v4
-      with:
-        path: .
 
     - name: Initialise West workspace
       shell: bash
@@ -83,13 +81,17 @@ jobs:
 
         # ───────── DEBUG LOGS ─────────
         echo ""
-        echo "📍 Showing current directory and listing contents:"
-        pwd
-        tree .
-        echo ""
-        echo "GITHUB_WORKSPACE:"
-        tree $GITHUB_WORKSPACE
-        echo ""
+        echo "👀 Top dir  : $(west topdir)"
+        echo "👀 Projects :"
+        ls -1 $(west topdir)     # you’ll see zmk, zephyr, modules/ …
+        # echo ""
+        # echo "📍 Showing current directory and listing contents:"
+        # pwd
+        # tree .
+        # echo ""
+        # echo "GITHUB_WORKSPACE:"
+        # tree $GITHUB_WORKSPACE
+        # echo ""
 
     # ───────── pull in keymaps ─────────
     - name: Download keymaps
