@@ -94,8 +94,8 @@ jobs:
              zmk/app/overlays/charybdis.keymap
 
           # copy helper .dtsi files if they exist
-          cp config/*.dtsi \
-             zmk/app/overlays/ 2>/dev/null || true
+          cp config/*.dtsi zmk/app/overlays/ 2>/dev/null || true
+          cp config/keymap/*.dtsi zmk/app/overlays/ 2>/dev/null || true
         fi
 
     # ───────── pull in PMW3610 driver and patch it ─────────
