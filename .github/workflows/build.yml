@@ -98,26 +98,28 @@ jobs:
           cp config/keymap/*.dtsi zmk/app/overlays/ 2>/dev/null || true
         fi
 
-    # ───────── pull in PMW3610 driver and patch it ─────────
-    - name: Setup PMW3610 driver
+    # ───────── patch the PMW3610 driver that West has checked out ─────────
+    - name: Patch PMW3610 driver (West module)
       shell: bash
       run: |
-        echo "Setting up PMW3610 driver..."
-        git clone --depth 1 https://github.com/badjeff/zmk-pmw3610-driver.git /tmp/pmw3610-driver
+        # where West put the driver
+        driver_dir="${GITHUB_WORKSPACE}/modules/zmk-pmw3610-driver"
+        binding_dir="$driver_dir/dts/bindings"
 
-        # Register the pixart vendor prefix in the Devicetree bindings so Zephyr doesn't complain
-        echo "🛠️  Patching pmw3610-driver to register the pixart vendor..."
-        printf "pixart\tPixArt Imaging, Inc.\n" >> /tmp/pmw3610-driver/dts/bindings/vendor-prefixes.txt
+        # patch - register the pixart vendor prefix
+        echo "🛠️  Registering pixart vendor in the driver's bindings..."
+        printf "pixart\tPixArt Imaging, Inc.\n" >> "$binding_dir/vendor-prefixes.txt"
 
-        # Patch the CMakeLists to prevent 'No SOURCES given to Zephyr library' warning
-        echo "🛠️  Patching pmw3610-driver CMakeLists.txt to avoid empty Zephyr target warning..."
+        # patch - fix the CMakeLists so Zephyr actually builds the driver
+        cmakelists="$driver_dir/CMakeLists.txt"
+        echo "🛠️  Patching the driver's CMakeLists..."
         printf '%s\n' \
           'if(CONFIG_PMW3610)' \
           '  zephyr_library()' \
           '  zephyr_library_sources(src/pmw3610.c)' \
           '  zephyr_include_directories(${APPLICATION_SOURCE_DIR}/include)' \
-          'endif()' > /tmp/pmw3610-driver/CMakeLists.txt
-        echo "EXTRA_MODULES=${GITHUB_WORKSPACE};/tmp/pmw3610-driver" >> "$GITHUB_ENV"
+          'endif()' \
+          > "$cmakelists"
 
     # ───────── Inject custom shields & helper DTSI files ─────────
     - name: Install custom shields into ZMK
