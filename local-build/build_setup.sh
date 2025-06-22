@@ -85,12 +85,14 @@ fi
 
 
 # --- PATCH PMW3610 DRIVER ---
+echo "🛠️  Patching the PMW3610 Module..."
+
 # Register the pixart vendor prefix in the Devicetree bindings so Zephyr doesn't complain
-echo "🛠️  Patching pmw3610-driver to register the pixart vendor..."
+echo "🛠️  Registering pixart vendor in the driver's bindings so Zepyhr doesn't complain..."
 printf "pixart\tPixArt Imaging, Inc.\n" >> zmk-pmw3610-driver/dts/bindings/vendor-prefixes.txt
 
 # Patch the CMakeLists to prevent 'No SOURCES given to Zephyr library' warning
-echo "🛠️  Patching pmw3610-driver CMakeLists.txt to avoid empty Zephyr target warning..."
+echo "🛠️  Updating CMakeLists.txt to avoid empty Zephyr target warning..."
 cat > zmk-pmw3610-driver/CMakeLists.txt << 'EOF'
 if(CONFIG_PMW3610)
   zephyr_library()
@@ -276,3 +278,4 @@ elapsed=$(( end_time - start_time ))
 minutes=$(( elapsed / 60 ))
 seconds=$(( elapsed % 60 ))
 echo "🏁 All builds completed in ${minutes} m ${seconds} s."
+echo ""

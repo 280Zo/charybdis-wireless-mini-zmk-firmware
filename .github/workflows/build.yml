@@ -30,7 +30,7 @@ jobs:
         echo "⚙️ Generating additional keymaps"
         python scripts/convert_keymap.py -c q2c --in-path config/keymap/charybdis.keymap
         python scripts/convert_keymap.py -c q2g --in-path config/keymap/charybdis.keymap
-        cp config/keymap/charybdis.keymap config/keymap/qwerty.keymap
+        mv config/keymap/charybdis.keymap config/keymap/qwerty.keymap
 
     - uses: actions/upload-artifact@v4
       with: { name: generated-keymaps, path: config/keymap/ }
@@ -117,7 +117,7 @@ jobs:
         ls -R $driver_dir | head
 
     # ───────── Inject custom shields & helper DTSI files ─────────
-    - name: Install custom shields into ZMK
+    - name: Inject custom shields & helper files
       shell: bash
       run: |
         ZMK_SHIELDS_DIR="$GITHUB_WORKSPACE/zmk/app/boards/shields"
@@ -132,7 +132,7 @@ jobs:
     # ───────── Build loop ─────────
     - name: Build combo ${{ matrix.combo.name }}
       shell: bash
-      working-directory: zmk/app
+      working-directory: zmk
       run: |
         set -euo pipefail
 
@@ -140,6 +140,15 @@ jobs:
         FM="${{ matrix.combo.format }}"   # bt | dongle | reset
         NM="${{ matrix.combo.name }}"
         BD="${{ matrix.combo.board }}"    # nice_nano_v2
+
+        echo "ℹ️ Build Variables:"
+        echo "  Keymap       (KM): $KM"
+        echo "  Format       (FM): $FM"
+        echo "  Name         (NM): $NM"
+        echo "  Board        (BD): $BD"
+        echo "→ Current directory: $(pwd)"
+        echo "→ Directory contents:"
+        ls -la
 
         declare -A LIST=(
           [bt]="charybdis_left charybdis_right"
@@ -181,7 +190,7 @@ jobs:
           echo "SNIPPET_OPTION='$SNIPPET_OPTION'"
 
 
-          west build -p \
+          west build -p -s app \
             -d "$BUILD_DIR" \
             -b "$BD" \
             -- \
