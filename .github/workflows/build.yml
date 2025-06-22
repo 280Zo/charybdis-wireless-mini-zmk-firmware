@@ -137,7 +137,7 @@ jobs:
       run: |
         ZMK_SHIELDS_DIR="$GITHUB_WORKSPACE/zmk/app/boards/shields"
         mkdir -p "$ZMK_SHIELDS_DIR"
-        cp -r boards/shields/* "$ZMK_SHIELDS_DIR/"
+        cp -r "boards/shields/charybdis_${{ matrix.combo.format }}" "$ZMK_SHIELDS_DIR/"
         for d in "$ZMK_SHIELDS_DIR"/*; do
           for f in charybdis-layouts.dtsi charybdis_pmw3610.dtsi charybdis_pointer.dtsi; do
             [ -f "config/$f" ] && cp "config/$f" "$d/" || true
