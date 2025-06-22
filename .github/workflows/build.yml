@@ -65,8 +65,6 @@ jobs:
     # ───────── update zmk sub-repo ─────────
     - name: Checkout workflow repo
       uses: actions/checkout@v4
-      with:
-        submodules: recursive
 
     - name: Initialise West workspace
       shell: bash
@@ -146,15 +144,6 @@ jobs:
         NM="${{ matrix.combo.name }}"
         BD="${{ matrix.combo.board }}"    # nice_nano_v2
 
-        echo "Build Variables:"
-        echo "→ Keymap       (KM): $KM"
-        echo "→ Format       (FM): $FM"
-        echo "→ Name         (NM): $NM"
-        echo "→ Board        (BD): $BD"
-        echo "→ Current directory: $(pwd)"
-        echo "→ Directory contents:"
-        tree .
-
         declare -A LIST=(
           [bt]="charybdis_left charybdis_right"
           [dongle]="charybdis_left charybdis_right charybdis_dongle"
@@ -183,18 +172,27 @@ jobs:
             KEYMAP_OPTION=""
           fi
 
-
           # ───────── DEBUG LOGS ─────────
-          # Debug: show current directory and file layout
-          echo "→ pwd: $(pwd)"
-          echo "→ Build dir: $BUILD_DIR"
-          ls -la "$BUILD_DIR" || true
-          echo "→ Overlays dir: zmk/app/overlays"
-          ls -la overlays
-          echo "KEYMAP_OPTION='$KEYMAP_OPTION'"
-          echo "SNIPPET_OPTION='$SNIPPET_OPTION'"
+          echo "Build Variables:"
+          echo "→ Keymap       (KM): $KM"
+          echo "→ Format       (FM): $FM"
+          echo "→ Name         (NM): $NM"
+          echo "→ Board        (BD): $BD"
+          echo "→ Current directory: $(pwd)"
+          echo "→ KEYMAP_OPTION    :$KEYMAP_OPTION"
+          echo "→ SNIPPET_OPTION   :$SNIPPET_OPTION"
+          echo "→ Build dir        : $BUILD_DIR"
+          echo "→ Directory contents:"
+          tree .
+
+          echo ""
+          echo "GITHUB_WORKSPACE:"
+          tree $GITHUB_WORKSPACE
+          echo ""
 
 
+
+          echo "🛠 Kicking off the firmware build..."
           west build -p \
             -d "$BUILD_DIR" \
             -b "$BD" \
