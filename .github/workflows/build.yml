@@ -74,6 +74,12 @@ jobs:
         west update
         west zephyr-export
 
+        # ───────── DEBUG LOGS ─────────
+        echo ""
+        echo "GITHUB_WORKSPACE:"
+        tree $GITHUB_WORKSPACE
+        echo ""
+
     # ───────── pull in keymaps ─────────
     - name: Download keymaps
       uses: actions/download-artifact@v4
