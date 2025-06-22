@@ -72,7 +72,7 @@ jobs:
         set -euxo pipefail
         cd "$GITHUB_WORKSPACE"
         echo "✨ Initializing the west workspace with the local manifest from config/west.yml."
-        west init -l . --mf config/west.yml
+        west init -l --mf config/west.yml "$GITHUB_WORKSPACE"
         echo "🔄 Updating and synchronizing all repositories in the workspace."
         west update
         echo "📦 Exporting Zephyr for external build system integration."
