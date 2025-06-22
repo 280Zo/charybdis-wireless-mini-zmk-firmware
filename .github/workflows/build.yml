@@ -63,10 +63,8 @@ jobs:
 
     steps:
     # ───────── update zmk sub-repo ─────────
-    - name: Checkout workflow repo (with submodules)
+    - name: Checkout workflow repo
       uses: actions/checkout@v4
-      with:
-        submodules: recursive
 
     - name: Initialise West workspace
       shell: bash
