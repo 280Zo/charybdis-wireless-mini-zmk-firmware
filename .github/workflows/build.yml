@@ -30,7 +30,7 @@ jobs:
         echo "⚙️ Generating additional keymaps"
         python scripts/convert_keymap.py -c q2c --in-path config/keymap/charybdis.keymap
         python scripts/convert_keymap.py -c q2g --in-path config/keymap/charybdis.keymap
-        mv config/keymap/charybdis.keymap config/keymap/qwerty.keymap
+        cp config/keymap/charybdis.keymap config/keymap/qwerty.keymap
 
     - uses: actions/upload-artifact@v4
       with: { name: generated-keymaps, path: config/keymap/ }
@@ -234,7 +234,6 @@ jobs:
 # ──────────────────────────────────────────────────────────────
   keymap_images:
     needs: build
-    permissions: { contents: write }
     uses: ./.github/workflows/draw_keymaps.yaml
     with:
-      zmk-keymap: "config/keymap/${{ matrix.combo.keymap }}.keymap"
+      config_path: "config/keymap"
