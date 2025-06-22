@@ -72,7 +72,7 @@ jobs:
       shell: bash
       run: |
         set -euxo pipefail
-        west init -l --mf zmk/app/west.yml .
+        west init -l --mf config/west.yml .
         west update
         west zephyr-export
 
