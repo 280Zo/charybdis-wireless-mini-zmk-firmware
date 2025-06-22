@@ -133,6 +133,7 @@ jobs:
 
     # ───────── Inject custom shields & helper DTSI files ─────────
     - name: Inject custom shields & helper files
+      if: ${{ matrix.combo.format != 'reset' }}
       shell: bash
       run: |
         ZMK_SHIELDS_DIR="$GITHUB_WORKSPACE/zmk/app/boards/shields"
@@ -144,7 +145,7 @@ jobs:
           done
         done
 
-    # ───────── Build loop ─────────
+    # ───────── Build ─────────
     - name: Build combo ${{ matrix.combo.name }}
       shell: bash
       working-directory: zmk/app
