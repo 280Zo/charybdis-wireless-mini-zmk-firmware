@@ -60,7 +60,7 @@ jobs:
 
     steps:
     - name: Install tree
-      run: sudo apt-get update && sudo apt-get install -y tree
+      run: apt-get update && apt-get install -y tree
 
     # ───────── update zmk sub-repo ─────────
     - name: Checkout workflow repo
