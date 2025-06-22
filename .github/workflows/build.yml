@@ -73,6 +73,7 @@ jobs:
         west init -l --mf config/west.yml .
         west update
         west zephyr-export
+        west -v manifest --resolve
 
         # ───────── DEBUG LOGS ─────────
         echo ""
