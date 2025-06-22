@@ -45,7 +45,7 @@ jobs:
         cat build.json | jq .
 
 # ──────────────────────────────────────────────────────────────
-#  BUILD clones *fresh* ZMK upstream each run (keeps you up-to-date)
+#  BUILD
 # ──────────────────────────────────────────────────────────────
   build:
     name: Build (${{ matrix.combo.name }})
@@ -158,13 +158,14 @@ jobs:
         for SH in ${LIST[$FM]}; do
           BUILD_DIR=$(mktemp -d)
 
-          # Studio RPC only on right half of BT builds
+          # studio RPC only on right half of BT builds
           if [[ "$FM" == "bt" && "$SH" == *right ]]; then
             SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
           else
             SNIPPET_OPTION=""
           fi
 
+          # set keymap
           if [[ "$FM" != "reset" ]]; then
             KEYMAP_OPTION="-DKEYMAP_FILE=overlays/charybdis.keymap"
           else
@@ -187,6 +188,7 @@ jobs:
             -d "$BUILD_DIR" \
             -b "$BD" \
             -- \
+            "-s"
             "-DZMK_CONFIG=$CONFIG_DIR" \
             "-DZMK_EXTRA_MODULES=$EXTRA_MODULES" \
             "-DSHIELD=$SH" \
@@ -204,7 +206,7 @@ jobs:
         path: ${{ github.workspace }}/out/${{ matrix.combo.name }}/**
 
 # ──────────────────────────────────────────────────────────────
-#  RELEASE + keymap-image workflow trigger
+#  RELEASE - zip files to add to release
 # ──────────────────────────────────────────────────────────────
   release-firmware:
     name: Release Firmware
@@ -227,7 +229,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+# ──────────────────────────────────────────────────────────────
+#  IMAGES - generate keymap images
+# ──────────────────────────────────────────────────────────────
   keymap_images:
     needs: build
     permissions: { contents: write }
     uses: ./.github/workflows/draw_keymaps.yaml
+    with:
+      zmk-keymap: "config/keymap/${{ matrix.combo.keymap }}.keymap"
