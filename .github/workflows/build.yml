@@ -98,28 +98,28 @@ jobs:
           cp config/keymap/*.dtsi zmk/app/overlays/ 2>/dev/null || true
         fi
 
-    # ───────── patch the PMW3610 driver that West has checked out ─────────
-    - name: Patch PMW3610 driver (West module)
+    # ───────── patch the PMW3610 driver that West checked out ─────────
+    - name: Patch PMW3610 driver (West-determined path)
       shell: bash
       run: |
-        # where West put the driver
-        driver_dir="${GITHUB_WORKSPACE}/modules/zmk-pmw3610-driver"
+        # Ask West where the project is
+        driver_dir=$(west list -f '{abspath}' zmk-pmw3610-driver)
         binding_dir="$driver_dir/dts/bindings"
 
-        # patch - register the pixart vendor prefix
-        echo "🛠️  Registering pixart vendor in the driver's bindings..."
+        echo "🛠️  Registering pixart vendor in the driver's bindings…"
         printf "pixart\tPixArt Imaging, Inc.\n" >> "$binding_dir/vendor-prefixes.txt"
 
-        # patch - fix the CMakeLists so Zephyr actually builds the driver
-        cmakelists="$driver_dir/CMakeLists.txt"
-        echo "🛠️  Patching the driver's CMakeLists..."
-        printf '%s\n' \
-          'if(CONFIG_PMW3610)' \
-          '  zephyr_library()' \
-          '  zephyr_library_sources(src/pmw3610.c)' \
-          '  zephyr_include_directories(${APPLICATION_SOURCE_DIR}/include)' \
-          'endif()' \
-          > "$cmakelists"
+        echo "🛠️  Patching the driver's CMakeLists…"
+        cat > "$driver_dir/CMakeLists.txt" <<'EOF'
+        if(CONFIG_PMW3610)
+          zephyr_library()
+          zephyr_library_sources(src/pmw3610.c)
+          zephyr_include_directories(${APPLICATION_SOURCE_DIR}/include)
+        endif()
+        EOF
+
+        echo "Driver path is: $driver_dir"
+        ls -R $driver_dir | head
 
     # ───────── Inject custom shields & helper DTSI files ─────────
     - name: Install custom shields into ZMK
@@ -191,7 +191,6 @@ jobs:
             -b "$BD" \
             -- \
             "-DZMK_CONFIG=$CONFIG_DIR" \
-            "-DZMK_EXTRA_MODULES=$EXTRA_MODULES" \
             "-DSHIELD=$SH" \
             "$KEYMAP_OPTION" \
             "$SNIPPET_OPTION"
