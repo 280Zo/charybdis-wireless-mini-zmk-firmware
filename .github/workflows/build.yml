@@ -81,6 +81,23 @@ jobs:
       uses: actions/download-artifact@v4
       with: { name: generated-keymaps, path: config/keymap }
 
+    # ───────── stage keymaps ─────────
+    - name: Stage keymap overlays into source tree
+      shell: bash
+      run: |
+        # Create overlays directory inside zmk/app
+        mkdir -p zmk/app/overlays
+
+        # Only for bt/dongle builds, copy in the single keymap and any helpers
+        if [[ "${{ matrix.combo.format }}" != "reset" ]]; then
+          cp config/keymap/${{ matrix.combo.keymap }}.keymap \
+             zmk/app/overlays/charybdis.keymap
+
+          # copy helper .dtsi files if they exist
+          cp config/*.dtsi \
+             zmk/app/overlays/ 2>/dev/null || true
+        fi
+
     # ───────── pull in PMW3610 driver and patch it ─────────
     - name: Setup PMW3610 driver
       shell: bash
@@ -134,27 +151,12 @@ jobs:
         )
 
         mkdir -p "$GITHUB_WORKSPACE/out/$NM"
-
-        # ── Copy keymap + helpers once per combo ───
-        src="$GITHUB_WORKSPACE/config/keymap"
-        dst="$GITHUB_WORKSPACE/config"
-
-        if [[ "$FM" != "reset" ]]; then
-          cp  "$src/${KM}.keymap" "$dst/charybdis.keymap"
-          cp  "$src/"*.dtsi       "$dst/" 2>/dev/null || true
-        fi
+        CONFIG_DIR="$GITHUB_WORKSPACE/config"
+        
         # ──────────────────────────────────────────────────────────────
 
         for SH in ${LIST[$FM]}; do
           BUILD_DIR=$(mktemp -d)
-
-          # Make keymap visible
-          if [[ "$FM" != "reset" ]]; then
-            # copy into source overlay dir
-            cp "$dst/charybdis.keymap" zmk/app/
-            # or: ln -s "$dst/charybdis.keymap" zmk/app/charybdis.keymap
-            KEYMAP_OPTION="-DKEYMAP_FILE=charybdis.keymap"
-          fi
 
           # Studio RPC only on right half of BT builds
           if [[ "$FM" == "bt" && "$SH" == *right ]]; then
@@ -163,34 +165,32 @@ jobs:
             SNIPPET_OPTION=""
           fi
 
+          if [[ "$FM" != "reset" ]]; then
+            KEYMAP_OPTION="-DKEYMAP_FILE=overlays/charybdis.keymap"
+          else
+            KEYMAP_OPTION=""
+          fi
+
+
           # ───────── DEBUG LOGS ─────────
           # Debug: show current directory and file layout
           echo "→ pwd: $(pwd)"
           echo "→ Build dir: $BUILD_DIR"
           ls -la "$BUILD_DIR" || true
-
-          echo "→ Config dir: $dst"
-          ls -la "$dst" || true
-
-          # Debug: does the keymap really exist?
-          if [[ -f "$dst/charybdis.keymap" ]]; then
-            echo "✅ Found keymap at $dst/charybdis.keymap"
-          else
-            echo "❌ Keymap missing at $dst/charybdis.keymap"
-          fi
-
+          echo "→ Overlays dir: zmk/app/overlays"
+          ls -la overlays
           echo "KEYMAP_OPTION='$KEYMAP_OPTION'"
           echo "SNIPPET_OPTION='$SNIPPET_OPTION'"
+
 
           west build -p \
             -d "$BUILD_DIR" \
             -b "$BD" \
             -- \
-            "-DZMK_CONFIG=$dst" \
+            "-DZMK_CONFIG=$CONFIG_DIR" \
             "-DSHIELD=$SH" \
             "$KEYMAP_OPTION" \
             "$SNIPPET_OPTION"
-
 
           ART=$(if [[ -f "$BUILD_DIR/zephyr/zmk.uf2" ]]; then echo zmk.uf2; else echo zmk.${FALLBACK_EXT}; fi)
           cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"
