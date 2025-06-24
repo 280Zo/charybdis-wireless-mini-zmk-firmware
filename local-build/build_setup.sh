@@ -6,6 +6,7 @@ start_time=$(date +%s)
 
 
 # --- CONFIGURABLE SETTINGS ---
+ENABLE_USB_LOGGING="false"                          # Set to "true" to enable USB logging
 REPO_ROOT="${REPO_ROOT:-$PWD}"                     # path to original repo root
 SHIELD_PATH="${SHIELD_PATH:-boards/shields}"       # where shield folders live relative to repo root
 CONFIG_PATH="${CONFIG_PATH:-config}"               # where source keymaps/config live
@@ -189,10 +190,15 @@ for shield in "${shields[@]}"; do
       printf "🛡  %s\n" "→ Building: shield=$shield, target=$target keymap=$keymap, board=$board"
 
       # Turn on ZMK Studio for right-side BT builds only
+      STUDIO_SNIPPET=""
       if [[ "$shield" == *bt* && "$target" == *right ]]; then
         STUDIO_SNIPPET="-S studio-rpc-usb-uart"
-      else
-        STUDIO_SNIPPET=""
+      fi
+
+      # Enable logging
+      USB_LOGGING_SNIPPET=""
+      if [[ "$ENABLE_USB_LOGGING" == "true" ]]; then
+        USB_LOGGING_SNIPPET="-S zmk-usb-logging"
       fi
 
       # Load in the keymap
@@ -203,10 +209,10 @@ for shield in "${shields[@]}"; do
         -d "$BUILD_DIR" \
         -b "$board" \
         $STUDIO_SNIPPET \
+        $USB_LOGGING_SNIPPET \
         -- \
           -DZMK_CONFIG="$BASE_DIR/$CONFIG_PATH" \
           -DSHIELD="$target" $ZMK_LOAD_ARG
-          # -DCMAKE_VERBOSE_MAKEFILE=ON # verbose logging
       echo ""
       
       # Find the built firmware (prefer .uf2, else fallback)

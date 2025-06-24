@@ -9,9 +9,9 @@
     scroller: scroller {
         layers           = <8>;
         input-processors = <
-            &zip_xy_to_scroll_mapper
-            &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
-            &zip_xy_scaler 1 5
+            &zip_xy_to_scroll_mapper                         // Converts XY movement to scroll events
+            &zip_scroll_scaler 1 6                           // Scales the scroll speed (e.g., 1/6 speed)
+            &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT) // Inverts the scroll direction
         >;
     };
 

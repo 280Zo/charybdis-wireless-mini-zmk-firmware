@@ -37,15 +37,15 @@
         compatible = "zmk,keymap";
         BASE {
             bindings = <
-// ╭──────────┬────────────────┬────────────────┬─────────────────┬─────────────────┬──────╮  ╭──────┬──────────────────┬──────────────────┬─────────────────┬────────────────────────┬───────────╮
-    &td_layers &kp Q            &kp W            &kp E             &kp R             &kp T     &kp Y  &kp U              &kp I              &kp O             &kp P                     &kp DEL
-// ├──────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼───────────┤
-    &kp TAB    &ht_left LCMD A  &ht_left LALT S  &ht_left LSHFT D  &ht_left LCTRL F  &kp G     &kp H  &ht_right RCTRL J  &ht_right RSHFT K  &ht_right LALT L  &ht_right RCMD SEMICOLON  &kp BSPC
-// ├──────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼───────────┤
-    &kp LSHFT  &kp Z            &kp X            &kp C             &kp V             &kp B     &kp N  &kp M              &mm_cm_sc          &mm_pr_col        &mm_qm_ex                 &kp RSHFT
-// ╰──────────┴────────────────┴────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┴─────────────────┴────────────────────────┴───────────╯
-                                                           &td_esc_scrl_slow  &mo 3  &mo 1     &kp ENTER  &td_space_nav
-                                                       // ╰──────────────────┴──────┴──────╯  ╰──────────┴──────────────╯
+// ╭───────────────┬────────────────┬────────────────┬─────────────────┬─────────────────┬──────╮  ╭──────┬──────────────────┬──────────────────┬─────────────────┬────────────────────────┬───────────╮
+    &kp C_AC_SEARCH &kp Q            &kp W            &kp E             &kp R             &kp T     &kp Y  &kp U              &kp I              &kp O             &kp P                     &td_layers
+// ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼───────────┤
+    &kp TAB         &ht_left LCMD A  &ht_left LALT S  &ht_left LSHFT D  &ht_left LCTRL F  &kp G     &kp H  &ht_right RCTRL J  &ht_right RSHFT K  &ht_right LALT L  &ht_right RCMD SEMICOLON  &kp DEL
+// ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼───────────┤
+    &kp LSHFT       &kp Z            &kp X            &kp C             &kp V             &kp B     &kp N  &kp M              &mm_cm_sc          &mm_pr_col        &mm_qm_ex                 &kp RSHFT
+// ╰───────────────┴────────────────┴────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┴─────────────────┴────────────────────────┴───────────╯
+                                                                &td_esc_scrl_slow  &mo 3  &td_bs     &kp ENTER  &td_space_nav
+                                                            // ╰──────────────────┴──────┴──────╯  ╰──────────┴──────────────╯
             >;
         };
 
@@ -99,7 +99,7 @@
 &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0
 &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0
 &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0    &to 0
-                              &mkp LCLK    &mkp MCLK    &mkp RCLK    &to 0    &to 0
+                           &td_esc_scrl_slow   &mkp LCLK       &mkp RCLK    &to 0    &to 0
             >;
         };
 
@@ -107,7 +107,7 @@
             bindings = <
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-&trans    &trans    &trans    &trans    &kp N7    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
                               &trans    &trans    &trans    &trans    &trans
             >;
         };
@@ -116,7 +116,7 @@
             bindings = <
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-&trans    &trans    &trans    &trans    &kp N8    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
                               &trans    &trans    &trans    &trans    &trans
             >;
         };

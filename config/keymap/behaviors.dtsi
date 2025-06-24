@@ -1,5 +1,5 @@
 #define KEYS_L 0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 19 20 21 22  // Left-hand keys.
-#define KEYS_R 6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 39 40 16 15 14 12  // Right-hand keys.
+#define KEYS_R 6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 39 40 16 15 14 13  // Right-hand keys.
 #define THUMBS 36 37 38 39 40  // Thumb keys.
 
 / {
@@ -34,30 +34,38 @@
             flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
+            require-prior-idle-ms = <125>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
         };
 
+        // ht_3clk: ht_3clk {
+        //     compatible = "zmk,behavior-hold-tap";
+        //     #binding-cells = <2>;
+        //     flavor = "balanced";
+        //     tapping-term-ms = <120>;
+        //     bindings = <&mo>, <&mkp>;   /* hold → layer 3, tap → left-click */
+        // };
+
         td_esc_scrl_slow: td_esc_scrl_slow {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <80>;
+            tapping-term-ms = <125>;
             bindings = <&lt 8 ESC>, <&mo 7>; // hold, tap, double_tap
         };
 
         td_space_nav: td_space {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <85>;
+            tapping-term-ms = <120>;
             bindings = <&lt 2 SPACE>, <&kp SPACE>; // hold, tap, double_tap
         };
 
         td_bs: td_bs {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <85>;
+            tapping-term-ms = <115>;
             bindings = <&lt 1 BACKSPACE>, <&kp BACKSPACE>; // hold, tap, double_tap
         };
 
@@ -85,7 +93,7 @@
         td_bore: BASE_or_EXTRA {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&mo 6>, <&to 0>;
+            bindings = <&mo 5>, <&to 0>;
         };
 
         mm_qm_ex: question_exclamation {
