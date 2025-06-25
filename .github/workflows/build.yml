@@ -25,6 +25,11 @@ jobs:
     - name: OS deps
       run: sudo apt-get update && sudo apt-get install -y jq
 
+    - name: Generate extra keymaps
+      run: |
+        echo "⚙️ Generating additional keymaps"
+        mv config/keymap/charybdis.keymap config/keymap/charybdis.keymap
+
     - uses: actions/upload-artifact@v4
       with: { name: generated-keymaps, path: config/keymap/ }
 
@@ -242,11 +247,6 @@ jobs:
 # ──────────────────────────────────────────────────────────────
 #  IMAGES - generate keymap images
 # ──────────────────────────────────────────────────────────────
-  # keymap_images:
-  #   needs: build
-  #   permissions:
-  #     contents: write
-  #   uses: ./.github/workflows/draw_keymaps.yaml
 
   # ─────────────────────────────────────────
   # Base + Num only
@@ -260,7 +260,6 @@ jobs:
       parse_args: |
         charybdis: '-b keymap-drawer/charybdis.yaml --layer-names BASE NUM'
       output_folder: keymap-drawer/base
-
 
   # ─────────────────────────────────────────
   # Full-layer render

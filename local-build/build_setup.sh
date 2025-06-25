@@ -51,12 +51,11 @@ KEYMAP_TEMP="/tmp/keymaps"
 rm -rf "$KEYMAP_TEMP" && mkdir -p "$KEYMAP_TEMP"
 cp "$REPO_ROOT/$CONFIG_PATH/keymap"/*.keymap "$KEYMAP_TEMP/"
 
-# # Generate additional keymaps
-# ## Comment these lines out to prevent building different keymaps
+# Generate additional keymaps and adjust names
 # echo "🔧 Generating additional keymaps"
 # python3 "$SCRIPT_PATH" -c q2c --in-path "$KEYMAP_TEMP/charybdis.keymap"
 # python3 "$SCRIPT_PATH" -c q2g --in-path "$KEYMAP_TEMP/charybdis.keymap"
-# mv "$KEYMAP_TEMP/charybdis.keymap" "$KEYMAP_TEMP/qwerty.keymap"
+mv "$KEYMAP_TEMP/charybdis.keymap" "$KEYMAP_TEMP/qwerty.keymap"
 
 # Discover shields
 echo "🔍 Discovering shields in sandbox: $REPO_ROOT/$SHIELD_PATH"

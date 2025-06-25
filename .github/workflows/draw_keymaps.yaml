@@ -5,7 +5,7 @@ on:
     inputs:
       keymap_patterns:
         description: "Path specification for keymaps to be parsed"
-        default: "config/keymap/qwerty.keymap"
+        default: "config/keymap/charybdis.keymap"
         required: false
         type: string
       config_path:
