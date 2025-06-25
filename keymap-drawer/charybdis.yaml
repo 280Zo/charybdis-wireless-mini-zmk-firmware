@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: charybdis}
 layers:
   BASE:
-  - L_BASE L_GAME
+  - SEARCH
   - Q
   - W
   - E
@@ -12,7 +12,7 @@ layers:
   - I
   - O
   - P
-  - DEL
+  - L_BASE L_GAME
   - TAB
   - {t: A, h: LCMD}
   - {t: S, h: LALT}
@@ -24,7 +24,7 @@ layers:
   - {t: K, h: RSHFT}
   - {t: L, h: LALT}
   - {t: ;, h: RCMD}
-  - BSPC
+  - DEL
   - LSHFT
   - Z
   - X
@@ -39,7 +39,7 @@ layers:
   - RSHFT
   - ESC SCRL SLOW
   - SYM
-  - NUM
+  - '&td_bs'
   - ENTER
   - SPACE NAV
   NUM:
@@ -49,11 +49,11 @@ layers:
   - ''
   - ''
   - ''
-  - '*'
+  - +
   - {t: '7', h: F7}
   - {t: '8', h: F8}
   - {t: '9', h: F9}
-  - F10
+  - {t: '%', h: F10}
   - ''
   - {t: ▽, type: trans}
   - ''
@@ -61,11 +61,11 @@ layers:
   - ''
   - BACK SPACE
   - ''
-  - '-'
+  - '='
   - {t: '4', h: F4}
   - {t: '5', h: F5}
   - {t: '6', h: F6}
-  - {t: +, h: F11}
+  - {t: '*', h: F11}
   - {t: ▽, type: trans}
   - ''
   - ''
@@ -73,35 +73,35 @@ layers:
   - ''
   - ''
   - ''
-  - '='
+  - KP MINUS
   - {t: '1', h: F1}
   - {t: '2', h: F2}
   - {t: '3', h: F3}
-  - {t: /, h: DEV TOOLS}
+  - {t: KP SLASH, h: DEV TOOLS}
   - ''
   - ''
   - ''
-  - {type: held}
+  - {t: ▽, type: trans}
   - '0'
   - SPACE
   NAV:
   - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
+  - WHEEL L
+  - WHEEL D
+  - MOVE UP
+  - WHEEL U
+  - WHEEL R
   - TMUX DETCH
   - TMUX ATTCH
   - TMUX NEXT
   - TMUX SESH
   - TMUX SYNC
   - ''
-  - {t: ▽, type: trans}
+  - TAB
   - BACK
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - MOVE L
+  - MOVE D
+  - MOVE R
   - FWD
   - HSPLIT
   - LEFT
@@ -131,37 +131,37 @@ layers:
   - ''
   - ''
   - ''
+  - '~'
   - ''
-  - ''
-  - '*'
-  - '&'
-  - '{'
-  - $
-  - '`'
-  - '!'
-  - ''
-  - ''
-  - ''
-  - ''
-  - {t: ▽, type: trans}
-  - ''
-  - '-'
-  - ;
-  - (
-  - '['
   - +
-  - '|'
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - '@'
-  - _
-  - <
-  - '#'
+  - '&code_blk'
+  - '['
+  - ']'
   - '%'
+  - '@'
+  - ^
+  - '#'
+  - (
+  - )
+  - _
+  - '&'
+  - '='
+  - '`'
+  - '{'
+  - '}'
+  - '*'
+  - $
+  - ''
+  - ''
+  - ''
+  - ''
+  - '&home_dir'
+  - ''
+  - KP MINUS
+  - '|'
+  - <
+  - '>'
+  - KP SLASH
   - \
   - {t: ▽, type: trans}
   - {type: held}
@@ -289,8 +289,8 @@ layers:
   - {t: BASE, h: toggle}
   - {t: BASE, h: toggle}
   - {t: BASE, h: toggle}
+  - ESC SCRL SLOW
   - L CLK
-  - Mid CLK
   - R CLK
   - {t: BASE, h: toggle}
   - {t: BASE, h: toggle}
@@ -323,7 +323,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - '7'
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -365,7 +365,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - '8'
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
