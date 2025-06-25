@@ -257,7 +257,8 @@ jobs:
       contents: write
     uses: ./.github/workflows/draw_keymaps.yaml
     with:
-      parse_args: 'qwerty: "--layer-names BASE NUM"'
+      parse_args: |
+        qwerty: '-b keymap-drawer/charybdis.yaml --layer-names BASE NUM'
       output_folder: keymap-drawer/base-num
 
 
