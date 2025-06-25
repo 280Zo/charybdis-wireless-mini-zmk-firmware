@@ -39,7 +39,7 @@ draw_config:
   #                           stroke-width: 0; }
   # text.trans { fill: #7e8184; }
   # path.combo { stroke: #7f7f7f; }"
-  footer_text: "280Zo/charybdis-wireless-mini-zmk-firmware"
+  # footer_text: "280Zo/charybdis-wireless-mini-zmk-firmware"
   shrink_wide_legends: 7
   style_layer_activators: true
   glyph_tap_size: 14
