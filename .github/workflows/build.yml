@@ -257,10 +257,9 @@ jobs:
       contents: write
     uses: ./.github/workflows/draw_keymaps.yaml
     with:
-      parse_args: |
-        charybdis: '-b keymap-drawer/charybdis.yaml --layer-names BASE Combos'
-        amend_commit: false
-        output_folder: keymap-drawer/base
+      parse_args: "charybdis: '-b keymap-drawer/charybdis.yaml --layer-names BASE Combos'"
+      amend_commit: false
+      output_folder: keymap-drawer/base
 
   # ─────────────────────────────────────────
   # Full-layer render
