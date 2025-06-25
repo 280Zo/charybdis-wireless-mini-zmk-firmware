@@ -265,7 +265,7 @@ jobs:
   # Full-layer render
   # ─────────────────────────────────────────
   keymap_images:
-    needs: [build, keymap_base]   # ensure it runs after the first, optional
+    needs: [keymap_base]   # ensure it runs after the first, optional
     permissions:
       contents: write
     uses: ./.github/workflows/draw_keymaps.yaml
