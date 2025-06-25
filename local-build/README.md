@@ -82,30 +82,19 @@ Once inside the shell, you can execute the script manually, or go troubleshootin
 bash ./local-build/build_setup.sh
 ```
 
-### Only Build QWERTY
-
-If you only want to build the firmware for QWERTY keyboards, open the `local-build/build_setup.sh` script, and comment out the lines that run the convert_keymap.py script. An example is below:
-
-```bash
-# echo "🔧 Generating additional keymaps"
-# python3 "$SCRIPT_PATH" -c q2c --in-path "$KEYMAP_TEMP/charybdis.keymap"
-# python3 "$SCRIPT_PATH" -c q2g --in-path "$KEYMAP_TEMP/charybdis.keymap"
-```
-
 ---
 
 ## Troubleshooting
 
-- If the firmware is not generated as expected, use the shell method above to inspect `/workspaces/zmk-firmwares` or rerun the script with debugging.
+- Enable USB logging to troubleshoot the firmware while it's running.
+  - This is disabled by default since it has a significant negative impact on battery life
+  - To turn it on, enable the variable at the top of the [build script](local-build/build_setup.sh), then follow instructions [here](https://zmk.dev/docs/development/usb-logging) to see the log stream on your computer.
+  - If you don't know what tty device to use, run this command to find out `ls -l /dev/serial/by-id`
+- If the firmware is not generated as expected, use the interactive shell method above to inspect `/workspaces/zmk-firmwares` or rerun the script with debugging.
 - Check the script output for any warnings or errors about missing shields, keymaps, or build failures. If you'd like to save the script output to a file for local parsing in a text editor start the build container with this command:
   ```bash
   docker-compose run --rm builder > logs.txt 2>&1
   ```
-- Enable USB logging to troubleshoot the firmware while it's running.
-  - This is disabled by default since it has a significant negative impact on battery life
-  - To turn it on, enable the variable at the top of the [build script](local-build/build_setup.sh), then follow instructions [here](https://zmk.dev/docs/development/usb-logging).
-  - If you don't know what tty device to use, run this command to find out `ls -l /dev/serial/by-id`
-
 
 ---
 
