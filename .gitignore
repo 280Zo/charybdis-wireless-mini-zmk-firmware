@@ -1,2 +1,9 @@
-boards/shields/charybdis/charybdis.keymap
-drivers/
+.west/
+zmk/
+zephyr/
+!zephyr/module.yml
+modules/
+zmk-pmw3610-driver
+local-build/logs.txt
+scripts/__pycache__
+notes

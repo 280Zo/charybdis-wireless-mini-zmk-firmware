@@ -5,7 +5,7 @@ on:
     inputs:
       keymap_patterns:
         description: "Path specification for keymaps to be parsed"
-        default: "config/*.keymap"
+        default: "config/keymap/charybdis.keymap"
         required: false
         type: string
       config_path:
@@ -161,27 +161,29 @@ jobs:
               "&td_bore": "L_BASE L_EXTRA",
               "&tdmt": "L1/BS LCLICK",
               "&tdbt": "L2/ESC RCLICK",
-              "&td_layers": "L_BASE L_PHOTO L_GAME",
+              "&td_layers": "L_BASE L_GAME",
               "&td_cursor": "SCRL SLOW",
               "&td_home": "~/",
               "&td_equals": "=",
-              "td_hyphen": "-",
-              "td_grave": "`",
-              "detach_session": "DETACH",
-              "create_or_attach": "NEW SESH",
-              "sync_panes": "SYNC PANES",
-              "next_pane": "NEXT PANE",
-              "show_sessions": "SHOW SESHS",
-              "sync_panes": "-",
               "&shrug": "SHRUG",
               "&lgtm": "LGTM",
               "&gcm": "GIT COMMIT",
               "&clip_hist": "CLIP HIST",
-              "&shit": "SHIT SUDO",
               "&new_dir": "NEW DIR",
               "&py_iter": "PYTHON LOOP",
               "&js_iter": "JS LOOP",
-              "&studio_unlock": "ZMK Studio"
+              "&studio_unlock": "ZMK Studio",
+              "&td_esc_scrl_slow": "ESC SCRL SLOW",
+              "&td_space_nav": "SPACE NAV",
+              "&td_bs": "BS NUM",
+              "&detach_session": "TMUX DETCH",
+              "&create_or_attach": "TMUX ATTCH",
+              "&next_pane" : "TMUX NEXT",
+              "&show_sessions": "TMUX SESH",
+              "&sync_panes": "TMUX SYNC",
+              "&sudo": "sudo!!",
+              "&code_blk": "```",
+              "&home_dir": "~/"
             }
         run: |
           get_args() {
@@ -200,6 +202,7 @@ jobs:
           declare -a DRAWINGS
           error_occurred=0
           mkdir -p "${{ inputs.output_folder }}"
+          mkdir -p "${{ inputs.output_folder }}/base"
 
           config_path="${{ inputs.config_path }}"
           [ -e "$config_path" ] && config_arg=(-c "$config_path") || config_arg=()
@@ -219,13 +222,23 @@ jobs:
                   draw_args+=" -j $json_path/${keyboard}.json"
               fi
 
+              # Full (regular) render
               keymap "${config_arg[@]}" parse -z "$keymap_file" $parse_args >"${{ inputs.output_folder }}/$keyboard.yaml" \
               && keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" $draw_args >"${{ inputs.output_folder }}/$keyboard.svg" \
               || {
                   echo "ERROR: parsing or drawing failed for $keyboard!"
                   error_occurred=1
               }
-              DRAWINGS+=(\"${{ inputs.output_folder }}/$keyboard.yaml\" \"${{ inputs.output_folder }}/$keyboard.svg\")
+
+              # BASE-only render
+              keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" \
+                -s BASE --keys-only $([[ -n "$json_path/${keyboard}.json" ]] && echo "-j $json_path/${keyboard}.json") \
+                > "${{ inputs.output_folder }}/base/$keyboard.svg" \
+              || error_occurred=1
+
+              DRAWINGS+=(\"${{ inputs.output_folder }}/$keyboard.yaml\" \
+                       \"${{ inputs.output_folder }}/$keyboard.svg\" \
+                       \"${{ inputs.output_folder }}/base/$keyboard.svg\")
           done
           IFS=','
           echo "DRAWINGS=[${DRAWINGS[*]}]" >> $GITHUB_OUTPUT
@@ -245,7 +258,8 @@ jobs:
         if: ( inputs.destination == 'commit' || inputs.destination == 'both' )
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: "${{ inputs.output_folder }}/*.svg ${{ inputs.output_folder }}/*.yaml"
+          file_pattern: "${{ inputs.output_folder }}/**/*.svg ${{ inputs.output_folder }}/**/*.yaml"
+          disable_globbing: true
           # So the previous commit is amended instead of creating a new one when desired
           # See:
           # - https://github.com/stefanzweifel/git-auto-commit-action#using---amend-and---no-edit-as-commit-options

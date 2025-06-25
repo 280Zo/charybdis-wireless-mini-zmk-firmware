@@ -1,85 +1,24 @@
 # This file generates the GitHub Actions matrix.
-# For simple board + shield combinations, add them to the top level board and
-# shield arrays, for more control, add individual board + shield combinations
-# to the `include` property. You can also use the `cmake-args` property to
-# pass flags to the build command and `artifact-name` to assign a name to
-# distinguish build outputs from each other:
-#
-# board: [ "nice_nano_v2" ]
-# shield: [ "corne_left", "corne_right" ]
-# include:
-#   - board: bdn9_rev2
-#   - board: nice_nano_v2
-#     shield: reviung41
-#   - board: nice_nano_v2
-#     shield: corne_left
-#     cmake-args: -DCONFIG_ZMK_USB_LOGGING=y
-#     artifact-name: corne_left_with_logging
-#
----
+
+board:
+  - nice_nano_v2
+
+shield:
+  - charybdis_left
+  - charybdis_right
+  - charybdis_dongle
+  - settings_reset
+
+format:
+  - bt
+  - dongle
+  - reset
+
+keymap:
+  - qwerty
+
 include:
-  # QWERTY BT
-  - board: nice_nano_v2
-    shield: charybdis_left
-    keymap: qwerty
-    format: bt
-    artifact-name: charybdis_qwerty_left
   - board: nice_nano_v2
     shield: charybdis_right
     keymap: qwerty
-    format: bt
-    artifact-name: charybdis_qwerty_right
     snippet: studio-rpc-usb-uart
-
-  # Colemak DH BT
-  - board: nice_nano_v2
-    shield: charybdis_left
-    keymap: colemak_dh
-    format: bt
-    artifact-name: charybdis_colemak_left
-  - board: nice_nano_v2
-    shield: charybdis_right
-    keymap: colemak_dh
-    format: bt
-    artifact-name: charybdis_colemak_right
-    snippet: studio-rpc-usb-uart
-
-  # QWERTY Dongle
-  - board: nice_nano_v2
-    shield: charybdis_left
-    keymap: qwerty
-    format: dongle
-    artifact-name: charybdis_qwerty_dongle_left
-  - board: nice_nano_v2
-    shield: charybdis_right
-    keymap: qwerty
-    format: dongle
-    artifact-name: charybdis_qwerty_dongle_right
-  - board: nice_nano_v2
-    shield: charybdis_dongle
-    keymap: qwerty
-    format: dongle
-    artifact-name: charybdis_qwerty_dongle
-
-  # Colemak DH Dongle
-  - board: nice_nano_v2
-    shield: charybdis_left
-    keymap: colemak_dh
-    format: dongle
-    artifact-name: charybdis_colemak_dongle_left
-  - board: nice_nano_v2
-    shield: charybdis_right
-    keymap: colemak_dh
-    format: dongle
-    artifact-name: charybdis_colemak_dongle_right
-  - board: nice_nano_v2
-    shield: charybdis_dongle
-    keymap: colemak_dh
-    format: dongle
-    artifact-name: charybdis_colemak_dongle
-
-  # Firmware Reset
-  - board: nice_nano_v2
-    shield: settings_reset
-    format: reset
-    artifact-name: firmware_reset_nano_v2
