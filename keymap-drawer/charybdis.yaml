@@ -25,7 +25,7 @@ layers:
   - {t: L, h: LALT}
   - {t: ;, h: RCMD}
   - DEL
-  - LSHFT
+  - UNDO
   - Z
   - X
   - C
@@ -36,14 +36,14 @@ layers:
   - {t: ',', s: ;}
   - {t: ., s: ':'}
   - {t: '?', s: '!'}
-  - RSHFT
+  - CLIP HIST
   - ESC SCRL SLOW
   - SYM
-  - '&td_bs'
+  - BS NUM
   - ENTER
   - SPACE NAV
   NUM:
-  - {t: ▽, type: trans}
+  - ''
   - ''
   - ''
   - ''
@@ -66,18 +66,18 @@ layers:
   - {t: '5', h: F5}
   - {t: '6', h: F6}
   - {t: '*', h: F11}
-  - {t: ▽, type: trans}
   - ''
   - ''
   - ''
   - ''
   - ''
   - ''
-  - KP MINUS
+  - ''
+  - '-'
   - {t: '1', h: F1}
   - {t: '2', h: F2}
   - {t: '3', h: F3}
-  - {t: KP SLASH, h: DEV TOOLS}
+  - {t: /, h: DEV TOOLS}
   - ''
   - ''
   - ''
@@ -123,8 +123,8 @@ layers:
   - ''
   - ''
   - ''
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - ''
+  - ''
   - {t: ▽, type: trans}
   SYM:
   - ''
@@ -134,7 +134,7 @@ layers:
   - '~'
   - ''
   - +
-  - '&code_blk'
+  - '```'
   - '['
   - ']'
   - '%'
@@ -155,17 +155,17 @@ layers:
   - ''
   - ''
   - ''
-  - '&home_dir'
+  - ~/
   - ''
-  - KP MINUS
+  - '-'
   - '|'
   - <
   - '>'
-  - KP SLASH
+  - /
   - \
-  - {t: ▽, type: trans}
+  - ''
   - {type: held}
-  - {t: ▽, type: trans}
+  - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   GAME:
@@ -195,7 +195,7 @@ layers:
   - ''
   - '3'
   - LSHFT
-  - Z
+  - Y
   - X
   - C
   - V
@@ -216,7 +216,7 @@ layers:
   - LGTM
   - GIT COMMIT
   - ''
-  - BRIGHTNESS INC
+  - BRIGHT ▲
   - {t: BT, h: '0'}
   - {t: BT, h: '1'}
   - {t: BT, h: '2'}
@@ -228,7 +228,7 @@ layers:
   - ''
   - ''
   - ''
-  - BRIGHTNESS DEC
+  - BRIGHT ▼
   - ''
   - PREVIOUS
   - PLAY PAUSE
