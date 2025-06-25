@@ -1,8 +1,10 @@
 name: Build and Release ZMK Firmware
 on:
   push:
-    tags: ["v*"]
-    branches: ["**"]
+    branches:
+      - main
+    tags:
+      - 'v1.0.0'
   workflow_dispatch:
 
 jobs:
@@ -233,9 +235,14 @@ jobs:
     steps:
     - uses: actions/download-artifact@v4
       with: { path: combo-artifacts/ }
+
     - name: Zip each combo
       working-directory: combo-artifacts
-      run: for d in */; do zip -j "${d%/}.zip" "\$d"*; done
+      run: |
+        for d in */; do
+          zip -j "${d%/}.zip" "$d"*
+        done
+
     - uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ github.ref_name }}
