@@ -242,25 +242,30 @@ jobs:
 # ──────────────────────────────────────────────────────────────
 #  IMAGES - generate keymap images
 # ──────────────────────────────────────────────────────────────
+  # keymap_images:
+  #   needs: build
+  #   permissions:
+  #     contents: write
+  #   uses: ./.github/workflows/draw_keymaps.yaml
 
-  # base render
+  # ─────────────────────────────────────────
+  # Base + Num only
+  # ─────────────────────────────────────────
   keymap_base:
     needs: build
-    permissions: 
-      contents: write
-    uses: ./.github/workflows/draw_keymaps.yaml
-    with:
-      keymap_patterns: config/keymap/qwerty.keymap
-      # override parse_args to only grab Base and Num
-      parse_args: "charybdis: \"--layer-names BASE NUM NAV SYM\""
-      output_folder: keymap-drawer/base
-
-  # all-layers render
-  keymap_full:
-    needs: keymap_base
     permissions:
       contents: write
     uses: ./.github/workflows/draw_keymaps.yaml
     with:
-      keymap_patterns: config/keymap/qwerty.keymap
-      output_folder: keymap-drawer/full
+      parse_args: 'qwerty: "--layer-names BASE NUM"'
+      output_folder: keymap-drawer/base-num
+
+
+  # ─────────────────────────────────────────
+  # Full-layer render
+  # ─────────────────────────────────────────
+  keymap_images:
+    needs: [build, keymap_base]   # ensure it runs after the first, optional
+    permissions:
+      contents: write
+    uses: ./.github/workflows/draw_keymaps.yaml
