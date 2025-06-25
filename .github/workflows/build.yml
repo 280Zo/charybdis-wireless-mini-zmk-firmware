@@ -257,6 +257,8 @@ jobs:
       contents: write
     uses: ./.github/workflows/draw_keymaps.yaml
     with:
+      parse_args: |
+        charybdis: '-b keymap-drawer/charybdis.yaml'
       draw_args: |
         charybdis: '-s BASE --keys-only'
       output_folder: keymap-drawer/base
