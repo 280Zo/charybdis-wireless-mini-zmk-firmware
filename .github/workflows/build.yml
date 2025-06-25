@@ -269,7 +269,6 @@ jobs:
   # ─────────────────────────────────────────
   keymap_images:
     # needs: [build, keymap_base]
-    needs: [keymap_base]
     permissions:
       contents: write
     uses: ./.github/workflows/draw_keymaps.yaml
