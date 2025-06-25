@@ -161,5 +161,24 @@
                 , <&macro_release &kp LCTRL &kp LSHFT>
                 ;
         };
+        
+        code_blk: code_blk {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_tap &kp GRAVE>
+                , <&macro_tap &kp GRAVE>
+                , <&macro_tap &kp GRAVE>
+                ;
+        };
+        
+        home_dir: home_dir {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_tap &kp TILDE>
+                , <&macro_tap &kp FSLH>
+                ;
+        };
     };
 };
