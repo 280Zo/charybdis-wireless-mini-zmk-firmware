@@ -252,7 +252,7 @@ jobs:
   # Base + Num only
   # ─────────────────────────────────────────
   keymap_base:
-    needs: build
+    # needs: build
     permissions:
       contents: write
     uses: ./.github/workflows/draw_keymaps.yaml
