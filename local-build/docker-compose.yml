@@ -1,0 +1,13 @@
+services:
+  builder:
+    image: zmkfirmware/zmk-dev-arm:stable
+    volumes:
+      # Bind-mount entire repo
+      - ../:/workspaces/zmk:rw
+    working_dir: /workspaces/zmk
+    entrypoint: []
+    command:
+      - bash
+      - ./local-build/build_setup.sh
+    tty: true
+    stdin_open: true
