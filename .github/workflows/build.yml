@@ -25,13 +25,6 @@ jobs:
     - name: OS deps
       run: sudo apt-get update && sudo apt-get install -y jq
 
-    # - name: Generate extra keymaps
-    #   run: |
-    #     echo "⚙️ Generating additional keymaps"
-    #     python scripts/convert_keymap.py -c q2c --in-path config/keymap/charybdis.keymap
-    #     python scripts/convert_keymap.py -c q2g --in-path config/keymap/charybdis.keymap
-    #     mv config/keymap/charybdis.keymap config/keymap/qwerty.keymap
-
     - uses: actions/upload-artifact@v4
       with: { name: generated-keymaps, path: config/keymap/ }
 
@@ -196,13 +189,11 @@ jobs:
           echo "→ KEYMAP_OPTION    :$KEYMAP_OPTION"
           echo "→ SNIPPET_OPTION   :$SNIPPET_OPTION"
           echo "→ Build dir        : $BUILD_DIR"
-          echo "→ Directory contents:"
-          tree .
-          echo ""
-          echo "📍 Showing current build directory and listing contents:"
-          echo "GITHUB_WORKSPACE:"
-          tree $GITHUB_WORKSPACE
-          echo ""
+          # echo "→ Directory contents:"
+          # tree .
+          # echo "📍 Showing current build directory and listing contents:"
+          # echo "GITHUB_WORKSPACE:"
+          # tree $GITHUB_WORKSPACE
 
           echo "🛠 Kicking off the firmware build..."
           west build -p \
