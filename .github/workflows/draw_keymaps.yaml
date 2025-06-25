@@ -5,7 +5,7 @@ on:
     inputs:
       keymap_patterns:
         description: "Path specification for keymaps to be parsed"
-        default: "config/keymap/charybdis.keymap"
+        default: "config/keymap/qwerty.keymap"
         required: false
         type: string
       config_path:
@@ -175,12 +175,15 @@ jobs:
               "&studio_unlock": "ZMK Studio",
               "&td_esc_scrl_slow": "ESC SCRL SLOW",
               "&td_space_nav": "SPACE NAV",
+              "&td_bs": "BS NUM",
               "&detach_session": "TMUX DETCH",
               "&create_or_attach": "TMUX ATTCH",
               "&next_pane" : "TMUX NEXT",
               "&show_sessions": "TMUX SESH",
               "&sync_panes": "TMUX SYNC",
-              "&sudo": "sudo!!"
+              "&sudo": "sudo!!",
+              "&code_blk": "```",
+              "&home_dir": "~/"
             }
         run: |
           get_args() {

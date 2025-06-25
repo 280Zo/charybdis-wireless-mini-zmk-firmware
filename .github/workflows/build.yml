@@ -242,8 +242,25 @@ jobs:
 # ──────────────────────────────────────────────────────────────
 #  IMAGES - generate keymap images
 # ──────────────────────────────────────────────────────────────
-  keymap_images:
+
+  # base render
+  keymap_base:
     needs: build
+    permissions: 
+      contents: write
+    uses: ./.github/workflows/draw_keymaps.yaml
+    with:
+      keymap_patterns: config/keymap/qwerty.keymap
+      # override parse_args to only grab Base and Num
+      parse_args: "charybdis: \"--layer-names BASE NUM NAV SYM\""
+      output_folder: keymap-drawer/base
+
+  # all-layers render
+  keymap_full:
+    needs: keymap_base
     permissions:
       contents: write
     uses: ./.github/workflows/draw_keymaps.yaml
+    with:
+      keymap_patterns: config/keymap/qwerty.keymap
+      output_folder: keymap-drawer/full

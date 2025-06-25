@@ -40,14 +40,6 @@
             hold-trigger-on-release;
         };
 
-        // ht_3clk: ht_3clk {
-        //     compatible = "zmk,behavior-hold-tap";
-        //     #binding-cells = <2>;
-        //     flavor = "balanced";
-        //     tapping-term-ms = <120>;
-        //     bindings = <&mo>, <&mkp>;   /* hold → layer 3, tap → left-click */
-        // };
-
         td_esc_scrl_slow: td_esc_scrl_slow {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;

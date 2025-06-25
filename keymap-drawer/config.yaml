@@ -238,7 +238,11 @@ parse_config:
     LA(KP_N3): "ACCEPT"
     F12: "DEV TOOLS"
     BRIGHTNESS INC: "BRIGHT ▲"
+    C_BRIGHTNESS_INC: "BRIGHT ▲"
     BRIGHTNESS DEC: "BRIGHT ▼"
+    C_BRIGHTNESS_DEC: "BRIGHT ▼"
+    KP_MINUS: "-"
+    KP_SLASH: "/"
   zmk_combos: {}
   zmk_preamble: "#define KEYMAP_DRAWER"
   zmk_additional_includes: []
