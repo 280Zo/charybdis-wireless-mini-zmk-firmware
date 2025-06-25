@@ -234,7 +234,7 @@ layers:
   - PLAY PAUSE
   - STOP
   - NEXT
-  - SEARCH
+  - ''
   - LOCK
   - UNDO
   - CUT
@@ -246,7 +246,7 @@ layers:
   - VOLUME DOWN
   - VOLUME UP
   - PRINT SCREEN
-  - CLIP HIST
+  - ''
   - ''
   - ''
   - ''
