@@ -202,6 +202,7 @@ jobs:
           declare -a DRAWINGS
           error_occurred=0
           mkdir -p "${{ inputs.output_folder }}"
+          mkdir -p "${{ inputs.output_folder }}/base"
 
           config_path="${{ inputs.config_path }}"
           [ -e "$config_path" ] && config_arg=(-c "$config_path") || config_arg=()
@@ -221,13 +222,23 @@ jobs:
                   draw_args+=" -j $json_path/${keyboard}.json"
               fi
 
+              # Full (regular) render
               keymap "${config_arg[@]}" parse -z "$keymap_file" $parse_args >"${{ inputs.output_folder }}/$keyboard.yaml" \
               && keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" $draw_args >"${{ inputs.output_folder }}/$keyboard.svg" \
               || {
                   echo "ERROR: parsing or drawing failed for $keyboard!"
                   error_occurred=1
               }
-              DRAWINGS+=(\"${{ inputs.output_folder }}/$keyboard.yaml\" \"${{ inputs.output_folder }}/$keyboard.svg\")
+
+              # BASE‐only render
+              keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" \
+                -s BASE --keys-only $([[ -n "$json_path/${keyboard}.json" ]] && echo "-j $json_path/${keyboard}.json") \
+                > "${{ inputs.output_folder }}/base/$keyboard.svg" \
+              || error_occurred=1
+
+              DRAWINGS+=(\"${{ inputs.output_folder }}/$keyboard.yaml\" \
+                       \"${{ inputs.output_folder }}/$keyboard.svg\" \
+                       \"${{ inputs.output_folder }}/base/$keyboard.svg\")
           done
           IFS=','
           echo "DRAWINGS=[${DRAWINGS[*]}]" >> $GITHUB_OUTPUT

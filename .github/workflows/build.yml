@@ -248,21 +248,21 @@ jobs:
 #  IMAGES - generate keymap images
 # ──────────────────────────────────────────────────────────────
 
-  # ─────────────────────────────────────────
-  # Base + Num only
-  # ─────────────────────────────────────────
-  keymap_base:
-    # needs: build
-    permissions:
-      contents: write
-    uses: ./.github/workflows/draw_keymaps.yaml
-    with:
-      parse_args: >-
-        charybdis: '-b keymap-drawer/charybdis.yaml'
-      draw_args: >-
-        charybdis: '-s BASE --keys-only'
-      output_folder: keymap-drawer/base
-      amend_commit: false
+  # # ─────────────────────────────────────────
+  # # Base + Num only
+  # # ─────────────────────────────────────────
+  # keymap_base:
+  #   # needs: build
+  #   permissions:
+  #     contents: write
+  #   uses: ./.github/workflows/draw_keymaps.yaml
+  #   with:
+  #     parse_args: >-
+  #       charybdis: '-b keymap-drawer/charybdis.yaml'
+  #     draw_args: >-
+  #       charybdis: '-s BASE --keys-only'
+  #     output_folder: keymap-drawer/base
+  #     amend_commit: false
 
   # ─────────────────────────────────────────
   # Full-layer render
