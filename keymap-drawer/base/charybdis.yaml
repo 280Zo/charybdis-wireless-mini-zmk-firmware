@@ -1,0 +1,394 @@
+layout: {zmk_keyboard: charybdis}
+layers:
+  BASE:
+  - SEARCH
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - L_BASE L_GAME
+  - TAB
+  - {t: A, h: LCMD}
+  - {t: S, h: LALT}
+  - {t: D, h: LSHFT}
+  - {t: F, h: LCTRL}
+  - G
+  - H
+  - {t: J, h: RCTRL}
+  - {t: K, h: RSHFT}
+  - {t: L, h: LALT}
+  - {t: ;, h: RCMD}
+  - DEL
+  - UNDO
+  - Z
+  - X
+  - C
+  - V
+  - B
+  - N
+  - M
+  - {t: ',', s: ;}
+  - {t: ., s: ':'}
+  - {t: '?', s: '!'}
+  - CLIP HIST
+  - ESC SCRL SLOW
+  - SYM
+  - BS NUM
+  - ENTER
+  - SPACE NAV
+  NUM:
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - +
+  - {t: '7', h: F7}
+  - {t: '8', h: F8}
+  - {t: '9', h: F9}
+  - {t: '%', h: F10}
+  - ''
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  - BACK SPACE
+  - ''
+  - '='
+  - {t: '4', h: F4}
+  - {t: '5', h: F5}
+  - {t: '6', h: F6}
+  - {t: '*', h: F11}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '-'
+  - {t: '1', h: F1}
+  - {t: '2', h: F2}
+  - {t: '3', h: F3}
+  - {t: /, h: DEV TOOLS}
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - '0'
+  - SPACE
+  NAV:
+  - ''
+  - WHEEL L
+  - WHEEL D
+  - MOVE UP
+  - WHEEL U
+  - WHEEL R
+  - TMUX DETCH
+  - TMUX ATTCH
+  - TMUX NEXT
+  - TMUX SESH
+  - TMUX SYNC
+  - ''
+  - TAB
+  - BACK
+  - MOVE L
+  - MOVE D
+  - MOVE R
+  - FWD
+  - HSPLIT
+  - LEFT
+  - DOWN
+  - UP
+  - RIGHT
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - VSPLIT
+  - HOME
+  - PG DN
+  - PG UP
+  - END
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  SYM:
+  - ''
+  - ''
+  - ''
+  - ''
+  - '~'
+  - ''
+  - +
+  - '```'
+  - '['
+  - ']'
+  - '%'
+  - '@'
+  - ^
+  - '#'
+  - (
+  - )
+  - _
+  - '&'
+  - '='
+  - '`'
+  - '{'
+  - '}'
+  - '*'
+  - $
+  - ''
+  - ''
+  - ''
+  - ''
+  - ~/
+  - ''
+  - '-'
+  - '|'
+  - <
+  - '>'
+  - /
+  - \
+  - ''
+  - {type: held}
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  GAME:
+  - '1'
+  - TAB
+  - Q
+  - W
+  - E
+  - R
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - '2'
+  - LCTRL
+  - A
+  - S
+  - D
+  - F
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '3'
+  - LSHFT
+  - Y
+  - X
+  - C
+  - V
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - SPACE
+  - LEFT ALT
+  - ''
+  - ''
+  EXTRAS:
+  - ZMK Studio
+  - SHRUG
+  - LGTM
+  - GIT COMMIT
+  - ''
+  - BRIGHT ▲
+  - {t: BT, h: '0'}
+  - {t: BT, h: '1'}
+  - {t: BT, h: '2'}
+  - {t: BT, h: '3'}
+  - OUT TOG
+  - BT CLR
+  - SLEEP
+  - sudo!!
+  - ''
+  - ''
+  - ''
+  - BRIGHT ▼
+  - ''
+  - PREVIOUS
+  - PLAY PAUSE
+  - STOP
+  - NEXT
+  - ''
+  - LOCK
+  - UNDO
+  - CUT
+  - COPY
+  - PASTE
+  - ''
+  - NEW DIR
+  - MUTE
+  - VOLUME DOWN
+  - VOLUME UP
+  - PRINT SCREEN
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  MOUSE:
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  - ESC SCRL SLOW
+  - L CLK
+  - R CLK
+  - {t: BASE, h: toggle}
+  - {t: BASE, h: toggle}
+  SLOW:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  SCROLL:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+combos:
+- p: [17, 18]
+  k: CAPS WORD
+  l: [BASE]
+- p: [38, 39]
+  k: L_BASE L_EXTRA
+- p: [25, 26]
+  k: L CLK
+- p: [26, 27]
+  k: Mid CLK
+- p: [27, 28]
+  k: R CLK
+- p: [13, 22]
+  k: {t: MOUSE, h: toggle}
