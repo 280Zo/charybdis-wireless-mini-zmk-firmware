@@ -60,21 +60,20 @@ To see all the layers check out the [full render](keymap-drawer/charybdis.svg).
 | `K26 + K27`               | **Middle Click**                       |
 | `K27 + K28`               | **Right Click**                        |
 | `K13 + K22`               | Toggle **MOUSE** layer                 |
-| `K38 + K39` (humb cluster)| Layer-swap **BASE ⇄ EXTRAS**           |
+| `K38 + K39` (thumb cluster)| Layer-swap **BASE ⇄ EXTRAS**           |
 
 
 ⚙️ Other Highlights
-- Hold-tap side-aware triggers – each HRM key only becomes a modifier if the opposite half is active, preventing accidental holds while one-handed.
-- Quick-tap / prior-idle tuning for faster mod-vs-tap detection.
-- Combined Number and F-Keys without needing a second toggle
-- The base layer uses timerless [home row mods](https://precondition.github.io/home-row-mods) with balanced flavor on both halves (280 ms tapping-term, and quick-tap with prior-idle tuning).
-- Thumb-scroll mode – hold the left-most thumb button (K36) while moving the trackball to turn motion into scroll.
-- Precision cursor mode – double-tap, then hold K36 to drop the pointer speed, release to return to normal speed.
-- MOUSE layer behavior: When activated, the left thumb cluster functions as mouse controls — K36 handles scroll and slow mode, K37 is left click, and K38 is right click. Pressing any other key exits the MOUSE layer and returns to BASE.
-- Bluetooth profile quick-swap – jump to the EXTRAS layer and tap the dedicated BT-select keys to pair or switch among up to four saved hosts (plus BT CLR to forget all).
-- [ZMK Studio](https://zmk.dev/docs/features/studio#accessing-zmk-studio) is supported on BT builds for quick and easy keymap adjustments. Dongle support will come soon.
-- Patched the PMW3610 driver and other files to remove linker and attribute warnings during build
-- Uses the PMW3610 low power trackball sensor driver from [badjeff](https://github.com/badjeff/zmk-pmw3610-driver)
+- **Hold-tap side-aware triggers:** Each HRM key only becomes a modifier if the opposite half is active, preventing accidental holds while one-handed.
+- **Quick-tap / prior-idle:** Tuned for faster mod-vs-tap detection.
+- **Timeless home row mods:** On the BASE layer with balanced flavor on both halves (280 ms tapping-term, and quick-tap with prior-idle tuning).
+- **Thumb-scroll mode:** Hold the left-most thumb button (K36) while moving the trackball to turn motion into scroll.
+- **Precision cursor mode:** Double-tap, then hold K36 to drop the pointer speed, release to return to normal speed.
+- **MOUSE layer behavior:** When activated, the left thumb cluster functions as mouse controls — K36 handles scroll and slow mode, K37 is left click, and K38 is right click. Pressing any other key exits the MOUSE layer and returns to BASE.
+- **Bluetooth profile quick-swap:** Jump to the EXTRAS layer and tap the dedicated BT-select keys to pair or switch among up to four saved hosts (plus BT CLR to forget all).
+- **ZMK Studio:** Supported on BT builds for quick and easy keymap adjustments. Dongle support will come soon.
+- **Patched the PMW3610 driver & other files:** Removed linker and attribute warnings during build
+- **PMW3610 low power trackball sensor driver:** Provided by [badjeff](https://github.com/badjeff/zmk-pmw3610-driver)
 
 
 ## Customize Keymaps, Layers, & Trackball
@@ -83,7 +82,7 @@ This section will help you personalize your firmware. Everything—from keys and
 
 ### Building Only Specific Keymaps or Shields
 
-To save time and streamline your builds, you can build just a single keymap or shield:
+By default both Bluetooth and Dongle formats will build firmware pairs for the QWERTY, Coleman DH, and Graphite keymaps. To save time and streamline your builds, you can build just a single keymap or shield that you're interested in:
 
 **Single keymap:**
 Delete any `.keymap` files you don't need from `config/keymap/`, leaving only your desired keymap(s). The build process specifically looks for a file named `charybdis.keymap`. If you prefer another layout instead of the default QWERTY, simply rename your chosen keymap to `charybdis.keymap`.
@@ -136,17 +135,17 @@ You can easily build your firmware locally or leverage GitHub Actions:
 
 **Local Build (recommended for quick testing and debugging)**
 
-Run this from your repo root:
+Clone this repo, then run these commands from the repo root:
 ```sh
 cd local-build
 docker-compose run --rm builder
 ```
-See the [local build README](local-build/README.md) for additional details, including how to enable USB logging.
+See the [local build README](local-build/README.md) for additional details, including how to enable USB logging in the builds.
 
 **GitHub Actions**
 
 - Fork or clone this repo
-- Push your changes to GitHub
+- Push your changes to your GitHub
 - GitHub Actions automatically builds your firmware and publishes downloadable artifacts under the Actions tab.
 
 
@@ -161,3 +160,4 @@ See the [local build README](local-build/README.md) for additional details, incl
 - [eigatech](https://github.com/eigatech)
 - [nickcoutsos](https://github.com/nickcoutsos/keymap-editor)
 - [caksoylar](https://github.com/caksoylar/keymap-drawer)
+- [urob](https://github.com/urob/zmk-config#timeless-homerow-mods)
