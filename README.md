@@ -68,12 +68,13 @@ To see all the layers check out the [full render](keymap-drawer/charybdis.svg).
 - Quick-tap / prior-idle tuning for faster mod-vs-tap detection.
 - Combined Number and F-Keys without needing a second toggle
 - The base layer uses timerless [home row mods](https://precondition.github.io/home-row-mods) with balanced flavor on both halves (280 ms tapping-term, and quick-tap with prior-idle tuning).
+- Thumb-scroll mode – hold the left-most thumb button (K36) while moving the trackball to turn motion into scroll.
+- Precision cursor mode – double-tap, then hold K36 to drop the pointer speed, release to return to normal speed.
+- MOUSE layer behavior: When activated, the left thumb cluster functions as mouse controls — K36 handles scroll and slow mode, K37 is left click, and K38 is right click. Pressing any other key exits the MOUSE layer and returns to BASE.
+- Bluetooth profile quick-swap – jump to the EXTRAS layer and tap the dedicated BT-select keys to pair or switch among up to four saved hosts (plus BT CLR to forget all).
 - [ZMK Studio](https://zmk.dev/docs/features/studio#accessing-zmk-studio) is supported on BT builds for quick and easy keymap adjustments. Dongle support will come soon.
 - Patched the PMW3610 driver and other files to remove linker and attribute warnings during build
 - Uses the PMW3610 low power trackball sensor driver from [badjeff](https://github.com/badjeff/zmk-pmw3610-driver)
-- Thumb-scroll mode – hold the left-most thumb button (K36) while moving the trackball to turn motion into scroll.
-- Precision cursor mode – double-tap, then hold K36 to drop the pointer speed, release to return to normal speed.
-- Bluetooth profile quick-swap – jump to the EXTRAS layer and tap the dedicated BT-select keys to pair or switch among up to four saved hosts (plus BT CLR to forget all).
 
 
 ## Customize Keymaps, Layers, & Trackball
