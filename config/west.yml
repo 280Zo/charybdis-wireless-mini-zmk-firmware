@@ -3,8 +3,8 @@ manifest:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
 
-    - name: badjeff
-      url-base: https://github.com/badjeff
+    - name: 280Zo
+      url-base: https://github.com/280Zo
 
   projects:
     - name: zmk
@@ -13,7 +13,7 @@ manifest:
       import: app/west.yml
 
     - name: zmk-pmw3610-driver
-      remote: badjeff
+      remote: 280Zo
       revision: main
 
   self:

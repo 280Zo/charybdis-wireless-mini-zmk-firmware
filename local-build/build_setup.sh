@@ -39,9 +39,9 @@ west zephyr-export
 echo "🛠️  Setting permissions on ZMK resources:"
 chmod -R 777 .west zmk zephyr modules zmk-pmw3610-driver
 
-# Optional: confirm checkout
-echo "🛠️  West workspace ready. Project structure:"
-west list
+# # Optional: confirm checkout
+# echo "🛠️  West workspace ready. Project structure:"
+# west list
 
 
 # --- CONFIGURABLE KEYMAPS ---
@@ -82,24 +82,6 @@ if [ ${#keymaps[@]} -gt 0 ]; then
 else
   echo "⚠️ No keymaps found in $KEYMAP_TEMP"
 fi
-
-
-# --- PATCH PMW3610 DRIVER ---
-echo "🛠️  Patching the PMW3610 Module..."
-
-# Register the pixart vendor prefix in the Devicetree bindings so Zephyr doesn't complain
-echo "🛠️  Registering pixart vendor in the driver's bindings so Zepyhr doesn't complain..."
-printf "pixart\tPixArt Imaging, Inc.\n" >> zmk-pmw3610-driver/dts/bindings/vendor-prefixes.txt
-
-# Patch the CMakeLists to prevent 'No SOURCES given to Zephyr library' warning
-echo "🛠️  Updating CMakeLists.txt to avoid empty Zephyr target warning..."
-cat > zmk-pmw3610-driver/CMakeLists.txt << 'EOF'
-if(CONFIG_PMW3610)
-  zephyr_library()
-  zephyr_library_sources(src/pmw3610.c)
-  zephyr_include_directories(${APPLICATION_SOURCE_DIR}/include)
-endif()
-EOF
 
 
 # --- SANDBOX SETUP FUNCTION ---

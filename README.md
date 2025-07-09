@@ -74,6 +74,7 @@ To see all the layers check out the [full render](keymap-drawer/charybdis.svg).
 - **ZMK Studio:** Supported on BT builds for quick and easy keymap adjustments. Dongle support will come soon.
 - **Patched the PMW3610 driver & other files:** Removed linker and attribute warnings during build
 - **PMW3610 low power trackball sensor driver:** Provided by [badjeff](https://github.com/badjeff/zmk-pmw3610-driver)
+  - Patched to remove build warnings and prevent cursor jump on wake
 
 
 ## Customize Keymaps, Layers, & Trackball
@@ -152,6 +153,7 @@ See the [local build README](local-build/README.md) for additional details, incl
 ### Troubleshooting
 
 - If the keyboard halves aren't connecting as expected, try pressing the reset button on both halves at the same time. If that doesn't work, follow the [ZMK Connection Issues](https://zmk.dev/docs/troubleshooting/connection-issues#acquiring-a-reset-uf2) documentation for more troubleshooting steps.
+- If you run into a bug or something’s not working, feel free to open an issue or submit a PR! Just keep in mind I'm not a developer, and this is a hobby project so I may not be able to fix everything.
 
 
 ## Credits

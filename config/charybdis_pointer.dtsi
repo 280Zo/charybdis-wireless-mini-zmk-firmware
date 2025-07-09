@@ -3,14 +3,14 @@
 
 &trackball_listener {
     /* base processor chain on all layers */
-    input-processors = <&zip_xy_scaler 6 5>;
+    input-processors = <&zip_xy_scaler 5 5>;
 
     /* layer-8 scroll override */
     scroller: scroller {
         layers           = <8>;
         input-processors = <
+            &zip_xy_scaler 1 15                              // Scales the scroll speed (e.g., 1/15 speed)
             &zip_xy_to_scroll_mapper                         // Converts XY movement to scroll events
-            &zip_scroll_scaler 1 6                           // Scales the scroll speed (e.g., 1/6 speed)
             &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT) // Inverts the scroll direction
         >;
     };
@@ -18,6 +18,6 @@
     /* layer-7 slow-pointer override */
     slow_pointer: slow_pointer {
         layers           = <7>;
-        input-processors = <&zip_xy_scaler 1 6>;
+        input-processors = <&zip_xy_scaler 2 6>;
     };
 };

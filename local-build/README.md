@@ -89,7 +89,8 @@ bash ./local-build/build_setup.sh
 - Enable USB logging to troubleshoot the firmware while it's running.
   - This is disabled by default since it has a significant negative impact on battery life
   - To turn it on, enable the variable at the top of the [build script](local-build/build_setup.sh), then follow instructions [here](https://zmk.dev/docs/development/usb-logging) to see the log stream on your computer.
-  - If you don't know what tty device to use, run this command to find out `ls -l /dev/serial/by-id`
+  - Since this is a split keyboard you'll likely have to use `sudo tio /dev/ttyACM1` or `sudo tio /dev/ttyACM2` depending on what side you want to see logs for.
+    - If you don't know what tty devices your system can see, run this command to find out `ls -l /dev/serial/by-id`
 - If the firmware is not generated as expected, use the interactive shell method above to inspect `/workspaces/zmk-firmwares` or rerun the script with debugging.
 - Check the script output for any warnings or errors about missing shields, keymaps, or build failures. If you'd like to save the script output to a file for local parsing in a text editor start the build container with this command:
   ```bash
