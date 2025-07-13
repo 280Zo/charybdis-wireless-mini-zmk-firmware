@@ -64,17 +64,24 @@ To see all the layers check out the [full render](keymap-drawer/charybdis.svg).
 
 
 ⚙️ Other Highlights
-- **Hold-tap side-aware triggers:** Each HRM key only becomes a modifier if the opposite half is active, preventing accidental holds while one-handed.
-- **Quick-tap / prior-idle:** Tuned for faster mod-vs-tap detection.
-- **Timeless home row mods:** On the BASE layer with balanced flavor on both halves (280 ms tapping-term, and quick-tap with prior-idle tuning).
+- **Timeless home row mods:** Based on [urob's](https://github.com/urob/zmk-config#timeless-homerow-mods) work and configured on the BASE layer with balanced flavor on both halves (280 ms tapping-term, and quick-tap with prior-idle tuning).
 - **Thumb-scroll mode:** Hold the left-most thumb button (K36) while moving the trackball to turn motion into scroll.
 - **Precision cursor mode:** Double-tap, then hold K36 to drop the pointer speed, release to return to normal speed.
-- **MOUSE layer behavior:** When activated, the left thumb cluster functions as mouse controls — K36 handles scroll and slow mode, K37 is left click, and K38 is right click. Pressing any other key exits the MOUSE layer and returns to BASE.
+- **Mouse-Click + Symbol-Layer - K37**
+  - Tap: Left mouse click
+  - Tap & Hold: Layer 3 (symbols) while the key is held
+  - Double-Tap & Hold: holds the left mouse button
+  - Tripple-Tap: Double mouse click
+- **Backspace + Number-Layer - K38**
+  - Tap: Backspace
+  - Hold: Layer 1 (numbers) while the key is held
+  - Double-Tap & Hold: Keeps Backspace held
 - **Bluetooth profile quick-swap:** Jump to the EXTRAS layer and tap the dedicated BT-select keys to pair or switch among up to four saved hosts (plus BT CLR to forget all).
-- **ZMK Studio:** Supported on BT builds for quick and easy keymap adjustments. Dongle support will come soon.
-- **Patched the PMW3610 driver & other files:** Removed linker and attribute warnings during build
 - **PMW3610 low power trackball sensor driver:** Provided by [badjeff](https://github.com/badjeff/zmk-pmw3610-driver)
   - Patched to remove build warnings and prevent cursor jump on wake
+- **Hold-tap side-aware triggers:** Each HRM key only becomes a modifier if the opposite half is active, preventing accidental holds while one-handed.
+- **Quick-tap / prior-idle:** Tuned for faster mod-vs-tap detection.
+- **ZMK Studio:** Supported on BT builds for quick and easy keymap adjustments. Dongle support will come soon.
 
 
 ## Customize Keymaps, Layers, & Trackball
@@ -86,8 +93,8 @@ This section will help you personalize your firmware. Everything—from keys and
 By default both Bluetooth and Dongle formats will build firmware pairs for the QWERTY, Coleman DH, and Graphite keymaps. To save time and streamline your builds, you can build just a single keymap or shield that you're interested in:
 
 **Single keymap:**
-Delete any `.keymap` files you don't need from `config/keymap/`, leaving only your desired keymap(s). The build process specifically looks for a file named `charybdis.keymap`. If you prefer another layout instead of the default QWERTY, simply rename your chosen keymap to `charybdis.keymap`.
-
+Any `.keymap` files in the `config/keymap/` directory will be automatically built. By default QWERTY and Colemak DH are included, but you can add or remove as many as you'd like as long as there is at least one .keymap file to process.
+Some additional keymaps are available in the extra-keymaps directory.
 
 **Single shield format (Dongle or Bluetooth):**
 Delete the shield directory (charybdis_dongle or charybdis_bt) from the config/boards/shields/ folder to build only the format you need.

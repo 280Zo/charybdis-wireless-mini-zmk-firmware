@@ -37,11 +37,11 @@
         BASE {
             bindings = <
 // ╭───────────────┬────────────────┬────────────────┬─────────────────┬─────────────────┬──────╮  ╭──────┬──────────────────┬──────────────────┬─────────────────┬────────────────────────┬─────────────╮
-    &kp C_AC_SEARCH &kp Q            &kp W            &kp F             &kp P             &kp B     &kp J  &kp L              &kp U              &kp Y             &kp APOS                     &td_layers
+    &kp C_AC_SEARCH &kp V            &kp L            &kp H             &kp G             &kp K     &kp Q  &kp F              &kp O              &kp U             &kp J                     &td_layers
 // ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼─────────────┤
-    &kp TAB         &ht_left LCMD A  &ht_left LALT R  &ht_left LSHFT S  &ht_left LCTRL T  &kp G     &kp M  &ht_right RCTRL N  &ht_right RSHFT E  &ht_right LALT I  &ht_right RCMD O  &kp DEL
+    &kp TAB         &ht_left LCMD S  &ht_left LALT R  &ht_left LSHFT N  &ht_left LCTRL T  &kp B     &kp Y  &ht_right RCTRL C  &ht_right RSHFT A  &ht_right LALT E  &ht_right RCMD I  &kp DEL
 // ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼─────────────┤
-    &clip_hist      &kp Z            &kp X            &kp C             &kp D             &kp V     &kp K  &kp H              &mm_cm_sc          &mm_pr_col        &mm_qm_ex                 &kp KP_SLASH
+    &clip_hist      &kp Z            &kp X            &kp M             &kp D             &kp P     &kp APOS  &kp W              &mm_cm_sc          &mm_pr_col        &mm_qm_ex                 &kp KP_SLASH
 // ╰───────────────┴────────────────┴────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┴─────────────────┴────────────────────────┴─────────────╯
                                                              &td_esc_scrl_slow   &td_clk  &td_bs     &kp ENTER  &td_space_nav
                                                          // ╰──────────────────┴─────────┴──────╯  ╰──────────┴──────────────╯

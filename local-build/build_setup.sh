@@ -6,7 +6,7 @@ start_time=$(date +%s)
 
 
 # --- CONFIGURABLE SETTINGS ---
-ENABLE_USB_LOGGING="false"                          # Set to "true" to enable USB logging
+ENABLE_USB_LOGGING="false"                         # Set to "true" to enable USB logging
 REPO_ROOT="${REPO_ROOT:-$PWD}"                     # path to original repo root
 SHIELD_PATH="${SHIELD_PATH:-boards/shields}"       # where shield folders live relative to repo root
 CONFIG_PATH="${CONFIG_PATH:-config}"               # where source keymaps/config live
@@ -55,7 +55,7 @@ cp "$REPO_ROOT/$CONFIG_PATH/keymap"/*.keymap "$KEYMAP_TEMP/"
 # echo "🔧 Generating additional keymaps"
 # python3 "$SCRIPT_PATH" -c q2c --in-path "$KEYMAP_TEMP/charybdis.keymap"
 # python3 "$SCRIPT_PATH" -c q2g --in-path "$KEYMAP_TEMP/charybdis.keymap"
-mv "$KEYMAP_TEMP/charybdis.keymap" "$KEYMAP_TEMP/qwerty.keymap"
+# mv "$KEYMAP_TEMP/charybdis.keymap" "$KEYMAP_TEMP/qwerty.keymap"
 
 # Discover shields
 echo "🔍 Discovering shields in sandbox: $REPO_ROOT/$SHIELD_PATH"
