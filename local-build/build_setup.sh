@@ -6,7 +6,7 @@ start_time=$(date +%s)
 
 
 # --- CONFIGURABLE SETTINGS ---
-ENABLE_USB_LOGGING="false"                          # Set to "true" to enable USB logging
+ENABLE_USB_LOGGING="false"                         # Set to "true" to enable USB logging
 REPO_ROOT="${REPO_ROOT:-$PWD}"                     # path to original repo root
 SHIELD_PATH="${SHIELD_PATH:-boards/shields}"       # where shield folders live relative to repo root
 CONFIG_PATH="${CONFIG_PATH:-config}"               # where source keymaps/config live
@@ -39,9 +39,9 @@ west zephyr-export
 echo "🛠️  Setting permissions on ZMK resources:"
 chmod -R 777 .west zmk zephyr modules zmk-pmw3610-driver
 
-# Optional: confirm checkout
-echo "🛠️  West workspace ready. Project structure:"
-west list
+# # Optional: confirm checkout
+# echo "🛠️  West workspace ready. Project structure:"
+# west list
 
 
 # --- CONFIGURABLE KEYMAPS ---
@@ -55,7 +55,7 @@ cp "$REPO_ROOT/$CONFIG_PATH/keymap"/*.keymap "$KEYMAP_TEMP/"
 # echo "🔧 Generating additional keymaps"
 # python3 "$SCRIPT_PATH" -c q2c --in-path "$KEYMAP_TEMP/charybdis.keymap"
 # python3 "$SCRIPT_PATH" -c q2g --in-path "$KEYMAP_TEMP/charybdis.keymap"
-mv "$KEYMAP_TEMP/charybdis.keymap" "$KEYMAP_TEMP/qwerty.keymap"
+# mv "$KEYMAP_TEMP/charybdis.keymap" "$KEYMAP_TEMP/qwerty.keymap"
 
 # Discover shields
 echo "🔍 Discovering shields in sandbox: $REPO_ROOT/$SHIELD_PATH"
@@ -82,24 +82,6 @@ if [ ${#keymaps[@]} -gt 0 ]; then
 else
   echo "⚠️ No keymaps found in $KEYMAP_TEMP"
 fi
-
-
-# --- PATCH PMW3610 DRIVER ---
-echo "🛠️  Patching the PMW3610 Module..."
-
-# Register the pixart vendor prefix in the Devicetree bindings so Zephyr doesn't complain
-echo "🛠️  Registering pixart vendor in the driver's bindings so Zepyhr doesn't complain..."
-printf "pixart\tPixArt Imaging, Inc.\n" >> zmk-pmw3610-driver/dts/bindings/vendor-prefixes.txt
-
-# Patch the CMakeLists to prevent 'No SOURCES given to Zephyr library' warning
-echo "🛠️  Updating CMakeLists.txt to avoid empty Zephyr target warning..."
-cat > zmk-pmw3610-driver/CMakeLists.txt << 'EOF'
-if(CONFIG_PMW3610)
-  zephyr_library()
-  zephyr_library_sources(src/pmw3610.c)
-  zephyr_include_directories(${APPLICATION_SOURCE_DIR}/include)
-endif()
-EOF
 
 
 # --- SANDBOX SETUP FUNCTION ---

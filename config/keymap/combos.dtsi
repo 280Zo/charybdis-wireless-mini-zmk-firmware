@@ -27,10 +27,5 @@
             bindings = <&mkp RCLK>;
             key-positions = <27 28>;
         };
-
-        combo_mouse_layer {
-            bindings = <&to 6>;
-            key-positions = <13 22>;
-        };
     };
 };

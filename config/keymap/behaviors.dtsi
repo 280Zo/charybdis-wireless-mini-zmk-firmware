@@ -43,8 +43,8 @@
         td_esc_scrl_slow: td_esc_scrl_slow {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <125>;
-            bindings = <&lt 8 ESC>, <&mo 7>; // hold, tap, double_tap
+            tapping-term-ms = <150>;
+            bindings = <&lt 7 ESC>, <&mo 6>; // hold, tap, double_tap
         };
 
         td_space_nav: td_space {
@@ -54,11 +54,36 @@
             bindings = <&lt 2 SPACE>, <&kp SPACE>; // hold, tap, double_tap
         };
 
+        mo_clk: mo_click {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <40>;
+            hold-while-undecided;
+            bindings = <&mo>, <&mkp>;
+        };
+
+        td_clk: td_clk {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <170>;
+            bindings = <&mo_clk 3 LCLK>, <&mkp LCLK>; // hold, tap, double_tap
+        };
+
+        mo_kp: mo_kp {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor       = "hold-preferred";
+            tapping-term-ms = <40>;
+            hold-while-undecided;
+            bindings = <&mo>, <&kp>;
+        };
+
         td_bs: td_bs {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <115>;
-            bindings = <&lt 1 BACKSPACE>, <&kp BACKSPACE>; // hold, tap, double_tap
+            tapping-term-ms = <175>;
+            bindings = <&mo_kp 1 BACKSPACE>, <&kp BACKSPACE>; // hold, tap, double_tap
         };
 
         httl: ht_two_layers {

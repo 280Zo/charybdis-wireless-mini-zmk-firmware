@@ -4,7 +4,7 @@ on:
     branches:
       - main
     tags:
-      - 'v1.0.0'
+      - 'v1.0.1'
   workflow_dispatch:
 
 jobs:
@@ -27,10 +27,10 @@ jobs:
     - name: OS deps
       run: sudo apt-get update && sudo apt-get install -y jq
 
-    - name: Generate extra keymaps
-      run: |
-        echo "⚙️ Generating additional keymaps"
-        mv config/keymap/charybdis.keymap config/keymap/qwerty.keymap
+    # - name: Generate extra keymaps
+    #   run: |
+    #     echo "⚙️ Generating additional keymaps"
+    #     mv config/keymap/charybdis.keymap config/keymap/qwerty.keymap
 
     - uses: actions/upload-artifact@v4
       with: { name: generated-keymaps, path: config/keymap/ }
@@ -107,29 +107,6 @@ jobs:
           cp config/*.dtsi zmk/app/overlays/ 2>/dev/null || true
           cp config/keymap/*.dtsi zmk/app/overlays/ 2>/dev/null || true
         fi
-
-    # ───────── patch the PMW3610 driver that West checked out ─────────
-    - name: Patch PMW3610 driver (West-determined path)
-      shell: bash
-      run: |
-        # Ask West where the project is
-        driver_dir=$(west list -f '{abspath}' zmk-pmw3610-driver)
-        binding_dir="$driver_dir/dts/bindings"
-
-        echo "🛠️  Registering pixart vendor in the driver's bindings…"
-        printf "pixart\tPixArt Imaging, Inc.\n" >> "$binding_dir/vendor-prefixes.txt"
-
-        echo "🛠️  Patching the driver's CMakeLists…"
-        cat > "$driver_dir/CMakeLists.txt" <<'EOF'
-        if(CONFIG_PMW3610)
-          zephyr_library()
-          zephyr_library_sources(src/pmw3610.c)
-          zephyr_include_directories(${APPLICATION_SOURCE_DIR}/include)
-        endif()
-        EOF
-
-        echo "Driver path is: $driver_dir"
-        ls -R $driver_dir | head
 
     # ───────── Inject custom shields & helper DTSI files ─────────
     - name: Inject custom shields & helper files
