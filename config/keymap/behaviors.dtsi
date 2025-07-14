@@ -44,7 +44,7 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <150>;
-            bindings = <&lt 8 ESC>, <&mo 7>; // hold, tap, double_tap
+            bindings = <&lt 7 ESC>, <&mo 6>; // hold, tap, double_tap
         };
 
         td_space_nav: td_space {
