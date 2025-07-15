@@ -270,6 +270,11 @@ jobs:
         run: |
           echo "msg=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
 
+      - name: Debug Git Status
+        run: |
+          git status
+          git diff --stat
+
       - name: Commit updated images
         if: ( inputs.destination == 'commit' || inputs.destination == 'both' )
         uses: stefanzweifel/git-auto-commit-action@v5
