@@ -223,21 +223,12 @@ jobs:
               fi
 
               # Full (regular) render
-              set -o pipefail
-              draw_status=0 
-              keymap -v "${config_arg[@]}" parse -z "$keymap_file" $parse_args >"${{ inputs.output_folder }}/$keyboard.yaml" \
-              && { keymap -v "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" $draw_args 2>&1 >"${{ inputs.output_folder }}/$keyboard.svg"; draw_status=$?; } \
+              keymap "${config_arg[@]}" parse -z "$keymap_file" $parse_args >"${{ inputs.output_folder }}/$keyboard.yaml" \
+              && keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" $draw_args >"${{ inputs.output_folder }}/$keyboard.svg" \
               || {
                   echo "ERROR: parsing or drawing failed for $keyboard!"
                   error_occurred=1
               }
-
-              
-
-              if [ $draw_status -ne 0 ]; then
-                  echo "::error::keymap draw failed for $keyboard (exit $draw_status)"
-                  error_occurred=1
-              fi
 
               # BASE-only render
               keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" \
