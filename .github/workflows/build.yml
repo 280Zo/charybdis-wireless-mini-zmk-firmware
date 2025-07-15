@@ -244,7 +244,7 @@ jobs:
       json_path: "config"
       parse_args: "-c 12"  # map of extra args to pass to `keymap parse`, e.g. "corne:'-l Def Lwr Rse' cradio:''"
       draw_args: "qwerty:'-s BASE --keys-only'"
-      amend_commit: false
+      amend_commit: true
       destination: "commit"
       fail_on_error: true
       debug_mode: false
@@ -255,9 +255,6 @@ jobs:
     permissions:
       contents: write
     with:
-      skip_fetch: false
-      commit_options: '--amend --no-edit'
-      push_options: '--force-with-lease'
       keymap_patterns: "config/keymap/qwerty.keymap"
       config_path: "keymap-drawer/config.yaml"
       output_folder: "keymap-drawer"
