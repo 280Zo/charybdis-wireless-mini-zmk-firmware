@@ -256,7 +256,7 @@ jobs:
     permissions:
       contents: write  # allow workflow to commit to the repo
     with:
-      keymap_patterns: "config/keymap/*.keymap"  # path to the keymaps to parse
+      keymap_patterns: "config/keymap/qwerty.keymap"  # path to the keymaps to parse
       config_path: "keymap-drawer/config.yaml"   # config file, ignored if not exists
       output_folder: "keymap-drawer"        # path to save produced SVG and keymap YAML files
       json_path: "config"
