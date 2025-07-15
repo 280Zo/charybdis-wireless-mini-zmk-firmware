@@ -38,7 +38,7 @@ layers:
   - {t: '?', s: '!'}
   - /
   - ESC SCRL SLOW
-  - '&td_clk'
+  - BOOT LDR
   - BS NUM
   - ENTER
   - SPACE NAV
@@ -77,8 +77,8 @@ layers:
   - {t: '1', h: F1}
   - {t: '2', h: F2}
   - {t: '3', h: F3}
-  - {t: /, h: DEV TOOLS}
-  - ''
+  - {t: ., h: F12}
+  - /
   - ''
   - ''
   - {t: ▽, type: trans}
