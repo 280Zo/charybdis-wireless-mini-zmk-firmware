@@ -174,8 +174,8 @@ parse_config:
     KP_MINUS: "-"
     KP_SLASH: "/"
   raw_binding_map: {
-    "&td_clk": "BOOT LDR",
-    "&bootloader": "SYM LCLK",
+    "&td_clk": "SYM LCLK",
+    "&bootloader": "BOOT LDR",
     "&mkp RCLK": "R CLK",
     "&mkp LCLK": "L CLK",
     "&mkp MCLK": "Mid CLK",
