@@ -167,7 +167,6 @@ parse_config:
     LA(KP_N1): "REJECT"
     LA(KP_N2): "PENDING"
     LA(KP_N3): "ACCEPT"
-    F12: "DEV TOOLS"
     BRIGHTNESS INC: "BRIGHT ▲"
     C_BRIGHTNESS_INC: "BRIGHT ▲"
     BRIGHTNESS DEC: "BRIGHT ▼"
@@ -175,7 +174,8 @@ parse_config:
     KP_MINUS: "-"
     KP_SLASH: "/"
   raw_binding_map: {
-    "&bootloader": "BOOT LDR",
+    "&td_clk": "BOOT LDR",
+    "&bootloader": "SYM LCLK",
     "&mkp RCLK": "R CLK",
     "&mkp LCLK": "L CLK",
     "&mkp MCLK": "Mid CLK",
