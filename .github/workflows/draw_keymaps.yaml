@@ -30,7 +30,7 @@ on:
         type: string
       parse_args:
         description: "Map of keyboard names to extra `keymap parse` args, e.g. `corne:'--layer-names Def Lwr Rse Fun'`"
-        default: "charybdis: '-b keymap-drawer/charybdis.yaml'"
+        default: "qwerty: '-b keymap-drawer/qwerty.yaml'"
         required: false
         type: string
       draw_args:
