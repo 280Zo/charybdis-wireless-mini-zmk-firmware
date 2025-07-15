@@ -229,8 +229,6 @@ jobs:
               keymap "${config_arg[@]}" parse -z "$keymap_file" $parse_args \
                 > "${{ inputs.output_folder }}/$keyboard.yaml" \
               && \
-              echo "SVG Data: " &&\
-              keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" $draw_args && \
               keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" $draw_args \
                 > "${{ inputs.output_folder }}/$keyboard.svg"
 
@@ -244,6 +242,9 @@ jobs:
               keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" \
                 -s BASE --keys-only $([[ -n "$json_path/${keyboard}.json" ]] && echo "-j $json_path/${keyboard}.json") \
                 > "${{ inputs.output_folder }}/base/$keyboard.svg"
+
+              ls -hal "${{ inputs.output_folder }}"
+              ls -hal "${{ inputs.output_folder }}/base"
 
               base_status=$?
               if [ $base_status -ne 0 ]; then
