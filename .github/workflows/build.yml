@@ -247,6 +247,7 @@ jobs:
       amend_commit: false
       destination: "commit"
       fail_on_error: true
+      debug_mode: false
 
   draw_full_keymap:
     needs: [build, draw_base_keymap]
@@ -254,6 +255,9 @@ jobs:
     permissions:
       contents: write
     with:
+      skip_fetch: false
+      commit_options: '--amend --no-edit'
+      push_options: '--force-with-lease'
       keymap_patterns: "config/keymap/qwerty.keymap"
       config_path: "keymap-drawer/config.yaml"
       output_folder: "keymap-drawer"
@@ -263,3 +267,4 @@ jobs:
       amend_commit: true
       destination: "commit"
       fail_on_error: true
+      debug_mode: false
