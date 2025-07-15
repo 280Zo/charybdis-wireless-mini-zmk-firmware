@@ -283,6 +283,8 @@ jobs:
             keymap-drawer/**/*.svg
             keymap-drawer/**/*.yaml
           disable_globbing: false
+          add_options: '-u'
+
 
           # So the previous commit is amended instead of creating a new one when desired
           # See:
