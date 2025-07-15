@@ -2,7 +2,7 @@ layout: {zmk_keyboard: qwerty}
 layers:
   BASE:
   - SEARCH
-  - F
+  - Q
   - W
   - E
   - R
