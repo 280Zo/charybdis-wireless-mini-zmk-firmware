@@ -229,8 +229,10 @@ jobs:
               keymap "${config_arg[@]}" parse -z "$keymap_file" $parse_args \
                 > "${{ inputs.output_folder }}/$keyboard.yaml" \
               && \
+              echo "SVG Data: " &&\
+              keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" $draw_args && \
               keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" $draw_args \
-                2>&1 > "${{ inputs.output_folder }}/$keyboard.svg"
+                > "${{ inputs.output_folder }}/$keyboard.svg"
 
               draw_status=$?
               if [ $draw_status -ne 0 ]; then
@@ -241,14 +243,13 @@ jobs:
               # BASE-only render
               keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" \
                 -s BASE --keys-only $([[ -n "$json_path/${keyboard}.json" ]] && echo "-j $json_path/${keyboard}.json") \
-                2>&1 > "${{ inputs.output_folder }}/base/$keyboard.svg"
+                > "${{ inputs.output_folder }}/base/$keyboard.svg"
 
               base_status=$?
               if [ $base_status -ne 0 ]; then
                   echo "::error::base-only keymap draw failed (exit $base_status)"
                   error_occurred=1
               fi
-
 
               DRAWINGS+=(\"${{ inputs.output_folder }}/$keyboard.yaml\" \
                        \"${{ inputs.output_folder }}/$keyboard.svg\" \
