@@ -275,7 +275,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           file_pattern: "${{ inputs.output_folder }}/**/*.svg ${{ inputs.output_folder }}/**/*.yaml"
-          disable_globbing: true
+          disable_globbing: false
           # So the previous commit is amended instead of creating a new one when desired
           # See:
           # - https://github.com/stefanzweifel/git-auto-commit-action#using---amend-and---no-edit-as-commit-options
