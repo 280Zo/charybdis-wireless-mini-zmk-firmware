@@ -30,7 +30,7 @@ on:
         type: string
       parse_args:
         description: "Map of keyboard names to extra `keymap parse` args, e.g. `corne:'--layer-names Def Lwr Rse Fun'`"
-        default: "qwerty: '-b keymap-drawer/qwerty.yaml'"
+        default: "qwerty: '-c 12'"
         required: false
         type: string
       draw_args:
@@ -224,8 +224,10 @@ jobs:
 
               # Full (regular) render
               keymap "${config_arg[@]}" parse -z "$keymap_file" $parse_args >"${{ inputs.output_folder }}/$keyboard.yaml" \
-              && keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" $draw_args >"${{ inputs.output_folder }}/$keyboard.svg" \
-              || {
+              && \
+              keymap "${config_arg[@]}" draw "${{ inputs.output_folder }}/$keyboard.yaml" $draw_args >"${{ inputs.output_folder }}/$keyboard.svg" \
+              || \
+              {
                   echo "ERROR: parsing or drawing failed for $keyboard!"
                   error_occurred=1
               }
