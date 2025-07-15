@@ -233,7 +233,7 @@ jobs:
 # ──────────────────────────────────────────────────────────────
 
   keymap_images:
-    needs: [build]
+    # needs: [build]
     permissions:
       contents: write
     uses: ./.github/workflows/draw_keymaps.yaml
