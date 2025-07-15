@@ -50,9 +50,9 @@
 
         NUM {
             bindings = <
-&none   &none  &none  &none  &none          &none            &kp PLUS      &ht_num_func F7 N7  &ht_num_func F8 N8  &ht_num_func F9 N9  &ht_num_func F10 PRCNT     &none
-&trans   &none  &none  &none  &kp BACKSPACE  &none            &kp KP_MINUS &ht_num_func F4 N4  &ht_num_func F5 N5  &ht_num_func F6 N6  &ht_num_func F11 ASTRK     &none
-&none    &none  &none  &none  &none          &none            &kp EQUAL    &ht_num_func F1 N1  &ht_num_func F2 N2  &ht_num_func F3 N3  &ht_num_func F12 KP_SLASH  &none
+&none   &none  &none  &none  &none          &none            &kp PLUS      &ht_num_func F7 N7  &ht_num_func F8 N8  &ht_num_func F9 N9  &ht_num_func F10 PRCNT  &none
+&trans   &none  &none  &none  &kp BACKSPACE  &none            &kp KP_MINUS &ht_num_func F4 N4  &ht_num_func F5 N5  &ht_num_func F6 N6  &ht_num_func F11 ASTRK  &none
+&none    &none  &none  &none  &none          &none            &kp EQUAL    &ht_num_func F1 N1  &ht_num_func F2 N2  &ht_num_func F3 N3  &ht_num_func F12 DOT    &kp KP_SLASH
                        &none  &none          &trans           &kp N0     &kp SPACE
             >;
         };
