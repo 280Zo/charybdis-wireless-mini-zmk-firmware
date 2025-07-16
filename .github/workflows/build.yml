@@ -245,37 +245,26 @@ jobs:
       parse_args: "-c 12"  # map of extra args to pass to `keymap parse`, e.g. "corne:'-l Def Lwr Rse' cradio:''"
       draw_args: "qwerty:'-s BASE --keys-only'"
       amend_commit: false
+      destination: "commit"
       commit_message: "Add BASE-layer keymaps"
-      destination: "artifact"
       artifact_name: base-keymap
       fail_on_error: true
       debug_mode: false
 
   draw_full_keymap:
     needs: [build, draw_base_keymap]
-    steps:
-    - name: Check out repo
-      uses: actions/checkout@v4
-
-    - name: Download BASE-layer diagrams
-      uses: actions/download-artifact@v4
-      with:
-        name: base-keymap
-        path: keymap-drawer/base
-
-    - name: Draw full keymap & commit svgs
-      uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
-      permissions:
-        contents: write
-      with:
-        keymap_patterns: "config/keymap/qwerty.keymap"
-        config_path: "keymap-drawer/config.yaml"
-        output_folder: "keymap-drawer"
-        json_path: "config"
-        parse_args: "-c 12"
-        draw_args: ""
-        amend_commit: true
-        commit_message: "Add full keymaps"
-        destination: "commit"
-        fail_on_error: true
-        debug_mode: false
+    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
+    permissions:
+      contents: write
+    with:
+      keymap_patterns: "config/keymap/qwerty.keymap"
+      config_path: "keymap-drawer/config.yaml"
+      output_folder: "keymap-drawer"
+      json_path: "config"
+      parse_args: "-c 12"
+      draw_args: ""
+      amend_commit: true
+      commit_message: "Add keymap SVGs"
+      destination: "commit"
+      fail_on_error: true
+      debug_mode: false
