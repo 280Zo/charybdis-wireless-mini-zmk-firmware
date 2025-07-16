@@ -22,6 +22,6 @@ jobs:
       draw_args:      ""
       amend_commit:   false
       commit_message: "Add full keymaps"
-      destination:    commit
+      destination:    both
       fail_on_error:  true
       debug_mode:     false
