@@ -232,8 +232,8 @@ jobs:
 #  IMAGES - generate keymap images
 # ──────────────────────────────────────────────────────────────
 
-  keymap_images:
-    needs: [build]
-    permissions:
-      contents: write
-    uses: ./.github/workflows/draw_keymaps.yaml
+  # keymap_images:
+  #   needs: [build]
+  #   permissions:
+  #     contents: write
+  #   uses: ./.github/workflows/draw_keymaps.yaml
