@@ -12,11 +12,7 @@ layers:
   - I
   - O
   - P
-<<<<<<< HEAD
   - L_BASE L_GAME
-=======
-  - '&td_layers'
->>>>>>> origin/main
   - TAB
   - {t: A, h: LCMD}
   - {t: S, h: LALT}
@@ -29,11 +25,7 @@ layers:
   - {t: L, h: LALT}
   - {t: ;, h: RCMD}
   - DEL
-<<<<<<< HEAD
   - CLIP HIST
-=======
-  - '&clip_hist'
->>>>>>> origin/main
   - Z
   - X
   - C
@@ -45,19 +37,11 @@ layers:
   - {t: ., s: ':'}
   - {t: '?', s: '!'}
   - /
-<<<<<<< HEAD
   - ESC SCRL SLOW
   - SYM LCLK
   - BS NUM
   - ENTER
   - SPACE NAV
-=======
-  - '&td_esc_scrl_slow'
-  - '&td_clk'
-  - '&td_bs'
-  - ENTER
-  - '&td_space_nav'
->>>>>>> origin/main
   NUM:
   - ''
   - ''
@@ -93,13 +77,8 @@ layers:
   - {t: '1', h: F1}
   - {t: '2', h: F2}
   - {t: '3', h: F3}
-<<<<<<< HEAD
   - {t: ., h: F12}
   - /
-=======
-  - {t: /, h: DEV TOOLS}
-  - ''
->>>>>>> origin/main
   - ''
   - ''
   - {t: ▽, type: trans}
@@ -107,7 +86,6 @@ layers:
   - SPACE
   NAV:
   - ''
-<<<<<<< HEAD
   - WHEEL L
   - WHEEL D
   - ''
@@ -126,47 +104,18 @@ layers:
   - LCTRL
   - FWD
   - HSPLIT
-=======
-  - '&msc MOVE_LEFT'
-  - '&msc MOVE_UP'
-  - ''
-  - '&msc MOVE_DOWN'
-  - '&msc MOVE_RIGHT'
-  - '&detach_session'
-  - '&create_or_attach'
-  - '&next_pane'
-  - '&show_sessions'
-  - '&sync_panes'
-  - ''
-  - TAB
-  - '&mkp MB4'
-  - LALT
-  - LSHFT
-  - LCTRL
-  - '&mkp MB5'
-  - '&h_split'
->>>>>>> origin/main
   - LEFT
   - DOWN
   - UP
   - RIGHT
   - ''
   - ''
-<<<<<<< HEAD
   - MOVE L
   - MOVE D
   - MOVE UP
   - MOVE R
   - ''
   - VSPLIT
-=======
-  - '&mmv MOVE_LEFT'
-  - '&mmv MOVE_DOWN'
-  - '&mmv MOVE_UP'
-  - '&mmv MOVE_RIGHT'
-  - ''
-  - '&v_split'
->>>>>>> origin/main
   - HOME
   - PG DN
   - PG UP
@@ -206,17 +155,10 @@ layers:
   - ''
   - ''
   - '#'
-<<<<<<< HEAD
   - ~/
   - $
   - '='
   - '```'
-=======
-  - '&home_dir'
-  - $
-  - '='
-  - '&code_blk'
->>>>>>> origin/main
   - <
   - '>'
   - '@'
@@ -269,17 +211,10 @@ layers:
   - ''
   - ''
   EXTRAS:
-<<<<<<< HEAD
   - ZMK Studio
   - SHRUG
   - LGTM
   - GIT COMMIT
-=======
-  - '&studio_unlock'
-  - '&shrug'
-  - '&lgtm'
-  - '&gcm'
->>>>>>> origin/main
   - ''
   - BRIGHT ▲
   - {t: BT, h: '0'}
@@ -289,11 +224,7 @@ layers:
   - OUT TOG
   - BT CLR
   - SLEEP
-<<<<<<< HEAD
   - sudo!!
-=======
-  - '&sudo'
->>>>>>> origin/main
   - ''
   - ''
   - ''
@@ -310,11 +241,7 @@ layers:
   - COPY
   - PASTE
   - ''
-<<<<<<< HEAD
   - NEW DIR
-=======
-  - '&new_dir'
->>>>>>> origin/main
   - MUTE
   - VOLUME DOWN
   - VOLUME UP
@@ -411,7 +338,6 @@ layers:
   - {t: ▽, type: trans}
 combos:
 - p: [17, 18]
-<<<<<<< HEAD
   k: CAPS WORD
   l: [BASE]
 - p: [38, 39]
@@ -422,15 +348,3 @@ combos:
   k: Mid CLK
 - p: [27, 28]
   k: R CLK
-=======
-  k: '&caps_word'
-  l: [BASE]
-- p: [38, 39]
-  k: '&td_bore'
-- p: [25, 26]
-  k: '&mkp LCLK'
-- p: [26, 27]
-  k: '&mkp MCLK'
-- p: [27, 28]
-  k: '&mkp RCLK'
->>>>>>> origin/main
