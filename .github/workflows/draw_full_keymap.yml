@@ -2,15 +2,10 @@ name: Draw FULL keymaps
 run-name: Draw FULL keymaps
 
 on:
-  workflow_run:
-    workflows:
-      - Draw BASE keymaps
-    types:
-      - completed
+  push:
 
 jobs:
   draw_full_keymap:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
     permissions:
       contents: write
