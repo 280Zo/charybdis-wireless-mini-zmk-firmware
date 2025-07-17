@@ -17,7 +17,7 @@ jobs:
       keymap_patterns: "config/keymap/qwerty.keymap"
       config_path:    "keymap-drawer/config.yaml"
       output_folder:  "keymap-drawer"
-      json_path:      "config"
+      json_path:      ""
       parse_args:     "-c 12"
       draw_args:      ""
       amend_commit:   false
