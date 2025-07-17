@@ -1,0 +1,81 @@
+name: Draw keymaps
+run-name: Draw keymaps
+
+on:
+  push:
+
+jobs:
+  draw_base_keymap:
+    name: Draw BASE keymap
+    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
+    permissions:
+      contents: write
+    with:
+      keymap_patterns: "config/keymap/qwerty.keymap"
+      config_path:    "keymap-drawer/config.yaml"
+      output_folder:  "keymap-drawer/base"
+      json_path:      "config"
+      parse_args:     "-c 12"
+      draw_args:      "qwerty:'-s BASE --keys-only'"
+      amend_commit:   false
+      destination:    artifact
+      commit_message: "Add BASE-layer keymaps"
+      artifact_name: base-keymap
+      fail_on_error:  true
+      debug_mode:     false
+  draw_full_keymap:
+    name: Draw FULL keymaps
+    needs: draw_base_keymap
+    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
+    permissions:
+      contents: write
+    with:
+      keymap_patterns: "config/keymap/qwerty.keymap"
+      config_path:    "keymap-drawer/config.yaml"
+      output_folder:  "keymap-drawer"
+      json_path:      "config"
+      parse_args:     "-c 12"
+      draw_args:      ""
+      amend_commit:   false
+      destination:    artifact
+      commit_message: "Add full keymaps"
+      artifact_name: full-keymaps
+      fail_on_error:  true
+      debug_mode:     false
+
+  publish_keymaps:
+    name: Publish all keymaps
+    needs: [draw_base_keymap, draw_full_keymap]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          clean: false
+
+      - name: Download base keymap artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: base-keymap
+          path: keymap-drawer/base
+
+      - name: Download full keymap artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: full-keymaps
+          path: keymap-drawer
+
+      - name: List downloaded files
+        run: |
+          echo "Downloaded contents:"
+          ls -lR keymap-drawer
+          echo "--- git status ---"
+          git status
+
+      - name: Auto-commit keymap drawings
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update keymap drawings"
+          file_pattern: keymap-drawer
