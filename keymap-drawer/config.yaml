@@ -71,75 +71,6 @@ parse_config:
     special_combinations:
       left_ctrl+left_alt+left_gui+left_shift: Hyper
       left_ctrl+left_alt+left_shift: Meh
-  qmk_remove_keycode_prefix:
-    - KC_
-  qmk_keycode_map:
-    XXXXXXX: ""
-    "NO": ""
-    MINUS: "-"
-    MINS: "-"
-    EQUAL: "="
-    EQL: "="
-    LEFT_BRACKET: "["
-    LBRC: "["
-    RIGHT_BRACKET: "]"
-    RBRC: "]"
-    BACKSLASH: \
-    BSLS: \
-    NONUS_HASH: "#"
-    NUHS: "#"
-    SEMICOLON: ;
-    SCLN: ;
-    QUOTE: "'"
-    QUOT: "'"
-    GRAVE: "`"
-    GRV: "`"
-    COMMA: ","
-    COMM: ","
-    DOT: .
-    SLASH: /
-    SLSH: /
-    TILDE: "~"
-    TILD: "~"
-    EXCLAIM: "!"
-    EXLM: "!"
-    AT: "@"
-    HASH: "#"
-    DOLLAR: $
-    DLR: $
-    PERCENT: "%"
-    PERC: "%"
-    CIRCUMFLEX: ^
-    CIRC: ^
-    AMPERSAND: "&"
-    AMPR: "&"
-    ASTERISK: "*"
-    ASTR: "*"
-    LEFT_PAREN: (
-    LPRN: (
-    RIGHT_PAREN: )
-    RPRN: )
-    UNDERSCORE: _
-    UNDS: _
-    PLUS: +
-    LEFT_CURLY_BRACE: "{"
-    LCBR: "{"
-    RIGHT_CURLY_BRACE: "}"
-    RCBR: "}"
-    PIPE: "|"
-    COLON: ":"
-    COLN: ":"
-    DOUBLE_QUOTE: '"'
-    DQUO: '"'
-    DQT: '"'
-    LEFT_ANGLE_BRACKET: <
-    LABK: <
-    LT: <
-    RIGHT_ANGLE_BRACKET: ">"
-    RABK: ">"
-    GT: ">"
-    QUESTION: "?"
-    QUES: "?"
   zmk_remove_keycode_prefix: []
   zmk_keycode_map:
     EXCLAMATION: "!"
@@ -236,13 +167,58 @@ parse_config:
     LA(KP_N1): "REJECT"
     LA(KP_N2): "PENDING"
     LA(KP_N3): "ACCEPT"
-    F12: "DEV TOOLS"
     BRIGHTNESS INC: "BRIGHT ▲"
     C_BRIGHTNESS_INC: "BRIGHT ▲"
     BRIGHTNESS DEC: "BRIGHT ▼"
     C_BRIGHTNESS_DEC: "BRIGHT ▼"
     KP_MINUS: "-"
     KP_SLASH: "/"
+  raw_binding_map: {
+    "&td_clk": "SYM LCLK",
+    "&bootloader": "BOOT LDR",
+    "&mkp RCLK": "R CLK",
+    "&mkp LCLK": "L CLK",
+    "&mkp MCLK": "Mid CLK",
+    "&mkp MB4": "BACK",
+    "&mkp MB5": "FWD",
+    "&mmv MOVE_UP": "MOVE UP",
+    "&mmv MOVE_DOWN": "MOVE D",
+    "&mmv MOVE_LEFT": "MOVE L",
+    "&mmv MOVE_RIGHT": "MOVE R",
+    "&msc MOVE_UP": "WHEEL D",
+    "&msc MOVE_DOWN": "WHEEL U",
+    "&msc MOVE_LEFT": "WHEEL L",
+    "&msc MOVE_RIGHT": "WHEEL R",
+    "&h_split": "HSPLIT",
+    "&v_split": "VSPLIT",
+    "&caps_word": "CAPS WORD",
+    "&td_bore": "L_BASE L_EXTRA",
+    "&tdmt": "L1/BS LCLICK",
+    "&tdbt": "L2/ESC RCLICK",
+    "&td_layers": "L_BASE L_GAME",
+    "&td_cursor": "SCRL SLOW",
+    "&td_home": "~/",
+    "&td_equals": "=",
+    "&shrug": "SHRUG",
+    "&lgtm": "LGTM",
+    "&gcm": "GIT COMMIT",
+    "&clip_hist": "CLIP HIST",
+    "&new_dir": "NEW DIR",
+    "&py_iter": "PYTHON LOOP",
+    "&js_iter": "JS LOOP",
+    "&studio_unlock": "ZMK Studio",
+    "&td_esc_scrl_slow": "ESC SCRL SLOW",
+    "&td_space_nav": "SPACE NAV",
+    "&td_bs": "BS NUM",
+    "&detach_session": "TMUX DETCH",
+    "&create_or_attach": "TMUX ATTCH",
+    "&next_pane" : "TMUX NEXT",
+    "&show_sessions": "TMUX SESH",
+    "&sync_panes": "TMUX SYNC",
+    "&sudo": "sudo!!",
+    "&code_blk": "```",
+    "&home_dir": "~/"
+  }
   zmk_combos: {}
   zmk_preamble: "#define KEYMAP_DRAWER"
   zmk_additional_includes: []

@@ -28,9 +28,9 @@ Download your choice of firmware from the Releases page. Choose a combination of
 
 ### Overview & Usage
 
-![keymap base](keymap-drawer/base/charybdis.svg)
+![keymap base](keymap-drawer/base/qwerty.svg)
 
-To see all the layers check out the [full render](keymap-drawer/charybdis.svg).
+To see all the layers check out the [full render](keymap-drawer/qwerty.svg).
 
 ⌨️ Keyboard Layers
 | # | Layer      | Purpose                                                          |

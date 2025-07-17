@@ -227,13 +227,3 @@ jobs:
         files: combo-artifacts/*.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-# ──────────────────────────────────────────────────────────────
-#  IMAGES - generate keymap images
-# ──────────────────────────────────────────────────────────────
-
-  # keymap_images:
-  #   needs: [build]
-  #   permissions:
-  #     contents: write
-  #   uses: ./.github/workflows/draw_keymaps.yaml
