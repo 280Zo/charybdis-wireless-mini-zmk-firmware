@@ -2,8 +2,6 @@ name: Draw BASE keymaps
 
 on:
   push:
-    branches:
-      - '*' 
 
 jobs:
   draw_base_keymap:
