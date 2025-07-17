@@ -17,10 +17,10 @@ jobs:
       json_path:      "config"
       parse_args:     "-c 12"
       draw_args:      "qwerty:'-s BASE --keys-only'"
-      amend_commit:   true
-      destination:    both
+      amend_commit:   false
+      destination:    artifact
       commit_message: "Add BASE-layer keymaps"
-      artifact_name: base-keymaps
+      artifact_name: base-keymap
       fail_on_error:  true
       debug_mode:     false
   draw_full_keymap:
@@ -37,8 +37,36 @@ jobs:
       parse_args:     "-c 12"
       draw_args:      ""
       amend_commit:   false
-      destination:    both
+      destination:    artifact
       commit_message: "Add full keymaps"
       artifact_name: full-keymaps
       fail_on_error:  true
       debug_mode:     false
+
+  publish_keymaps:
+    name: Publish all keymaps
+    needs: [draw_base_keymap, draw_full_keymap]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download base keymap artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: base-keymap
+          path: keymap-drawer/base
+
+      - name: Download full keymap artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: full-keymaps
+          path: keymap-drawer
+
+      - name: Auto-commit keymap drawings
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update keymap drawings"
+          file_pattern: "keymap-drawer/**/*.svg keymap-drawer/**/*.yaml"
