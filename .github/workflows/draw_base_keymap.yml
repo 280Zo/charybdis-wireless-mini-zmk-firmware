@@ -36,7 +36,7 @@ jobs:
       json_path:      "config"
       parse_args:     "-c 12"
       draw_args:      ""
-      amend_commit:   true
+      amend_commit:   false
       destination:    both
       commit_message: "Add full keymaps"
       artifact_name: full-keymaps
