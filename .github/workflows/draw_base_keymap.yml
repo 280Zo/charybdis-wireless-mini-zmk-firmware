@@ -1,4 +1,5 @@
 name: Draw BASE keymaps
+run-name: Draw BASE keymaps
 
 on:
   push:

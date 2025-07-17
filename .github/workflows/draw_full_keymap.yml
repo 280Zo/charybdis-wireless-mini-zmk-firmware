@@ -1,4 +1,5 @@
 name: Draw FULL keymaps
+run-name: Draw FULL keymaps
 
 on:
   workflow_run:
@@ -19,7 +20,7 @@ jobs:
       output_folder:  "keymap-drawer"
       json_path:      ""
       parse_args:     "-c 12"
-      draw_args:      ""
+      draw_args:      "qwerty:'--zmk-keyboard qwerty'"
       amend_commit:   false
       commit_message: "Add full keymaps"
       destination:    both
