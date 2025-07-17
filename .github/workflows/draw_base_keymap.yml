@@ -17,7 +17,8 @@ jobs:
       parse_args:     "-c 12"
       draw_args:      "qwerty:'-s BASE --keys-only'"
       amend_commit:   false
-      commit_message: "Add BASE-layer keymaps"
       destination:    both
+      commit_message: "Add BASE-layer keymaps"
+      artifact_name: base-keymaps
       fail_on_error:  true
       debug_mode:     false

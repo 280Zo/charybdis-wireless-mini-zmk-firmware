@@ -20,9 +20,10 @@ jobs:
       output_folder:  "keymap-drawer"
       json_path:      "config"
       parse_args:     "-c 12"
-      draw_args:      "qwerty:'--zmk-keyboard qwerty'"
+      draw_args:      ""
       amend_commit:   false
-      commit_message: "Add full keymaps"
       destination:    both
+      commit_message: "Add full keymaps"
+      artifact_name: full-keymaps
       fail_on_error:  true
       debug_mode:     false
