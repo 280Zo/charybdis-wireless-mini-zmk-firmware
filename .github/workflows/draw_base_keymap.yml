@@ -1,11 +1,12 @@
-name: Draw BASE keymaps
-run-name: Draw BASE keymaps
+name: Draw keymaps
+run-name: Draw keymaps
 
 on:
   push:
 
 jobs:
   draw_base_keymap:
+    name: Draw BASE keymap
     uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
     permissions:
       contents: write
@@ -16,9 +17,28 @@ jobs:
       json_path:      "config"
       parse_args:     "-c 12"
       draw_args:      "qwerty:'-s BASE --keys-only'"
-      amend_commit:   false
+      amend_commit:   true
       destination:    both
       commit_message: "Add BASE-layer keymaps"
       artifact_name: base-keymaps
+      fail_on_error:  true
+      debug_mode:     false
+  draw_full_keymap:
+    name: Draw FULL keymaps
+    needs: draw_base_keymap
+    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
+    permissions:
+      contents: write
+    with:
+      keymap_patterns: "config/keymap/qwerty.keymap"
+      config_path:    "keymap-drawer/config.yaml"
+      output_folder:  "keymap-drawer"
+      json_path:      "config"
+      parse_args:     "-c 12"
+      draw_args:      ""
+      amend_commit:   true
+      destination:    both
+      commit_message: "Add full keymaps"
+      artifact_name: full-keymaps
       fail_on_error:  true
       debug_mode:     false
