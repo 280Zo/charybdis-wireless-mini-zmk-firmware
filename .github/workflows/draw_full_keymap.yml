@@ -1,5 +1,5 @@
-# name: Draw FULL keymaps
-# run-name: Draw FULL keymaps
+name: Draw FULL keymaps
+run-name: Draw FULL keymaps
 
 # on:
 #   push:
