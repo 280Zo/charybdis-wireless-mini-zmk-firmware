@@ -2,7 +2,7 @@ layout: {zmk_keyboard: qwerty}
 layers:
   BASE:
   - SEARCH
-  - Q
+  - W
   - W
   - E
   - R
@@ -38,7 +38,7 @@ layers:
   - {t: '?', s: '!'}
   - /
   - ESC SCRL SLOW
-  - BOOT LDR
+  - SYM LCLK
   - BS NUM
   - ENTER
   - SPACE NAV
