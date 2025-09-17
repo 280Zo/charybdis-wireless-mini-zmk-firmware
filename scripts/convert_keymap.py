@@ -57,10 +57,10 @@ def main():
 
     # 1) Precisely capture only the BASE bindings block
     base_pattern = re.compile(
-        r'(^\s*BASE\s*\{\s*bindings\s*=\s*<\s*\n)'  # start of BASE layer
-        r'(.*?)'                                    # everything inside
-        r'(^\s*>\s*;)',                             # closing >;
-        re.MULTILINE | re.DOTALL
+        r'(^\s*BASE\s*\{[\s\S]*?bindings\s*=\s*<\s*(?:\r?\n))'  # BASE header through bindings line
+        r'([\s\S]*?)'                                                 # contents of bindings block
+        r'(^\s*>\s*;)',                                               # closing >;
+        re.MULTILINE
     )
 
     # 2) Regex to match any all-caps token (your keycodes)
