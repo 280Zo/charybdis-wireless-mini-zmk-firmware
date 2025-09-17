@@ -4,14 +4,98 @@
 
 / {
     behaviors {
-        ht_num_func: homerow_mod {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <175>; // triggers the hold behavior when the tapping-term-ms has expired
-            quick-tap-ms = <150>; // If you press a tapped hold-tap again within quick-tap-ms milliseconds of the first press, it will always trigger the tap behavior.
-            require-prior-idle-ms = <185>; // like quick-tap-ms however it will apply for any non-modifier key pressed before it
-            bindings = <&kp>, <&kp>;  // hold, tap
+        // ht_num_func: homerow_mod {
+        //     compatible = "zmk,behavior-hold-tap";
+        //     #binding-cells = <2>;
+        //     flavor = "tap-preferred";
+        //     tapping-term-ms = <260>; // triggers the hold behavior when the tapping-term-ms has expired
+        //     quick-tap-ms = <220>; // If you press a tapped hold-tap again within quick-tap-ms milliseconds of the first press, it will always trigger the tap behavior.
+        //     require-prior-idle-ms = <185>; // like quick-tap-ms however it will apply for any non-modifier key pressed before it
+        //     bindings = <&kp>, <&kp>;  // hold, tap
+        // };
+
+        mm_f1: num_or_f1 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp N1>, <&kp F1>;
+            mods          = <MOD_LSFT>;
+        };
+
+        mm_f2: num_or_f2 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp N2>, <&kp F2>;
+            mods          = <MOD_LSFT>;
+        };
+
+        mm_f3: num_or_f3 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp N3>, <&kp F3>;
+            mods          = <MOD_LSFT>;
+        };
+
+        mm_f4: num_or_f4 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp N4>, <&kp F4>;
+            mods          = <MOD_LSFT>;
+        };
+
+        mm_f5: num_or_f5 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp N5>, <&kp F5>;
+            mods          = <MOD_LSFT>;
+        };
+
+        mm_f6: num_or_f6 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp N6>, <&kp F6>;
+            mods          = <MOD_LSFT>;
+        };
+
+        mm_f7: num_or_f7 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp N7>, <&kp F7>;
+            mods          = <MOD_LSFT>;
+        };
+
+        mm_f8: num_or_f8 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp N8>, <&kp F8>;
+            mods          = <MOD_LSFT>;
+        };
+
+        mm_f9: num_or_f9 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp N9>, <&kp F9>;
+            mods          = <MOD_LSFT>;
+        };
+
+        mm_f10: pct_or_f10 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp PRCNT>, <&kp F10>;
+            mods          = <MOD_LSFT>;
+        };
+
+        mm_f11: asterisk_or_f11 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp ASTRK>, <&kp F11>;
+            mods          = <MOD_LSFT>;
+        };
+
+        mm_f12: dot_or_f12 {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp DOT>, <&kp F12>;
+            mods          = <MOD_LSFT>;
         };
 
         // Left-hand HRM
@@ -21,7 +105,7 @@
             flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
+            require-prior-idle-ms = <90>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
             hold-trigger-on-release;
@@ -34,7 +118,7 @@
             flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <125>;
+            require-prior-idle-ms = <80>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
@@ -47,11 +131,19 @@
             bindings = <&lt 7 ESC>, <&mo 6>; // hold, tap, double_tap
         };
 
+        lt_nav: nav_layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <170>;
+            bindings = <&mo>, <&kp>;
+        };
+
         td_space_nav: td_space {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <120>;
-            bindings = <&lt 2 SPACE>, <&kp SPACE>; // hold, tap, double_tap
+            tapping-term-ms = <110>;
+            bindings = <&lt_nav 2 SPACE>, <&kp SPACE>; // hold, tap, double_tap
         };
 
         mo_clk: mo_click {
