@@ -104,11 +104,10 @@
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <90>;
+            quick-tap-ms = <140>;
+            require-prior-idle-ms = <40>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
-            hold-trigger-on-release;
         };
 
         // Right-hand HRM
@@ -117,11 +116,10 @@
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <80>;
+            quick-tap-ms = <140>;
+            require-prior-idle-ms = <35>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
-            hold-trigger-on-release;
         };
 
         td_esc_scrl_slow: td_esc_scrl_slow {
