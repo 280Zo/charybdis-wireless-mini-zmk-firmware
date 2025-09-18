@@ -1,6 +1,6 @@
 layout: {zmk_keyboard: qwerty}
 layers:
-  BASE:
+  Base:
   - SEARCH
   - Q
   - W
@@ -42,7 +42,7 @@ layers:
   - BS NUM
   - ENTER
   - SPACE NAV
-  NUM:
+  Num:
   - ''
   - ''
   - ''
@@ -50,41 +50,41 @@ layers:
   - ''
   - ''
   - +
-  - {t: '7', h: F7}
-  - {t: '8', h: F8}
-  - {t: '9', h: F9}
-  - {t: '%', h: F10}
+  - {t: '7', s: F7}
+  - {t: '8', s: F8}
+  - {t: '9', s: F9}
+  - {t: '%', s: F10}
   - ''
   - {t: ▽, type: trans}
   - ''
   - ''
   - ''
   - BACK SPACE
-  - ''
+  - LSHIFT
   - '-'
-  - {t: '4', h: F4}
-  - {t: '5', h: F5}
-  - {t: '6', h: F6}
-  - {t: '*', h: F11}
+  - {t: '4', s: F4}
+  - {t: '5', s: F5}
+  - {t: '6', s: F6}
+  - {t: '*', s: F11}
   - ''
   - ''
   - ''
-  - ''
+  - X
   - ''
   - ''
   - ''
   - '='
-  - {t: '1', h: F1}
-  - {t: '2', h: F2}
-  - {t: '3', h: F3}
-  - {t: ., h: F12}
+  - {t: '1', s: F1}
+  - {t: '2', s: F2}
+  - {t: '3', s: F3}
+  - {t: ., s: F12}
   - /
   - ''
   - ''
   - {t: ▽, type: trans}
   - '0'
   - SPACE
-  NAV:
+  Nav:
   - ''
   - WHEEL L
   - WHEEL D
@@ -126,41 +126,41 @@ layers:
   - ''
   - ''
   - {t: ▽, type: trans}
-  SYM:
+  Sym:
   - ''
-  - ''
-  - ''
-  - ^
   - '~'
-  - ''
-  - +
+  - $
+  - ^
+  - '&move_line_up'
+  - '&mc_add_above'
   - '&'
+  - +
   - '['
   - ']'
   - '%'
   - \
   - ''
-  - ''
+  - _
+  - <
+  - '>'
+  - BACK SPACE
+  - '&delete_line'
+  - '`'
+  - '-'
   - (
   - )
-  - BACK SPACE
-  - _
-  - '-'
-  - '`'
-  - '{'
-  - '}'
   - '*'
   - '|'
   - ''
-  - ''
+  - ~/
   - ''
   - '#'
-  - ~/
-  - $
-  - '='
+  - '&move_line_down'
+  - '&mc_add_below'
   - '```'
-  - <
-  - '>'
+  - '='
+  - '{'
+  - '}'
   - '@'
   - /
   - ''
@@ -168,7 +168,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  GAME:
+  Game:
   - '1'
   - TAB
   - Q
@@ -210,7 +210,7 @@ layers:
   - LEFT ALT
   - ''
   - ''
-  EXTRAS:
+  Xtra:
   - ZMK Studio
   - SHRUG
   - LGTM
@@ -252,7 +252,7 @@ layers:
   - ''
   - ''
   - ''
-  SLOW:
+  Slow:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -294,7 +294,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  SCROLL:
+  Scroll:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -339,7 +339,7 @@ layers:
 combos:
 - p: [17, 18]
   k: CAPS WORD
-  l: [BASE]
+  l: [Base]
 - p: [38, 39]
   k: L_BASE L_EXTRA
 - p: [25, 26]
