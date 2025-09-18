@@ -16,7 +16,7 @@ jobs:
       output_folder:  "keymap-drawer/base"
       json_path:      "config"
       parse_args:     "-c 12"
-      draw_args:      "qwerty:'-s BASE --keys-only'"
+      draw_args:      "qwerty:'-s Base --keys-only'"
       amend_commit:   false
       destination:    artifact
       commit_message: "Add BASE-layer keymaps"
