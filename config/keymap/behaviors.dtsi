@@ -104,8 +104,8 @@
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <280>;
-            quick-tap-ms = <140>;
-            require-prior-idle-ms = <40>;
+            quick-tap-ms = <160>;
+            require-prior-idle-ms = <65>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
         };
@@ -116,8 +116,8 @@
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <280>;
-            quick-tap-ms = <140>;
-            require-prior-idle-ms = <35>;
+            quick-tap-ms = <160>;
+            require-prior-idle-ms = <55>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
         };
