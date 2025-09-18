@@ -161,7 +161,57 @@
                 , <&macro_release &kp LCTRL &kp LSHFT>
                 ;
         };
-        
+
+        mc_add_above: multicursor_add_above {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL &kp LALT>
+                , <&macro_tap &kp UP>
+                , <&macro_release &kp LCTRL &kp LALT>
+                ;
+        };
+
+        mc_add_below: multicursor_add_below {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL &kp LALT>
+                , <&macro_tap &kp DOWN>
+                , <&macro_release &kp LCTRL &kp LALT>
+                ;
+        };
+
+        delete_line: delete_line {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp K>
+                , <&macro_release &kp LCTRL &kp LSHFT>
+                ;
+        };
+
+        move_line_up: move_line_up {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp UP>
+                , <&macro_release &kp LALT>
+                ;
+        };
+
+        move_line_down: move_line_down {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp DOWN>
+                , <&macro_release &kp LALT>
+                ;
+        };
+
         code_blk: code_blk {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;

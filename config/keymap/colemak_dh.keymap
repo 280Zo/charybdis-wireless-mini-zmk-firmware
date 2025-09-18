@@ -42,7 +42,7 @@
 // ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼─────────────┤
     &kp TAB         &ht_left LCMD A  &ht_left LALT R  &ht_left LSHFT S  &ht_left LCTRL T  &kp G     &kp M  &ht_right RCTRL N  &ht_right RSHFT E  &ht_right LALT I  &ht_right RCMD O  &kp DEL
 // ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼─────────────┤
-    &clip_hist      &kp Z            &kp X            &kp C             &kp D             &kp V     &kp K  &kp H              &mm_cm_sc          &mm_pr_col        &mm_qm_ex                 &kp KP_SLASH
+    &clip_hist      &kp Z            &kp X            &kp C             &kp D             &kp V     &kp K  &kp H              &mm_cm_sc          &mm_pr_col        &mm_qm_ex                 &kp FSLH
 // ╰───────────────┴────────────────┴────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┴─────────────────┴────────────────────────┴─────────────╯
                                                              &td_esc_scrl_slow   &td_clk  &td_bs     &kp ENTER  &td_space_nav
                                                          // ╰──────────────────┴─────────┴──────╯  ╰──────────┴──────────────╯
@@ -72,10 +72,10 @@
         SYM {
             display-name = "Sym";
             bindings = <
-&none      &none     &none     &kp CARET &kp TILDE       &none         &kp PLUS     &kp AMPS  &kp LBKT  &kp RBKT  &kp PRCNT  &kp BSLH
-&none      &none     &kp LPAR  &kp RPAR  &kp BACKSPACE   &kp UNDER     &kp KP_MINUS &kp GRAVE &kp LBRC  &kp RBRC  &kp ASTRK  &kp PIPE
-&none      &none     &none     &kp HASH  &home_dir       &kp DLLR      &kp EQUAL    &code_blk &kp LT    &kp GT    &kp AT     &kp KP_SLASH
-                                       &none  &trans     &trans         &trans   &trans
+&none  &kp TILDE  &kp DLLR  &kp CARET  &move_line_up    &mc_add_above      &kp AMPS   &kp PLUS     &kp LBKT  &kp RBKT  &kp PRCNT  &kp BSLH
+&none  &kp UNDER  &kp LT    &kp GT     &kp BACKSPACE    &delete_line       &kp GRAVE  &kp KP_MINUS &kp LPAR  &kp RPAR  &kp ASTRK  &kp PIPE
+&none  &home_dir  &none     &kp HASH   &move_line_down  &mc_add_below      &code_blk  &kp EQUAL    &kp LBRC  &kp RBRC  &kp AT     &kp FSLH
+                                       &none  &trans     &trans            &trans   &trans
             >;
         };
 
