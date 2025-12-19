@@ -95,7 +95,7 @@ setup_sandbox() {
   printf "⚙️  %s\n" "→ Copying files into sandbox.."
   cp -r "$REPO_ROOT/." "$BUILD_REPO/"
   cd "$BUILD_REPO"
-  
+
   # Move the keymap files (macros, combos, etc) to the partent config directory
   mv "$BUILD_REPO/config/keymap/"* "$BUILD_REPO/config/"
 
@@ -164,7 +164,7 @@ for shield in "${shields[@]}"; do
 
   for target in "${shield_targets[@]}"; do
     for keymap in "${keymaps[@]}"; do
-      board="nice_nano_v2"
+      board="nice_nano"
       artifact_name="${target}-${keymap}-${board}-zmk"
       BUILD_DIR=$(mktemp -d)
       printf "🗂  %s\n" "→ Build dir: $BUILD_DIR"
@@ -195,7 +195,7 @@ for shield in "${shields[@]}"; do
           -DZMK_CONFIG="$BASE_DIR/$CONFIG_PATH" \
           -DSHIELD="$target" $ZMK_LOAD_ARG
       echo ""
-      
+
       # Find the built firmware (prefer .uf2, else fallback)
       ARTIFACT_SRC=""
       if [ -f "$BUILD_DIR/zephyr/zmk.uf2" ]; then
@@ -241,7 +241,7 @@ done
 # --- BUILD RESET FIRMWARE ---
 setup_sandbox "settings_reset"
 cd "$BUILD_REPO/zmk"
-RESET_BOARD="nice_nano_v2"
+RESET_BOARD="nice_nano"
 BUILD_DIR=$(mktemp -d)
 FIRM_PATH="/workspaces/zmk/firmwares/settings_reset.uf2"
 printf "🗂  %s\n" "→ Build dir: $BUILD_DIR"
