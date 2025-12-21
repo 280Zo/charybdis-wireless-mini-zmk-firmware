@@ -15,6 +15,7 @@ format:
   - reset
 
 keymap:
+  - charybdis
   - qwerty
 
 include:
