@@ -164,7 +164,7 @@ for shield in "${shields[@]}"; do
 
   for target in "${shield_targets[@]}"; do
     for keymap in "${keymaps[@]}"; do
-      board="nice_nano"
+      board="nice_nano_v2"
       artifact_name="${target}-${keymap}-${board}-zmk"
       BUILD_DIR=$(mktemp -d)
       printf "🗂  %s\n" "→ Build dir: $BUILD_DIR"
@@ -241,7 +241,7 @@ done
 # --- BUILD RESET FIRMWARE ---
 setup_sandbox "settings_reset"
 cd "$BUILD_REPO/zmk"
-RESET_BOARD="nice_nano"
+RESET_BOARD="nice_nano_v2"
 BUILD_DIR=$(mktemp -d)
 FIRM_PATH="/workspaces/zmk/firmwares/settings_reset.uf2"
 printf "🗂  %s\n" "→ Build dir: $BUILD_DIR"
