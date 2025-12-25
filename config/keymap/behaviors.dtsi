@@ -128,7 +128,8 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <150>;
-            bindings = <&lt 7 ESC>, <&mo 6>; // hold, tap, double_tap
+            // L_SCROLL and L_SLOW
+            bindings = <&lt 6 ESC>, <&mo 5>; // hold, tap, double_tap
         };
 
         lt_nav: nav_layer_tap {
@@ -137,13 +138,6 @@
             flavor = "tap-preferred";
             tapping-term-ms = <170>;
             bindings = <&mo>, <&kp>;
-        };
-
-        td_space_nav: td_space {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <110>;
-            bindings = <&lt_nav 2 SPACE>, <&kp SPACE>; // hold, tap, double_tap
         };
 
         mo_clk: mo_click {
@@ -155,10 +149,11 @@
             bindings = <&mo>, <&mkp>;
         };
 
-        td_clk: td_clk {
+        td_clk_num: td_clk_num {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <170>;
+            // L_NUM
             bindings = <&mo_clk 3 LCLK>, <&mkp LCLK>; // hold, tap, double_tap
         };
 
@@ -175,6 +170,7 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <170>;
+            // L_LOWER
             bindings = <&mo_kp 1 BACKSPACE>, <&kp BACKSPACE>; // hold, tap, double_tap
         };
 
@@ -186,23 +182,19 @@
             tapping-term-ms = <125>;
         };
 
-        td_layers: td_layer_swap {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&to 0>, <&to 4>; // tap, double_tap
-        };
-
         td_clk_scrl: td_click_or_scroll {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <250>;
-            bindings = <&mkp RCLK>, <&mo 8>;  // tap/hold, double_tap
+            // L_SCROLL
+            bindings = <&mkp RCLK>, <&mo 6>;  // tap/hold, double_tap
         };
 
         td_bore: BASE_or_EXTRA {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            bindings = <&mo 5>, <&to 0>;
+            // L_ADJUST and L_BASE
+            bindings = <&mo 4>, <&to 0>;
         };
 
         mm_qm_ex: question_exclamation {
@@ -224,6 +216,71 @@
             #binding-cells = <0>;
             bindings      = <&kp COMMA>, <&kp SEMICOLON>;
             mods          = <(MOD_LSFT | MOD_RSFT)>;
+        };
+
+        mm_eq_pl: equal_plus {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp EQUAL>, <&kp PLUS>;
+            mods          = <(MOD_LSFT | MOD_RSFT)>;
+        };
+
+        mm_min_under: minus_under {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp MINUS>, <&kp UNDER>;
+            mods          = <(MOD_LSFT | MOD_RSFT)>;
+        };
+
+        mm_sqt_dqt: sqt_dqt {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp SQT>, <&kp DQT>;
+            mods          = <(MOD_LSFT | MOD_RSFT)>;
+        };
+
+        mm_cm_lt: comma_less_than {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp COMMA>, <&kp LT>;
+            mods          = <(MOD_LSFT | MOD_RSFT)>;
+        };
+
+        mm_prd_gt: period_gt {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp PERIOD>, <&kp GT>;
+            mods          = <(MOD_LSFT | MOD_RSFT)>;
+        };
+
+        mm_sc_co: semi_colon_colon {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp SEMICOLON>, <&kp COLON>;
+            mods          = <(MOD_LSFT | MOD_RSFT)>;
+        };
+
+        mm_fslh_qm: fslh_question {
+            compatible    = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings      = <&kp FSLH>, <&kp QUESTION>;
+            mods          = <(MOD_LSFT | MOD_RSFT)>;
+        };
+
+        td_space_lower: td_space_lower {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <170>;
+            // L_LOWER
+            bindings = <&mo_kp 1 SPACE>, <&kp SPACE>; // hold, tap, double_tap
+        };
+
+        td_r_raise: td_r_raise {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <110>;
+            // L_RAISE
+            bindings = <&lt_nav 2 R>, <&kp R>; // hold, tap, double_tap
         };
     };
 };

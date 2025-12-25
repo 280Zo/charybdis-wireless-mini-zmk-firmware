@@ -5,47 +5,28 @@ on:
   push:
 
 jobs:
-  draw_base_keymap:
-    name: Draw BASE keymap
-    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
-    permissions:
-      contents: write
-    with:
-      keymap_patterns: "config/keymap/qwerty.keymap"
-      config_path:    "keymap-drawer/config.yaml"
-      output_folder:  "keymap-drawer/base"
-      json_path:      "config"
-      parse_args:     "-c 12"
-      draw_args:      "qwerty:'-s Base --keys-only'"
-      amend_commit:   false
-      destination:    artifact
-      commit_message: "Add BASE-layer keymaps"
-      artifact_name: base-keymap
-      fail_on_error:  true
-      debug_mode:     false
   draw_full_keymap:
     name: Draw FULL keymaps
-    needs: draw_base_keymap
     uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
     permissions:
       contents: write
     with:
-      keymap_patterns: "config/keymap/qwerty.keymap"
-      config_path:    "keymap-drawer/config.yaml"
-      output_folder:  "keymap-drawer"
-      json_path:      "config"
-      parse_args:     "-c 12"
-      draw_args:      ""
-      amend_commit:   false
-      destination:    artifact
+      keymap_patterns: "config/keymap/*.keymap"
+      config_path: "keymap-drawer/config.yaml"
+      output_folder: "keymap-drawer"
+      json_path: "config"
+      parse_args: "-c 12"
+      draw_args: ""
+      amend_commit: false
+      destination: artifact
       commit_message: "Add full keymaps"
       artifact_name: full-keymaps
-      fail_on_error:  true
-      debug_mode:     false
+      fail_on_error: true
+      debug_mode: false
 
   publish_keymaps:
     name: Publish all keymaps
-    needs: [draw_base_keymap, draw_full_keymap]
+    needs: [draw_full_keymap]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -54,12 +35,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           clean: false
-
-      - name: Download base keymap artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: base-keymap
-          path: keymap-drawer/base
 
       - name: Download full keymap artifact
         uses: actions/download-artifact@v4

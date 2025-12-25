@@ -1,47 +1,131 @@
-layout: {zmk_keyboard: qwerty}
+layout: {zmk_keyboard: enthium}
 layers:
   Base:
-  - SEARCH
+  - ''
   - Q
-  - W
-  - E
-  - R
-  - T
   - Y
-  - U
-  - I
   - O
-  - P
-  - L_BASE L_GAME
-  - TAB
-  - {t: A, h: LCMD}
-  - {t: S, h: LALT}
-  - {t: D, h: LSHFT}
-  - {t: F, h: LCTRL}
-  - G
-  - H
-  - {t: J, h: RCTRL}
-  - {t: K, h: RSHFT}
-  - {t: L, h: LALT}
-  - {t: ;, h: RCMD}
-  - DEL
-  - CLIP HIST
-  - Z
+  - U
+  - {t: '=', s: +}
   - X
-  - C
-  - V
+  - L
+  - D
+  - W
+  - Z
+  - ''
   - B
-  - N
+  - {t: C, h: LCTRL}
+  - {t: I, h: LSHFT}
+  - {t: A, h: LALT}
+  - {t: E, h: LCMD}
+  - {t: '-', s: _}
+  - K
+  - {t: H, h: RCMD}
+  - {t: T, h: RALT}
+  - {t: N, h: RSHFT}
+  - {t: S, h: RCTRL}
+  - F
+  - ''
+  - {t: '''', s: '"'}
+  - {t: ',', s: <}
+  - {t: ., s: '>'}
+  - {t: ;, s: ':'}
+  - {t: /, s: '?'}
+  - J
   - M
-  - {t: ',', s: ;}
-  - {t: ., s: ':'}
-  - {t: '?', s: '!'}
-  - /
+  - G
+  - P
+  - V
+  - ''
   - ESC SCRL SLOW
-  - SYM LCLK
-  - BS NUM
+  - SPACE L_LOWER
+  - NUM LCLK
   - ENTER
-  - SPACE NAV
+  - R L_RAISE
+  Lower:
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - PG UP
+  - UP
+  - HOME
+  - ''
+  - ''
+  - ''
+  - BACK
+  - LSHFT
+  - LALT
+  - LCMD
+  - FWD
+  - ''
+  - LEFT
+  - DOWN
+  - RIGHT
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - PG DN
+  - ''
+  - END
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  Raise:
+  - ''
+  - '~'
+  - $
+  - ^
+  - ''
+  - ''
+  - '&'
+  - +
+  - '['
+  - ']'
+  - '%'
+  - \
+  - ''
+  - _
+  - <
+  - '>'
+  - BACK SPACE
+  - ''
+  - '`'
+  - '-'
+  - (
+  - )
+  - '*'
+  - '|'
+  - ''
+  - ''
+  - ''
+  - '#'
+  - ''
+  - ''
+  - ''
+  - '='
+  - '{'
+  - '}'
+  - '@'
+  - /
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   Num:
   - ''
   - ''
@@ -55,21 +139,21 @@ layers:
   - {t: '9', s: F9}
   - {t: '%', s: F10}
   - ''
-  - {t: ▽, type: trans}
   - ''
   - ''
   - ''
-  - BACK SPACE
-  - LSHIFT
+  - ''
+  - ''
+  - ''
   - '-'
   - {t: '4', s: F4}
   - {t: '5', s: F5}
   - {t: '6', s: F6}
   - {t: '*', s: F11}
+  - /
   - ''
   - ''
   - ''
-  - X
   - ''
   - ''
   - ''
@@ -78,143 +162,17 @@ layers:
   - {t: '2', s: F2}
   - {t: '3', s: F3}
   - {t: ., s: F12}
-  - /
-  - ''
-  - ''
+  - BACK SPACE
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - '0'
   - SPACE
-  Nav:
-  - ''
-  - WHEEL L
-  - WHEEL D
-  - ''
-  - WHEEL U
-  - WHEEL R
-  - TMUX DETCH
-  - TMUX ATTCH
-  - TMUX NEXT
-  - TMUX SESH
-  - TMUX SYNC
-  - ''
-  - TAB
-  - BACK
-  - LALT
-  - LSHFT
-  - LCTRL
-  - FWD
-  - HSPLIT
-  - LEFT
-  - DOWN
-  - UP
-  - RIGHT
-  - ''
-  - ''
-  - MOVE L
-  - MOVE D
-  - MOVE UP
-  - MOVE R
-  - ''
-  - VSPLIT
-  - HOME
-  - PG DN
-  - PG UP
-  - END
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - {t: ▽, type: trans}
-  Sym:
-  - ''
-  - '~'
-  - $
-  - ^
-  - '&move_line_up'
-  - '&mc_add_above'
-  - '&'
-  - +
-  - '['
-  - ']'
-  - '%'
-  - \
-  - ''
-  - _
-  - <
-  - '>'
-  - BACK SPACE
-  - '&delete_line'
-  - '`'
-  - '-'
-  - (
-  - )
-  - '*'
-  - '|'
-  - ''
-  - ~/
-  - ''
-  - '#'
-  - '&move_line_down'
-  - '&mc_add_below'
-  - '```'
-  - '='
-  - '{'
-  - '}'
-  - '@'
-  - /
-  - ''
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  Game:
-  - '1'
-  - TAB
-  - Q
-  - W
-  - E
-  - R
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - {t: ▽, type: trans}
-  - '2'
-  - LCTRL
-  - A
-  - S
-  - D
-  - F
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - '3'
-  - LSHFT
-  - Y
-  - X
-  - C
-  - V
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - SPACE
-  - LEFT ALT
-  - ''
-  - ''
-  Xtra:
+  Adjust:
   - ZMK Studio
-  - SHRUG
-  - LGTM
-  - GIT COMMIT
+  - ''
+  - ''
+  - ''
   - ''
   - BRIGHT ▲
   - {t: BT, h: '0'}
@@ -223,8 +181,8 @@ layers:
   - {t: BT, h: '3'}
   - OUT TOG
   - BT CLR
-  - SLEEP
-  - sudo!!
+  - ''
+  - ''
   - ''
   - ''
   - ''
@@ -232,26 +190,26 @@ layers:
   - ''
   - PREVIOUS
   - PLAY PAUSE
-  - STOP
   - NEXT
   - ''
-  - LOCK
-  - UNDO
-  - CUT
-  - COPY
-  - PASTE
   - ''
-  - NEW DIR
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
   - MUTE
   - VOLUME DOWN
   - VOLUME UP
   - PRINT SCREEN
   - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   Slow:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -337,14 +295,15 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
 combos:
-- p: [17, 18]
-  k: CAPS WORD
-  l: [Base]
 - p: [38, 39]
   k: L_BASE L_EXTRA
-- p: [25, 26]
+- p: [31, 32]
   k: L CLK
-- p: [26, 27]
-  k: Mid CLK
-- p: [27, 28]
+- p: [32, 33]
   k: R CLK
+- p: [31, 32, 33]
+  k: Mid CLK
+- p: [3, 4]
+  k: TAB
+- p: [7, 8]
+  k: BACK SPACE
