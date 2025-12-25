@@ -6,8 +6,7 @@ url: https://github.com/Bastardkb/Charybdis/
 requires: [pro_micro]
 features:
   - Keys
-  - QWERTY
-  - Colemak DH
+  - Enthium v12 layout
   - Mouse keys pointer
   - Trackball pointer
   - Dongle/Bluetooth/USB
