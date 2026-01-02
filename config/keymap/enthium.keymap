@@ -37,9 +37,9 @@
         BASE {
             display-name = "Base";
             bindings = <
-&none   &kp Q               &kp Y               &kp O               &kp U               &mm_eq_pl                   &kp X           &kp L               &kp D              &kp W                &kp Z               &none
-&kp B   &ht_left LCTRL C    &ht_left LSHFT I    &ht_left LALT A     &ht_left LCMD E     &mm_min_under               &kp K           &ht_right RCMD H    &ht_right RALT T   &ht_right RSHFT N    &ht_right RCTRL S   &kp F
-&none   &mm_sqt_dqt         &mm_cm_lt           &mm_prd_gt          &mm_sc_co           &mm_fslh_qm                 &kp J           &kp M               &kp G              &kp P                &kp V               &none
+&none   &kp Q               &kp Y               &kp O               &kp U               &mm_eq_pl                   &kp X           &kp L               &kp D              &kp P                &kp Z               &none
+&kp B   &ht_left LCTRL C    &ht_left LSHFT I    &ht_left LALT A     &ht_left LCMD E     &mm_min_under               &kp K           &ht_right RCMD H    &ht_right RALT T   &ht_right RSHFT N    &ht_right RCTRL S   &kp W
+&none   &mm_sqt_dqt         &mm_cm_lt           &mm_prd_gt          &mm_fslh_qm         &mm_sc_co                   &kp J           &kp M               &kp G              &kp F                &kp V               &none
                                                 &td_esc_scrl_slow   &td_space_lower     &td_clk_num                 &kp ENTER       &td_r_raise
             >;
         };
