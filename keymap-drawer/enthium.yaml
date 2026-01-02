@@ -10,7 +10,7 @@ layers:
   - X
   - L
   - D
-  - W
+  - P
   - Z
   - ''
   - B
@@ -24,17 +24,17 @@ layers:
   - {t: T, h: RALT}
   - {t: N, h: RSHFT}
   - {t: S, h: RCTRL}
-  - F
+  - W
   - ''
   - {t: '''', s: '"'}
   - {t: ',', s: <}
   - {t: ., s: '>'}
-  - {t: ;, s: ':'}
   - {t: /, s: '?'}
+  - {t: ;, s: ':'}
   - J
   - M
   - G
-  - P
+  - F
   - V
   - ''
   - ESC SCRL SLOW
