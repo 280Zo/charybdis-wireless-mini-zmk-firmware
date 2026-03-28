@@ -2,7 +2,6 @@
 zmk/
 /zephyr/
 modules/
-zmk-pmw3610-driver/
 local-build/logs.txt
 scripts/__pycache__
 local-build/jq
