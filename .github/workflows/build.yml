@@ -4,7 +4,7 @@ on:
     branches:
       - main
     tags:
-      - 'v1.0.1'
+      - 'v*'
   workflow_dispatch:
 
 jobs:
@@ -168,11 +168,10 @@ jobs:
           SNIPPET_OPTION=""
         fi
 
-        # keymap option only if present
+        # Copy the selected keymap into the config dir named after the shield.
+        # ZMK's cmake finds keymaps by searching for ${shield}.keymap in ZMK_CONFIG.
         if [[ -n "${KM:-}" ]]; then
-          KEYMAP_OPTION="-DKEYMAP=$KM"
-        else
-          KEYMAP_OPTION=""
+          cp "$CONFIG_DIR/keymaps/${KM}.keymap" "$CONFIG_DIR/${SH}.keymap"
         fi
 
         echo "Build vars"
@@ -192,11 +191,9 @@ jobs:
           -b "$BD" \
           -- \
           "-DZMK_CONFIG=$CONFIG_DIR" \
-          "-DZEPHYR_EXTRA_MODULES=$GITHUB_WORKSPACE" \
+          "-DZMK_EXTRA_MODULES=$GITHUB_WORKSPACE/zmk-pmw3610-driver" \
           "-DSHIELD=$SH" \
-          "-DKEYMAP=$KM" \
-          "$KEYMAP_OPTION" \
-          "$SNIPPET_OPTION"
+          $SNIPPET_OPTION
         # ──────────────────────────────────────────────────────────────
 
         ART=$(if [[ -f "$BUILD_DIR/zephyr/zmk.uf2" ]]; then echo zmk.uf2; else echo zmk.bin; fi)

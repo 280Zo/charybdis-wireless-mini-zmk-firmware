@@ -12,14 +12,14 @@ include:
     shield: charybdis_left_bt
     keymap:
       - qwerty
-      - colemak_dh
+      # - colemak_dh
 
   - name: bt
     board: nice_nano_v2
     shield: charybdis_right_bt
     keymap:
       - qwerty
-      - colemak_dh
+      # - colemak_dh
     snippet: studio-rpc-usb-uart
 
 # Standard Dongle Firmwares
@@ -31,32 +31,32 @@ include:
       - charybdis_dongle
     keymap:
       - qwerty
-      - colemak_dh
-      - canary
+      # - colemak_dh
+      # - canary
 
-# Prospector Dongle Firmwares (touch screen)
-  - name: prospector_dongle
-    board: nice_nano_v2
-    shield:
-      - charybdis_left_dongle
-      - charybdis_right_dongle
-      - charybdis_dongle_touch
-    keymap:
-      - qwerty
-      - colemak_dh
-      - canary
+# # Prospector Dongle Firmwares (touch screen)
+#   - name: prospector_dongle
+#     board: nice_nano_v2
+#     shield:
+#       - charybdis_left_dongle
+#       - charybdis_right_dongle
+#       - charybdis_dongle_touch
+#     keymap:
+#       - qwerty
+#       - colemak_dh
+#       - canary
 
-# Prospector Dongle Firmwares (non-touch screen)
-  - name: prospector_dongle_nt
-    board: nice_nano_v2
-    shield:
-      - charybdis_left_dongle
-      - charybdis_right_dongle
-      - charybdis_dongle_no_touch
-    keymap:
-      - qwerty
-      - colemak_dh
-      - canary
+# # Prospector Dongle Firmwares (non-touch screen)
+#   - name: prospector_dongle_nt
+#     board: nice_nano_v2
+#     shield:
+#       - charybdis_left_dongle
+#       - charybdis_right_dongle
+#       - charybdis_dongle_no_touch
+#     keymap:
+#       - qwerty
+#       - colemak_dh
+#       - canary
 
 # Reset Firmwares
   - name: settings_reset
