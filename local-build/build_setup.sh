@@ -97,10 +97,9 @@ setup_sandbox() {
   mkdir -p "$NEW_CONFIG_PATH"
   cp -r "$SANDBOX_ROOT/$CONFIG_PATH"/* "$NEW_CONFIG_PATH/"
 
-  # Copy shields to the sandboxed zmk app path
-  printf 'Installing custom shield (%s)\n' "$shield"
-  ZMK_SHIELDS_DIR="$SANDBOX_ROOT/zmk/app/boards/shields"
-  mkdir -p "$ZMK_SHIELDS_DIR"
+  # Custom shields are picked up via the boards/ module (ZMK_EXTRA_MODULES).
+  # No manual copy needed; point ZMK_SHIELDS_DIR at their source location.
+  ZMK_SHIELDS_DIR="$SANDBOX_ROOT/boards/shields"
 
   if [[ "$shield" == "settings_reset" ]]; then
     echo "Using upstream settings_reset shield"
@@ -109,8 +108,6 @@ setup_sandbox() {
     reset_overlay="$SANDBOX_ROOT/zmk/app/boards/shields/settings_reset/settings_reset.overlay"
     sed -i 's/rows = <0>;/rows = <1>;/' "$reset_overlay"
     sed -i 's/events = <>;/events = <0>;/' "$reset_overlay"
-  else
-    cp -a "$SANDBOX_ROOT/$SHIELD_PATH/." "$ZMK_SHIELDS_DIR/"
   fi
 
   cd "$SANDBOX_ROOT"
@@ -155,10 +152,12 @@ build_firmware() {
     usb_logging_snippet="-S zmk-usb-logging"
   fi
 
-  # Load PMW3610 module only when the shield references the PMW3610 driver
-  local zmk_load_arg=""
+  # Always pass the boards/ module so ZMK can discover our custom shields.
+  local zmk_load_arg="-DZMK_EXTRA_MODULES=$SANDBOX_ROOT/boards"
+
+  # Add the PMW3610 driver module only for shields that use it.
   if grep -q "charybdis_pmw3610" "$ZMK_SHIELDS_DIR/$shield/"*.overlay 2>/dev/null; then
-    zmk_load_arg="-DZMK_EXTRA_MODULES=$SANDBOX_ROOT/zmk-pmw3610-driver"
+    zmk_load_arg="${zmk_load_arg};$SANDBOX_ROOT/zmk-pmw3610-driver"
   fi
 
   # Run the build
@@ -279,14 +278,19 @@ for entry_json in "${build_entries[@]}"; do
       setup_sandbox "$shield"
       cd "$SANDBOX_ROOT/zmk"
 
-      # Discover all overlay targets in the current shield directory
-      mapfile -t shield_targets < <(
-        find "$ZMK_SHIELDS_DIR/$shield" -maxdepth 1 -type f -name "*.overlay" -exec basename {} .overlay \;
-      )
-      if [ ${#shield_targets[@]} -eq 0 ]; then
-        echo "[WARN] No overlay targets found in $shield"
-        rm -rf "$SANDBOX_ROOT"
-        continue
+      # Discover overlay targets for custom shields.
+      # For settings_reset the target name is the shield itself (upstream ZMK shield).
+      if [[ "$shield" == "settings_reset" ]]; then
+        shield_targets=("settings_reset")
+      else
+        mapfile -t shield_targets < <(
+          find "$ZMK_SHIELDS_DIR/$shield" -maxdepth 1 -type f -name "*.overlay" -exec basename {} .overlay \;
+        )
+        if [ ${#shield_targets[@]} -eq 0 ]; then
+          echo "[WARN] No overlay targets found in $shield"
+          rm -rf "$SANDBOX_ROOT"
+          continue
+        fi
       fi
 
       for target in "${shield_targets[@]}"; do
@@ -302,8 +306,8 @@ for entry_json in "${build_entries[@]}"; do
           for entry_keymap in "${entry_keymaps[@]}"; do
             keymap_path="$NEW_CONFIG_PATH/keymaps/${entry_keymap}.keymap"
 
-            # Copy in the keymap to the config directory as charybdis.keymap
-            cp "$keymap_path" "$NEW_CONFIG_PATH/charybdis.keymap"
+            # Copy the keymap named after the shield so ZMK's cmake finds it by exact match.
+            cp "$keymap_path" "$NEW_CONFIG_PATH/${target}.keymap"
             build_firmware "$shield" "$target" "$entry_board" "$entry_keymap"
           done
         fi

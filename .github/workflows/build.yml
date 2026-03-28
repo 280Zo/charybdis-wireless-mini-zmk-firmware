@@ -142,7 +142,7 @@ jobs:
         echo "Found $f"
 
     # ───────── Build ─────────
-    - name: Build ${{ matrix.group.name }}
+    - name: Build ${{ matrix.group.shield }}${{ matrix.group.keymap && format(' [{0}]', matrix.group.keymap) || '' }}
       shell: bash
       working-directory: zmk/app
       run: |
@@ -191,7 +191,7 @@ jobs:
           -b "$BD" \
           -- \
           "-DZMK_CONFIG=$CONFIG_DIR" \
-          "-DZMK_EXTRA_MODULES=$GITHUB_WORKSPACE/zmk-pmw3610-driver" \
+          "-DZMK_EXTRA_MODULES=$GITHUB_WORKSPACE/boards;$GITHUB_WORKSPACE/zmk-pmw3610-driver" \
           "-DSHIELD=$SH" \
           $SNIPPET_OPTION
         # ──────────────────────────────────────────────────────────────

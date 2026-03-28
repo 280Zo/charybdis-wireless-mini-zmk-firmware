@@ -1,7 +1,6 @@
 .west/
 zmk/
-zephyr/
-!zephyr/module.yml
+/zephyr/
 modules/
 zmk-pmw3610-driver/
 local-build/logs.txt

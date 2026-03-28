@@ -86,7 +86,7 @@ To see all the layers check out the [full render](keymap-drawer/qwerty.svg).
 
 ## Customize Keymaps, Layers, & Trackball
 
-This section will help you personalize your firmware. Everything—from keys and layers to advanced trackball behaviors—can easily be customized, even if you're new to ZMK.
+This section will help you personalize your firmware. Everything, from keys and layers to advanced trackball behaviors, can easily be customized, even if you're new to ZMK.
 
 
 ### Building Your Customized Firmware
@@ -146,7 +146,7 @@ Open the [qwerty.keymp](config/keymaps/qwerty.keymap) file and change keys, or a
 
 ### Modifying Trackball Behavior
 
-The trackball uses ZMK's modular input processor system, making it easy to adjust pointer behavior to your liking. All trackball-related configurations and input processors are conveniently grouped in the [charybdis_pointer.dtsi](config/trackball/charybdis_pointer.dtsi) file. Modify this file to customize tracking speed, acceleration, scrolling behavior, and more—then rebuild your firmware.
+The trackball uses ZMK's modular input processor system, making it easy to adjust pointer behavior to your liking. All trackball-related configurations and input processors are conveniently grouped in the [charybdis_pointer.dtsi](config/trackball/charybdis_pointer.dtsi) file. Modify this file to customize tracking speed, acceleration, scrolling behavior, ect. Then rebuild your firmware.
 
 
 ### Troubleshooting
