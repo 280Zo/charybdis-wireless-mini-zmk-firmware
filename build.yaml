@@ -19,7 +19,7 @@ include:
     shield: charybdis_right_bt
     keymap:
       - qwerty
-      - colemak_d
+      - colemak_dh
     snippet: studio-rpc-usb-uart
 
 # Standard Dongle Firmwares
@@ -33,26 +33,27 @@ include:
       - qwerty
       - colemak_dh
       - canary
+    snippet: studio-rpc-usb-uart
 
-# # Prospector Dongle Firmwares (touch screen)
-#   - name: prospector_dongle
+# # Dongle with Screen Firmwares (touch screen)
+#   - name: dongle_screen
 #     board: nice_nano//zmk
 #     shield:
 #       - charybdis_left_dongle
 #       - charybdis_right_dongle
-#       - charybdis_dongle_touch
+#       - charybdis_dongle_screen
 #     keymap:
 #       - qwerty
 #       - colemak_dh
 #       - canary
 
-# # Prospector Dongle Firmwares (non-touch screen)
-#   - name: prospector_dongle_nt
+# # Dongle with Screen Firmwares (non-touch screen)
+#   - name: dongle_screen_nt
 #     board: nice_nano//zmk
 #     shield:
 #       - charybdis_left_dongle
 #       - charybdis_right_dongle
-#       - charybdis_dongle_no_touch
+#       - charybdis_dongle_screen_nt
 #     keymap:
 #       - qwerty
 #       - colemak_dh

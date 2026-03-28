@@ -23,11 +23,11 @@ fi
 
 # Update to fetch all modules and dependencies
 echo "Updating west modules..."
-west update > /dev/null 2>&1
+west update
 
 # Set environment variables in the current shell
 echo "Preparing Zephyr build environment..."
-west zephyr-export > /dev/null 2>&1
+west zephyr-export
 
 # Set location for local binaries
 LOCAL_BIN_DIR="$REPO_ROOT/local-build"

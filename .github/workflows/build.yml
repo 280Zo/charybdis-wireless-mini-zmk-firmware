@@ -21,93 +21,64 @@ jobs:
       groups:         ${{ steps.make-groups.outputs.groups }}
       release-groups: ${{ steps.make-groups.outputs.release-groups }}
 
-    env:
-      # repo-local bin dir for tools; ends up on $PATH
-      LOCAL_BIN_DIR: ${{ github.workspace }}/.bin
-      YQ_VERSION: v4.44.3
-      JQ_VERSION: jq-1.7.1
-
     steps:
-      - name: Checkout repo (no submodules)
-        uses: actions/checkout@v5
-
-      - name: Install yq + jq (version-pinned, repo-local)
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$LOCAL_BIN_DIR"
-          echo "$LOCAL_BIN_DIR" >> "$GITHUB_PATH"
-
-          # yq
-          if [ ! -x "$LOCAL_BIN_DIR/yq" ]; then
-            echo "Installing yq $YQ_VERSION..."
-            curl -fsSL "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" -o "$LOCAL_BIN_DIR/yq"
-            chmod 0755 "$LOCAL_BIN_DIR/yq"
-          else
-            echo "yq already installed at $("$LOCAL_BIN_DIR/yq" --version)"
-          fi
-
-          # jq
-          if [ ! -x "$LOCAL_BIN_DIR/jq" ]; then
-            echo "Installing jq $JQ_VERSION..."
-            curl -fsSL "https://github.com/jqlang/jq/releases/download/${JQ_VERSION}/jq-linux-amd64" -o "$LOCAL_BIN_DIR/jq"
-            chmod 0755 "$LOCAL_BIN_DIR/jq"
-          else
-            echo "jq already installed at $("$LOCAL_BIN_DIR/jq" --version)"
-          fi
+      - name: Checkout
+        uses: actions/checkout@v5osssso
 
       - id: make-groups
         name: Build matrix from build.yaml
-        shell: bash
+        shell: python3 {0}
         run: |
-          set -euo pipefail
-          test -f build.yaml || { echo "build.yaml not found at repo root"; exit 1; }
+          import yaml, json, os, itertools
 
-          groups_json=$(
-            yq -o=json '.include' build.yaml | \
-            jq -c '
-              map(
-                . as $r
-                | ($r.shield | (if type=="array" then . else [.] end)) as $shields
-                | (if has("keymap") then ($r.keymap | (if type=="array" then . else [.] end)) else [null] end) as $keymaps
-                | [ range(0; ($shields|length)) as $i
-                    | range(0; ($keymaps|length)) as $j
-                    | {
-                        board:  $r.board,
-                        shield: $shields[$i],
-                        keymap: $keymaps[$j],
-                        snippet: ($r.snippet // null),
-                        name:   ($r.name // (
-                                  ($r.board|tostring) + "-" +
-                                  ($shields[$i]|tostring) +
-                                  (if $keymaps[$j] then "-" + ($keymaps[$j]|tostring) else "" end)
-                                )),
-                        format: ($r.format // "uf2")
-                      }
-                  ]
-              ) | add
-            '
-          )
+          with open("build.yaml") as f:
+              config = yaml.safe_load(f)
+
+          groups = []
+          for entry in config.get("include", []):
+              shields = entry["shield"] if isinstance(entry["shield"], list) else [entry["shield"]]
+              keymaps = entry.get("keymap")
+              if keymaps is None:
+                  keymaps = [None]
+              elif not isinstance(keymaps, list):
+                  keymaps = [keymaps]
+
+              for shield, keymap in itertools.product(shields, keymaps):
+                  groups.append({
+                      "board":   entry["board"],
+                      "shield":  shield,
+                      "keymap":  keymap,
+                      "snippet": entry.get("snippet"),
+                      "name":    entry.get("name", f"{entry['board']}-{shield}" + (f"-{keymap}" if keymap else "")),
+                      "format":  entry.get("format", "uf2"),
+                  })
 
           # Unique (name, keymap) pairs drive the group-artifacts matrix.
           # Pattern: "charybdis-{name}-*-{keymap}" or "charybdis-{name}-*" for no-keymap.
-          release_groups_json=$(
-            echo "$groups_json" | jq -c '
-              [ .[] | {
-                  name:    .name,
-                  keymap:  .keymap,
-                  pattern: ("charybdis-" + .name + "-*" + (if .keymap then "-" + .keymap else "" end))
-                }
-              ] | unique
-            '
-          )
+          seen = set()
+          release_groups = []
+          for g in groups:
+              key = (g["name"], g["keymap"])
+              if key not in seen:
+                  seen.add(key)
+                  km_suffix = f"-{g['keymap']}" if g["keymap"] else ""
+                  release_groups.append({
+                      "name":    g["name"],
+                      "keymap":  g["keymap"],
+                      "pattern": f"charybdis-{g['name']}-*{km_suffix}",
+                  })
 
-          echo "groups=${groups_json}"          >> "$GITHUB_OUTPUT"
-          echo "release-groups=${release_groups_json}" >> "$GITHUB_OUTPUT"
-          echo "Build Matrix:"
-          echo "$groups_json" | jq .
-          echo "Release Groups:"
-          echo "$release_groups_json" | jq .
+          groups_json = json.dumps(groups, separators=(",", ":"))
+          release_groups_json = json.dumps(release_groups, separators=(",", ":"))
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write(f"groups={groups_json}\n")
+              fh.write(f"release-groups={release_groups_json}\n")
+
+          print("Build Matrix:")
+          print(json.dumps(groups, indent=2))
+          print("Release Groups:")
+          print(json.dumps(release_groups, indent=2))
 
 
 # ──────────────────────────────────────────────────────────────
@@ -125,8 +96,7 @@ jobs:
         group: ${{ fromJson(needs.build-matrix.outputs.groups) }}
 
     steps:
-    # ───────── checkout user config (this repo) ─────────
-    - name: Checkout zmk-config repo
+    - name: Checkout
       uses: actions/checkout@v5
 
     - name: Initialise West workspace
@@ -166,7 +136,6 @@ jobs:
         set -euo pipefail
 
         KM="${{ matrix.group.keymap }}"
-        FM="${{ matrix.group.format }}"   # artifact format (e.g., uf2)
         NM="${{ matrix.group.name }}"
         BD="${{ matrix.group.board }}"
         SH="${{ matrix.group.shield }}"
@@ -174,7 +143,8 @@ jobs:
         CONFIG_DIR="$GITHUB_WORKSPACE/config"
         BUILD_DIR=$(mktemp -d)
 
-        # snippet: explicit from matrix wins; else auto for right-half (non-dongle)
+        # ZMK Studio RPC: build.yaml sets snippet explicitly for right-bt shields.
+        # The elif is a fallback for any right-half non-dongle shield that omits it.
         if [[ -n "${{ matrix.group.snippet || '' }}" ]]; then
           SNIPPET_OPTION="-DSNIPPET=${{ matrix.group.snippet }}"
         elif [[ "$SH" == *right* && "$SH" != *dongle* ]]; then
@@ -190,14 +160,13 @@ jobs:
         fi
 
         echo "Build vars"
-        echo "→ Keymap (KM): $KM"
-        echo "→ Format (FM): $FM"
-        echo "→ Name   (NM): $NM"
-        echo "→ Board  (BD): $BD"
-        echo "→ Shield (SH): $SH"
-        echo "→ Dir        : $(pwd)"
-        echo "→ Snippet    : $SNIPPET_OPTION"
-        echo "→ Build dir  : $BUILD_DIR"
+        echo "> Keymap (KM): $KM"
+        echo "> Name   (NM): $NM"
+        echo "> Board  (BD): $BD"
+        echo "> Shield (SH): $SH"
+        echo "> Dir        : $(pwd)"
+        echo "> Snippet    : $SNIPPET_OPTION"
+        echo "> Build dir  : $BUILD_DIR"
 
         # ──────────────────────────────────────────────────────────────
         echo "west build…"

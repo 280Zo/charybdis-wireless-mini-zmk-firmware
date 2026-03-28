@@ -1,2 +1,0 @@
-config SHIELD_CHARYBDIS_DONGLE_NO_TOUCH
-	def_bool $(shields_list_contains,charybdis_dongle_no_touch)

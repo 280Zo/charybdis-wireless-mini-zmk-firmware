@@ -59,13 +59,13 @@ jobs:
           clean: false
 
       - name: Download base keymap artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: base-keymap
           path: keymap-drawer/base
 
       - name: Download full keymap artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: full-keymaps
           path: keymap-drawer
