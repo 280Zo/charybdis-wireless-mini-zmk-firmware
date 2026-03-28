@@ -1,2 +1,3 @@
 build:
-  board_root: ..
+  settings:
+    board_root: ..
