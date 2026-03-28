@@ -54,18 +54,18 @@ jobs:
       contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           clean: false
 
       - name: Download base keymap artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: base-keymap
           path: keymap-drawer/base
 
       - name: Download full keymap artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: full-keymaps
           path: keymap-drawer
