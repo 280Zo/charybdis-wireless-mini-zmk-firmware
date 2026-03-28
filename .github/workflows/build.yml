@@ -94,7 +94,7 @@ jobs:
 #  BUILD
 # ──────────────────────────────────────────────────────────────
   build:
-    name: Build (${{ matrix.group.name }})
+    name: Build (${{ matrix.group.shield }}${{ matrix.group.keymap && format(' [{0}]', matrix.group.keymap) || '' }})
     needs: build-matrix
     runs-on: ubuntu-latest
     container: zmkfirmware/zmk-build-arm:stable

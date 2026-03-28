@@ -2,20 +2,20 @@
 # Each entry under `include` becomes a single matrix item in CI and
 # the local build script.
 
-board: [ nice_nano_v2 ]
+board: [ nice_nano//zmk ]
 
 include:
 
 # BT Firmwares
   - name: bt
-    board: nice_nano_v2
+    board: nice_nano//zmk
     shield: charybdis_left_bt
     keymap:
       - qwerty
       # - colemak_dh
 
   - name: bt
-    board: nice_nano_v2
+    board: nice_nano//zmk
     shield: charybdis_right_bt
     keymap:
       - qwerty
@@ -24,7 +24,7 @@ include:
 
 # Standard Dongle Firmwares
   - name: standard_dongle
-    board: nice_nano_v2
+    board: nice_nano//zmk
     shield:
       - charybdis_left_dongle
       - charybdis_right_dongle
@@ -36,7 +36,7 @@ include:
 
 # # Prospector Dongle Firmwares (touch screen)
 #   - name: prospector_dongle
-#     board: nice_nano_v2
+#     board: nice_nano//zmk
 #     shield:
 #       - charybdis_left_dongle
 #       - charybdis_right_dongle
@@ -48,7 +48,7 @@ include:
 
 # # Prospector Dongle Firmwares (non-touch screen)
 #   - name: prospector_dongle_nt
-#     board: nice_nano_v2
+#     board: nice_nano//zmk
 #     shield:
 #       - charybdis_left_dongle
 #       - charybdis_right_dongle
@@ -60,5 +60,5 @@ include:
 
 # Reset Firmwares
   - name: settings_reset
-    board: nice_nano_v2
+    board: nice_nano//zmk
     shield: settings_reset
