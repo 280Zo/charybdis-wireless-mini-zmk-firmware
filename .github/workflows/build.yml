@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5osssso
+        uses: actions/checkout@v5
 
       - id: make-groups
         name: Build matrix from build.yaml
