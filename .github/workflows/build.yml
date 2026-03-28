@@ -219,7 +219,7 @@ jobs:
         cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$FNAME"
 
     - name: Upload firmware bundle
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       with:
         # Include group name so group-artifacts patterns are trivial: charybdis-{name}-*-{keymap}
         name: charybdis-${{ matrix.group.name }}-${{ matrix.group.shield }}${{ matrix.group.keymap && format('-{0}', matrix.group.keymap) || '' }}
@@ -238,16 +238,31 @@ jobs:
         group: ${{ fromJson(needs.build-matrix.outputs.release-groups) }}
 
     steps:
-    - uses: actions/download-artifact@v5
+    - uses: actions/download-artifact@v8
       with:
         pattern: ${{ matrix.group.pattern }}
         merge-multiple: true
         path: firmware/
 
-    - uses: actions/upload-artifact@v5
+    - uses: actions/upload-artifact@v7
       with:
         name: firmware-${{ matrix.group.name }}${{ matrix.group.keymap && format('-{0}', matrix.group.keymap) || '' }}
         path: firmware/
+
+# ──────────────────────────────────────────────────────────────
+#  CLEANUP - delete the individual per-shield artifacts
+# ──────────────────────────────────────────────────────────────
+  cleanup-artifacts:
+    name: Clean up per-shield artifacts
+    needs: group-artifacts
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+
+    steps:
+    - uses: geekyeggo/delete-artifact@v6
+      with:
+        name: charybdis-*
 
 # ──────────────────────────────────────────────────────────────
 #  RELEASE - zip grouped bundles and attach to the tag release
@@ -260,7 +275,7 @@ jobs:
     permissions: { contents: write }
 
     steps:
-    - uses: actions/download-artifact@v5
+    - uses: actions/download-artifact@v8
       with:
         pattern: firmware-*
         path: combo-artifacts/

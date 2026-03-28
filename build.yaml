@@ -31,8 +31,8 @@ include:
       - charybdis_dongle
     keymap:
       - qwerty
-      # - colemak_dh
-      # - canary
+      - colemak_dh
+      - canary
 
 # # Prospector Dongle Firmwares (touch screen)
 #   - name: prospector_dongle
