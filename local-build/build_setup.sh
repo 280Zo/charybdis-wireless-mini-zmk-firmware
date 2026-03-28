@@ -58,7 +58,7 @@ fi
 
 # Set permissions so users can delete them in their own environment
 echo "Setting permissions on ZMK resources..."
-chmod -R 777 .west zmk zephyr modules
+chmod -R 777 .west zmk zephyr modules zmk-pmw3610-driver
 
 # # Debug: confirm checkout
 # echo "    West workspace ready. Project structure:"
@@ -152,9 +152,9 @@ build_firmware() {
     usb_logging_snippet="-S zmk-usb-logging"
   fi
 
-  # Pass the boards/ module so ZMK can discover our custom shields.
-  # PMW3610 is now handled by Zephyr 4.1's native driver — no extra module needed.
-  local zmk_load_arg="-DZMK_EXTRA_MODULES=$SANDBOX_ROOT/boards"
+  # Pass the boards/ module so ZMK can discover our custom shields,
+  # and the pmw3610 driver module alongside it.
+  local zmk_load_arg="-DZMK_EXTRA_MODULES=$SANDBOX_ROOT/boards;$SANDBOX_ROOT/zmk-pmw3610-driver"
 
   # Run the build
   west build --pristine -s "$SANDBOX_ROOT/zmk/app" \

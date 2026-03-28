@@ -206,7 +206,7 @@ jobs:
           -b "$BD" \
           -- \
           "-DZMK_CONFIG=$CONFIG_DIR" \
-          "-DZMK_EXTRA_MODULES=$GITHUB_WORKSPACE/boards" \
+          "-DZMK_EXTRA_MODULES=$GITHUB_WORKSPACE/boards;$GITHUB_WORKSPACE/zmk-pmw3610-driver" \
           "-DSHIELD=$SH" \
           $SNIPPET_OPTION
         # ──────────────────────────────────────────────────────────────

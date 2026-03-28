@@ -3,8 +3,7 @@
 
 &trackball_listener {
     /* base processor chain on all layers */
-    /* XY swap replaces CONFIG_PMW3610_SWAP_XY (invert-x/y handled in DTS) */
-    input-processors = <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP &zip_xy_scaler 5 5>;
+    input-processors = <&zip_xy_scaler 5 5>;
 
     /* layer-8 scroll override */
     scroller: scroller {

@@ -12,14 +12,14 @@ include:
     shield: charybdis_left_bt
     keymap:
       - qwerty
-      # - colemak_dh
+      - colemak_dh
 
   - name: bt
     board: nice_nano//zmk
     shield: charybdis_right_bt
     keymap:
       - qwerty
-      # - colemak_dh
+      - colemak_d
     snippet: studio-rpc-usb-uart
 
 # Standard Dongle Firmwares
