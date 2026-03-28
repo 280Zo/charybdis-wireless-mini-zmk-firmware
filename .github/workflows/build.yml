@@ -7,6 +7,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
 # ──────────────────────────────────────────────────────────────
 #  SET-UP read build.yaml & save matrix JSON as groups
@@ -15,7 +18,8 @@ jobs:
     name: Build Matrix
     runs-on: ubuntu-latest
     outputs:
-      groups: ${{ steps.make-groups.outputs.groups }}
+      groups:         ${{ steps.make-groups.outputs.groups }}
+      release-groups: ${{ steps.make-groups.outputs.release-groups }}
 
     env:
       # repo-local bin dir for tools; ends up on $PATH
@@ -85,9 +89,25 @@ jobs:
             '
           )
 
-          echo "groups=${groups_json}" >> "$GITHUB_OUTPUT"
+          # Unique (name, keymap) pairs drive the group-artifacts matrix.
+          # Pattern: "charybdis-{name}-*-{keymap}" or "charybdis-{name}-*" for no-keymap.
+          release_groups_json=$(
+            echo "$groups_json" | jq -c '
+              [ .[] | {
+                  name:    .name,
+                  keymap:  .keymap,
+                  pattern: ("charybdis-" + .name + "-*" + (if .keymap then "-" + .keymap else "" end))
+                }
+              ] | unique
+            '
+          )
+
+          echo "groups=${groups_json}"          >> "$GITHUB_OUTPUT"
+          echo "release-groups=${release_groups_json}" >> "$GITHUB_OUTPUT"
           echo "Build Matrix:"
           echo "$groups_json" | jq .
+          echo "Release Groups:"
+          echo "$release_groups_json" | jq .
 
 
 # ──────────────────────────────────────────────────────────────
@@ -105,9 +125,6 @@ jobs:
         group: ${{ fromJson(needs.build-matrix.outputs.groups) }}
 
     steps:
-    # - name: Install tree
-    #   run: apt-get update && apt-get install -y tree
-
     # ───────── checkout user config (this repo) ─────────
     - name: Checkout zmk-config repo
       uses: actions/checkout@v5
@@ -151,12 +168,10 @@ jobs:
         KM="${{ matrix.group.keymap }}"
         FM="${{ matrix.group.format }}"   # artifact format (e.g., uf2)
         NM="${{ matrix.group.name }}"
-        BD="${{ matrix.group.board }}"    # e.g., nice_nano_v2
-        SH="${{ matrix.group.shield }}"   # e.g., charybdis_right or charybdis_dongle
+        BD="${{ matrix.group.board }}"
+        SH="${{ matrix.group.shield }}"
 
-        mkdir -p "$GITHUB_WORKSPACE/out/$NM"
         CONFIG_DIR="$GITHUB_WORKSPACE/config"
-        
         BUILD_DIR=$(mktemp -d)
 
         # snippet: explicit from matrix wins; else auto for right-half (non-dongle)
@@ -206,26 +221,21 @@ jobs:
     - name: Upload firmware bundle
       uses: actions/upload-artifact@v5
       with:
-        name: charybdis-${{ matrix.group.shield }}${{ matrix.group.keymap && format('-{0}', matrix.group.keymap) || '' }}
+        # Include group name so group-artifacts patterns are trivial: charybdis-{name}-*-{keymap}
+        name: charybdis-${{ matrix.group.name }}-${{ matrix.group.shield }}${{ matrix.group.keymap && format('-{0}', matrix.group.keymap) || '' }}
         path: ${{ github.workspace }}/out/${{ matrix.group.name }}/**
 
 # ──────────────────────────────────────────────────────────────
 #  GROUP - merge per-shield artifacts into logical bundles
 # ──────────────────────────────────────────────────────────────
   group-artifacts:
-    name: Group ${{ matrix.group.label }} artifacts
-    needs: build
+    name: Group ${{ matrix.group.name }}${{ matrix.group.keymap && format(' [{0}]', matrix.group.keymap) || '' }}
+    needs: [build, build-matrix]
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        group:
-          - label: bt
-            pattern: 'charybdis-charybdis_*_bt-*'
-          - label: standard_dongle
-            pattern: 'charybdis-charybdis_*dongle*-*'
-          - label: settings_reset
-            pattern: 'charybdis-settings_reset'
+        group: ${{ fromJson(needs.build-matrix.outputs.release-groups) }}
 
     steps:
     - uses: actions/download-artifact@v5
@@ -236,7 +246,7 @@ jobs:
 
     - uses: actions/upload-artifact@v5
       with:
-        name: firmware-${{ matrix.group.label }}
+        name: firmware-${{ matrix.group.name }}${{ matrix.group.keymap && format('-{0}', matrix.group.keymap) || '' }}
         path: firmware/
 
 # ──────────────────────────────────────────────────────────────
@@ -255,17 +265,22 @@ jobs:
         pattern: firmware-*
         path: combo-artifacts/
 
-    - name: Zip each group
+    - name: Zip firmware groups; leave settings_reset as raw file
       working-directory: combo-artifacts
       run: |
         for d in */; do
-          zip -j "${d%/}.zip" "$d"*
+          name="${d%/}"
+          if [[ "$name" != *settings_reset* ]]; then
+            zip -j "${name}.zip" "$d"*
+          fi
         done
 
     - uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ github.ref_name }}
         name: Firmware Release ${{ github.ref_name }}
-        files: combo-artifacts/*.zip
+        files: |
+          combo-artifacts/*.zip
+          combo-artifacts/firmware-settings_reset/settings_reset.uf2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
