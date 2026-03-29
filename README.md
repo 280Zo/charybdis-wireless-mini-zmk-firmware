@@ -60,7 +60,7 @@ To see all the layers check out the [full render](keymap-drawer/qwerty.svg).
 | `K26 + K27`               | **Middle Click**                       |
 | `K27 + K28`               | **Right Click**                        |
 | `K13 + K22`               | Toggle **MOUSE** layer                 |
-| `K38 + K39` (thumb cluster)| Layer-swap **BASE ⇄ EXTRAS**           |
+| `K38 + K39` (thumb cluster)| Layer-swap **BASE / EXTRAS**           |
 
 
 **Other Highlights**
@@ -81,7 +81,7 @@ To see all the layers check out the [full render](keymap-drawer/qwerty.svg).
   - Patched to remove build warnings and prevent cursor jump on wake
 - **Hold-tap side-aware triggers:** Each HRM key only becomes a modifier if the opposite half is active, preventing accidental holds while one-handed.
 - **Quick-tap / prior-idle:** Tuned for faster mod-vs-tap detection.
-- **ZMK Studio:** Supported on BT builds for quick and easy keymap adjustments. Dongle support will come soon.
+- **ZMK Studio:** Supported on both Bluetooth and Dongle builds for quick and easy keymap adjustments.
 
 
 ## Customize Keymaps, Layers, & Trackball
@@ -116,7 +116,7 @@ By default firmware will be built for all formats with all keymaps. Assuming you
 
 **ZMK Studio**
 
-[ZMK Studio](https://zmk.studio/) allows users to update functionality during runtime. It's currently only implemented on the Bluetooth builds.
+[ZMK Studio](https://zmk.studio/) allows users to update functionality during runtime. It is supported on both Bluetooth and Dongle builds.
 
 To change the visual layout of the keys, the physical layout must be updated. This is the charybdis-layouts.dtsi file, which handles the actual physical positions of the keys. Though they may appear to be similar, this is different than the matrix transform file (charybdis.json) which handles the electrical matrix to keymap relationship.
 
@@ -139,14 +139,14 @@ Using a GUI to generate the keymap file before building the firmware is another 
 
 **Edit Keymap Directly**
 
-To change a key layout choose a behavior you'd like to assign to a key, then choose a parameter code. This process is more clearly outlined on ZMK's [Keymaps & Behaviors](https://zmk.dev/docs/features/keymaps) page. All keycodes are documented [here](https://zmk.dev/docs/codes) page
+To change a key layout choose a behavior you'd like to assign to a key, then choose a parameter code. This process is more clearly outlined on ZMK's [Keymaps & Behaviors](https://zmk.dev/docs/features/keymaps) page. All keycodes are documented [here](https://zmk.dev/docs/codes).
 
-Open the [qwerty.keymp](config/keymaps/qwerty.keymap) file and change keys, or add/remove layers, then merge the changes and re-flash the keyboard with the updated firmware. All of the behaviors, combos, and macros are in the [keymap_features](config/keymap_features) folder.
+Open the [qwerty.keymap](config/keymaps/qwerty.keymap) file and change keys, or add/remove layers, then merge the changes and re-flash the keyboard with the updated firmware. All of the behaviors, combos, and macros are in the [keymap_features](config/keymap_features) folder.
 
 
 ### Modifying Trackball Behavior
 
-The trackball uses ZMK's modular input processor system, making it easy to adjust pointer behavior to your liking. All trackball-related configurations and input processors are conveniently grouped in the [charybdis_pointer.dtsi](config/trackball/charybdis_pointer.dtsi) file. Modify this file to customize tracking speed, acceleration, scrolling behavior, ect. Then rebuild your firmware.
+The trackball uses ZMK's modular input processor system, making it easy to adjust pointer behavior to your liking. All trackball-related configurations and input processors are conveniently grouped in the [charybdis_pointer.dtsi](config/trackball/charybdis_pointer.dtsi) file. Modify this file to customize tracking speed, acceleration, scrolling behavior, etc. Then rebuild your firmware.
 
 
 ### Troubleshooting

@@ -6,23 +6,18 @@ board: [ nice_nano//zmk ]
 
 include:
 
-# BT Firmwares
+# ── Bluetooth (BT) Firmwares ─────────────────────────────────────────────────────────────
   - name: bt
     board: nice_nano//zmk
-    shield: charybdis_left_bt
+    shield:
+      - charybdis_left_bt
+      - charybdis_right_bt
     keymap:
       - qwerty
       - colemak_dh
+      - canary
 
-  - name: bt
-    board: nice_nano//zmk
-    shield: charybdis_right_bt
-    keymap:
-      - qwerty
-      - colemak_dh
-    snippet: studio-rpc-usb-uart
-
-# Standard Dongle Firmwares
+# ── Standard Dongle Firmwares ─────────────────────────────────────────────────
   - name: standard_dongle
     board: nice_nano//zmk
     shield:
@@ -33,9 +28,9 @@ include:
       - qwerty
       - colemak_dh
       - canary
-    snippet: studio-rpc-usb-uart
 
-# # Dongle with Screen Firmwares (touch screen)
+# ── NiceNano Prospector Dongle with Touch (Waveshare 887) Screen Firmwares (not yet implemented) ────────────────────────
+# # Touch screen variant
 #   - name: dongle_screen
 #     board: nice_nano//zmk
 #     shield:
@@ -45,9 +40,9 @@ include:
 #     keymap:
 #       - qwerty
 #       - colemak_dh
-#       - canary
 
-# # Dongle with Screen Firmwares (non-touch screen)
+# ── NiceNano Prospector Dongle with Non-Touch (Waveshare 886) Screen Firmwares (not yet implemented) ────────────────────────
+# # Non-touch screen variant
 #   - name: dongle_screen_nt
 #     board: nice_nano//zmk
 #     shield:
@@ -57,9 +52,8 @@ include:
 #     keymap:
 #       - qwerty
 #       - colemak_dh
-#       - canary
 
-# Reset Firmwares
+# ── Reset Firmware ────────────────────────────────────────────────────────────
   - name: settings_reset
     board: nice_nano//zmk
     shield: settings_reset

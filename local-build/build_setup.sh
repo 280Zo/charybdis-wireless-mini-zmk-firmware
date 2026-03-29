@@ -5,7 +5,7 @@ set -euo pipefail
 START_TIME=$(date +%s)
 
 # --- CONFIGURABLE SETTINGS ---
-ENABLE_USB_LOGGING="false"                         # Set to "true" to enable USB logging
+ENABLE_USB_LOGGING="false"                         # Set to "true" to enable USB logging in the firmware
 REPO_ROOT="${REPO_ROOT:-$PWD}"                     # path to original repo root
 SHIELD_PATH="${SHIELD_PATH:-boards/shields}"       # where shield folders live relative to repo root
 CONFIG_PATH="${CONFIG_PATH:-config}"               # where configs live
@@ -97,6 +97,11 @@ setup_sandbox() {
   mkdir -p "$NEW_CONFIG_PATH"
   cp -r "$SANDBOX_ROOT/$CONFIG_PATH"/* "$NEW_CONFIG_PATH/"
 
+  # Copy charybdis/ conf files to top-level config location so ZMK finds them.
+  for f in "$SANDBOX_ROOT/$CONFIG_PATH/charybdis/"*.conf; do
+    [ -f "$f" ] && cp "$f" "$NEW_CONFIG_PATH/$(basename "$f")"
+  done
+
   # Custom shields are picked up via the boards/ module (ZMK_EXTRA_MODULES).
   # No manual copy needed; point ZMK_SHIELDS_DIR at their source location.
   ZMK_SHIELDS_DIR="$SANDBOX_ROOT/boards/shields"
@@ -140,10 +145,13 @@ build_firmware() {
   printf 'Build Directory:\n'
   printf '  %s\n' "$build_dir"
 
-  # Add any extra snippets if specified in build.yaml (mostly used for ZMK Studio)
+  # Apply studio-rpc-usb-uart to USB central shields only.
+  # charybdis_right_bt is the central in BT split mode.
+  # charybdis_dongle is the central in dongle mode.
+  # Peripherals (left_bt, left_dongle, right_dongle) don't need it.
   local extra_snippet=""
-  if [[ -n "$entry_snippet" ]]; then
-    extra_snippet="-S $entry_snippet"
+  if [[ "$target" == "charybdis_right_bt" || "$target" == "charybdis_dongle" ]]; then
+    extra_snippet="-S studio-rpc-usb-uart"
   fi
 
   # Enable USB logging if specified at the top of this script

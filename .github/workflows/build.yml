@@ -118,6 +118,16 @@ jobs:
         # echo "West workspace ready. Project structure:"
         # west list
 
+    # ───────── copy charybdis/ conf files to top-level config ─────────
+    # ZMK searches for ${ZMK_CONFIG}/<shield>.conf and prefix variants,
+    # it does not descend into subdirectories, so charybdis/*.conf must be copied up.
+    - name: Copy charybdis shared conf files
+      shell: bash
+      run: |
+        for f in "$GITHUB_WORKSPACE/config/charybdis/"*.conf; do
+          [ -f "$f" ] && cp "$f" "$GITHUB_WORKSPACE/config/$(basename "$f")"
+        done
+
     # ───────── verify keymaps under config/keymaps/ ─────────
     - name: Verify requested keymap exists
       if: ${{ matrix.group.keymap && matrix.group.keymap != '' }}
@@ -143,11 +153,11 @@ jobs:
         CONFIG_DIR="$GITHUB_WORKSPACE/config"
         BUILD_DIR=$(mktemp -d)
 
-        # ZMK Studio RPC: build.yaml sets snippet explicitly for right-bt shields.
-        # The elif is a fallback for any right-half non-dongle shield that omits it.
-        if [[ -n "${{ matrix.group.snippet || '' }}" ]]; then
-          SNIPPET_OPTION="-DSNIPPET=${{ matrix.group.snippet }}"
-        elif [[ "$SH" == *right* && "$SH" != *dongle* ]]; then
+        # Apply studio-rpc-usb-uart to USB central shields only.
+        # charybdis_right_bt is the central in BT split mode.
+        # charybdis_dongle is the central in dongle mode.
+        # Peripherals (left_bt, left_dongle, right_dongle) don't need it.
+        if [[ "$SH" == "charybdis_right_bt" || "$SH" == "charybdis_dongle" ]]; then
           SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
         else
           SNIPPET_OPTION=""
@@ -169,7 +179,7 @@ jobs:
         echo "> Build dir  : $BUILD_DIR"
 
         # ──────────────────────────────────────────────────────────────
-        echo "west build…"
+        echo "west build..."
         west build -p \
           -d "$BUILD_DIR" \
           -b "$BD" \
