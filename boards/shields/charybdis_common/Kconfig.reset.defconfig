@@ -1,0 +1,18 @@
+if SHIELD_RESET
+
+config ZMK_KEYBOARD_NAME
+	default "Charybdis Reset"
+
+config SETTINGS
+	default y
+
+config ZMK_SETTINGS_RESET_ON_START
+	default y
+
+config ZMK_BLE
+	default n
+
+config ZMK_DISPLAY
+	default n
+
+endif

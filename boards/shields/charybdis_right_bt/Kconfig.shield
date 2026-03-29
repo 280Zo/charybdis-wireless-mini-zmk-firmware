@@ -1,0 +1,2 @@
+config SHIELD_CHARYBDIS_BT_RIGHT
+	def_bool $(shields_list_contains,charybdis_right_bt)

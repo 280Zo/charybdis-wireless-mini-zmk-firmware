@@ -1,8 +1,8 @@
 // Documentation: https://zmk.dev/docs/development/hardware-integration/dongle
 #include <dt-bindings/zmk/matrix_transform.h>
-#include "charybdis-layouts.dtsi"
-#include "charybdis_pmw3610.dtsi"
-#include "charybdis_pointer.dtsi"
+#include "../../config/charybdis-layouts.dtsi"
+#include "../charybdis_trackball/charybdis_pmw3610.dtsi"
+#include "../../config/trackball/charybdis_pointer.dtsi"
 
 &charybdis_physical_layout {
     transform = <&default_transform>;

@@ -4,226 +4,277 @@ on:
     branches:
       - main
     tags:
-      - 'v1.0.1'
+      - 'v*'
   workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
 # ──────────────────────────────────────────────────────────────
-#  SET-UP build-matrix + keymaps
+#  SET-UP read build.yaml & save matrix JSON as groups
 # ──────────────────────────────────────────────────────────────
-  setup:
+  build-matrix:
+    name: Build Matrix
     runs-on: ubuntu-latest
     outputs:
-      groups: ${{ steps.make-groups.outputs.groups }}
+      groups:         ${{ steps.make-groups.outputs.groups }}
+      release-groups: ${{ steps.make-groups.outputs.release-groups }}
 
     steps:
-    - name: Checkout repo (no submodules)
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v5
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with: { python-version: "3.x" }
+      - id: make-groups
+        name: Build matrix from build.yaml
+        shell: python3 {0}
+        run: |
+          import yaml, json, os, itertools
 
-    - name: OS deps
-      run: sudo apt-get update && sudo apt-get install -y jq
+          with open("build.yaml") as f:
+              config = yaml.safe_load(f)
 
-    # - name: Generate extra keymaps
-    #   run: |
-    #     echo "⚙️ Generating additional keymaps"
-    #     mv config/keymap/charybdis.keymap config/keymap/qwerty.keymap
+          groups = []
+          for entry in config.get("include", []):
+              shields = entry["shield"] if isinstance(entry["shield"], list) else [entry["shield"]]
+              keymaps = entry.get("keymap")
+              if keymaps is None:
+                  keymaps = [None]
+              elif not isinstance(keymaps, list):
+                  keymaps = [keymaps]
 
-    - uses: actions/upload-artifact@v4
-      with: { name: generated-keymaps, path: config/keymap/ }
+              for shield, keymap in itertools.product(shields, keymaps):
+                  groups.append({
+                      "board":   entry["board"],
+                      "shield":  shield,
+                      "keymap":  keymap,
+                      "snippet": entry.get("snippet"),
+                      "name":    entry.get("name", f"{entry['board']}-{shield}" + (f"-{keymap}" if keymap else "")),
+                      "format":  entry.get("format", "uf2"),
+                  })
 
-    - name: Build-matrix JSON
-      run: python scripts/generate_matrix.py > build.json
+          # Unique (name, keymap) pairs drive the group-artifacts matrix.
+          # Pattern: "charybdis-{name}-*-{keymap}" or "charybdis-{name}-*" for no-keymap.
+          seen = set()
+          release_groups = []
+          for g in groups:
+              key = (g["name"], g["keymap"])
+              if key not in seen:
+                  seen.add(key)
+                  km_suffix = f"-{g['keymap']}" if g["keymap"] else ""
+                  release_groups.append({
+                      "name":    g["name"],
+                      "keymap":  g["keymap"],
+                      "pattern": f"charybdis-{g['name']}-*{km_suffix}",
+                  })
 
-    - id: make-groups
-      run: |
-        echo "groups=$(jq -c 'map({keymap,format,name,board})' build.json)" >>"$GITHUB_OUTPUT"
-        echo "⚙️ Build Matrix Created"
-        cat build.json | jq .
+          groups_json = json.dumps(groups, separators=(",", ":"))
+          release_groups_json = json.dumps(release_groups, separators=(",", ":"))
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write(f"groups={groups_json}\n")
+              fh.write(f"release-groups={release_groups_json}\n")
+
+          print("Build Matrix:")
+          print(json.dumps(groups, indent=2))
+          print("Release Groups:")
+          print(json.dumps(release_groups, indent=2))
+
 
 # ──────────────────────────────────────────────────────────────
 #  BUILD
 # ──────────────────────────────────────────────────────────────
   build:
-    name: Build (${{ matrix.combo.name }})
-    needs: setup
+    name: Build (${{ matrix.group.shield }}${{ matrix.group.keymap && format(' [{0}]', matrix.group.keymap) || '' }})
+    needs: build-matrix
     runs-on: ubuntu-latest
     container: zmkfirmware/zmk-build-arm:stable
 
     strategy:
       fail-fast: false
       matrix:
-        combo: ${{ fromJson(needs.setup.outputs.groups) }}
+        group: ${{ fromJson(needs.build-matrix.outputs.groups) }}
 
     steps:
-    - name: Install tree
-      run: apt-get update && apt-get install -y tree
-
-    # ───────── update zmk sub-repo ─────────
-    - name: Checkout workflow repo
-      uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v5
 
     - name: Initialise West workspace
       shell: bash
       run: |
         set -euxo pipefail
-        echo "✨ Initializing the west workspace with the local manifest from config/west.yml."
-        west init -l --mf $GITHUB_WORKSPACE/config/west.yml "$GITHUB_WORKSPACE/config"
-        echo "🔄 Updating and synchronizing all repositories in the workspace."
+        echo "Initializing the west workspace using local manifest at config/west.yml"
+        west init -l "$GITHUB_WORKSPACE/config"
         west update
-        echo "📦 Exporting Zephyr for external build system integration."
+        echo "Exporting Zephyr for external build system integration."
         west zephyr-export
 
-        # ───────── DEBUG LOGS ─────────
-        echo ""
-        echo "🪳 Debug Logs"
-        echo "👀 Top dir  : $(west topdir)"
-        echo "👀 Projects :"
-        ls -1 $(west topdir)     # you'll see zmk, zephyr, modules/ …
-        echo "👀 West workspace ready. Project structure:"
-        west list
+        # # ───────── DEBUG LOGS ─────────
+        # echo ""
+        # echo "Debug Logs"
+        # echo "Top dir  : $(west topdir)"
+        # echo "Projects :"
+        # ls -1 $(west topdir)     # you'll see zmk, zephyr, modules/ …
+        # echo "West workspace ready. Project structure:"
+        # west list
 
-    # ───────── pull in keymaps ─────────
-    - name: Download keymaps
-      uses: actions/download-artifact@v4
-      with: { name: generated-keymaps, path: config/keymap }
-
-    # ───────── stage keymaps and helper files ─────────
-    - name: Stage keymaps, overlays, and dtsi files into source tree
+    # ───────── copy charybdis/ conf files to top-level config ─────────
+    # ZMK searches for ${ZMK_CONFIG}/<shield>.conf and prefix variants,
+    # it does not descend into subdirectories, so charybdis/*.conf must be copied up.
+    - name: Copy charybdis shared conf files
       shell: bash
       run: |
-        # Create overlays directory inside zmk/app
-        mkdir -p zmk/app/overlays
-
-        # Only for bt/dongle builds, copy in the single keymap and any helpers
-        if [[ "${{ matrix.combo.format }}" != "reset" ]]; then
-          cp config/keymap/${{ matrix.combo.keymap }}.keymap \
-             zmk/app/overlays/charybdis.keymap
-
-          # copy helper .dtsi files if they exist
-          cp config/*.dtsi zmk/app/overlays/ 2>/dev/null || true
-          cp config/keymap/*.dtsi zmk/app/overlays/ 2>/dev/null || true
-        fi
-
-    # ───────── Inject custom shields & helper DTSI files ─────────
-    - name: Inject custom shields & helper files
-      if: ${{ matrix.combo.format != 'reset' }}
-      shell: bash
-      run: |
-        ZMK_SHIELDS_DIR="$GITHUB_WORKSPACE/zmk/app/boards/shields"
-        mkdir -p "$ZMK_SHIELDS_DIR"
-        cp -r "boards/shields/charybdis_${{ matrix.combo.format }}" "$ZMK_SHIELDS_DIR/"
-        for d in "$ZMK_SHIELDS_DIR"/*; do
-          for f in charybdis-layouts.dtsi charybdis_pmw3610.dtsi charybdis_pointer.dtsi; do
-            [ -f "config/$f" ] && cp "config/$f" "$d/" || true
-          done
+        for f in "$GITHUB_WORKSPACE/config/charybdis/"*.conf; do
+          [ -f "$f" ] && cp "$f" "$GITHUB_WORKSPACE/config/$(basename "$f")"
         done
 
+    # ───────── verify keymaps under config/keymaps/ ─────────
+    - name: Verify requested keymap exists
+      if: ${{ matrix.group.keymap && matrix.group.keymap != '' }}
+      shell: bash
+      run: |
+        set -euo pipefail
+        f="config/keymaps/${{ matrix.group.keymap }}.keymap"
+        test -f "$f" || { echo "[ERROR] Missing keymap file: $f"; exit 1; }
+        echo "Found $f"
+
     # ───────── Build ─────────
-    - name: Build combo ${{ matrix.combo.name }}
+    - name: Build ${{ matrix.group.shield }}${{ matrix.group.keymap && format(' [{0}]', matrix.group.keymap) || '' }}
       shell: bash
       working-directory: zmk/app
       run: |
         set -euo pipefail
 
-        KM="${{ matrix.combo.keymap }}"
-        FM="${{ matrix.combo.format }}"   # bt | dongle | reset
-        NM="${{ matrix.combo.name }}"
-        BD="${{ matrix.combo.board }}"    # nice_nano_v2
+        KM="${{ matrix.group.keymap }}"
+        NM="${{ matrix.group.name }}"
+        BD="${{ matrix.group.board }}"
+        SH="${{ matrix.group.shield }}"
 
-        declare -A LIST=(
-          [bt]="charybdis_left charybdis_right"
-          [dongle]="charybdis_left charybdis_right charybdis_dongle"
-          [reset]="settings_reset"
-        )
-
-        mkdir -p "$GITHUB_WORKSPACE/out/$NM"
         CONFIG_DIR="$GITHUB_WORKSPACE/config"
-        
+        BUILD_DIR=$(mktemp -d)
+
+        # Apply studio-rpc-usb-uart to USB central shields only.
+        # charybdis_right_bt is the central in BT split mode.
+        # charybdis_dongle is the central in dongle mode.
+        # Peripherals (left_bt, left_dongle, right_dongle) don't need it.
+        if [[ "$SH" == "charybdis_right_bt" || "$SH" == "charybdis_dongle" ]]; then
+          SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
+        else
+          SNIPPET_OPTION=""
+        fi
+
+        # Copy the selected keymap into the config dir named after the shield.
+        # ZMK's cmake finds keymaps by searching for ${shield}.keymap in ZMK_CONFIG.
+        if [[ -n "${KM:-}" ]]; then
+          cp "$CONFIG_DIR/keymaps/${KM}.keymap" "$CONFIG_DIR/${SH}.keymap"
+        fi
+
+        echo "Build vars"
+        echo "> Keymap (KM): $KM"
+        echo "> Name   (NM): $NM"
+        echo "> Board  (BD): $BD"
+        echo "> Shield (SH): $SH"
+        echo "> Dir        : $(pwd)"
+        echo "> Snippet    : $SNIPPET_OPTION"
+        echo "> Build dir  : $BUILD_DIR"
+
+        # ──────────────────────────────────────────────────────────────
+        echo "west build..."
+        west build -p \
+          -d "$BUILD_DIR" \
+          -b "$BD" \
+          -- \
+          "-DZMK_CONFIG=$CONFIG_DIR" \
+          "-DZMK_EXTRA_MODULES=$GITHUB_WORKSPACE/boards;$GITHUB_WORKSPACE/zmk-pmw3610-driver" \
+          "-DSHIELD=$SH" \
+          $SNIPPET_OPTION
         # ──────────────────────────────────────────────────────────────
 
-        for SH in ${LIST[$FM]}; do
-          BUILD_DIR=$(mktemp -d)
-
-          # studio RPC only on right half of BT builds
-          if [[ "$FM" == "bt" && "$SH" == *right ]]; then
-            SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
-          else
-            SNIPPET_OPTION=""
-          fi
-
-          # set keymap
-          if [[ "$FM" != "reset" ]]; then
-            KEYMAP_OPTION="-DKEYMAP_FILE=overlays/charybdis.keymap"
-          else
-            KEYMAP_OPTION=""
-          fi
-
-          # ───────── DEBUG LOGS ─────────
-          echo "🪳 Debug Logs"
-          echo "Build Variables:"
-          echo "→ Keymap       (KM): $KM"
-          echo "→ Format       (FM): $FM"
-          echo "→ Name         (NM): $NM"
-          echo "→ Board        (BD): $BD"
-          echo "→ Current directory: $(pwd)"
-          echo "→ KEYMAP_OPTION    :$KEYMAP_OPTION"
-          echo "→ SNIPPET_OPTION   :$SNIPPET_OPTION"
-          echo "→ Build dir        : $BUILD_DIR"
-          # echo "→ Directory contents:"
-          # tree .
-          # echo "📍 Showing current build directory and listing contents:"
-          # echo "GITHUB_WORKSPACE:"
-          # tree $GITHUB_WORKSPACE
-
-          echo "🛠 Kicking off the firmware build..."
-          west build -p \
-            -d "$BUILD_DIR" \
-            -b "$BD" \
-            -- \
-            "-DZMK_CONFIG=$CONFIG_DIR" \
-            "-DSHIELD=$SH" \
-            "$KEYMAP_OPTION" \
-            "$SNIPPET_OPTION"
-
-          ART=$(if [[ -f "$BUILD_DIR/zephyr/zmk.uf2" ]]; then echo zmk.uf2; else echo zmk.bin; fi)
-          cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"
-        done
+        ART=$(if [[ -f "$BUILD_DIR/zephyr/zmk.uf2" ]]; then echo zmk.uf2; else echo zmk.bin; fi)
+        EXT="${ART##*.}"
+        # Include keymap in filename so multiple keymaps for the same shield don't overwrite.
+        FNAME="${SH}${KM:+-${KM}}.${EXT}"
+        mkdir -p "$GITHUB_WORKSPACE/out/$NM"
+        cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$FNAME"
 
     - name: Upload firmware bundle
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
-        name: charybdis-${{ matrix.combo.name }}
-        path: ${{ github.workspace }}/out/${{ matrix.combo.name }}/**
+        # Include group name so group-artifacts patterns are trivial: charybdis-{name}-*-{keymap}
+        name: charybdis-${{ matrix.group.name }}-${{ matrix.group.shield }}${{ matrix.group.keymap && format('-{0}', matrix.group.keymap) || '' }}
+        path: ${{ github.workspace }}/out/${{ matrix.group.name }}/**
 
 # ──────────────────────────────────────────────────────────────
-#  RELEASE - zip files to add to release
+#  GROUP - merge per-shield artifacts into logical bundles
+# ──────────────────────────────────────────────────────────────
+  group-artifacts:
+    name: Group ${{ matrix.group.name }}${{ matrix.group.keymap && format(' [{0}]', matrix.group.keymap) || '' }}
+    needs: [build, build-matrix]
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        group: ${{ fromJson(needs.build-matrix.outputs.release-groups) }}
+
+    steps:
+    - uses: actions/download-artifact@v8
+      with:
+        pattern: ${{ matrix.group.pattern }}
+        merge-multiple: true
+        path: firmware/
+
+    - uses: actions/upload-artifact@v7
+      with:
+        name: firmware-${{ matrix.group.name }}${{ matrix.group.keymap && format('-{0}', matrix.group.keymap) || '' }}
+        path: firmware/
+
+# ──────────────────────────────────────────────────────────────
+#  CLEANUP - delete the individual per-shield artifacts
+# ──────────────────────────────────────────────────────────────
+  cleanup-artifacts:
+    name: Clean up per-shield artifacts
+    needs: group-artifacts
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+
+    steps:
+    - uses: geekyeggo/delete-artifact@v6
+      with:
+        name: charybdis-*
+
+# ──────────────────────────────────────────────────────────────
+#  RELEASE - zip grouped bundles and attach to the tag release
 # ──────────────────────────────────────────────────────────────
   release-firmware:
     name: Release Firmware
-    needs: build
+    needs: group-artifacts
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     permissions: { contents: write }
 
     steps:
-    - uses: actions/download-artifact@v4
-      with: { path: combo-artifacts/ }
+    - uses: actions/download-artifact@v8
+      with:
+        pattern: firmware-*
+        path: combo-artifacts/
 
-    - name: Zip each combo
+    - name: Zip firmware groups; leave settings_reset as raw file
       working-directory: combo-artifacts
       run: |
         for d in */; do
-          zip -j "${d%/}.zip" "$d"*
+          name="${d%/}"
+          if [[ "$name" != *settings_reset* ]]; then
+            zip -j "${name}.zip" "$d"*
+          fi
         done
 
     - uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ github.ref_name }}
         name: Firmware Release ${{ github.ref_name }}
-        files: combo-artifacts/*.zip
+        files: |
+          combo-artifacts/*.zip
+          combo-artifacts/firmware-settings_reset/settings_reset.uf2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

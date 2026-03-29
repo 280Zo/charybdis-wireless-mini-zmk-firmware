@@ -1,0 +1,23 @@
+#include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
+
+&trackball_listener {
+    /* base processor chain on all layers */
+    input-processors = <&zip_xy_scaler 5 5>;
+
+    /* layer-8 scroll override */
+    scroller: scroller {
+        layers           = <7>;
+        input-processors = <
+            &zip_xy_scaler 1 15                              // Scales the scroll speed
+            &zip_xy_to_scroll_mapper                         // Converts XY movement to scroll events
+            &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT) // Inverts the scroll direction
+        >;
+    };
+
+    /* layer-7 slow-pointer override */
+    slow_pointer: slow_pointer {
+        layers           = <6>;
+        input-processors = <&zip_xy_scaler 2 6>;
+    };
+};

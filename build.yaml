@@ -1,24 +1,59 @@
-# This file generates the GitHub Actions matrix.
+# Build matrix describing every board/shield/keymap combo to build.
+# Each entry under `include` becomes a single matrix item in CI and
+# the local build script.
 
-board:
-  - nice_nano_v2
-
-shield:
-  - charybdis_left
-  - charybdis_right
-  - charybdis_dongle
-  - settings_reset
-
-format:
-  - bt
-  - dongle
-  - reset
-
-keymap:
-  - qwerty
+board: [ nice_nano//zmk ]
 
 include:
-  - board: nice_nano_v2
-    shield: charybdis_right
-    keymap: qwerty
-    snippet: studio-rpc-usb-uart
+
+# ── Bluetooth (BT) Firmwares ─────────────────────────────────────────────────────────────
+  - name: bt
+    board: nice_nano//zmk
+    shield:
+      - charybdis_left_bt
+      - charybdis_right_bt
+    keymap:
+      - qwerty
+      - colemak_dh
+      - canary
+
+# ── Standard Dongle Firmwares ─────────────────────────────────────────────────
+  - name: standard_dongle
+    board: nice_nano//zmk
+    shield:
+      - charybdis_left_dongle
+      - charybdis_right_dongle
+      - charybdis_dongle
+    keymap:
+      - qwerty
+      - colemak_dh
+      - canary
+
+# ── NiceNano Prospector Dongle with Touch (Waveshare 887) Screen Firmwares (not yet implemented) ────────────────────────
+# # Touch screen variant
+#   - name: dongle_screen
+#     board: nice_nano//zmk
+#     shield:
+#       - charybdis_left_dongle
+#       - charybdis_right_dongle
+#       - charybdis_dongle_screen
+#     keymap:
+#       - qwerty
+#       - colemak_dh
+
+# ── NiceNano Prospector Dongle with Non-Touch (Waveshare 886) Screen Firmwares (not yet implemented) ────────────────────────
+# # Non-touch screen variant
+#   - name: dongle_screen_nt
+#     board: nice_nano//zmk
+#     shield:
+#       - charybdis_left_dongle
+#       - charybdis_right_dongle
+#       - charybdis_dongle_screen_nt
+#     keymap:
+#       - qwerty
+#       - colemak_dh
+
+# ── Reset Firmware ────────────────────────────────────────────────────────────
+  - name: settings_reset
+    board: nice_nano//zmk
+    shield: settings_reset

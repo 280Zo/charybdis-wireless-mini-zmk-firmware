@@ -12,6 +12,8 @@ features:
   - Trackball pointer
   - Dongle/Bluetooth/USB
 siblings:
-  - charybdis_left
-  - charybdis_right
+  - charybdis_left_bt
+  - charybdis_right_bt
+  - charybdis_left_dongle
+  - charybdis_right_dongle
   - charybdis_dongle
