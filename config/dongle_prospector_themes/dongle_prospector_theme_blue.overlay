@@ -1,0 +1,10 @@
+/*
+ * Prospector color theme selection for the Radii layout.
+ * Blue is also the module default when no theme is chosen.
+ */
+
+/ {
+    chosen {
+        zmk,prospector-theme = &prospector_blue_theme;
+    };
+};
