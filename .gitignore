@@ -4,6 +4,7 @@ zephyr/
 modules/
 optional/
 zmk-pmw3610-driver/
+prospector-zmk-module
 local-build/logs.txt
 scripts/__pycache__
 local-build/jq

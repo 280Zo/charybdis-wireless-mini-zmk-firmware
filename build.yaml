@@ -16,6 +16,8 @@ include:
       - qwerty
       - colemak_dh
       - canary
+      # - focal
+      # - graphite
 
 # ── Standard Dongle Firmwares ─────────────────────────────────────────────────
   - name: standard_dongle
@@ -28,30 +30,97 @@ include:
       - qwerty
       - colemak_dh
       - canary
+      # - focal
+      # - graphite
 
-# ── NiceNano Prospector Dongle with Touch (Waveshare 887) Screen Firmwares (not yet implemented) ────────────────────────
-# # Touch screen variant
-#   - name: dongle_screen
-#     board: nice_nano//zmk
-#     shield:
-#       - charybdis_left_dongle
-#       - charybdis_right_dongle
-#       - charybdis_dongle_screen
-#     keymap:
-#       - qwerty
-#       - colemak_dh
+# ── Prospector Dongle (Display Screen) Firmwares ──────────────────────────
+  # Support for both touch (SKU 27057) and non-touch (SKU 24382) Waveshare screens
 
-# ── NiceNano Prospector Dongle with Non-Touch (Waveshare 886) Screen Firmwares (not yet implemented) ────────────────────────
-# # Non-touch screen variant
-#   - name: dongle_screen_nt
-#     board: nice_nano//zmk
-#     shield:
-#       - charybdis_left_dongle
-#       - charybdis_right_dongle
-#       - charybdis_dongle_screen_nt
-#     keymap:
-#       - qwerty
-#       - colemak_dh
+  # Prospector layout selection:
+    # Operator is the default selection; swap in one of the files below to change the layout:
+    #   - dongle_prospector_layouts/dongle_prospector_layout_classic.conf
+    #   - dongle_prospector_layouts/dongle_prospector_layout_radii.conf
+    #   - dongle_prospector_layouts/dongle_prospector_layout_field.conf
+    #   - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
+    #
+    # Radii-only color themes are selected with an extra overlay:
+    #   - dongle_prospector_themes/dongle_prospector_theme_blue.overlay
+    #   - dongle_prospector_themes/dongle_prospector_theme_green.overlay
+    #   - dongle_prospector_themes/dongle_prospector_theme_red.overlay
+    #   - dongle_prospector_themes/dongle_prospector_theme_purple.overlay
+
+
+# ── Prospector Nice Nano v2 Dongle w/o APDS9960 ambient light sensor ──────────────────────────
+  - name: dongle_prospector_no_sensor
+    board: nice_nano//zmk
+    keymap:
+      - qwerty
+      - colemak_dh
+      - canary
+    builds:
+      - shield: charybdis_left_dongle
+      - shield: charybdis_right_dongle
+      - shield: "charybdis_dongle prospector_adapter"
+        extra_conf_files:
+          - dongle_prospector/dongle_prospector_common.conf
+          - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
+          - dongle_prospector/dongle_prospector_no_sensor.conf
+        extra_dtc_overlay_files:
+          - dongle_prospector/dongle_prospector_no_sensor.overlay
+
+# ── Prospector Nice Nano v2 Dongle with APDS9960 ambient light sensor ──────────────────────────
+  - name: dongle_prospector_sensor
+    board: nice_nano//zmk
+    keymap:
+      - qwerty
+      - colemak_dh
+      - canary
+    builds:
+      - shield: charybdis_left_dongle
+      - shield: charybdis_right_dongle
+      - shield: "charybdis_dongle prospector_adapter"
+        extra_conf_files:
+          - dongle_prospector/dongle_prospector_common.conf
+          - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
+          - dongle_prospector/dongle_prospector_sensor.conf
+
+# ── Prospector Original MCU (XIAO BLE) w/o APDS9960 ambient light sensor ──────────────
+  - name: dongle_prospector_xiao_no_sensor
+    board: xiao_ble//zmk
+    keymap:
+      - qwerty
+      - colemak_dh
+      - canary
+    builds:
+      - shield: charybdis_left_dongle
+        board: nice_nano//zmk
+      - shield: charybdis_right_dongle
+        board: nice_nano//zmk
+      - shield: "charybdis_dongle prospector_adapter"
+        extra_conf_files:
+          - dongle_prospector/dongle_prospector_common.conf
+          - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
+          - dongle_prospector/dongle_prospector_no_sensor.conf
+        extra_dtc_overlay_files:
+          - dongle_prospector/dongle_prospector_no_sensor.overlay
+
+# ── Prospector Original MCU (XIAO BLE) with APDS9960 ambient light sensor ──────────────
+  - name: dongle_prospector_xiao_sensor
+    board: xiao_ble//zmk
+    keymap:
+      - qwerty
+      - colemak_dh
+      - canary
+    builds:
+      - shield: charybdis_left_dongle
+        board: nice_nano//zmk
+      - shield: charybdis_right_dongle
+        board: nice_nano//zmk
+      - shield: "charybdis_dongle prospector_adapter"
+        extra_conf_files:
+          - dongle_prospector/dongle_prospector_common.conf
+          - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
+          - dongle_prospector/dongle_prospector_sensor.conf
 
 # ── Reset Firmware ────────────────────────────────────────────────────────────
   - name: settings_reset

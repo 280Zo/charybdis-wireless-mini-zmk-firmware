@@ -14,7 +14,7 @@ jobs:
     permissions:
       contents: write
     with:
-      keymap_patterns: "config/keymap/qwerty.keymap"
+      keymap_patterns: "config/keymaps/qwerty.keymap"
       config_path:    "keymap-drawer/config.yaml"
       output_folder:  "keymap-drawer/base"
       json_path:      "config"
@@ -33,7 +33,7 @@ jobs:
     permissions:
       contents: write
     with:
-      keymap_patterns: "config/keymap/qwerty.keymap"
+      keymap_patterns: "config/keymaps/qwerty.keymap"
       config_path:    "keymap-drawer/config.yaml"
       output_folder:  "keymap-drawer"
       json_path:      "config"
@@ -54,7 +54,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           clean: false
 
@@ -78,7 +78,7 @@ jobs:
           git status
 
       - name: Auto-commit keymap drawings
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Update keymap drawings"
           file_pattern: keymap-drawer

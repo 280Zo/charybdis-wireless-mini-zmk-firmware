@@ -26,6 +26,82 @@ Download your choice of firmware from the Releases page. Choose a combination of
 > [!NOTE]  
 > If you are flashing the firmware for the first time, or if you're switching between the dongle and the Bluetooth/USB configuration, flash the reset firmware to all the devices first
 
+### Dongle Options
+
+There are two dongle families in this repo:
+
+- `standard_dongle`: the default no-screen dongle build
+- `dongle_prospector_*`: screen-enabled dongle builds based on a forked `prospector-zmk-module`
+
+The screen-enabled builds in this repo are a forked adaptation of [carrefinho's Prospector ZMK module](https://github.com/carrefinho/prospector-zmk-module/tree/feat/new-status-screens), extended to support both:
+
+- the original XIAO BLE-based Prospector MCU
+- a nice!nano v2-based dongle stack
+
+This fork also supports both Waveshare 1.69" screen variants for the Prospector:
+
+- touch screen: SKU `27057`
+- non-touch screen: SKU `24382`
+
+The standard no-screen dongle is still the simplest and most stable option if you do not need a display.
+
+#### Build Variants
+
+The build matrix in [build.yaml](build.yaml) currently includes:
+
+| Build Name | Screen | Dongle MCU | Ambient Light Sensor |
+| ---------- | ------ | ---------- | -------------------- |
+| `standard_dongle` | No | nice!nano v2 | N/A |
+| `dongle_prospector_no_sensor` | Yes | nice!nano v2 | No |
+| `dongle_prospector_sensor` | Yes | nice!nano v2 | Yes |
+| `dongle_prospector_xiao_no_sensor` | Yes | XIAO BLE | No |
+| `dongle_prospector_xiao_sensor` | Yes | XIAO BLE | Yes |
+
+#### Prospector Layouts and Themes
+
+Prospector layout selection is controlled by extra config fragments in [config/dongle_prospector_layouts](config/dongle_prospector_layouts).
+
+Available layouts:
+
+- `dongle_prospector_layout_classic.conf`
+- `dongle_prospector_layout_field.conf`
+- `dongle_prospector_layout_operator.conf`
+- `dongle_prospector_layout_radii.conf`
+
+`Operator` is the current default Prospector layout in this repo.
+
+Radii supports optional color themes from [config/dongle_prospector_themes](config/dongle_prospector_themes):
+
+- `dongle_prospector_theme_blue.overlay`
+- `dongle_prospector_theme_green.overlay`
+- `dongle_prospector_theme_red.overlay`
+- `dongle_prospector_theme_purple.overlay`
+
+To change the Prospector layout:
+
+1. Open [build.yaml](build.yaml)
+2. Find the Prospector build entry you want
+3. Replace the selected file under `extra_conf_files` with a different layout file from [config/dongle_prospector_layouts](config/dongle_prospector_layouts)
+
+To change the Radii theme:
+
+1. Select `dongle_prospector_layout_radii.conf` in `extra_conf_files`
+2. Add one theme overlay from [config/dongle_prospector_themes](config/dongle_prospector_themes) to `extra_dtc_overlay_files`
+
+#### Prospector Shared Settings
+
+Shared Prospector settings live in [config/dongle_prospector](config/dongle_prospector).
+
+These files control:
+
+- shared Prospector options
+- sensor vs no-sensor behavior
+- display idle blanking
+- RAM-saving display settings
+
+> [!NOTE]  
+> ZMK Studio is intentionally disabled on Prospector builds to preserve RAM and reduce instability risk with the display stack.
+
 ### Overview & Usage
 
 ![keymap base](keymap-drawer/base/qwerty.svg)
@@ -81,7 +157,7 @@ To see all the layers check out the [full render](keymap-drawer/qwerty.svg).
   - Patched to remove build warnings and prevent cursor jump on wake
 - **Hold-tap side-aware triggers:** Each HRM key only becomes a modifier if the opposite half is active, preventing accidental holds while one-handed.
 - **Quick-tap / prior-idle:** Tuned for faster mod-vs-tap detection.
-- **ZMK Studio:** Supported on both Bluetooth and Dongle builds for quick and easy keymap adjustments.
+- **ZMK Studio:** Supported on Bluetooth and the standard no-screen dongle builds for quick keymap adjustments. Prospector screen builds disable it to preserve RAM.
 
 
 ## Customize Keymaps, Layers, & Trackball
@@ -108,15 +184,51 @@ See the [local build README](local-build/README.md) for additional details, incl
 - Push your changes to your GitHub
 - GitHub Actions automatically builds your firmware and publishes downloadable artifacts under the Actions tab.
 
-### Building Only Specific Keymaps or Shields
+### Build Format Selection
 
-By default firmware will be built for all formats with all keymaps. Assuming you want to build just one format with a single keymap, adjust the [build.yaml](/build.yaml) file at the root of the repo and comment out anything you don't want to build.
+Build formats are also selected in [build.yaml](build.yaml).
+
+To change which firmware families are built:
+
+1. Open [build.yaml](build.yaml)
+2. Find the build entry or entries you want to keep
+3. Comment out or remove the entries you do not want
+
+The main build families are:
+
+- `bt`: Bluetooth split builds
+- `standard_dongle`: the default no-screen dongle builds
+- `dongle_prospector_*`: screen-enabled dongle builds using the Prospector adapter
+
+In practice, most customization comes down to choosing:
+
+- which build family to include
+- which keymap names to keep in that build entry (instructions below)
+- which Prospector layout/theme files to reference (if you are building a screen-enabled dongle)
+
+### Keymap Selection
+
+Keymaps live in [config/keymaps](config/keymaps) and are selected in [build.yaml](build.yaml).
+
+To change which keymaps are built:
+
+1. Open [build.yaml](build.yaml)
+2. Find the `keymap:` list under the build entry you care about
+3. Keep the keymaps you want and comment out or remove the others
+
+To create or edit a keymap:
+
+- edit one of the existing files in [config/keymaps](config/keymaps)
+- or add a new `your_layout.keymap` file there, then add its name to the relevant `keymap:` list in [build.yaml](build.yaml)
 
 ### Modify Key Mappings
 
 **ZMK Studio**
 
-[ZMK Studio](https://zmk.studio/) allows users to update functionality during runtime. It is supported on both Bluetooth and Dongle builds.
+[ZMK Studio](https://zmk.studio/) allows users to update functionality during runtime. It is supported on Bluetooth builds and the standard no-screen dongle build.
+
+> [!NOTE]
+> Prospector screen builds disable ZMK Studio to preserve RAM and improve stability with the display stack.
 
 To change the visual layout of the keys, the physical layout must be updated. This is the charybdis-layouts.dtsi file, which handles the actual physical positions of the keys. Though they may appear to be similar, this is different than the matrix transform file (charybdis.json) which handles the electrical matrix to keymap relationship.
 
@@ -157,8 +269,9 @@ The trackball uses ZMK's modular input processor system, making it easy to adjus
 
 ## Credits
 
-- [badjeff](https://github.com/badjeff)
-- [eigatech](https://github.com/eigatech)
-- [nickcoutsos](https://github.com/nickcoutsos/keymap-editor)
-- [caksoylar](https://github.com/caksoylar/keymap-drawer)
-- [urob](https://github.com/urob/zmk-config#timeless-homerow-mods)
+- [badjeff](https://github.com/badjeff) for the PMW3610 ZMK driver used as the basis for the trackball sensor integration
+- [carrefinho](https://github.com/carrefinho) for the original [Prospector](https://github.com/carrefinho/prospector) hardware and the [Prospector ZMK module](https://github.com/carrefinho/prospector-zmk-module/tree/feat/new-status-screens) this repo adapts for Charybdis dongles
+- [eigatech](https://github.com/eigatech) for prior Charybdis dongle work and useful reference patterns around split trackball/input-listener integration
+- [nickcoutsos](https://github.com/nickcoutsos/keymap-editor) for the browser-based keymap editor workflow
+- [caksoylar](https://github.com/caksoylar/keymap-drawer) for the keymap rendering workflow and physical layout conversion tooling
+- [urob](https://github.com/urob/zmk-config#timeless-homerow-mods) for the timeless home-row mod approach this keymap builds on
