@@ -1,47 +1,8 @@
 layout: {zmk_keyboard: qwerty}
 layers:
-  Base:
-  - SEARCH
-  - Q
-  - W
-  - E
-  - R
-  - T
-  - Y
-  - U
-  - I
-  - O
-  - P
-  - L_BASE L_GAME
-  - TAB
-  - {t: A, h: LCMD}
-  - {t: S, h: LALT}
-  - {t: D, h: LSHFT}
-  - {t: F, h: LCTRL}
-  - G
-  - H
-  - {t: J, h: RCTRL}
-  - {t: K, h: RSHFT}
-  - {t: L, h: LALT}
-  - {t: ;, h: RCMD}
-  - DEL
-  - CLIP HIST
-  - Z
-  - X
-  - C
-  - V
-  - B
-  - N
-  - M
-  - {t: ',', s: ;}
-  - {t: ., s: ':'}
-  - {t: '?', s: '!'}
-  - /
-  - ESC SCRL SLOW
-  - SYM LCLK
-  - BS NUM
-  - ENTER
-  - SPACE NAV
+  Base: [SEARCH, Q, W, E, R, T, Y, U, I, O, P, L_BASE L_GAME, TAB, '&ht_left LCMD A', '&ht_left LALT S', '&ht_left LSHFT D', '&ht_left LCTRL F', G, H, '&ht_right
+      RCTRL J', '&ht_right RSHFT K', '&ht_right LALT L', '&ht_right RCMD SEMICOLON', DEL, CLIP HIST, Z, X, C, V, B, N, M, '&mm_cm_sc', '&mm_pr_col', '&mm_qm_ex',
+    /, ESC SCRL SLOW, SYM LCLK, BS NUM, ENTER, SPACE NAV]
   Num:
   - ''
   - ''
@@ -50,10 +11,10 @@ layers:
   - ''
   - ''
   - +
-  - {t: '7', s: F7}
-  - {t: '8', s: F8}
-  - {t: '9', s: F9}
-  - {t: '%', s: F10}
+  - '&mm_f7'
+  - '&mm_f8'
+  - '&mm_f9'
+  - '&mm_f10'
   - ''
   - {t: ▽, type: trans}
   - ''
@@ -62,10 +23,10 @@ layers:
   - BACK SPACE
   - LSHIFT
   - '-'
-  - {t: '4', s: F4}
-  - {t: '5', s: F5}
-  - {t: '6', s: F6}
-  - {t: '*', s: F11}
+  - '&mm_f4'
+  - '&mm_f5'
+  - '&mm_f6'
+  - '&mm_f11'
   - ''
   - ''
   - ''
@@ -74,10 +35,10 @@ layers:
   - ''
   - ''
   - '='
-  - {t: '1', s: F1}
-  - {t: '2', s: F2}
-  - {t: '3', s: F3}
-  - {t: ., s: F12}
+  - '&mm_f1'
+  - '&mm_f2'
+  - '&mm_f3'
+  - '&mm_f12'
   - /
   - ''
   - ''
@@ -336,15 +297,3 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-combos:
-- p: [17, 18]
-  k: CAPS WORD
-  l: [Base]
-- p: [38, 39]
-  k: L_BASE L_EXTRA
-- p: [25, 26]
-  k: L CLK
-- p: [26, 27]
-  k: Mid CLK
-- p: [27, 28]
-  k: R CLK
