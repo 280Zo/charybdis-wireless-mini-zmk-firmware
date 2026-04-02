@@ -34,29 +34,7 @@ docker-compose run --rm builder
 
 ### 3. Firmware Output
 
-Firmware files are placed under the `firmwares/` directory at the root of the repo, grouped by format and keymap. For example, with the default build.yaml:
-
-```
-firmwares/
-├── charybdis_bt/
-│   ├── qwerty/
-│   │   ├── charybdis_left_bt.uf2
-│   │   └── charybdis_right_bt.uf2
-│   ├── colemak_dh/
-│   │   ├── charybdis_left_bt.uf2
-│   │   └── charybdis_right_bt.uf2
-│   └── canary/
-│       ├── charybdis_left_bt.uf2
-│       └── charybdis_right_bt.uf2
-├── charybdis_dongle/
-│   ├── qwerty/
-│   │   ├── charybdis_dongle.uf2
-│   │   ├── charybdis_left_dongle.uf2
-│   │   └── charybdis_right_dongle.uf2
-│   ├── colemak_dh/ ...
-│   └── canary/ ...
-└── settings_reset.uf2
-```
+Firmware files are placed under the `firmwares/` directory at the root of the repo, grouped by format and keymap.
 
 ---
 
