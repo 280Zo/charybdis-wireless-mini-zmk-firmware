@@ -6,7 +6,7 @@ This repository offers pre-configured ZMK firmware. It's designed for the [Wirel
 
 ## Overview & Usage
 
-![keymap base](keymap-drawer/base/qwerty.svg)
+![stacked keymap](keymap-drawer/stacked/stacked.svg)
 
 To see all the layers check out the [full render](keymap-drawer/qwerty.svg).
 

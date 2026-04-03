@@ -1,12 +1,12 @@
 draw_config:
-  key_w: 60
-  key_h: 56
+  key_w: 68
+  key_h: 64
   split_gap: 30.0
   combo_w: 28
   combo_h: 26
   key_rx: 6.0
   key_ry: 6.0
-  dark_mode: auto
+  dark_mode: true
   n_columns: 1
   separate_combo_diagrams: true
   combo_diagrams_scale: 2
@@ -14,7 +14,7 @@ draw_config:
   inner_pad_h: 2.0
   outer_pad_w: 30.0
   outer_pad_h: 56.0
-  line_spacing: 1.2
+  line_spacing: 1.5
   arc_radius: 6.0
   append_colon_to_layer_header: true
   small_pad: 2.0
@@ -28,18 +28,26 @@ draw_config:
     rel_h: 12.0
     rx: 4.0
     ry: 4.0
-  #   svg_extra_style: "
-  # @media (prefers-color-scheme: dark) {
-  # svg.keymap { fill: #dca448; }
-  # rect.key { fill: #1e1e1e; }
-  # rect.key, rect.combo { stroke: #122532; }
-  # rect.combo, rect.combo-separate { fill: #2e4857; }
-  # rect.held, rect.combo.held { fill: #5b3131; }
-  # text.label, text.footer { stroke: #331d36;
-  #                           stroke-width: 0; }
-  # text.trans { fill: #7e8184; }
-  # path.combo { stroke: #7f7f7f; }"
-  # footer_text: "280Zo/charybdis-wireless-mini-zmk-firmware"
+  svg_extra_style: |
+
+    /* ── Stacked layer color palette ───────────────────────────────────── */
+    /* Edit only the fill values below to re-theme the whole stacked image.  */
+
+    /* Base  – center  – neutral white  */
+    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #cdd6f4; font-weight: bold; }
+
+    /* Nav   – top-left  – blue 89b4fa  */
+    text.tl  { font-family: "Iosevka Nerd Font"; fill: #70CAD1; font-size: 10px; }
+
+    /* Num   – top-right – green a6e3a1 */
+    text.tr  { font-family: "Iosevka Nerd Font"; fill: #9FCC2E; font-size: 10px; }
+
+    /* Xtra  – bot-left  – purple */
+    text.bl  { font-family: "Iosevka Nerd Font"; fill: #cba6f7; font-size: 10px; }
+
+    /* Sym   – bot-right – orange fab387 */
+    text.br  { font-family: "Iosevka Nerd Font";fill: #E98A15; font-size: 10px; }
+
   shrink_wide_legends: 7
   style_layer_activators: true
   glyph_tap_size: 14
@@ -49,7 +57,6 @@ draw_config:
 parse_config:
   preprocess: true
   skip_binding_parsing: false
-  raw_binding_map: {}
   sticky_label: sticky
   toggle_label: toggle
   tap_toggle_label: tap-toggle
@@ -147,15 +154,13 @@ parse_config:
     LS(LC(J)): "PANE ▲"
     LS(LC(K)): "PANE ▼"
     LS(LC(L)): "PANE ▶"
-    LEFT_ARROW: "LEFT"
-    RIGHT_ARROW: "RIGHT"
-    C_AC_UNDO: "UNDO"
-    C_AC_CUT: "CUT"
-    C_AC_COPY: "COPY"
-    C_AC_PASTE: "PASTE"
-    C_AL_COFFEE: "LOCK"
-    PRINTSCREEN: "PRINT SCREEN"
-    BACKSPACE: "BACK SPACE"
+    C_AC_UNDO: "\uf0e2"
+    C_AC_CUT: "\uf0c4"
+    C_AC_COPY: "\uf0c5"
+    C_AC_PASTE: "\uf0ea"
+    C_AL_COFFEE: "\uf023"
+    PRINTSCREEN: "SCREEN-SHOT"
+    BACKSPACE: "BS"
     LC(LA(E)): "FIT"
     LS(DELETE): "SHRED"
     LA(LC(LS(Z))): "TAG Z"
@@ -167,58 +172,119 @@ parse_config:
     LA(KP_N1): "REJECT"
     LA(KP_N2): "PENDING"
     LA(KP_N3): "ACCEPT"
-    BRIGHTNESS INC: "BRIGHT ▲"
-    C_BRIGHTNESS_INC: "BRIGHT ▲"
-    BRIGHTNESS DEC: "BRIGHT ▼"
-    C_BRIGHTNESS_DEC: "BRIGHT ▼"
+    BRIGHTNESS INC: "󰃠 \uf44d"
+    C_BRIGHTNESS_INC: "󰃠 \uf44d"
+    BRIGHTNESS DEC: "󰃞 \uf068"
+    C_BRIGHTNESS_DEC: "󰃞 \uf068"
     KP_MINUS: "-"
     KP_SLASH: "/"
-  raw_binding_map: {
-    "&td_clk": "SYM LCLK",
-    "&bootloader": "BOOT LDR",
-    "&mkp RCLK": "R CLK",
-    "&mkp LCLK": "L CLK",
-    "&mkp MCLK": "Mid CLK",
-    "&mkp MB4": "BACK",
-    "&mkp MB5": "FWD",
-    "&mmv MOVE_UP": "MOVE UP",
-    "&mmv MOVE_DOWN": "MOVE D",
-    "&mmv MOVE_LEFT": "MOVE L",
-    "&mmv MOVE_RIGHT": "MOVE R",
-    "&msc MOVE_UP": "WHEEL D",
-    "&msc MOVE_DOWN": "WHEEL U",
-    "&msc MOVE_LEFT": "WHEEL L",
-    "&msc MOVE_RIGHT": "WHEEL R",
-    "&h_split": "HSPLIT",
-    "&v_split": "VSPLIT",
-    "&caps_word": "CAPS WORD",
-    "&td_bore": "L_BASE L_EXTRA",
-    "&tdmt": "L1/BS LCLICK",
-    "&tdbt": "L2/ESC RCLICK",
-    "&td_layers": "L_BASE L_GAME",
-    "&td_cursor": "SCRL SLOW",
-    "&td_home": "~/",
-    "&td_equals": "=",
-    "&shrug": "SHRUG",
-    "&lgtm": "LGTM",
-    "&gcm": "GIT COMMIT",
-    "&clip_hist": "CLIP HIST",
-    "&new_dir": "NEW DIR",
-    "&py_iter": "PYTHON LOOP",
-    "&js_iter": "JS LOOP",
-    "&studio_unlock": "ZMK Studio",
-    "&td_esc_scrl_slow": "ESC SCRL SLOW",
-    "&td_space_nav": "SPACE NAV",
-    "&td_bs": "BS NUM",
-    "&detach_session": "TMUX DETCH",
-    "&create_or_attach": "TMUX ATTCH",
-    "&next_pane" : "TMUX NEXT",
-    "&show_sessions": "TMUX SESH",
-    "&sync_panes": "TMUX SYNC",
-    "&sudo": "sudo!!",
-    "&code_blk": "```",
+    K_MUTE: "\uf466"
+    C_VOLUME_UP: "\uf028"
+    C_VOLUME_DOWN: "\uf027"
+    LEFT_ARROW: "\uf0a8"
+    DOWN: "\uf0ab"
+    UP: "\uf0aa"
+    RIGHT_ARROW: "\uf0a9"
+    C_PREVIOUS: "󰼨"
+    C_PLAY_PAUSE: "󰐎"
+    C_STOP: "\ueba5"
+    C_NEXT: "󰼧"
+    SPACE: "󱁐"
+  raw_binding_map:
+    # --- Hold-tap / Home Row Mods ---
+    "&ht_left LCMD A":          {t: A,     h: "Gui"}
+    "&ht_left LALT S":          {t: S ,    h: "Alt"}
+    "&ht_left LSHFT D":         {t: D,     h: "Ctrl"}
+    "&ht_left LCTRL F":         {t: F,     h: "Shift"}
+    "&ht_right RCTRL J":        {t: J,     h: "Shift"}
+    "&ht_right RSHFT K":        {t: K,     h: "Ctrl"}
+    "&ht_right LALT L":         {t: L,     h: "Alt"}
+    "&ht_right RCMD SEMICOLON": {t: ";",   h: "Gui"}
+    # --- Tap Dance ---
+    "&td_clk": {t: "SYM LFT-CLK", type: thumb}
+    "&td_bore": "L_BASE L_EXTRA"
+    "&tdmt": "L1/BS LCLK"
+    "&tdbt": "L2/ESC RCLK"
+    "&td_layers": "L-BASE L-GAME"
+    "&td_cursor": "L-SCRL L-SLOW"
+    "&td_home": "~/"
+    "&td_equals": "="
+    "&td_esc_scrl_slow": {t: "ESC L-SCRL L-SLOW", type: thumb}
+    "&td_space_nav":     {t: "󱁐 L-NAV",     type: thumb}
+    "&td_bs":            {t: "BS L-NUM",        type: thumb}
+
+    # --- Mouse Clicks ---
+    "&mkp LCLK": "L CLK"
+    "&mkp RCLK": "R CLK"
+    "&mkp MCLK": "Mid CLK"
+    "&mkp MB4": "󰮳"
+    "&mkp MB5": "󰮱"
+
+    # --- Mouse Movement ---
+    "&mmv MOVE_UP": "\uf245 ↑"
+    "&mmv MOVE_DOWN": "↓ \uf245"
+    "&mmv MOVE_LEFT": "← \uf245"
+    "&mmv MOVE_RIGHT": "\uf245 →"
+
+    # --- Mouse Scroll (ZMK MOVE_UP = physical scroll down) ---
+    "&msc MOVE_UP": "\uef0d \uf0d8"
+    "&msc MOVE_DOWN": "\uef0d \uf0d7"
+    "&msc MOVE_LEFT": "\uf0d9 \uef0d"
+    "&msc MOVE_RIGHT": "\uef0d \uf0da"
+
+    # --- Mod-Morph Punctuation ---
+    "&mm_cm_sc": ", ;"
+    "&mm_pr_col": ". :"
+    "&mm_qm_ex": "? !"
+
+    # --- Mod-Morph F-Keys (shift to activate) ---
+    "&mm_f1": "F1"
+    "&mm_f2": "F2"
+    "&mm_f3": "F3"
+    "&mm_f4": "F4"
+    "&mm_f5": "F5"
+    "&mm_f6": "F6"
+    "&mm_f7": "F7"
+    "&mm_f8": "F8"
+    "&mm_f9": "F9"
+    "&mm_f10": "F10"
+    "&mm_f11": "F11"
+    "&mm_f12": "F12"
+
+    # --- ZMK / System ---
+    "&bootloader": "BOOT LDR"
+    "&caps_word": "CAPS WORD"
+    "&studio_unlock": "ZMK Studio"
+
+    # --- SYM Layer Macros ---
+    "&move_line_up": "MV LN \uf0d8"
+    "&move_line_down": "MV LN \uf0d7"
+    "&mc_add_above": "\uf246 \uf0d8"
+    "&mc_add_below": "\uf246 \uf0d7"
+    "&delete_line": "DEL LN"
+
+    # --- Editor / Shell ---
+    "&h_split": "\ueb57"
+    "&v_split": "\ueb56"
+    "&clip_hist": "CLIP HIST"
+    "&new_dir": "NEW DIR"
+    "&shrug": "SHRUG"
+    "&lgtm": "LGTM"
+    "&gcm": "\ueafc"
+    "&sudo": "󰡗"
+    "&code_blk": "```"
     "&home_dir": "~/"
-  }
+
+    # --- TMUX ---
+    "&detach_session": "TMUX DETCH"
+    "&create_or_attach": "TMUX ATTCH"
+    "&next_pane": "TMUX NEXT"
+    "&show_sessions": "TMUX SESH"
+    "&sync_panes": "TMUX SYNC"
+
+    # --- BLE & USB ---
+    "&out OUT_TOG": "USB/BLE"
+
   zmk_combos: {}
   zmk_preamble: "#define KEYMAP_DRAWER"
   zmk_additional_includes: []
