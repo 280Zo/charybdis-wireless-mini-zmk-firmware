@@ -8,77 +8,49 @@ on:
   workflow_dispatch:
 
 jobs:
-  draw_base_keymap:
-    name: Draw BASE keymap
-    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
-    permissions:
-      contents: write
-    with:
-      keymap_patterns: "config/keymaps/qwerty.keymap"
-      config_path:    "keymap-drawer/config.yaml"
-      output_folder:  "keymap-drawer/base"
-      json_path:      "config"
-      parse_args:     "-c 12"
-      draw_args:      "qwerty:'-s Base --keys-only'"
-      amend_commit:   false
-      destination:    artifact
-      commit_message: "Add BASE-layer keymaps"
-      artifact_name: base-keymap
-      fail_on_error:  true
-      debug_mode:     false
-  draw_full_keymap:
-    name: Draw FULL keymaps
-    needs: draw_base_keymap
-    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
-    permissions:
-      contents: write
-    with:
-      keymap_patterns: "config/keymaps/qwerty.keymap"
-      config_path:    "keymap-drawer/config.yaml"
-      output_folder:  "keymap-drawer"
-      json_path:      "config"
-      parse_args:     "-c 12"
-      draw_args:      ""
-      amend_commit:   false
-      destination:    artifact
-      commit_message: "Add full keymaps"
-      artifact_name: full-keymaps
-      fail_on_error:  true
-      debug_mode:     false
-
-  publish_keymaps:
-    name: Publish all keymaps
-    needs: [draw_base_keymap, draw_full_keymap]
+  draw_keymaps:
+    name: Generate Keymaps
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-        with:
-          clean: false
 
-      - name: Download base keymap artifact
-        uses: actions/download-artifact@v8
-        with:
-          name: base-keymap
-          path: keymap-drawer/base
-
-      - name: Download full keymap artifact
-        uses: actions/download-artifact@v8
-        with:
-          name: full-keymaps
-          path: keymap-drawer
-
-      - name: List downloaded files
+      - name: Install keymap-drawer
         run: |
-          echo "Downloaded contents:"
-          ls -lR keymap-drawer
-          echo "--- git status ---"
-          git status
+          # Ubuntu has made it difficult to install keymap-drawer globally, so using venv instead
+          python3 -m venv venv
+          ./venv/bin/pip install keymap-drawer pyyaml
+          echo "$(pwd)/venv/bin" >> $GITHUB_PATH
+
+      - name: Parse keymap
+        run: |
+          keymap -c keymap-drawer/config.yaml parse -c 12 -z config/keymaps/qwerty.keymap \
+            > keymap-drawer/stacked/qwerty.yaml
+
+      - name: Generate stacked YAML
+        run: python3 scripts/make_stacked.py
+
+      - name: Draw stacked keymap
+        run: |
+          keymap -c keymap-drawer/config.yaml draw -j config/qwerty.json \
+            keymap-drawer/stacked/stacked.yaml > keymap-drawer/stacked/stacked.svg
+
+      - name: Draw all-layers keymap
+        run: |
+          mkdir -p keymap-drawer/all-layers
+          keymap -c keymap-drawer/config.yaml draw -j config/qwerty.json \
+            keymap-drawer/stacked/qwerty.yaml > keymap-drawer/all_layers/all_layers.svg
+
+      - name: Set permissions
+        run: |
+          chmod 777 keymap-drawer/stacked/stacked.svg
+          chmod 777 keymap-drawer/all_layers/all_layers.svg
 
       - name: Auto-commit keymap drawings
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Update keymap drawings"
           file_pattern: keymap-drawer
+          # skip_push: true

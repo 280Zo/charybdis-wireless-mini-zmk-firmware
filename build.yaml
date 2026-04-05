@@ -6,6 +6,11 @@ board: [ nice_nano//zmk ]
 
 include:
 
+# ── Reset Firmware ────────────────────────────────────────────────────────────
+  - name: settings_reset
+    board: nice_nano//zmk
+    shield: settings_reset
+
 # ── Bluetooth (BT) Firmwares ─────────────────────────────────────────────────────────────
   - name: bt
     board: nice_nano//zmk
@@ -34,7 +39,9 @@ include:
       # - graphite
 
 # ── Prospector Dongle (Display Screen) Firmwares ──────────────────────────
-  # Support for both touch (SKU 27057) and non-touch (SKU 24382) Waveshare screens
+
+  # Prospector builds support any Waveshare screen with the ST7789V2 display driver IC
+  # including the touch (SKU 27057) and non-touch (SKU 24382) screens.
 
   # Prospector layout selection:
     # Operator is the default selection; swap in one of the files below to change the layout:
@@ -84,7 +91,7 @@ include:
           - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
           - dongle_prospector/dongle_prospector_sensor.conf
 
-# ── Prospector Original MCU (XIAO BLE) w/o APDS9960 ambient light sensor ──────────────
+# ── Prospector XIAO BLE w/o APDS9960 ambient light sensor ──────────────
   - name: dongle_prospector_xiao_no_sensor
     board: xiao_ble//zmk
     keymap:
@@ -104,7 +111,7 @@ include:
         extra_dtc_overlay_files:
           - dongle_prospector/dongle_prospector_no_sensor.overlay
 
-# ── Prospector Original MCU (XIAO BLE) with APDS9960 ambient light sensor ──────────────
+# ── Prospector XIAO BLE with APDS9960 ambient light sensor ──────────────
   - name: dongle_prospector_xiao_sensor
     board: xiao_ble//zmk
     keymap:
@@ -121,8 +128,3 @@ include:
           - dongle_prospector/dongle_prospector_common.conf
           - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
           - dongle_prospector/dongle_prospector_sensor.conf
-
-# ── Reset Firmware ────────────────────────────────────────────────────────────
-  - name: settings_reset
-    board: nice_nano//zmk
-    shield: settings_reset
