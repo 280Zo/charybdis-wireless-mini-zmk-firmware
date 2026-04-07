@@ -24,10 +24,20 @@ jobs:
           ./venv/bin/pip install keymap-drawer pyyaml
           echo "$(pwd)/venv/bin" >> $GITHUB_PATH
 
+      - name: Install SVG renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsvg2-bin
+
+      - name: Symlink keymap_features for include resolution
+        run: ln -sfn "$(pwd)/config/keymap_features" "$(pwd)/config/keymaps/keymap_features"
+
       - name: Parse keymap
         run: |
           keymap -c keymap-drawer/config.yaml parse -c 12 -z config/keymaps/qwerty.keymap \
             > keymap-drawer/stacked/qwerty.yaml
+          keymap -c keymap-drawer/config-combos.yaml parse -c 12 --virtual-layers "COMBOS" -z config/keymaps/qwerty.keymap \
+            > keymap-drawer/stacked/combos.yaml
 
       - name: Generate stacked YAML
         run: python3 scripts/make_stacked.py
@@ -37,20 +47,126 @@ jobs:
           keymap -c keymap-drawer/config.yaml draw -j config/qwerty.json \
             keymap-drawer/stacked/stacked.yaml > keymap-drawer/stacked/stacked.svg
 
+      - name: Draw combos
+        run: |
+          keymap -c keymap-drawer/config-combos.yaml draw \
+            -j config/qwerty.json \
+            -s "COMBOS" \
+            --combos-only \
+            keymap-drawer/stacked/combos.yaml > keymap-drawer/stacked/combos.svg
+
       - name: Draw all-layers keymap
         run: |
-          mkdir -p keymap-drawer/all-layers
+          mkdir -p keymap-drawer/all_layers
           keymap -c keymap-drawer/config.yaml draw -j config/qwerty.json \
-            keymap-drawer/stacked/qwerty.yaml > keymap-drawer/all_layers/all_layers.svg
+            keymap-drawer/stacked/qwerty.yaml > keymap-drawer/all_layers/all_layers.svg --keys-only
 
-      - name: Set permissions
+      - name: Install JetBrainsMono Nerd Font
         run: |
-          chmod 777 keymap-drawer/stacked/stacked.svg
-          chmod 777 keymap-drawer/all_layers/all_layers.svg
+          FONT_ARCHIVE="$RUNNER_TEMP/JetBrainsMono.tar.xz"
+          FONT_EXTRACT_DIR="$RUNNER_TEMP/jbfonts"
+          FONT_INSTALL_DIR="$HOME/.local/share/fonts"
 
-      - name: Auto-commit keymap drawings
-        uses: stefanzweifel/git-auto-commit-action@v7
-        with:
-          commit_message: "Update keymap drawings"
-          file_pattern: keymap-drawer
-          # skip_push: true
+          curl -fsSL "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz" \
+            -o "$FONT_ARCHIVE"
+          mkdir -p "$FONT_EXTRACT_DIR" "$FONT_INSTALL_DIR"
+          tar -xJf "$FONT_ARCHIVE" -C "$FONT_EXTRACT_DIR"
+          find "$FONT_EXTRACT_DIR" -type f \( \
+            -name "JetBrainsMonoNerdFont-*.ttf" -o \
+            -name "JetBrainsMonoNerdFontMono-*.ttf" \
+          \) -exec cp {} "$FONT_INSTALL_DIR/" \;
+          fc-cache -f "$FONT_INSTALL_DIR"
+          fc-match "JetBrainsMono Nerd Font"
+
+      - name: Convert stacked SVG to PNG
+        run: |
+          rsvg-convert \
+            --background-color="#1e2a38" \
+            --zoom=2 \
+            --output="keymap-drawer/stacked/stacked.png" \
+            "keymap-drawer/stacked/stacked.svg"
+
+      - name: Install Playwright (Chromium)
+        run: |
+          npm install playwright@latest
+          npx playwright install-deps
+          npx playwright install chromium
+
+      - name: Render composite PNG with Playwright
+        env:
+          KEYMAP_BG: ${{ env.KEYMAP_BG || '#1e2a38' }}
+          KEYMAP_GAP: ${{ env.KEYMAP_GAP || '32' }}
+          KEYMAP_MARGIN: ${{ env.KEYMAP_MARGIN || '20' }}
+          KEYMAP_SCALE: ${{ env.KEYMAP_SCALE || '2' }}
+          KEYMAP_HINTING: ${{ env.KEYMAP_HINTING || 'medium' }}
+        run: |
+          node - <<'EOF'
+          const fs = require('fs');
+          const { chromium } = require('playwright');
+
+          const bg = process.env.KEYMAP_BG || '#1e2a38';
+          const gap = parseInt(process.env.KEYMAP_GAP || '32', 10);
+          const margin = parseInt(process.env.KEYMAP_MARGIN || '20', 10);
+          const scale = parseFloat(process.env.KEYMAP_SCALE || '2');
+          const hinting = process.env.KEYMAP_HINTING || 'medium';
+
+          const stacked = fs.readFileSync('keymap-drawer/stacked/stacked.svg', 'utf8');
+          const combos  = fs.readFileSync('keymap-drawer/stacked/combos.svg',  'utf8');
+
+          const html = `<!doctype html>
+          <html>
+            <head>
+              <meta charset="utf-8" />
+              <style>
+                body { margin: 0; background: ${bg}; }
+                #wrap {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  gap: ${gap}px;
+                  padding: ${margin}px;
+                  background: ${bg};
+                  width: fit-content;
+                  height: fit-content;
+                }
+                .block { display: flex; justify-content: center; width: 100%; }
+                svg { display: block; }
+              </style>
+            </head>
+            <body>
+              <div id="wrap">
+                <div class="block">${stacked}</div>
+                <div class="block">${combos}</div>
+              </div>
+            </body>
+          </html>`;
+
+          (async () => {
+            const browser = await chromium.launch({ args: [`--font-render-hinting=${hinting}`] });
+            const context = await browser.newContext({ deviceScaleFactor: scale });
+            const page = await context.newPage({ viewport: { width: 2000, height: 2000 } });
+            await page.setContent(html, { waitUntil: 'load' });
+            const wrap = page.locator('#wrap');
+            const box = await wrap.boundingBox();
+            await page.setViewportSize({
+              width: Math.ceil(box.width),
+              height: Math.ceil(box.height)
+            });
+            await wrap.screenshot({ path: 'keymap-drawer/stacked/stacked-combos.png' });
+            await browser.close();
+          })().catch((err) => { console.error(err); process.exit(1); });
+          EOF
+
+      - name: Cleanup - Set permissions & Remove Symlink(s)
+        run: |
+          chmod 644 keymap-drawer/stacked/stacked.svg
+          chmod 644 keymap-drawer/stacked/stacked.png
+          chmod 644 keymap-drawer/stacked/stacked-combos.png
+          chmod 644 keymap-drawer/all_layers/all_layers.svg
+          rm -f config/keymaps/keymap_features
+
+      # - name: Auto-commit keymap drawings
+      #   uses: stefanzweifel/git-auto-commit-action@v7
+      #   with:
+      #     commit_message: "Update keymap drawings"
+      #     file_pattern: keymap-drawer

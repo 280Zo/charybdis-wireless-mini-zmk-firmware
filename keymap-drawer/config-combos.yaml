@@ -1,0 +1,39 @@
+draw_config:
+  # key sizing
+  key_w: 60
+  key_h: 60
+  key_rx: 6.0
+  key_ry: 6.0
+  dark_mode: true
+  draw_key_sides: false
+  # add breathing room around each keycap
+  inner_pad_w: 4.0
+  inner_pad_h: 4.0
+  # outer_pad_h: 20   # adds top/bottom padding
+  outer_pad_w: 125   # optional left/right padding
+  legend_rel_x: 2.0
+  legend_rel_y: 2.0
+
+
+  # styling hooks
+  svg_extra_style: |
+    text.label { display: none; }
+    rect.key { fill: #123456; }
+    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #cdd6f4; font-size: 16px; }
+    text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #70CAD1; font-size: 10px; transform: translate(2px, 2px); }
+    text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #9FCC2E; font-size: 10px; transform: translate(-2px, 2px); }
+    text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #ff65f5; font-size: 10px; transform: translate(2px, -2px); }
+    text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #E98A15; font-size: 10px; transform: translate(-2px, -2px); }
+
+parse_config:
+  preprocess: true
+  skip_binding_parsing: false
+  sticky_label: sticky
+  toggle_label: toggle
+  tap_toggle_label: tap-toggle
+  raw_binding_map:
+    "&caps_word": "CAPS WORD"
+    "&td_bore": "L_BASE L_EXTRA"
+    "&mkp LCLK": "Left Click"
+    "&mkp MCLK": "Mid Click"
+    "&mkp RCLK": "Right Click"

@@ -11,3 +11,7 @@ local-build/jq
 local-build/yq
 notes
 venv/
+.vscode/
+node_modules/
+package.json
+package-lock.json

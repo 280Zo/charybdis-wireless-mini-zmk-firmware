@@ -1,14 +1,14 @@
 draw_config:
-  key_w: 68
-  key_h: 64
+  key_w: 80
+  key_h: 76
   split_gap: 30.0
-  combo_w: 28
-  combo_h: 26
+  combo_w: 33
+  combo_h: 31
   key_rx: 6.0
   key_ry: 6.0
   dark_mode: true
   n_columns: 1
-  separate_combo_diagrams: true
+  separate_combo_diagrams: false
   combo_diagrams_scale: 2
   inner_pad_w: 2.0
   inner_pad_h: 2.0
@@ -18,8 +18,8 @@ draw_config:
   arc_radius: 6.0
   append_colon_to_layer_header: true
   small_pad: 2.0
-  legend_rel_x: 0.0
-  legend_rel_y: 0.0
+  legend_rel_x: 0
+  legend_rel_y: 0
   draw_key_sides: false
   key_side_pars:
     rel_x: 0.0
@@ -29,24 +29,26 @@ draw_config:
     rx: 4.0
     ry: 4.0
   svg_extra_style: |
+    # /* Hide the layer name */
+    # text.label { display: none; }
 
     /* ── Stacked layer color palette ───────────────────────────────────── */
     /* Edit only the fill values below to re-theme the whole stacked image.  */
 
     /* Base  – center  – neutral white  */
-    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #cdd6f4; font-weight: bold; }
+    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #cdd6f4; font-size: 16px; }
 
     /* Nav   – top-left  – blue 89b4fa  */
-    text.tl  { font-family: "Iosevka Nerd Font"; fill: #70CAD1; font-size: 10px; }
+    text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #70CAD1; font-size: 10px; transform: translate(2px, 2px); }
 
     /* Num   – top-right – green a6e3a1 */
-    text.tr  { font-family: "Iosevka Nerd Font"; fill: #9FCC2E; font-size: 10px; }
+    text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #9FCC2E; font-size: 10px; transform: translate(-2px, 2px); }
 
     /* Xtra  – bot-left  – purple */
-    text.bl  { font-family: "Iosevka Nerd Font"; fill: #cba6f7; font-size: 10px; }
+    text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #ff65f5; font-size: 10px; transform: translate(2px, -2px); }
 
-    /* Sym   – bot-right – orange fab387 */
-    text.br  { font-family: "Iosevka Nerd Font";fill: #E98A15; font-size: 10px; }
+    /* Sym   – bot-right – orange */
+    text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #E98A15; font-size: 10px; transform: translate(-2px, -2px); }
 
   shrink_wide_legends: 7
   style_layer_activators: true
