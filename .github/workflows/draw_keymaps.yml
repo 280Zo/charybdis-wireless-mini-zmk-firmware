@@ -1,6 +1,19 @@
 name: Draw keymaps
 run-name: Draw keymaps
 
+env:
+  KEYMAP_BG: "#181A1B"
+  KEYMAP_GAP: "30"
+  KEYMAP_MARGIN: "20"
+  KEYMAP_SCALE: "2"
+  KEYMAP_HINTING: "medium"
+  KEYMAP_LEGEND: "1"
+  # Negative trims collapse built-in SVG top/bottom whitespace so KEYMAP_GAP is the real spacing control.
+  KEYMAP_STACKED_TRIM_BOTTOM: "-71"
+  KEYMAP_LEGEND_TRIM_TOP: "-58"
+  KEYMAP_LEGEND_TRIM_BOTTOM: "-58"
+  KEYMAP_COMBOS_TRIM_TOP: "-60"
+
 on:
   push:
     branches:
@@ -34,9 +47,9 @@ jobs:
 
       - name: Parse keymap
         run: |
-          keymap -c keymap-drawer/config.yaml parse -c 12 -z config/keymaps/qwerty.keymap \
+          keymap -c keymap-drawer/configs/config-stacked.yaml parse -c 12 -z config/keymaps/qwerty.keymap \
             > keymap-drawer/stacked/qwerty.yaml
-          keymap -c keymap-drawer/config-combos.yaml parse -c 12 --virtual-layers "COMBOS" -z config/keymaps/qwerty.keymap \
+          keymap -c keymap-drawer/configs/config-combo.yaml parse -c 12 --virtual-layers "COMBOS" -z config/keymaps/qwerty.keymap \
             > keymap-drawer/stacked/combos.yaml
 
       - name: Generate stacked YAML
@@ -44,21 +57,27 @@ jobs:
 
       - name: Draw stacked keymap
         run: |
-          keymap -c keymap-drawer/config.yaml draw -j config/qwerty.json \
+          keymap -c keymap-drawer/configs/config-stacked.yaml draw -j config/qwerty.json \
             keymap-drawer/stacked/stacked.yaml > keymap-drawer/stacked/stacked.svg
 
       - name: Draw combos
         run: |
-          keymap -c keymap-drawer/config-combos.yaml draw \
+          keymap -c keymap-drawer/configs/config-combo.yaml draw \
             -j config/qwerty.json \
             -s "COMBOS" \
             --combos-only \
             keymap-drawer/stacked/combos.yaml > keymap-drawer/stacked/combos.svg
 
+      - name: Draw `legend` key
+        run: |
+          keymap -c keymap-drawer/configs/config-stacked.yaml draw \
+            --ortho-layout '{rows: 1, columns: 1}' \
+            keymap-drawer/stacked/legend-1x1.yaml > keymap-drawer/stacked/legend.svg
+
       - name: Draw all-layers keymap
         run: |
           mkdir -p keymap-drawer/all_layers
-          keymap -c keymap-drawer/config.yaml draw -j config/qwerty.json \
+          keymap -c keymap-drawer/configs/config-all-layers.yaml draw -j config/qwerty.json \
             keymap-drawer/stacked/qwerty.yaml > keymap-drawer/all_layers/all_layers.svg --keys-only
 
       - name: Install JetBrainsMono Nerd Font
@@ -81,7 +100,7 @@ jobs:
       - name: Convert stacked SVG to PNG
         run: |
           rsvg-convert \
-            --background-color="#1e2a38" \
+            --background-color="${KEYMAP_BG}" \
             --zoom=2 \
             --output="keymap-drawer/stacked/stacked.png" \
             "keymap-drawer/stacked/stacked.svg"
@@ -94,79 +113,30 @@ jobs:
 
       - name: Render composite PNG with Playwright
         env:
-          KEYMAP_BG: ${{ env.KEYMAP_BG || '#1e2a38' }}
-          KEYMAP_GAP: ${{ env.KEYMAP_GAP || '32' }}
-          KEYMAP_MARGIN: ${{ env.KEYMAP_MARGIN || '20' }}
-          KEYMAP_SCALE: ${{ env.KEYMAP_SCALE || '2' }}
-          KEYMAP_HINTING: ${{ env.KEYMAP_HINTING || 'medium' }}
+          KEYMAP_BG: ${{ env.KEYMAP_BG }}
+          KEYMAP_GAP: ${{ env.KEYMAP_GAP }}
+          KEYMAP_MARGIN: ${{ env.KEYMAP_MARGIN }}
+          KEYMAP_SCALE: ${{ env.KEYMAP_SCALE }}
+          KEYMAP_HINTING: ${{ env.KEYMAP_HINTING }}
+          KEYMAP_LEGEND: ${{ env.KEYMAP_LEGEND }}
+          KEYMAP_STACKED_TRIM_BOTTOM: ${{ env.KEYMAP_STACKED_TRIM_BOTTOM }}
+          KEYMAP_LEGEND_TRIM_TOP: ${{ env.KEYMAP_LEGEND_TRIM_TOP }}
+          KEYMAP_LEGEND_TRIM_BOTTOM: ${{ env.KEYMAP_LEGEND_TRIM_BOTTOM }}
+          KEYMAP_COMBOS_TRIM_TOP: ${{ env.KEYMAP_COMBOS_TRIM_TOP }}
         run: |
-          node - <<'EOF'
-          const fs = require('fs');
-          const { chromium } = require('playwright');
-
-          const bg = process.env.KEYMAP_BG || '#1e2a38';
-          const gap = parseInt(process.env.KEYMAP_GAP || '32', 10);
-          const margin = parseInt(process.env.KEYMAP_MARGIN || '20', 10);
-          const scale = parseFloat(process.env.KEYMAP_SCALE || '2');
-          const hinting = process.env.KEYMAP_HINTING || 'medium';
-
-          const stacked = fs.readFileSync('keymap-drawer/stacked/stacked.svg', 'utf8');
-          const combos  = fs.readFileSync('keymap-drawer/stacked/combos.svg',  'utf8');
-
-          const html = `<!doctype html>
-          <html>
-            <head>
-              <meta charset="utf-8" />
-              <style>
-                body { margin: 0; background: ${bg}; }
-                #wrap {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  gap: ${gap}px;
-                  padding: ${margin}px;
-                  background: ${bg};
-                  width: fit-content;
-                  height: fit-content;
-                }
-                .block { display: flex; justify-content: center; width: 100%; }
-                svg { display: block; }
-              </style>
-            </head>
-            <body>
-              <div id="wrap">
-                <div class="block">${stacked}</div>
-                <div class="block">${combos}</div>
-              </div>
-            </body>
-          </html>`;
-
-          (async () => {
-            const browser = await chromium.launch({ args: [`--font-render-hinting=${hinting}`] });
-            const context = await browser.newContext({ deviceScaleFactor: scale });
-            const page = await context.newPage({ viewport: { width: 2000, height: 2000 } });
-            await page.setContent(html, { waitUntil: 'load' });
-            const wrap = page.locator('#wrap');
-            const box = await wrap.boundingBox();
-            await page.setViewportSize({
-              width: Math.ceil(box.width),
-              height: Math.ceil(box.height)
-            });
-            await wrap.screenshot({ path: 'keymap-drawer/stacked/stacked-combos.png' });
-            await browser.close();
-          })().catch((err) => { console.error(err); process.exit(1); });
-          EOF
+          node scripts/render_stacked_composite.js
 
       - name: Cleanup - Set permissions & Remove Symlink(s)
         run: |
-          chmod 644 keymap-drawer/stacked/stacked.svg
-          chmod 644 keymap-drawer/stacked/stacked.png
-          chmod 644 keymap-drawer/stacked/stacked-combos.png
-          chmod 644 keymap-drawer/all_layers/all_layers.svg
+          chmod 777 keymap-drawer/stacked/stacked.svg
+          chmod 777 keymap-drawer/stacked/stacked.png
+          chmod 777 keymap-drawer/stacked/legend.svg
+          chmod 777 keymap-drawer/stacked/stacked-combos.png
+          chmod 777 keymap-drawer/all_layers/all_layers.svg
           rm -f config/keymaps/keymap_features
 
-      # - name: Auto-commit keymap drawings
-      #   uses: stefanzweifel/git-auto-commit-action@v7
-      #   with:
-      #     commit_message: "Update keymap drawings"
-      #     file_pattern: keymap-drawer
+      - name: Auto-commit keymap drawings
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "Update keymap drawings"
+          file_pattern: keymap-drawer

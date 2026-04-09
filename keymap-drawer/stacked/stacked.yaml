@@ -1,41 +1,41 @@
 layout: {zmk_keyboard: qwerty}
 layers:
   Stacked Keymap:
-  - {t: SEARCH, bl: ZMK Studio}
-  - {t: Q, tl:  , bl: SHRUG, br: '~'}
-  - {t: W, tl:  , bl: LGTM, br: $}
-  - {t: E, bl: , br: ^}
-  - {t: R, tl:  , br: MV LN }
-  - {t: T, tl:  , bl: 󰃠 , br:  }
-  - {t: Y, tl: TMUX DETCH, tr: +, bl: USB/BLE, br: '&'}
-  - {t: U, tl: TMUX ATTCH, tr: F7, bl: BT 0, br: +}
-  - {t: I, tl: TMUX NEXT, tr: F8, bl: BT 1, br: '['}
-  - {t: O, tl: TMUX SESH, tr: F9, bl: BT 2, br: ']'}
-  - {t: P, tl: TMUX SYNC, tr: F10, bl: BT 3, br: '%'}
-  - {t: L-BASE L-GAME, bl: BT CLR, br: \}
-  - {t: TAB, tl: TAB, bl: SLEEP}
-  - {t: A Gui, tl: 󰮳, bl: 󰡗, br: _}
-  - {t: S Alt, tl: LALT, br: <}
-  - {t: D Ctrl, tl: LSHFT, br: '>'}
-  - {t: F Shift, tl: LCTRL, tr: BS, br: BS}
-  - {t: G, tl: 󰮱, tr: LSHIFT, bl: 󰃞 , br: DEL LN}
-  - {t: H, tl: , tr: '-', br: '`'}
-  - {t: J Shift, tl: , tr: F4, bl: 󰼨, br: '-'}
-  - {t: K Ctrl, tl: , tr: F5, bl: 󰐎, br: (}
-  - {t: L Alt, tl: , tr: F6, bl: , br: )}
-  - {t: ; Gui, tl: , tr: F11, bl: 󰼧, br: '*'}
+  - {t: SEARCH, tl: ZMK Studio}
+  - {t: Q, tl: SHRUG, bl:  , br: '~'}
+  - {t: W, tl: LGTM, bl:  , br: $}
+  - {t: E, tl: , br: ^}
+  - {t: R, bl:  , br: MV LN }
+  - {t: T, tl: 󰃠 , bl:  , br:  }
+  - {t: Y, tl: USB/BLE, tr: +, bl: TMUX DETCH, br: '&'}
+  - {t: U, tl: BT 0, tr: 7/F7, bl: TMUX ATTCH, br: +}
+  - {t: I, tl: BT 1, tr: 8/F8, bl: TMUX NEXT, br: '['}
+  - {t: O, tl: BT 2, tr: 9/F9, bl: TMUX SESH, br: ']'}
+  - {t: P, tl: BT 3, tr: '%/F10', bl: TMUX SYNC, br: '%'}
+  - {t: L-BASE L-GAME, tl: BT CLR, br: \}
+  - {t: TAB, tl: SLEEP, bl: TAB}
+  - {t: A Gui, tl: 󰡗, bl: 󰮳, br: _}
+  - {t: S Alt, bl: LALT, br: <}
+  - {t: D Ctrl, bl: LSHFT, br: '>'}
+  - {t: F Shift, tr: BS, bl: LCTRL, br: BS}
+  - {t: G, tl: 󰃞 , tr: LSHIFT, bl: 󰮱, br: DEL LN}
+  - {t: H, tr: '-', bl: , br: '`'}
+  - {t: J Shift, tl: 󰼨, tr: 4/F4, bl: , br: '-'}
+  - {t: K Ctrl, tl: 󰐎, tr: 5/F5, bl: , br: (}
+  - {t: L Alt, tl: , tr: 6/F6, bl: , br: )}
+  - {t: ; Gui, tl: 󰼧, tr: '*/F11', bl: , br: '*'}
   - {t: DEL, br: '|'}
-  - {t: CLIP HIST, bl: }
-  - {t: Z, tl: ← , bl: , br: ~/}
-  - {t: X, tl: ↓ , tr: X, bl: }
-  - {t: C, tl:  ↑, bl: , br: '#'}
-  - {t: V, tl:  →, bl: , br: MV LN }
+  - {t: CLIP HIST, tl: }
+  - {t: Z, tl: , bl: ← , br: ~/}
+  - {t: X, tl: , tr: X, bl: ↓ }
+  - {t: C, tl: , bl:  ↑, br: '#'}
+  - {t: V, tl: , bl:  →, br: MV LN }
   - {t: B, br:  }
-  - {t: N, tl: , tr: '=', bl: NEW DIR, br: '```'}
-  - {t: M, tl: HOME, tr: F1, bl: , br: '='}
-  - {t: ', ;', tl: PG DN, tr: F2, bl: , br: '{'}
-  - {t: '. :', tl: PG UP, tr: F3, bl: , br: '}'}
-  - {t: '? !', tl: END, tr: F12, bl: SCREEN-SHOT, br: '@'}
+  - {t: N, tl: NEW DIR, tr: '=', bl: , br: '```'}
+  - {t: M, tl: , tr: 1/F1, bl: HOME, br: '='}
+  - {t: ', ;', tl: , tr: 2/F2, bl: PG DN, br: '{'}
+  - {t: '. :', tl: , tr: 3/F3, bl: PG UP, br: '}'}
+  - {t: '? !', tl: SCREEN-SHOT, tr: .F12, bl: END, br: '@'}
   - {t: /, tr: /, br: /}
   - ESC L-SCRL L-SLOW
   - SYM LFT-CLK

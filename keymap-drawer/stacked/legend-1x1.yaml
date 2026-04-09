@@ -1,0 +1,3 @@
+layers:
+  Legend:
+    - [ {t: "Layer Legend", tl: Nav, tr: Num, bl: Xtra, br: Sym} ]

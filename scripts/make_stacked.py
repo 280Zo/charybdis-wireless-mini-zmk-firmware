@@ -4,7 +4,7 @@ Generate keymap-drawer/stacked/stacked.yaml from keymap-drawer/stacked/qwerty.ya
 
 Each key in the output carries legend slots from five source layers:
 
-  Slot  Position    Layer   Color (see config.yaml svg_extra_style)
+  Slot  Position    Layer   Color (see configs/config-stacked.yaml svg_extra_style)
   ----  ----------  ------  ------
    t    center      Base    neutral
    tl   top-left    Nav     blue
@@ -25,9 +25,9 @@ SCRIPT_DIR = Path(__file__).parent.parent
 
 # Layers to include and which slot each maps to (order matters for output dict)
 SLOT_MAP = [
-    ("Nav",  "tl"),
+    ("Xtra", "tl"),
     ("Num",  "tr"),
-    ("Xtra", "bl"),
+    ("Nav",  "bl"),
     ("Sym",  "br"),
 ]
 
@@ -106,7 +106,7 @@ def make_stacked_key(pos: int, layers: dict, raw_binding_map: dict):
 
 
 def main() -> None:
-    config  = load_yaml(SCRIPT_DIR / "keymap-drawer" / "config.yaml")
+    config  = load_yaml(SCRIPT_DIR / "keymap-drawer" / "configs" / "config-stacked.yaml")
     keymap  = load_yaml(SCRIPT_DIR / "keymap-drawer" / "stacked" / "qwerty.yaml")
 
     raw_binding_map: dict = (

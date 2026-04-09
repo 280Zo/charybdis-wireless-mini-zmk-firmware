@@ -6,9 +6,12 @@ This repository offers pre-configured ZMK firmware. It's designed for the [Wirel
 
 ## Overview & Usage
 
-![stacked keymap](keymap-drawer/stacked/stacked.svg)
+<!-- ![stacked keymap](keymap-drawer/stacked/stacked.svg)
+![combos keymap](keymap-drawer/stacked/combos.svg) -->
+![stacked-combos keymap](keymap-drawer/stacked/stacked-combos.png)
 
-To see all the layers check out the [full render](keymap-drawer/qwerty.svg).
+
+To see all the layers check out the [full render](keymap-drawer/all_layers/all_layers.svg).
 
 
 **Keyboard Layers**
@@ -62,6 +65,23 @@ To see all the layers check out the [full render](keymap-drawer/qwerty.svg).
 - **Hold-tap side-aware triggers:** Each HRM key only becomes a modifier if the opposite half is active, preventing accidental holds while one-handed.
 - **Quick-tap / prior-idle:** Tuned for faster mod-vs-tap detection.
 - **ZMK Studio:** Supported on Bluetooth and the standard no-screen dongle builds for quick keymap adjustments. Prospector screen builds disable it to preserve RAM.
+
+
+## Flash the Firmware
+
+Download your choice of firmware from the Releases page. Choose a combination of format (Bluetooth/Dongle) and layout (QWERTY, etc.), then follow the steps below to flash it to your keyboard
+
+1. Unzip the firmware bundle
+2. One at a time, plug the devices into the computer through USB
+3. Double press the reset button on the nice!nano
+4. The keyboard will mount as a removable storage device
+5. Copy the applicable uf2 file into the storage device
+6. It will take a moment, then it will unmount and restart itself.
+7. Repeat these steps for all devices.
+8. If you've flashed one of the prospector dongle builds, you'll need to power on the dongle, then the left side before the right. This will sync the battery widget to the correct side.
+
+> [!NOTE]
+> If you are flashing the firmware for the first time, or if you're switching between the dongle and the Bluetooth/USB configuration, flash the reset firmware to all the devices first
 
 
 ## Customization
@@ -142,22 +162,6 @@ To build the firmware follow either of the build processes below:
 2. Update the config files to match your use case
 3. Push changes and confirm the workflows are running
 4. Firmwares will be available in the action artifacts
-
-## Flash the Firmware
-
-Download your choice of firmware from the Releases page. Choose a combination of format (Bluetooth/Dongle) and layout (QWERTY, etc.), then follow the steps below to flash it to your keyboard
-
-1. Unzip the firmware bundle
-2. One at a time, plug the devices into the computer through USB
-3. Double press the reset button on the nice!nano
-4. The keyboard will mount as a removable storage device
-5. Copy the applicable uf2 file into the storage device
-6. It will take a moment, then it will unmount and restart itself.
-7. Repeat these steps for all devices.
-8. If you've flashed one of the prospector dongle builds, you'll need to power on the dongle, then the left side before the right. This will sync the battery widget to the correct side.
-
-> [!NOTE]  
-> If you are flashing the firmware for the first time, or if you're switching between the dongle and the Bluetooth/USB configuration, flash the reset firmware to all the devices first
 
 
 ## Credits

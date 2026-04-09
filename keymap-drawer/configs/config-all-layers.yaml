@@ -29,26 +29,29 @@ draw_config:
     rx: 4.0
     ry: 4.0
   svg_extra_style: |
-    # /* Hide the layer name */
+    /* ── Layer Names (enabled for all-layers output) ───────────────────── */
     # text.label { display: none; }
+
+    /* ── Keycap Background Color ───────────────────────────────────── */
+    rect.key { fill: #292929; }
 
     /* ── Stacked layer color palette ───────────────────────────────────── */
     /* Edit only the fill values below to re-theme the whole stacked image.  */
 
-    /* Base  – center  – neutral white  */
-    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #cdd6f4; font-size: 16px; }
+    /* Base - center - neutral white  */
+    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #E2DFD4; font-size: 16px; }
 
-    /* Nav   – top-left  – blue 89b4fa  */
-    text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #70CAD1; font-size: 10px; transform: translate(2px, 2px); }
+    /* Nav  - top-left - blue  */
+    text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
 
-    /* Num   – top-right – green a6e3a1 */
-    text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #9FCC2E; font-size: 10px; transform: translate(-2px, 2px); }
+    /* Num  - top-right- green */
+    text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
 
-    /* Xtra  – bot-left  – purple */
-    text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #ff65f5; font-size: 10px; transform: translate(2px, -2px); }
+    /* Xtra - bot-left - purple */
+    text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
 
-    /* Sym   – bot-right – orange */
-    text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #E98A15; font-size: 10px; transform: translate(-2px, -2px); }
+    /* Sym  - bot-right- yellow */
+    text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
 
   shrink_wide_legends: 7
   style_layer_activators: true
@@ -156,11 +159,11 @@ parse_config:
     LS(LC(J)): "PANE ▲"
     LS(LC(K)): "PANE ▼"
     LS(LC(L)): "PANE ▶"
-    C_AC_UNDO: "\uf0e2"
-    C_AC_CUT: "\uf0c4"
-    C_AC_COPY: "\uf0c5"
-    C_AC_PASTE: "\uf0ea"
-    C_AL_COFFEE: "\uf023"
+    C_AC_UNDO: "UNDO"
+    C_AC_CUT: "CUT"
+    C_AC_COPY: "COPY"
+    C_AC_PASTE: "PASTE"
+    C_AL_COFFEE: "COFFEE"
     PRINTSCREEN: "SCREEN-SHOT"
     BACKSPACE: "BS"
     LC(LA(E)): "FIT"
@@ -174,24 +177,24 @@ parse_config:
     LA(KP_N1): "REJECT"
     LA(KP_N2): "PENDING"
     LA(KP_N3): "ACCEPT"
-    BRIGHTNESS INC: "󰃠 \uf44d"
-    C_BRIGHTNESS_INC: "󰃠 \uf44d"
-    BRIGHTNESS DEC: "󰃞 \uf068"
-    C_BRIGHTNESS_DEC: "󰃞 \uf068"
+    BRIGHTNESS INC: "BRIGHT ▲"
+    C_BRIGHTNESS_INC: "BRIGHT ▲"
+    BRIGHTNESS DEC: "BRIGHT ▼"
+    C_BRIGHTNESS_DEC: "BRIGHT ▼"
     KP_MINUS: "-"
     KP_SLASH: "/"
-    K_MUTE: "\uf466"
-    C_VOLUME_UP: "\uf028"
-    C_VOLUME_DOWN: "\uf027"
-    LEFT_ARROW: "\uf0a8"
-    DOWN: "\uf0ab"
-    UP: "\uf0aa"
-    RIGHT_ARROW: "\uf0a9"
-    C_PREVIOUS: "󰼨"
-    C_PLAY_PAUSE: "󰐎"
-    C_STOP: "\ueba5"
-    C_NEXT: "󰼧"
-    SPACE: "󱁐"
+    K_MUTE: "MUTE"
+    C_VOLUME_UP: "VOL ▲"
+    C_VOLUME_DOWN: "VOL ▼"
+    LEFT_ARROW: "LEFT ARR"
+    DOWN: "DOWN ARR"
+    UP: "UP ARR"
+    RIGHT_ARROW: "RIGHT ARR"
+    C_PREVIOUS: "PREV"
+    C_PLAY_PAUSE: "PLAY PAUSE"
+    C_STOP: "STOP"
+    C_NEXT: "NEXT"
+    SPACE: "SPACE"
   raw_binding_map:
     # --- Hold-tap / Home Row Mods ---
     "&ht_left LCMD A":          {t: A,     h: "Gui"}
@@ -219,20 +222,20 @@ parse_config:
     "&mkp LCLK": "L CLK"
     "&mkp RCLK": "R CLK"
     "&mkp MCLK": "Mid CLK"
-    "&mkp MB4": "󰮳"
-    "&mkp MB5": "󰮱"
+    "&mkp MB4": "BACK"
+    "&mkp MB5": "FORWARD"
 
     # --- Mouse Movement ---
-    "&mmv MOVE_UP": "\uf245 ↑"
-    "&mmv MOVE_DOWN": "↓ \uf245"
-    "&mmv MOVE_LEFT": "← \uf245"
-    "&mmv MOVE_RIGHT": "\uf245 →"
+    "&mmv MOVE_UP": "Mouse ↑"
+    "&mmv MOVE_DOWN": "Mouse ↓"
+    "&mmv MOVE_LEFT": "Mouse ←"
+    "&mmv MOVE_RIGHT": "Mouse →"
 
     # --- Mouse Scroll (ZMK MOVE_UP = physical scroll down) ---
-    "&msc MOVE_UP": "\uef0d \uf0d8"
-    "&msc MOVE_DOWN": "\uef0d \uf0d7"
-    "&msc MOVE_LEFT": "\uf0d9 \uef0d"
-    "&msc MOVE_RIGHT": "\uef0d \uf0da"
+    "&msc MOVE_UP": "SCRL UP"
+    "&msc MOVE_DOWN": "SCRL DOWN"
+    "&msc MOVE_LEFT": "SCRL LEFT"
+    "&msc MOVE_RIGHT": "SCRL RIGHT"
 
     # --- Mod-Morph Punctuation ---
     "&mm_cm_sc": ", ;"
@@ -240,18 +243,18 @@ parse_config:
     "&mm_qm_ex": "? !"
 
     # --- Mod-Morph F-Keys (shift to activate) ---
-    "&mm_f1": "F1"
-    "&mm_f2": "F2"
-    "&mm_f3": "F3"
-    "&mm_f4": "F4"
-    "&mm_f5": "F5"
-    "&mm_f6": "F6"
-    "&mm_f7": "F7"
-    "&mm_f8": "F8"
-    "&mm_f9": "F9"
-    "&mm_f10": "F10"
-    "&mm_f11": "F11"
-    "&mm_f12": "F12"
+    "&mm_f1": "1/F1"
+    "&mm_f2": "2/F2"
+    "&mm_f3": "3/F3"
+    "&mm_f4": "4/F4"
+    "&mm_f5": "5/F5"
+    "&mm_f6": "6/F6"
+    "&mm_f7": "7/F7"
+    "&mm_f8": "8/F8"
+    "&mm_f9": "9/F9"
+    "&mm_f10": "%/F10"
+    "&mm_f11": "*/F11"
+    "&mm_f12": ".F12"
 
     # --- ZMK / System ---
     "&bootloader": "BOOT LDR"
@@ -259,21 +262,21 @@ parse_config:
     "&studio_unlock": "ZMK Studio"
 
     # --- SYM Layer Macros ---
-    "&move_line_up": "MV LN \uf0d8"
-    "&move_line_down": "MV LN \uf0d7"
-    "&mc_add_above": "\uf246 \uf0d8"
-    "&mc_add_below": "\uf246 \uf0d7"
+    "&move_line_up": "MV LN UP"
+    "&move_line_down": "MV LN DOWN"
+    "&mc_add_above": "ADD ABOVE"
+    "&mc_add_below": "ADD BELOW"
     "&delete_line": "DEL LN"
 
     # --- Editor / Shell ---
-    "&h_split": "\ueb57"
-    "&v_split": "\ueb56"
+    "&h_split": "H SPLIT"
+    "&v_split": "V SPLIT"
     "&clip_hist": "CLIP HIST"
     "&new_dir": "NEW DIR"
     "&shrug": "SHRUG"
     "&lgtm": "LGTM"
-    "&gcm": "\ueafc"
-    "&sudo": "󰡗"
+    "&gcm": "Git Commit"
+    "&sudo": "SUDO"
     "&code_blk": "```"
     "&home_dir": "~/"
 
