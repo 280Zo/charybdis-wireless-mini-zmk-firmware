@@ -15,3 +15,6 @@ venv/
 node_modules/
 package.json
 package-lock.json
+keymap-drawer/stacked/qwerty.yaml
+keymap-drawer/stacked/stacked.yaml
+keymap-drawer/stacked/combos.yaml
