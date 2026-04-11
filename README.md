@@ -47,10 +47,10 @@ To see all the layers check out the [full render](keymap-drawer/all_layers/all_l
 
 
 **Other Highlights**
-- This repo now supports the **[Prospector ZMK screen dongle](https://github.com/carrefinho/prospector)**.
-  - Nice!Nano v2 support has been added.
-  - It also supports the smaller APDS9960 ambient light sensor variant, and a lower-cost Waveshare non-touch screen option (SKU 24382)
-  - I've created a parametric model in [Onshape](https://cad.onshape.com/documents/1ab8632c0729c14a80991694/w/0a5575e0aa91142d15642877/e/053f9ce9786904291254a911) that can be tuned and printed for any combination of these parts
+- This repo now includes builds for the **[Prospector ZMK screen dongle](https://github.com/carrefinho/prospector)**.
+  - Suppoert for the Nice!Nano v2 has been added to the firmware options.
+  - The prospector case has been adapted in [OnShape](https://cad.onshape.com/documents/1ab8632c0729c14a80991694/w/0a5575e0aa91142d15642877/e/053f9ce9786904291254a911) to fit the Nice!Nano v2.
+  Options are also available for the smaller APDS9960 ambient light sensor variant, and a lower-cost Waveshare non-touch screen option (SKU 24382)
 - **Timeless home row mods:** Based on [urob's](https://github.com/urob/zmk-config#timeless-homerow-mods) work and configured on the BASE layer with balanced flavor on both halves (280 ms tapping-term, and quick-tap with prior-idle tuning).
 - **Thumb-scroll mode:** Hold the left-most thumb button (K36) while moving the trackball to turn motion into scroll.
 - **Precision cursor mode:** Double-tap, then hold K36 to drop the pointer speed, release to return to normal speed.
@@ -159,6 +159,9 @@ To build the firmware follow either of the build processes below:
 2. Update the config files to match your use case
 3. Follow the instructions in the [local-build README](local-build/README.md)
 4. Firmwares will be available in the firmwares folder
+
+
+Alternatively, you can use tools like [act](https://github.com/nektos/act) to run the GitHub pipelines locally.
 
 **Pipeline Build - GitHub Actions**
 

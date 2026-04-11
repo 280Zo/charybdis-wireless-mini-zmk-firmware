@@ -14,20 +14,30 @@ draw_config:
   legend_rel_x: 2.0
   legend_rel_y: 2.0
 
-
   # styling hooks
   svg_extra_style: |
     /* ── Hide Layer Names ───────────────────────────────────── */
     text.label { display: none; }
 
     /* ── Keycap Text Color ───────────────────────────────────── */
-    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #00e2cd; font-size: 16px; }
+    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #137f8a; font-size: 16px; }
+
+    /* ── Combo Boxes: fill and border color ───────────────── */
+    rect.combo, rect.combo-separate {
+      fill: transparent;
+      stroke: #1d4d80;
+      stroke-width: 0;
+    }
+
+    /* ── Combo connector readability ───────────────────────── */
+    /* Round end-caps make dendrons visually enter the trigger keys. */
+    path.combo {
+      stroke-linecap: round;
+      stroke-width: 1.6;
+    }
 
     /* ── Keycap Background Color ───────────────────────────────────── */
     rect.key { fill: #363B3D; }
-
-    /* ── Combo Highlight Color ───────────────────────────────────── */
-    rect.combo, rect.combo-separate { fill: #3f403c; }
 
 parse_config:
   preprocess: true
@@ -35,9 +45,34 @@ parse_config:
   sticky_label: sticky
   toggle_label: toggle
   tap_toggle_label: tap-toggle
+  zmk_combos:
+    # Keep CapsWord centered.
+    CapsWord:
+      align: mid
+
+    # Place corner bootloader combos on the inner side of each half.
+    combo_bootloader_left:
+      align: left
+      offset: 0.4
+    combo_bootloader_right:
+      align: right
+      offset: 0.4
+
+    # Keep BT CLR above the board and route dendrons farther outward
+    # so they stay opposite of the inner bootloader paths.
+    combo_bt_clear_safe:
+      align: top
+      offset: 0.4
+      # arc_scale: 1.15
+
+
   raw_binding_map:
     "&caps_word": "CAPS WORD"
     "&td_bore": "L_BASE L_EXTRA"
     "&mkp LCLK": "Left Click"
     "&mkp MCLK": "Mid Click"
     "&mkp RCLK": "Right Click"
+    "&bootloader": "BOOT LOADER"
+    "&bt BT_CLR": "BT CLEAR"
+    "&kp LC(F10)": "ALL WIN"
+    "&kp LC(F7)": "APP WIN"

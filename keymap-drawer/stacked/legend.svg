@@ -143,19 +143,19 @@ rect.key { fill: #2D2D2D; }
 /* Edit only the fill values below to re-theme the whole stacked image.  */
 
 /* Base - center - neutral white  */
-text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 16px; }
+text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #e0bf0e; font-size: 16px; }
 
 /* Nav  - top-left - blue  */
-text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
+text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
 
 /* Num  - top-right- green */
-text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
+text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
 
 /* Xtra - bot-left - purple */
-text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
+text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
 
 /* Sym  - bot-right- yellow */
-text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
+text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
 </style>
 <g transform="translate(30, 0)" class="layer-Legend">
 <text x="0" y="28" class="label" id="Legend">Legend:</text>
@@ -163,7 +163,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <g transform="translate(40, 38)" class="key keypos-0">
 <rect rx="6" ry="6" x="-38" y="-36" width="76" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em">Layer</tspan><tspan x="0" dy="1.5em">Legend</tspan>
+<tspan x="0" dy="-0.75em">LAYER</tspan><tspan x="0" dy="1.5em">LEGEND</tspan>
 </text>
 <text x="-36" y="-34" class="key tl">Nav</text>
 <text x="36" y="-34" class="key tr">Num</text>

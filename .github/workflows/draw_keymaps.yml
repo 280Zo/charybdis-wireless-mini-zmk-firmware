@@ -2,9 +2,11 @@ name: Draw keymaps
 run-name: Draw keymaps
 
 env:
-  KEYMAP_BG: "#181A1B"
+  KEYMAP_BG: "transparent" #0D1117
+  KEYMAP_BG_END: "#181A1B"
+  KEYMAP_ALPHA: "1"
   KEYMAP_GAP: "30"
-  KEYMAP_MARGIN: "20"
+  KEYMAP_MARGIN: "10"
   KEYMAP_SCALE: "2"
   KEYMAP_HINTING: "medium"
   KEYMAP_LEGEND: "1"
@@ -55,6 +57,31 @@ jobs:
       - name: Generate stacked YAML
         run: python3 scripts/make_stacked.py
 
+      - name: Merge combos into COMBOS virtual layer for diagram
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import yaml
+
+          in_path = Path("keymap-drawer/stacked/combos.yaml")
+          out_path = Path("keymap-drawer/stacked/combos-merged.yaml")
+
+          data = yaml.safe_load(in_path.read_text(encoding="utf-8"))
+          combos = data.get("combos", [])
+          if not isinstance(combos, list):
+              raise ValueError("Input YAML has no valid 'combos' list.")
+
+          for combo in combos:
+              if isinstance(combo, dict):
+                  combo["l"] = ["COMBOS"]
+
+          out_path.write_text(
+              yaml.safe_dump(data, allow_unicode=True, sort_keys=False, default_flow_style=None),
+              encoding="utf-8",
+          )
+          print(f"Assigned {len(combos)} combo(s) to virtual layer 'COMBOS' in {out_path}")
+          PY
+
       - name: Draw stacked keymap
         run: |
           keymap -c keymap-drawer/configs/config-stacked.yaml draw -j config/qwerty.json \
@@ -66,7 +93,7 @@ jobs:
             -j config/qwerty.json \
             -s "COMBOS" \
             --combos-only \
-            keymap-drawer/stacked/combos.yaml > keymap-drawer/stacked/combos.svg
+            keymap-drawer/stacked/combos-merged.yaml > keymap-drawer/stacked/combos.svg
 
       - name: Draw `legend` key
         run: |
@@ -114,6 +141,8 @@ jobs:
       - name: Render composite PNG with Playwright
         env:
           KEYMAP_BG: ${{ env.KEYMAP_BG }}
+          KEYMAP_BG_END: ${{ env.KEYMAP_BG_END }}
+          KEYMAP_ALPHA: ${{ env.KEYMAP_ALPHA }}
           KEYMAP_GAP: ${{ env.KEYMAP_GAP }}
           KEYMAP_MARGIN: ${{ env.KEYMAP_MARGIN }}
           KEYMAP_SCALE: ${{ env.KEYMAP_SCALE }}
@@ -135,8 +164,8 @@ jobs:
           chmod 777 keymap-drawer/all_layers/all_layers.svg
           rm -f config/keymaps/keymap_features
 
-      - name: Auto-commit keymap drawings
-        uses: stefanzweifel/git-auto-commit-action@v7
-        with:
-          commit_message: "Update keymap drawings"
-          file_pattern: keymap-drawer
+      # - name: Auto-commit keymap drawings
+      #   uses: stefanzweifel/git-auto-commit-action@v7
+      #   with:
+      #     commit_message: "Update keymap drawings"
+      #     file_pattern: keymap-drawer

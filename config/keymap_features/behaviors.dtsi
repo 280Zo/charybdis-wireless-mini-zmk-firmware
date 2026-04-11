@@ -103,9 +103,9 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <280>;
+            tapping-term-ms = <220>;
             quick-tap-ms = <160>;
-            require-prior-idle-ms = <65>;
+            require-prior-idle-ms = <100>;
             retro-tap;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
@@ -116,9 +116,22 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <280>;
+            tapping-term-ms = <220>;
             quick-tap-ms = <160>;
-            require-prior-idle-ms = <55>;
+            require-prior-idle-ms = <100>;
+            retro-tap;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_L THUMBS>;
+        };
+
+        // Tap-biased right-hand HRM for fast-roll letters (used on positions 21/22).
+        ht_right_tp: right_side_homerow_mod_tap_preferred {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <220>;
+            quick-tap-ms = <160>;
+            require-prior-idle-ms = <100>;
             retro-tap;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;

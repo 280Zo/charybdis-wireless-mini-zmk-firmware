@@ -143,19 +143,19 @@ rect.key { fill: #2D2D2D; }
 /* Edit only the fill values below to re-theme the whole stacked image.  */
 
 /* Base - center - neutral white  */
-text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 16px; }
+text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #e0bf0e; font-size: 16px; }
 
 /* Nav  - top-left - blue  */
-text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
+text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
 
 /* Num  - top-right- green */
-text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
+text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
 
 /* Xtra - bot-left - purple */
-text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
+text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
 
 /* Sym  - bot-right- yellow */
-text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
+text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
 </style>
 <g transform="translate(30, 0)" class="layer-Stacked Keymap">
 <text x="0" y="28" class="label" id="Stacked-Keymap">Stacked Keymap:</text>
@@ -194,7 +194,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <g transform="translate(418, 48)" class="key keypos-5">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">T</text>
-<text x="-34" y="-34" class="key tl">󰃠 </text>
+<text x="-34" y="-34" class="key tl">󰃠 +</text>
 <text x="-34" y="34" class="key bl"> </text>
 <text x="34" y="34" class="key br"> </text>
 </g>
@@ -210,7 +210,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">U</text>
 <text x="-34" y="-34" class="key tl">BT 0</text>
-<text x="34" y="-34" class="key tr">7/F7</text>
+<text x="34" y="-34" class="key tr">7|F7</text>
 <text x="-34" y="34" class="key bl"><tspan style="font-size: 70%">TMUX ATTCH</tspan></text>
 <text x="34" y="34" class="key br">+</text>
 </g>
@@ -218,7 +218,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">I</text>
 <text x="-34" y="-34" class="key tl">BT 1</text>
-<text x="34" y="-34" class="key tr">8/F8</text>
+<text x="34" y="-34" class="key tr">8|F8</text>
 <text x="-34" y="34" class="key bl"><tspan style="font-size: 78%">TMUX NEXT</tspan></text>
 <text x="34" y="34" class="key br">[</text>
 </g>
@@ -226,7 +226,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">O</text>
 <text x="-34" y="-34" class="key tl">BT 2</text>
-<text x="34" y="-34" class="key tr">9/F9</text>
+<text x="34" y="-34" class="key tr">9|F9</text>
 <text x="-34" y="34" class="key bl"><tspan style="font-size: 78%">TMUX SESH</tspan></text>
 <text x="34" y="34" class="key br">]</text>
 </g>
@@ -234,7 +234,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">P</text>
 <text x="-34" y="-34" class="key tl">BT 3</text>
-<text x="34" y="-34" class="key tr">%/F10</text>
+<text x="34" y="-34" class="key tr">%|F10</text>
 <text x="-34" y="34" class="key bl"><tspan style="font-size: 78%">TMUX SYNC</tspan></text>
 <text x="34" y="34" class="key br">%</text>
 </g>
@@ -243,7 +243,6 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <text x="0" y="0" class="key tap">
 <tspan x="0" dy="-0.75em">L-BASE</tspan><tspan x="0" dy="1.5em">L-GAME</tspan>
 </text>
-<text x="-34" y="-34" class="key tl">BT CLR</text>
 <text x="34" y="34" class="key br">\</text>
 </g>
 <g transform="translate(38, 142)" class="key keypos-12">
@@ -289,7 +288,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <g transform="translate(418, 124)" class="key keypos-17">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">G</text>
-<text x="-34" y="-34" class="key tl">󰃞 </text>
+<text x="-34" y="-34" class="key tl">󰃞 -</text>
 <text x="34" y="-34" class="key tr">LSHIFT</text>
 <text x="-34" y="34" class="key bl">󰮱</text>
 <text x="34" y="34" class="key br">DEL LN</text>
@@ -307,7 +306,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <tspan x="0" dy="-0.75em">J</tspan><tspan x="0" dy="1.5em">Shift</tspan>
 </text>
 <text x="-34" y="-34" class="key tl">󰼨</text>
-<text x="34" y="-34" class="key tr">4/F4</text>
+<text x="34" y="-34" class="key tr">4|F4</text>
 <text x="-34" y="34" class="key bl"></text>
 <text x="34" y="34" class="key br">-</text>
 </g>
@@ -317,7 +316,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <tspan x="0" dy="-0.75em">K</tspan><tspan x="0" dy="1.5em">Ctrl</tspan>
 </text>
 <text x="-34" y="-34" class="key tl">󰐎</text>
-<text x="34" y="-34" class="key tr">5/F5</text>
+<text x="34" y="-34" class="key tr">5|F5</text>
 <text x="-34" y="34" class="key bl"></text>
 <text x="34" y="34" class="key br">(</text>
 </g>
@@ -327,7 +326,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <tspan x="0" dy="-0.75em">L</tspan><tspan x="0" dy="1.5em">Alt</tspan>
 </text>
 <text x="-34" y="-34" class="key tl"></text>
-<text x="34" y="-34" class="key tr">6/F6</text>
+<text x="34" y="-34" class="key tr">6|F6</text>
 <text x="-34" y="34" class="key bl"></text>
 <text x="34" y="34" class="key br">)</text>
 </g>
@@ -337,7 +336,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <tspan x="0" dy="-0.75em">;</tspan><tspan x="0" dy="1.5em">Gui</tspan>
 </text>
 <text x="-34" y="-34" class="key tl">󰼧</text>
-<text x="34" y="-34" class="key tr">*/F11</text>
+<text x="34" y="-34" class="key tr">*|F11</text>
 <text x="-34" y="34" class="key bl"></text>
 <text x="34" y="34" class="key br">*</text>
 </g>
@@ -398,7 +397,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">M</text>
 <text x="-34" y="-34" class="key tl"></text>
-<text x="34" y="-34" class="key tr">1/F1</text>
+<text x="34" y="-34" class="key tr">1|F1</text>
 <text x="-34" y="34" class="key bl">HOME</text>
 <text x="34" y="34" class="key br">=</text>
 </g>
@@ -408,7 +407,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <tspan x="0" dy="-0.75em">,</tspan><tspan x="0" dy="1.5em">;</tspan>
 </text>
 <text x="-34" y="-34" class="key tl"></text>
-<text x="34" y="-34" class="key tr">2/F2</text>
+<text x="34" y="-34" class="key tr">2|F2</text>
 <text x="-34" y="34" class="key bl">PG DN</text>
 <text x="34" y="34" class="key br">{</text>
 </g>
@@ -418,7 +417,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <tspan x="0" dy="-0.75em">.</tspan><tspan x="0" dy="1.5em">:</tspan>
 </text>
 <text x="-34" y="-34" class="key tl"></text>
-<text x="34" y="-34" class="key tr">3/F3</text>
+<text x="34" y="-34" class="key tr">3|F3</text>
 <text x="-34" y="34" class="key bl">PG UP</text>
 <text x="34" y="34" class="key br">}</text>
 </g>
@@ -428,7 +427,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11p
 <tspan x="0" dy="-0.75em">?</tspan><tspan x="0" dy="1.5em">!</tspan>
 </text>
 <text x="-34" y="-34" class="key tl"><tspan style="font-size: 64%">SCREEN-SHOT</tspan></text>
-<text x="34" y="-34" class="key tr">.F12</text>
+<text x="34" y="-34" class="key tr">.|F12</text>
 <text x="-34" y="34" class="key bl">END</text>
 <text x="34" y="34" class="key br">@</text>
 </g>

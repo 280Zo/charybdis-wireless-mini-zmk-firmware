@@ -39,19 +39,19 @@ draw_config:
     /* Edit only the fill values below to re-theme the whole stacked image.  */
 
     /* Base - center - neutral white  */
-    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 16px; }
+    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #e0bf0e; font-size: 16px; }
 
     /* Nav  - top-left - blue  */
-    text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
+    text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
 
     /* Num  - top-right- green */
-    text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
+    text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
 
     /* Xtra - bot-left - purple */
-    text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
+    text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
 
     /* Sym  - bot-right- yellow */
-    text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00ffb3; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
+    text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
 
   shrink_wide_legends: 7
   style_layer_activators: true
@@ -152,6 +152,7 @@ parse_config:
     LA(LC(T)): "SHELL"
     C_AC_SEARCH: "SEARCH"
     LG(E): "WINDOW"
+    LC(F7): "APP WIN"
     LC(LA(LEFT_SHIFT)): "MEH"
     LA(LC(LG(LEFT_SHIFT))): "HYPER"
     LC(F10): "ALL WIN"
@@ -177,10 +178,10 @@ parse_config:
     LA(KP_N1): "REJECT"
     LA(KP_N2): "PENDING"
     LA(KP_N3): "ACCEPT"
-    BRIGHTNESS INC: "󰃠 \uf44d"
-    C_BRIGHTNESS_INC: "󰃠 \uf44d"
-    BRIGHTNESS DEC: "󰃞 \uf068"
-    C_BRIGHTNESS_DEC: "󰃞 \uf068"
+    BRIGHTNESS INC: "󰃠 +"
+    C_BRIGHTNESS_INC: "󰃠 +"
+    BRIGHTNESS DEC: "󰃞 -"
+    C_BRIGHTNESS_DEC: "󰃞 -"
     KP_MINUS: "-"
     KP_SLASH: "/"
     K_MUTE: "\uf466"
@@ -243,18 +244,18 @@ parse_config:
     "&mm_qm_ex": "? !"
 
     # --- Mod-Morph F-Keys (shift to activate) ---
-    "&mm_f1": "1/F1"
-    "&mm_f2": "2/F2"
-    "&mm_f3": "3/F3"
-    "&mm_f4": "4/F4"
-    "&mm_f5": "5/F5"
-    "&mm_f6": "6/F6"
-    "&mm_f7": "7/F7"
-    "&mm_f8": "8/F8"
-    "&mm_f9": "9/F9"
-    "&mm_f10": "%/F10"
-    "&mm_f11": "*/F11"
-    "&mm_f12": ".F12"
+    "&mm_f1": "1|F1"
+    "&mm_f2": "2|F2"
+    "&mm_f3": "3|F3"
+    "&mm_f4": "4|F4"
+    "&mm_f5": "5|F5"
+    "&mm_f6": "6|F6"
+    "&mm_f7": "7|F7"
+    "&mm_f8": "8|F8"
+    "&mm_f9": "9|F9"
+    "&mm_f10": "%|F10"
+    "&mm_f11": "*|F11"
+    "&mm_f12": ".|F12"
 
     # --- ZMK / System ---
     "&bootloader": "BOOT LDR"

@@ -15,7 +15,7 @@
 - Legend key text (`Legend / Nav / Num / Xtra / Sym`): edit `keymap-drawer/stacked/legend-1x1.yaml`.
 
 ### Colors & sizing
-- Background color is set once via `KEYMAP_BG` in `.github/workflows/draw_keymaps.yml`.
+- Background gradient is set via `KEYMAP_BG` (top) and `KEYMAP_BG_END` (bottom) in `.github/workflows/draw_keymaps.yml`.
 - Keycap fill is set in each config under `draw_config.svg_extra_style` (`rect.key { fill: ... }`).
 - Key size: `key_w`, `key_h`; corner rounding: `key_rx`, `key_ry`.
 - Legend inset: adjust `transform: translate(...)` on `text.tl/tr/bl/br` in the configs.
@@ -28,9 +28,11 @@
 4) Playwright uses `scripts/render_stacked_composite.js` + `keymap-drawer/stacked/composite-template.html` to compose `stacked.svg` + `legend.svg` + `combos.svg` into `stacked-combos.png`.
 
 ### Env knobs (workflow)
-- `KEYMAP_BG` — background color (hex). Default `#2F4858`.
+- `KEYMAP_BG` — composite background gradient start color (CSS color). Default `#2F4858`.
+- `KEYMAP_BG_END` — composite background gradient end color (CSS color). Default `#272727`.
+- `KEYMAP_ALPHA` — when `1`, Playwright captures with alpha (`omitBackground: true`). Default `1`.
 - `KEYMAP_GAP` — vertical gap between stacked and combos (pixels). Default `0px`. Typical range: `0px` (touching) to `40px` (roomy).
-- `KEYMAP_MARGIN` — padding around the composite (pixels). Default `20px` on all sides.
+- `KEYMAP_MARGIN` — padding around the composite (pixels). Default `10px` on all sides.
 - `KEYMAP_SCALE` — device scale factor for PNG sharpness. `1` = 100% (native), `2` = 200% (default), `3` = 300% (crisper, larger file).
 - `KEYMAP_HINTING` — font hinting to Chromium. Default `medium`. Use `none` if you prefer lighter antialiasing; leave `medium` if glyphs look right.
 
@@ -46,6 +48,8 @@ Quick presets:
 
 ### Quick edit points
 - Background only: change `KEYMAP_BG` in the workflow (applies to rsvg + Playwright).
+- Composite gradient end color: change `KEYMAP_BG_END` in the workflow (Playwright composite only).
+- Alpha output for `stacked-combos.png`: set `KEYMAP_ALPHA=1` and use alpha-capable CSS colors (for example `rgba(13,17,23,0)`).
 - Keycap color: change `rect.key { fill: ... }` in the relevant config under `keymap-drawer/configs/`.
 - Combo box color: change `rect.combo, rect.combo-separate { fill: ... }` in the relevant config under `keymap-drawer/configs/`.
 - Composite spacing: change `KEYMAP_GAP` and `KEYMAP_MARGIN`.
