@@ -1,5 +1,5 @@
-#define KEYS_L 0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 19 20 21 22  // Left-hand keys.
-#define KEYS_R 6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 39 40 16 15 14 13  // Right-hand keys.
+#define KEYS_L 0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38  // Left-hand keys.
+#define KEYS_R 6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 39 40  // Right-hand keys.
 #define THUMBS 36 37 38 39 40  // Thumb keys.
 
 / {
@@ -103,9 +103,9 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <220>;
+            tapping-term-ms = <200>;
             quick-tap-ms = <160>;
-            require-prior-idle-ms = <100>;
+            require-prior-idle-ms = <120>;
             retro-tap;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
@@ -116,9 +116,9 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <220>;
+            tapping-term-ms = <200>;
             quick-tap-ms = <160>;
-            require-prior-idle-ms = <100>;
+            require-prior-idle-ms = <120>;
             retro-tap;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
@@ -129,12 +129,25 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <220>;
+            tapping-term-ms = <200>;
             quick-tap-ms = <160>;
-            require-prior-idle-ms = <100>;
+            require-prior-idle-ms = <120>;
             retro-tap;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
+        };
+
+        // Tap-biased left-hand HRM for fast-roll letter keys (used on A).
+        ht_left_tp: left_side_homerow_mod_tap_preferred {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <160>;
+            require-prior-idle-ms = <120>;
+            retro-tap;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_R THUMBS>;
         };
 
         td_esc_scrl_slow: td_esc_scrl_slow {
@@ -216,6 +229,24 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             bindings = <&mo 5>, <&to 0>;
+        };
+
+        // Combo action: tap switches to last app (Alt+Tab), hold opens "all windows" (Ctrl+F10).
+        ht_combo_all_windows: ht_combo_all_windows {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <0>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <180>;
+            bindings = <&kp LC(F10)>, <&kp LA(TAB)>; // hold, tap
+        };
+
+        // Combo action: tap switches to last app window (Alt+Grave), hold opens app-window overview (Ctrl+F7).
+        ht_combo_app_windows: ht_combo_app_windows {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <0>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <180>;
+            bindings = <&kp LC(F7)>, <&kp LA(GRAVE)>; // hold, tap
         };
 
         mm_qm_ex: question_exclamation {

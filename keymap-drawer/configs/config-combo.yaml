@@ -74,5 +74,5 @@ parse_config:
     "&mkp RCLK": "Right Click"
     "&bootloader": "BOOT LOADER"
     "&bt BT_CLR": "BT CLEAR"
-    "&kp LC(F10)": "ALL WIN"
-    "&kp LC(F7)": "APP WIN"
+    "&ht_combo_all_windows": "ALL WIN COMBO"
+    "&ht_combo_app_windows": "APP WIN COMBO"

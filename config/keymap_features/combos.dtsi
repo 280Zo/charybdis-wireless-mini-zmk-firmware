@@ -19,6 +19,18 @@
             layers = <0>;
         };
 
+        combo_esc_left {
+            bindings = <&kp ESC>;
+            key-positions = <1 2>;
+            layers = <0>;
+        };
+
+        combo_esc_right {
+            bindings = <&kp ESC>;
+            key-positions = <9 10>;
+            layers = <0>;
+        };
+
         combo_BASE_or_EXTRAS {
             bindings = <&td_bore>;
             key-positions = <38 39>;
@@ -41,7 +53,7 @@
 
         combo_bootloader_left {
             bindings = <&bootloader>;
-            key-positions = <00 24>;
+            key-positions = <0 24>;
             layers = <0>;
         };
 
@@ -53,7 +65,20 @@
 
         combo_bt_clear_safe {
             bindings = <&bt BT_CLR>;
-            key-positions = <00 11>;
+            key-positions = <0 11>;
+            layers = <0>;
+        };
+
+        combo_all_windows {
+            bindings = <&ht_combo_all_windows>;
+            key-positions = <32 33>;
+            layers = <0>;
+        };
+
+        combo_app_windows {
+            // KDE Present Windows (current app/window class).
+            bindings = <&ht_combo_app_windows>;
+            key-positions = <31 32>;
             layers = <0>;
         };
     };

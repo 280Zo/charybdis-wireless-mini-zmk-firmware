@@ -197,27 +197,33 @@ parse_config:
     C_NEXT: "NEXT"
     SPACE: "SPACE"
   raw_binding_map:
-    # --- Hold-tap / Home Row Mods ---
+    # --- Hold-tap / Home Row Mods (legacy + shared) ---
     "&ht_left LCMD A":          {t: A,     h: "Gui"}
     "&ht_left LALT S":          {t: S ,    h: "Alt"}
-    "&ht_left LSHFT D":         {t: D,     h: "Ctrl"}
-    "&ht_left LCTRL F":         {t: F,     h: "Shift"}
-    "&ht_right RCTRL J":        {t: J,     h: "Shift"}
-    "&ht_right RSHFT K":        {t: K,     h: "Ctrl"}
+    "&ht_left LSHFT D":         {t: D,     h: "Shift"}
+    "&ht_left LCTRL F":         {t: F,     h: "Ctrl"}
+    "&ht_right RCTRL J":        {t: J,     h: "Ctrl"}
+    "&ht_right RSHFT K":        {t: K,     h: "Shift"}
     "&ht_right LALT L":         {t: L,     h: "Alt"}
     "&ht_right RCMD SEMICOLON": {t: ";",   h: "Gui"}
+    # --- Tap-preferred right-hand variants ---
+    "&ht_right_tp LALT L":      {t: L,     h: "Alt"}
+    "&ht_right_tp RCMD SEMICOLON": {t: ";", h: "Gui"}
+    "&ht_right_tp LALT I":      {t: I,     h: "Alt"}
+    "&ht_right_tp RCMD O":      {t: O,     h: "Gui"}
+    "&ht_left_tp LCMD A":       {t: A,     h: "Gui"}
     # --- Tap Dance ---
     "&td_clk": {t: "SYM LFT-CLK", type: thumb}
     "&td_bore": "L_BASE L_EXTRA"
     "&tdmt": "L1/BS LCLK"
     "&tdbt": "L2/ESC RCLK"
-    "&td_layers": "L-BASE L-GAME"
-    "&td_cursor": "L-SCRL L-SLOW"
+    "&td_layers": "L_BASE L_GAME"
+    "&td_cursor": "L_SCRL L_SLOW"
     "&td_home": "~/"
     "&td_equals": "="
-    "&td_esc_scrl_slow": {t: "ESC L-SCRL L-SLOW", type: thumb}
-    "&td_space_nav":     {t: "󱁐 L-NAV",     type: thumb}
-    "&td_bs":            {t: "BS L-NUM",        type: thumb}
+    "&td_esc_scrl_slow": {t: "ESC L_SCRL L_SLOW", type: thumb}
+    "&td_space_nav":     {t: "󱁐 L_NAV",     type: thumb}
+    "&td_bs":            {t: "BS L_NUM",    type: thumb}
 
     # --- Mouse Clicks ---
     "&mkp LCLK": "L CLK"
