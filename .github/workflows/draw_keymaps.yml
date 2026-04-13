@@ -210,8 +210,8 @@ jobs:
           chmod 777 keymap-drawer/all_layers/all_layers.svg
           rm -f config/keymaps/keymap_features
 
-      # - name: Auto-commit keymap drawings
-      #   uses: stefanzweifel/git-auto-commit-action@v7
-      #   with:
-      #     commit_message: "Update keymap drawings"
-      #     file_pattern: keymap-drawer
+      - name: Auto-commit keymap drawings
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "Update keymap drawings"
+          file_pattern: keymap-drawer

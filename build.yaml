@@ -20,7 +20,7 @@ include:
     keymap:
       - qwerty
       - colemak_dh
-      - canary
+      # - canary
       # - focal
       # - graphite
 
@@ -34,7 +34,7 @@ include:
     keymap:
       - qwerty
       - colemak_dh
-      - canary
+      # - canary
       # - focal
       # - graphite
 
@@ -63,7 +63,7 @@ include:
     keymap:
       - qwerty
       - colemak_dh
-      - canary
+      # - canary
     builds:
       - shield: charybdis_left_dongle
       - shield: charybdis_right_dongle
@@ -81,7 +81,7 @@ include:
     keymap:
       - qwerty
       - colemak_dh
-      - canary
+      # - canary
     builds:
       - shield: charybdis_left_dongle
       - shield: charybdis_right_dongle
@@ -97,7 +97,7 @@ include:
     keymap:
       - qwerty
       - colemak_dh
-      - canary
+      # - canary
     builds:
       - shield: charybdis_left_dongle
         board: nice_nano//zmk
@@ -117,7 +117,7 @@ include:
     keymap:
       - qwerty
       - colemak_dh
-      - canary
+      # - canary
     builds:
       - shield: charybdis_left_dongle
         board: nice_nano//zmk
