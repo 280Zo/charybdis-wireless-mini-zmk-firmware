@@ -9,11 +9,9 @@ env:
   KEYMAP_SCALE: "2"
   KEYMAP_HINTING: "medium"
   KEYMAP_LEGEND: "1"
-  # Theme-specific composite background gradients.
-  KEYMAP_BG_DARK: "transparent"
-  KEYMAP_BG_END_DARK: "#282828"
-  KEYMAP_BG_LIGHT: "transparent"
-  KEYMAP_BG_END_LIGHT: "#fbf1c7"
+  # Theme-specific composite solid backgrounds.
+  KEYMAP_BG_DARK: "#282828"
+  KEYMAP_BG_LIGHT: "#ebdbb2"
   # Negative trims collapse built-in SVG top/bottom whitespace so KEYMAP_GAP is the real spacing control.
   KEYMAP_STACKED_TRIM_BOTTOM: "-71"
   KEYMAP_LEGEND_TRIM_TOP: "-58"
@@ -153,7 +151,7 @@ jobs:
       - name: Convert stacked SVG to PNG
         run: |
           rsvg-convert \
-            --background-color="${KEYMAP_BG_END_DARK}" \
+            --background-color="${KEYMAP_BG_DARK}" \
             --zoom=2 \
             --output="keymap-drawer/stacked/stacked.png" \
             "keymap-drawer/stacked/stacked.svg"
@@ -167,7 +165,6 @@ jobs:
       - name: Render composite PNG (dark theme)
         env:
           KEYMAP_BG: ${{ env.KEYMAP_BG_DARK }}
-          KEYMAP_BG_END: ${{ env.KEYMAP_BG_END_DARK }}
           KEYMAP_STYLE_THEME: dark
           KEYMAP_ALPHA: ${{ env.KEYMAP_ALPHA }}
           KEYMAP_GAP: ${{ env.KEYMAP_GAP }}
@@ -187,7 +184,6 @@ jobs:
       - name: Render composite PNG (light theme)
         env:
           KEYMAP_BG: ${{ env.KEYMAP_BG_LIGHT }}
-          KEYMAP_BG_END: ${{ env.KEYMAP_BG_END_LIGHT }}
           KEYMAP_STYLE_THEME: light
           KEYMAP_ALPHA: ${{ env.KEYMAP_ALPHA }}
           KEYMAP_GAP: ${{ env.KEYMAP_GAP }}

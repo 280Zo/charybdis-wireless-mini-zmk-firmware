@@ -10,7 +10,7 @@ const { chromium } = require('playwright');
  *   2) legend.svg (optional)
  *   3) combos.svg
  * - Injects them into keymap-drawer/stacked/composite-template.html
- * - Applies workflow-controlled styling/layout (gradient background, spacing, trims, alpha)
+ * - Applies workflow-controlled styling/layout (solid background, spacing, trims, alpha)
  * - Captures a PNG (default: keymap-drawer/stacked/stacked-combos.png)
  *
  * How it is used:
@@ -20,7 +20,7 @@ const { chromium } = require('playwright');
  *   node scripts/render_stacked_composite.js
  *
  * Main env knobs (set in draw_keymaps.yml):
- * - KEYMAP_BG / KEYMAP_BG_END   : composite gradient colors
+ * - KEYMAP_BG                   : composite background color
  * - KEYMAP_OUTPUT               : output PNG path (used for dark/light variants)
  * - KEYMAP_STYLE_THEME          : key/legend palette theme ("dark" or "light"), defaults to dark
  * - KEYMAP_CORNER_LEGEND_WRAP_OVERRIDES: JSON list of corner-wrap overrides
@@ -41,8 +41,7 @@ const combosSvgPath = 'keymap-drawer/stacked/combos.svg';
 const legendSvgPath = 'keymap-drawer/stacked/legend.svg';
 const outputPngPath = process.env.KEYMAP_OUTPUT || 'keymap-drawer/stacked/stacked-combos.png';
 
-const bg = process.env.KEYMAP_BG || '#2F4858';
-const bgEnd = process.env.KEYMAP_BG_END || '#272727';
+const bg = process.env.KEYMAP_BG || '#282828';
 const alphaCapture = ['1', 'true', 'yes', 'on'].includes((process.env.KEYMAP_ALPHA || '0').toLowerCase());
 const gap = Number.parseInt(process.env.KEYMAP_GAP || '0', 10);
 const margin = Number.parseInt(process.env.KEYMAP_MARGIN || '10', 10);
@@ -177,7 +176,6 @@ const legendBlock = legendOn
 
 let html = fs.readFileSync(templatePath, 'utf8');
 html = html.replaceAll('__KEYMAP_BG__', bg);
-html = html.replaceAll('__KEYMAP_BG_END__', bgEnd);
 html = html.replaceAll('__KEYMAP_GAP__', String(Number.isFinite(gap) ? gap : 0));
 html = html.replaceAll('__KEYMAP_MARGIN__', String(Number.isFinite(margin) ? margin : 10));
 html = html.replaceAll('__STACKED_SRC__', stackedSrc);
