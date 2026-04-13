@@ -22,7 +22,7 @@
 - Keycap fill is set in each config under `draw_config.svg_extra_style` (`rect.key { fill: ... }`).
 - Key size: `key_w`, `key_h`; corner rounding: `key_rx`, `key_ry`.
 - Legend inset: adjust `transform: translate(...)` on `text.tl/tr/bl/br` in the configs.
-- Keycap color: `svg_extra_style` → `rect.key { fill: ... }` in each config (`config-stacked.yaml` for stacked, `config-combo.yaml` for combos). This overrides the theme defaults; keep it different from the page background so keys remain visible.
+- Keycap color: `svg_extra_style` -> `rect.key { fill: ... }` in each config (`config-stacked.yaml` for stacked, `config-combo.yaml` for combos). This overrides the theme defaults; keep it different from the page background so keys remain visible.
 
 ### Rendering pipeline
 1) `keymap parse` produces stacked and combo YAMLs.
@@ -33,14 +33,14 @@
    - `stacked-combos-light.png`
 
 ### Env knobs (workflow)
-- `KEYMAP_BG_DARK` — dark-theme composite background color.
-- `KEYMAP_BG_LIGHT` — light-theme composite background color.
-- `KEYMAP_STYLE_THEME` — palette selection applied to stacked/combos/legend SVG aliases before capture (`dark` or `light`).
-- `KEYMAP_ALPHA` — when `1`, Playwright captures with alpha (`omitBackground: true`). Default `1`.
-- `KEYMAP_GAP` — vertical gap between stacked and combos (pixels). Default `0px`. Typical range: `0px` (touching) to `40px` (roomy).
-- `KEYMAP_MARGIN` — padding around the composite (pixels). Default `10px` on all sides.
-- `KEYMAP_SCALE` — device scale factor for PNG sharpness. `1` = 100% (native), `2` = 200% (default), `3` = 300% (crisper, larger file).
-- `KEYMAP_HINTING` — font hinting to Chromium. Default `medium`. Use `none` if you prefer lighter antialiasing; leave `medium` if glyphs look right.
+- `KEYMAP_BG_DARK` - dark-theme composite background color.
+- `KEYMAP_BG_LIGHT` - light-theme composite background color.
+- `KEYMAP_STYLE_THEME` - palette selection applied to stacked/combos/legend SVG aliases before capture (`dark` or `light`).
+- `KEYMAP_ALPHA` - when `1`, Playwright captures with alpha (`omitBackground: true`). Default `1`.
+- `KEYMAP_GAP` - vertical gap between stacked and combos (pixels). Default `0px`. Typical range: `0px` (touching) to `40px` (roomy).
+- `KEYMAP_MARGIN` - padding around the composite (pixels). Default `10px` on all sides.
+- `KEYMAP_SCALE` - device scale factor for PNG sharpness. `1` = 100% (native), `2` = 200% (default), `3` = 300% (crisper, larger file).
+- `KEYMAP_HINTING` - font hinting to Chromium. Default `medium`. Use `none` if you prefer lighter antialiasing; leave `medium` if glyphs look right.
 
 Quick presets:
 - Tight: `KEYMAP_GAP=10`, `KEYMAP_MARGIN=10`, `KEYMAP_SCALE=2`
