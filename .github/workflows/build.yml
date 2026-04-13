@@ -25,6 +25,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --upgrade pip
+          python -m pip install --disable-pip-version-check pyyaml
+
       - id: make-groups
         name: Build matrix from build.yaml
         shell: python3 {0}
@@ -32,7 +44,6 @@ jobs:
           import itertools
           import json
           import os
-          from pathlib import Path
           import yaml
 
           with open("build.yaml") as f:

@@ -2,14 +2,18 @@ name: Draw keymaps
 run-name: Draw keymaps
 
 env:
-  KEYMAP_BG: "transparent" #0D1117
-  KEYMAP_BG_END: "#181A1B"
+  # Shared composite render settings (used for both dark and light outputs).
   KEYMAP_ALPHA: "1"
   KEYMAP_GAP: "30"
   KEYMAP_MARGIN: "10"
   KEYMAP_SCALE: "2"
   KEYMAP_HINTING: "medium"
   KEYMAP_LEGEND: "1"
+  # Theme-specific composite background gradients.
+  KEYMAP_BG_DARK: "transparent"
+  KEYMAP_BG_END_DARK: "#282828"
+  KEYMAP_BG_LIGHT: "transparent"
+  KEYMAP_BG_END_LIGHT: "#fbf1c7"
   # Negative trims collapse built-in SVG top/bottom whitespace so KEYMAP_GAP is the real spacing control.
   KEYMAP_STACKED_TRIM_BOTTOM: "-71"
   KEYMAP_LEGEND_TRIM_TOP: "-58"
@@ -49,8 +53,11 @@ jobs:
 
       - name: Parse keymap
         run: |
+          mkdir -p keymap-drawer/all_layers
           keymap -c keymap-drawer/configs/config-stacked.yaml parse -c 12 -z config/keymaps/qwerty.keymap \
             > keymap-drawer/stacked/qwerty.yaml
+          keymap -c keymap-drawer/configs/config-all-layers.yaml parse -c 12 -z config/keymaps/qwerty.keymap \
+            > keymap-drawer/all_layers/qwerty.yaml
           keymap -c keymap-drawer/configs/config-combo.yaml parse -c 12 --virtual-layers "COMBOS" -z config/keymaps/qwerty.keymap \
             > keymap-drawer/stacked/combos.yaml
 
@@ -105,7 +112,26 @@ jobs:
         run: |
           mkdir -p keymap-drawer/all_layers
           keymap -c keymap-drawer/configs/config-all-layers.yaml draw -j config/qwerty.json \
-            keymap-drawer/stacked/qwerty.yaml > keymap-drawer/all_layers/all_layers.svg --keys-only
+            keymap-drawer/all_layers/qwerty.yaml > keymap-drawer/all_layers/all_layers.svg --keys-only
+
+      - name: Export composite legend-wrap overrides from stacked config
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import yaml
+
+          cfg_path = "keymap-drawer/configs/config-stacked.yaml"
+          cfg = yaml.safe_load(open(cfg_path, encoding="utf-8")) or {}
+          draw_cfg = cfg.get("draw_config", {}) if isinstance(cfg, dict) else {}
+          overrides = draw_cfg.get("composite_corner_legend_wrap_overrides", [])
+          if not isinstance(overrides, list):
+              raise ValueError("draw_config.composite_corner_legend_wrap_overrides must be a list")
+          encoded = json.dumps(overrides, separators=(",", ":"))
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as env:
+              env.write(f"KEYMAP_CORNER_LEGEND_WRAP_OVERRIDES={encoded}\n")
+          print(f"Exported {len(overrides)} composite corner legend wrap override(s)")
+          PY
 
       - name: Install JetBrainsMono Nerd Font
         run: |
@@ -127,7 +153,7 @@ jobs:
       - name: Convert stacked SVG to PNG
         run: |
           rsvg-convert \
-            --background-color="${KEYMAP_BG}" \
+            --background-color="${KEYMAP_BG_END_DARK}" \
             --zoom=2 \
             --output="keymap-drawer/stacked/stacked.png" \
             "keymap-drawer/stacked/stacked.svg"
@@ -138,10 +164,11 @@ jobs:
           npx playwright install-deps
           npx playwright install chromium
 
-      - name: Render composite PNG with Playwright
+      - name: Render composite PNG (dark theme)
         env:
-          KEYMAP_BG: ${{ env.KEYMAP_BG }}
-          KEYMAP_BG_END: ${{ env.KEYMAP_BG_END }}
+          KEYMAP_BG: ${{ env.KEYMAP_BG_DARK }}
+          KEYMAP_BG_END: ${{ env.KEYMAP_BG_END_DARK }}
+          KEYMAP_STYLE_THEME: dark
           KEYMAP_ALPHA: ${{ env.KEYMAP_ALPHA }}
           KEYMAP_GAP: ${{ env.KEYMAP_GAP }}
           KEYMAP_MARGIN: ${{ env.KEYMAP_MARGIN }}
@@ -152,6 +179,28 @@ jobs:
           KEYMAP_LEGEND_TRIM_TOP: ${{ env.KEYMAP_LEGEND_TRIM_TOP }}
           KEYMAP_LEGEND_TRIM_BOTTOM: ${{ env.KEYMAP_LEGEND_TRIM_BOTTOM }}
           KEYMAP_COMBOS_TRIM_TOP: ${{ env.KEYMAP_COMBOS_TRIM_TOP }}
+          KEYMAP_CORNER_LEGEND_WRAP_OVERRIDES: ${{ env.KEYMAP_CORNER_LEGEND_WRAP_OVERRIDES }}
+          KEYMAP_OUTPUT: keymap-drawer/stacked/stacked-combos-dark.png
+        run: |
+          node scripts/render_stacked_composite.js
+
+      - name: Render composite PNG (light theme)
+        env:
+          KEYMAP_BG: ${{ env.KEYMAP_BG_LIGHT }}
+          KEYMAP_BG_END: ${{ env.KEYMAP_BG_END_LIGHT }}
+          KEYMAP_STYLE_THEME: light
+          KEYMAP_ALPHA: ${{ env.KEYMAP_ALPHA }}
+          KEYMAP_GAP: ${{ env.KEYMAP_GAP }}
+          KEYMAP_MARGIN: ${{ env.KEYMAP_MARGIN }}
+          KEYMAP_SCALE: ${{ env.KEYMAP_SCALE }}
+          KEYMAP_HINTING: ${{ env.KEYMAP_HINTING }}
+          KEYMAP_LEGEND: ${{ env.KEYMAP_LEGEND }}
+          KEYMAP_STACKED_TRIM_BOTTOM: ${{ env.KEYMAP_STACKED_TRIM_BOTTOM }}
+          KEYMAP_LEGEND_TRIM_TOP: ${{ env.KEYMAP_LEGEND_TRIM_TOP }}
+          KEYMAP_LEGEND_TRIM_BOTTOM: ${{ env.KEYMAP_LEGEND_TRIM_BOTTOM }}
+          KEYMAP_COMBOS_TRIM_TOP: ${{ env.KEYMAP_COMBOS_TRIM_TOP }}
+          KEYMAP_CORNER_LEGEND_WRAP_OVERRIDES: ${{ env.KEYMAP_CORNER_LEGEND_WRAP_OVERRIDES }}
+          KEYMAP_OUTPUT: keymap-drawer/stacked/stacked-combos-light.png
         run: |
           node scripts/render_stacked_composite.js
 
@@ -160,7 +209,8 @@ jobs:
           chmod 777 keymap-drawer/stacked/stacked.svg
           chmod 777 keymap-drawer/stacked/stacked.png
           chmod 777 keymap-drawer/stacked/legend.svg
-          chmod 777 keymap-drawer/stacked/stacked-combos.png
+          chmod 777 keymap-drawer/stacked/stacked-combos-dark.png
+          chmod 777 keymap-drawer/stacked/stacked-combos-light.png
           chmod 777 keymap-drawer/all_layers/all_layers.svg
           rm -f config/keymaps/keymap_features
 

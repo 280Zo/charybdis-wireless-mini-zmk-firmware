@@ -8,7 +8,11 @@ This repository offers pre-configured ZMK firmware. It's designed for the [Wirel
 
 <!-- ![stacked keymap](keymap-drawer/stacked/stacked.svg)
 ![combos keymap](keymap-drawer/stacked/combos.svg) -->
-![stacked-combos keymap](keymap-drawer/stacked/stacked-combos.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="keymap-drawer/stacked/stacked-combos-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="keymap-drawer/stacked/stacked-combos-light.png">
+  <img alt="stacked-combos keymap" src="keymap-drawer/stacked/stacked-combos-dark.png">
+</picture>
 
 
 To see all the layers check out the [full render](keymap-drawer/all_layers/all_layers.svg).
@@ -159,9 +163,6 @@ To build the firmware follow either of the build processes below:
 2. Update the config files to match your use case
 3. Follow the instructions in the [local-build README](local-build/README.md)
 4. Firmwares will be available in the firmwares folder
-
-
-Alternatively, you can use tools like [act](https://github.com/nektos/act) to run the GitHub pipelines locally.
 
 **Pipeline Build - GitHub Actions**
 

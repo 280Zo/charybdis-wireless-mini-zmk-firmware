@@ -20,6 +20,49 @@ draw_config:
   small_pad: 2.0
   legend_rel_x: 0
   legend_rel_y: 0
+  # Composite-only corner legend wraps for render_stacked_composite.js.
+  # This does not affect keymap-drawer SVG output directly.
+  composite_corner_legend_wrap_overrides:
+    - keypos: 34
+      corner: tl
+      from: "SCREEN SHOT"
+      lines: ["SCREEN", "SHOT"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: 2
+    - keypos: 30
+      corner: tl
+      from: "NEW DIR"
+      lines: ["NEW", "DIR"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: 2
+    - keypos: 00
+      corner: tl
+      from: "ZMK Studio"
+      lines: ["ZMK", "STUDIO"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: 2
+    - keypos: 04
+      corner: br
+      from: "MV LN \uf0d8"
+      lines: ["Line", "\uf0d8"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: -2
+    - keypos: 28
+      corner: br
+      from: "MV LN \uf0d7"
+      lines: ["Line", "\uf0d7"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: -2
   draw_key_sides: false
   key_side_pars:
     rel_x: 0.0
@@ -29,29 +72,62 @@ draw_config:
     rx: 4.0
     ry: 4.0
   svg_extra_style: |
+    /* ── Theme Palette (stacked) ───────────────────────────────────── */
+    :root {
+      /* Dark palette */
+      --stack-key-fill-dark: #1d2021;   /* keycap background */
+      --stack-key-border-dark: #3c3836; /* keycap outline */
+      --stack-tap-dark: #ebdbb2;        /* main center legend text (tap label) */
+      --stack-tl-dark: #458588;         /* top-left corner legend */
+      --stack-tr-dark: #d79921;         /* top-right corner legend */
+      --stack-bl-dark: #d65d0e;         /* bottom-left corner legend */
+      --stack-br-dark: #98971a;         /* bottom-right corner legend */
+
+      /* Light palette */
+      --stack-key-fill-light: #f9f5d7;   /* keycap background */
+      --stack-key-border-light: #ebdbb2; /* keycap outline */
+      --stack-tap-light: #3c3836;        /* main center legend text (tap label) */
+      --stack-tl-light: #076678;         /* top-left corner legend */
+      --stack-tr-light: #b16286;         /* top-right corner legend */
+      --stack-bl-light: #d65d0e;         /* bottom-left corner legend */
+      --stack-br-light: #427b58;         /* bottom-right corner legend */
+
+      /* Active palette aliases used by the actual CSS rules below */
+      --stack-key-fill: var(--stack-key-fill-dark);
+      --stack-key-border: var(--stack-key-border-dark);
+      --stack-tap: var(--stack-tap-dark);
+      --stack-tl: var(--stack-tl-dark);
+      --stack-tr: var(--stack-tr-dark);
+      --stack-bl: var(--stack-bl-dark);
+      --stack-br: var(--stack-br-dark);
+    }
+
     /* ── Hide Layer Names ───────────────────────────────────── */
     text.label { display: none; }
 
     /* ── Keycap Background Color ───────────────────────────────────── */
-    rect.key { fill: #2D2D2D; }
+    rect.key { fill: var(--stack-key-fill); }
+
+    /* ── Keycap Border Color ───────────────────────────────────────── */
+    rect.key { stroke: var(--stack-key-border); stroke-width: 1; }
 
     /* ── Stacked layer color palette ───────────────────────────────────── */
-    /* Edit only the fill values below to re-theme the whole stacked image.  */
+    /* Colors are sourced from the active theme aliases above. */
 
-    /* Base - center - neutral white  */
-    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #e0bf0e; font-size: 16px; }
+    /* Base - center */
+    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: var(--stack-tap); font-size: 16px; }
 
-    /* Nav  - top-left - blue  */
-    text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
+    /* Xtra - top-left */
+    text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: var(--stack-tl); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
 
-    /* Num  - top-right- green */
-    text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
+    /* Num  - top-right */
+    text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: var(--stack-tr); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
 
-    /* Xtra - bot-left - purple */
-    text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
+    /* Nav  - bot-left */
+    text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: var(--stack-bl); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
 
-    /* Sym  - bot-right- yellow */
-    text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #00c6e6; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
+    /* Sym  - bot-right */
+    text.br  { font-family: "JetBrainsMono Nerd Font"; fill: var(--stack-br); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
 
   shrink_wide_legends: 7
   style_layer_activators: true
@@ -165,7 +241,7 @@ parse_config:
     C_AC_COPY: "\uf0c5"
     C_AC_PASTE: "\uf0ea"
     C_AL_COFFEE: "\uf023"
-    PRINTSCREEN: "SCREEN-SHOT"
+    PRINTSCREEN: "SCREEN SHOT"
     BACKSPACE: "BS"
     LC(LA(E)): "FIT"
     LS(DELETE): "SHRED"
@@ -206,12 +282,14 @@ parse_config:
     "&ht_right RSHFT K":        {t: K,     h: "Shift"}
     "&ht_right LALT L":         {t: L,     h: "Alt"}
     "&ht_right RCMD SEMICOLON": {t: ";",   h: "Gui"}
+
     # --- Tap-preferred right-hand variants ---
     "&ht_right_tp LALT L":      {t: L,     h: "Alt"}
     "&ht_right_tp RCMD SEMICOLON": {t: ";", h: "Gui"}
     "&ht_right_tp LALT I":      {t: I,     h: "Alt"}
     "&ht_right_tp RCMD O":      {t: O,     h: "Gui"}
     "&ht_left_tp LCMD A":       {t: A,     h: "Gui"}
+
     # --- Tap Dance ---
     "&td_clk": {t: "SYM LFT-CLK", type: thumb}
     "&td_bore": "L_BASE L_EXTRA"
@@ -239,7 +317,7 @@ parse_config:
     "&mmv MOVE_RIGHT": "\uf245 →"
 
     # --- Mouse Scroll (ZMK MOVE_UP = physical scroll down) ---
-    "&msc MOVE_UP": "\uef0d \uf0d8"
+    "&msc MOVE_UP": "\uf0d8 \uef0d"
     "&msc MOVE_DOWN": "\uef0d \uf0d7"
     "&msc MOVE_LEFT": "\uf0d9 \uef0d"
     "&msc MOVE_RIGHT": "\uef0d \uf0da"
@@ -273,7 +351,7 @@ parse_config:
     "&move_line_down": "MV LN \uf0d7"
     "&mc_add_above": "\uf246 \uf0d8"
     "&mc_add_below": "\uf246 \uf0d7"
-    "&delete_line": "DEL LN"
+    "&delete_line": "DEL-LN"
 
     # --- Editor / Shell ---
     "&h_split": "\ueb57"
@@ -295,7 +373,11 @@ parse_config:
     "&sync_panes": "TMUX SYNC"
 
     # --- BLE & USB ---
-    "&out OUT_TOG": "USB/BLE"
+    "&out OUT_TOG": "USB|BLE"
+    "&bt BT_SEL 0": "BT0"
+    "&bt BT_SEL 1": "BT1"
+    "&bt BT_SEL 2": "BT2"
+    "&bt BT_SEL 3": "BT3"
 
   zmk_combos: {}
   zmk_preamble: "#define KEYMAP_DRAWER"

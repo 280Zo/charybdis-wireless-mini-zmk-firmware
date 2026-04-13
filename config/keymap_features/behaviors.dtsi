@@ -234,19 +234,19 @@
         // Combo action: tap switches to last app (Alt+Tab), hold opens "all windows" (Ctrl+F10).
         ht_combo_all_windows: ht_combo_all_windows {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <180>;
-            bindings = <&kp LC(F10)>, <&kp LA(TAB)>; // hold, tap
+            bindings = <&combo_all_windows_hold &combo_all_windows_tap>; // hold, tap
         };
 
         // Combo action: tap switches to last app window (Alt+Grave), hold opens app-window overview (Ctrl+F7).
         ht_combo_app_windows: ht_combo_app_windows {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <0>;
+            #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <180>;
-            bindings = <&kp LC(F7)>, <&kp LA(GRAVE)>; // hold, tap
+            bindings = <&combo_app_windows_hold &combo_app_windows_tap>; // hold, tap
         };
 
         mm_qm_ex: question_exclamation {

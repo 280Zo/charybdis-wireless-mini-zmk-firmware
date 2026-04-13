@@ -70,14 +70,14 @@
         };
 
         combo_all_windows {
-            bindings = <&ht_combo_all_windows>;
+            bindings = <&ht_combo_all_windows 0 0>;
             key-positions = <32 33>;
             layers = <0>;
         };
 
         combo_app_windows {
             // KDE Present Windows (current app/window class).
-            bindings = <&ht_combo_app_windows>;
+            bindings = <&ht_combo_app_windows 0 0>;
             key-positions = <31 32>;
             layers = <0>;
         };

@@ -133,29 +133,53 @@ text.label, text.footer { stroke: black; }
 text.trans { fill: #7e8184; }
 path.combo { stroke: #7f7f7f; }
 
+/* ── Theme Palette (all-layers) ─────────────────────────────────── */
+:root {
+  /* Dark palette */
+  --all-key-fill-dark: #292929;
+  --all-key-border-dark: #3c3836;
+  --all-tap-dark: #e2dfd4;
+  --all-corner-dark: #4b8ca7;
+
+  /* Light palette */
+  --all-key-fill-light: #f7f3eb;
+  --all-key-border-light: #c9c3b8;
+  --all-tap-light: #3c3836;
+  --all-corner-light: #076678;
+
+  /* Active palette aliases (switch to *-light vars for light keycaps/legends) */
+  --all-key-fill: var(--all-key-fill-dark);
+  --all-key-border: var(--all-key-border-dark);
+  --all-tap: var(--all-tap-dark);
+  --all-corner: var(--all-corner-dark);
+}
+
 /* ── Layer Names (enabled for all-layers output) ───────────────────── */
 # text.label { display: none; }
 
 /* ── Keycap Background Color ───────────────────────────────────── */
-rect.key { fill: #292929; }
+rect.key { fill: var(--all-key-fill); }
+
+/* ── Keycap Border Color ───────────────────────────────────────── */
+rect.key { stroke: var(--all-key-border); stroke-width: 1; }
 
 /* ── Stacked layer color palette ───────────────────────────────────── */
-/* Edit only the fill values below to re-theme the whole stacked image.  */
+/* Colors are sourced from the active theme aliases above. */
 
 /* Base - center - neutral white  */
-text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #E2DFD4; font-size: 16px; }
+text.tap { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-tap); font-size: 16px; }
 
 /* Nav  - top-left - blue  */
-text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
+text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
 
 /* Num  - top-right- green */
-text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
+text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
 
 /* Xtra - bot-left - purple */
-text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
+text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
 
 /* Sym  - bot-right- yellow */
-text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
+text.br  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
 </style>
 <g transform="translate(30, 0)" class="layer-Base">
 <text x="0" y="28" class="label" id="Base">Base:</text>
@@ -499,7 +523,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 </g>
 <g transform="translate(754, 288) rotate(-15.0)" class="key keypos-40">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">󱁐</text>
+<text x="0" y="0" class="key tap">SPACE</text>
 </g>
 </g>
 </g>
@@ -512,13 +536,13 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 <g transform="translate(114, 66)" class="key keypos-1">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em"></tspan><tspan x="0" dy="1.5em"></tspan>
+<tspan x="0" dy="-0.75em">SCRL</tspan><tspan x="0" dy="1.5em">LEFT</tspan>
 </text>
 </g>
 <g transform="translate(190, 48)" class="key keypos-2">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em"></tspan><tspan x="0" dy="1.5em"></tspan>
+<tspan x="0" dy="-0.75em">SCRL</tspan><tspan x="0" dy="1.5em">UP</tspan>
 </text>
 </g>
 <g transform="translate(266, 38)" class="key keypos-3">
@@ -527,13 +551,13 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 <g transform="translate(342, 48)" class="key keypos-4">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em"></tspan><tspan x="0" dy="1.5em"></tspan>
+<tspan x="0" dy="-0.75em">SCRL</tspan><tspan x="0" dy="1.5em">DOWN</tspan>
 </text>
 </g>
 <g transform="translate(418, 48)" class="key keypos-5">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em"></tspan><tspan x="0" dy="1.5em"></tspan>
+<tspan x="0" dy="-0.75em">SCRL</tspan><tspan x="0" dy="1.5em">RIGHT</tspan>
 </text>
 </g>
 <g transform="translate(722, 48)" class="key keypos-6">
@@ -575,7 +599,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 </g>
 <g transform="translate(114, 142)" class="key keypos-13">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">󰮳</text>
+<text x="0" y="0" class="key tap">BACK</text>
 </g>
 <g transform="translate(190, 124)" class="key keypos-14">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
@@ -591,27 +615,37 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 </g>
 <g transform="translate(418, 124)" class="key keypos-17">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">󰮱</text>
+<text x="0" y="0" class="key tap">FORWARD</text>
 </g>
 <g transform="translate(722, 124)" class="key keypos-18">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">H</tspan><tspan x="0" dy="1.5em">SPLIT</tspan>
+</text>
 </g>
 <g transform="translate(798, 124)" class="key keypos-19">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">LEFT</tspan><tspan x="0" dy="1.5em">ARR</tspan>
+</text>
 </g>
 <g transform="translate(874, 114)" class="key keypos-20">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">DOWN</tspan><tspan x="0" dy="1.5em">ARR</tspan>
+</text>
 </g>
 <g transform="translate(950, 124)" class="key keypos-21">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">UP</tspan><tspan x="0" dy="1.5em">ARR</tspan>
+</text>
 </g>
 <g transform="translate(1026, 142)" class="key keypos-22">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">RIGHT</tspan><tspan x="0" dy="1.5em">ARR</tspan>
+</text>
 </g>
 <g transform="translate(1102, 142)" class="key keypos-23">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
@@ -622,25 +656,25 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 <g transform="translate(114, 218)" class="key keypos-25">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em">←</tspan><tspan x="0" dy="1.5em"></tspan>
+<tspan x="0" dy="-0.75em">Mouse</tspan><tspan x="0" dy="1.5em">←</tspan>
 </text>
 </g>
 <g transform="translate(190, 200)" class="key keypos-26">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em">↓</tspan><tspan x="0" dy="1.5em"></tspan>
+<tspan x="0" dy="-0.75em">Mouse</tspan><tspan x="0" dy="1.5em">↓</tspan>
 </text>
 </g>
 <g transform="translate(266, 190)" class="key keypos-27">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em"></tspan><tspan x="0" dy="1.5em">↑</tspan>
+<tspan x="0" dy="-0.75em">Mouse</tspan><tspan x="0" dy="1.5em">↑</tspan>
 </text>
 </g>
 <g transform="translate(342, 200)" class="key keypos-28">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em"></tspan><tspan x="0" dy="1.5em">→</tspan>
+<tspan x="0" dy="-0.75em">Mouse</tspan><tspan x="0" dy="1.5em">→</tspan>
 </text>
 </g>
 <g transform="translate(418, 200)" class="key keypos-29">
@@ -648,7 +682,9 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 </g>
 <g transform="translate(722, 200)" class="key keypos-30">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">V</tspan><tspan x="0" dy="1.5em">SPLIT</tspan>
+</text>
 </g>
 <g transform="translate(798, 200)" class="key keypos-31">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
@@ -712,13 +748,13 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 <g transform="translate(342, 48)" class="key keypos-4">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-1.5em">MV</tspan><tspan x="0" dy="1.5em">LN</tspan><tspan x="0" dy="1.5em"></tspan>
+<tspan x="0" dy="-1.5em">MV</tspan><tspan x="0" dy="1.5em">LN</tspan><tspan x="0" dy="1.5em">UP</tspan>
 </text>
 </g>
 <g transform="translate(418, 48)" class="key keypos-5">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em"></tspan><tspan x="0" dy="1.5em"></tspan>
+<tspan x="0" dy="-0.75em">ADD</tspan><tspan x="0" dy="1.5em">ABOVE</tspan>
 </text>
 </g>
 <g transform="translate(722, 48)" class="key keypos-6">
@@ -811,13 +847,13 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 <g transform="translate(342, 200)" class="key keypos-28">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-1.5em">MV</tspan><tspan x="0" dy="1.5em">LN</tspan><tspan x="0" dy="1.5em"></tspan>
+<tspan x="0" dy="-1.5em">MV</tspan><tspan x="0" dy="1.5em">LN</tspan><tspan x="0" dy="1.5em">DOWN</tspan>
 </text>
 </g>
 <g transform="translate(418, 200)" class="key keypos-29">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em"></tspan><tspan x="0" dy="1.5em"></tspan>
+<tspan x="0" dy="-0.75em">ADD</tspan><tspan x="0" dy="1.5em">BELOW</tspan>
 </text>
 </g>
 <g transform="translate(722, 200)" class="key keypos-30">
@@ -1000,7 +1036,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 </g>
 <g transform="translate(386, 288) rotate(15.0)" class="key keypos-37">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">󱁐</text>
+<text x="0" y="0" class="key tap">SPACE</text>
 </g>
 <g transform="translate(462, 324) rotate(30.0)" class="key keypos-38">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
@@ -1035,7 +1071,9 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 </g>
 <g transform="translate(266, 38)" class="key keypos-3">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">Git</tspan><tspan x="0" dy="1.5em">Commit</tspan>
+</text>
 </g>
 <g transform="translate(342, 48)" class="key keypos-4">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
@@ -1043,32 +1081,36 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 <g transform="translate(418, 48)" class="key keypos-5">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em">󰃠</tspan><tspan x="0" dy="1.5em">+</tspan>
+<tspan x="0" dy="-0.75em">BRIGHT</tspan><tspan x="0" dy="1.5em">▲</tspan>
 </text>
 </g>
 <g transform="translate(722, 48)" class="key keypos-6">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">USB/BLE</text>
+<text x="0" y="0" class="key tap">USB|BLE</text>
 </g>
 <g transform="translate(798, 48)" class="key keypos-7">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">BT</text>
-<text x="0" y="34" class="key hold">0</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">BT</tspan><tspan x="0" dy="1.5em">0</tspan>
+</text>
 </g>
 <g transform="translate(874, 38)" class="key keypos-8">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">BT</text>
-<text x="0" y="34" class="key hold">1</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">BT</tspan><tspan x="0" dy="1.5em">1</tspan>
+</text>
 </g>
 <g transform="translate(950, 48)" class="key keypos-9">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">BT</text>
-<text x="0" y="34" class="key hold">2</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">BT</tspan><tspan x="0" dy="1.5em">2</tspan>
+</text>
 </g>
 <g transform="translate(1026, 66)" class="key keypos-10">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">BT</text>
-<text x="0" y="34" class="key hold">3</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">BT</tspan><tspan x="0" dy="1.5em">3</tspan>
+</text>
 </g>
 <g transform="translate(1102, 66)" class="key keypos-11">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
@@ -1079,7 +1121,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 </g>
 <g transform="translate(114, 142)" class="key keypos-13">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">󰡗</text>
+<text x="0" y="0" class="key tap">SUDO</text>
 </g>
 <g transform="translate(190, 124)" class="key keypos-14">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
@@ -1093,7 +1135,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 <g transform="translate(418, 124)" class="key keypos-17">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em">󰃞</tspan><tspan x="0" dy="1.5em">-</tspan>
+<tspan x="0" dy="-0.75em">BRIGHT</tspan><tspan x="0" dy="1.5em">▼</tspan>
 </text>
 </g>
 <g transform="translate(722, 124)" class="key keypos-18">
@@ -1101,42 +1143,44 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 </g>
 <g transform="translate(798, 124)" class="key keypos-19">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">󰼨</text>
+<text x="0" y="0" class="key tap">PREV</text>
 </g>
 <g transform="translate(874, 114)" class="key keypos-20">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">󰐎</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">PLAY</tspan><tspan x="0" dy="1.5em">PAUSE</tspan>
+</text>
 </g>
 <g transform="translate(950, 124)" class="key keypos-21">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">STOP</text>
 </g>
 <g transform="translate(1026, 142)" class="key keypos-22">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap">󰼧</text>
+<text x="0" y="0" class="key tap">NEXT</text>
 </g>
 <g transform="translate(1102, 142)" class="key keypos-23">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 </g>
 <g transform="translate(38, 218)" class="key keypos-24">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">COFFEE</text>
 </g>
 <g transform="translate(114, 218)" class="key keypos-25">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">UNDO</text>
 </g>
 <g transform="translate(190, 200)" class="key keypos-26">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">CUT</text>
 </g>
 <g transform="translate(266, 190)" class="key keypos-27">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">COPY</text>
 </g>
 <g transform="translate(342, 200)" class="key keypos-28">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">PASTE</text>
 </g>
 <g transform="translate(418, 200)" class="key keypos-29">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
@@ -1149,15 +1193,19 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11p
 </g>
 <g transform="translate(798, 200)" class="key keypos-31">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">MUTE</text>
 </g>
 <g transform="translate(874, 190)" class="key keypos-32">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">VOL</tspan><tspan x="0" dy="1.5em">▼</tspan>
+</text>
 </g>
 <g transform="translate(950, 200)" class="key keypos-33">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
-<text x="0" y="0" class="key tap"></text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.75em">VOL</tspan><tspan x="0" dy="1.5em">▲</tspan>
+</text>
 </g>
 <g transform="translate(1026, 218)" class="key keypos-34">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>

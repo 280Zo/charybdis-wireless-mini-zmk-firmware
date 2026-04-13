@@ -230,5 +230,29 @@
                 , <&macro_tap &kp FSLH>
                 ;
         };
+
+        combo_all_windows_hold: combo_all_windows_hold {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(F10)>;
+        };
+
+        combo_all_windows_tap: combo_all_windows_tap {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LA(TAB)>;
+        };
+
+        combo_app_windows_hold: combo_app_windows_hold {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(F7)>;
+        };
+
+        combo_app_windows_tap: combo_app_windows_tap {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LA(GRAVE)>;
+        };
     };
 };

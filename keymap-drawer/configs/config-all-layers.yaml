@@ -29,29 +29,53 @@ draw_config:
     rx: 4.0
     ry: 4.0
   svg_extra_style: |
+    /* ── Theme Palette (all-layers) ─────────────────────────────────── */
+    :root {
+      /* Dark palette */
+      --all-key-fill-dark: #292929;
+      --all-key-border-dark: #3c3836;
+      --all-tap-dark: #e2dfd4;
+      --all-corner-dark: #4b8ca7;
+
+      /* Light palette */
+      --all-key-fill-light: #f7f3eb;
+      --all-key-border-light: #c9c3b8;
+      --all-tap-light: #3c3836;
+      --all-corner-light: #076678;
+
+      /* Active palette aliases (switch to *-light vars for light keycaps/legends) */
+      --all-key-fill: var(--all-key-fill-dark);
+      --all-key-border: var(--all-key-border-dark);
+      --all-tap: var(--all-tap-dark);
+      --all-corner: var(--all-corner-dark);
+    }
+
     /* ── Layer Names (enabled for all-layers output) ───────────────────── */
     # text.label { display: none; }
 
     /* ── Keycap Background Color ───────────────────────────────────── */
-    rect.key { fill: #292929; }
+    rect.key { fill: var(--all-key-fill); }
+
+    /* ── Keycap Border Color ───────────────────────────────────────── */
+    rect.key { stroke: var(--all-key-border); stroke-width: 1; }
 
     /* ── Stacked layer color palette ───────────────────────────────────── */
-    /* Edit only the fill values below to re-theme the whole stacked image.  */
+    /* Colors are sourced from the active theme aliases above. */
 
     /* Base - center - neutral white  */
-    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #E2DFD4; font-size: 16px; }
+    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-tap); font-size: 16px; }
 
     /* Nav  - top-left - blue  */
-    text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
+    text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
 
     /* Num  - top-right- green */
-    text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
+    text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
 
     /* Xtra - bot-left - purple */
-    text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
+    text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
 
     /* Sym  - bot-right- yellow */
-    text.br  { font-family: "JetBrainsMono Nerd Font"; fill: #4B8CA7; font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
+    text.br  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
 
   shrink_wide_legends: 7
   style_layer_activators: true
@@ -206,12 +230,14 @@ parse_config:
     "&ht_right RSHFT K":        {t: K,     h: "Shift"}
     "&ht_right LALT L":         {t: L,     h: "Alt"}
     "&ht_right RCMD SEMICOLON": {t: ";",   h: "Gui"}
+
     # --- Tap-preferred right-hand variants ---
     "&ht_right_tp LALT L":      {t: L,     h: "Alt"}
     "&ht_right_tp RCMD SEMICOLON": {t: ";", h: "Gui"}
     "&ht_right_tp LALT I":      {t: I,     h: "Alt"}
     "&ht_right_tp RCMD O":      {t: O,     h: "Gui"}
     "&ht_left_tp LCMD A":       {t: A,     h: "Gui"}
+    
     # --- Tap Dance ---
     "&td_clk": {t: "SYM LFT-CLK", type: thumb}
     "&td_bore": "L_BASE L_EXTRA"
@@ -295,7 +321,11 @@ parse_config:
     "&sync_panes": "TMUX SYNC"
 
     # --- BLE & USB ---
-    "&out OUT_TOG": "USB/BLE"
+    "&out OUT_TOG": "USB|BLE"
+    "&bt BT_SEL 0": "BT 0"
+    "&bt BT_SEL 1": "BT 1"
+    "&bt BT_SEL 2": "BT 2"
+    "&bt BT_SEL 3": "BT 3"
 
   zmk_combos: {}
   zmk_preamble: "#define KEYMAP_DRAWER"

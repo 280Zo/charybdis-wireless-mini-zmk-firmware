@@ -14,30 +14,71 @@ draw_config:
   legend_rel_x: 2.0
   legend_rel_y: 2.0
 
-  # styling hooks
+  # styling
   svg_extra_style: |
+    /* ── Theme Palette (combos) ────────────────────────────────────── */
+    :root {
+      /* Dark palette */
+      --combo-key-fill-dark: #3c3836;
+      --combo-key-border-dark: #504945;
+      --combo-tap-dark: #8ec07c;
+      --combo-box-stroke-dark: #d5c4a1;
+      --combo-dendron-dark: #d5c4a1;
+
+      /* Light palette */
+      --combo-key-fill-light: #d5c4a1;
+      --combo-key-border-light: #a89984;
+      --combo-tap-light: #fb4934;
+      --combo-box-stroke-light: #a89984;
+      --combo-dendron-light: #a89984;
+
+      /* Active palette aliases (switch to *-light vars for light keycaps/legends) */
+      --combo-key-fill: var(--combo-key-fill-dark);
+      --combo-key-border: var(--combo-key-border-dark);
+      --combo-tap: var(--combo-tap-dark);
+      --combo-box-stroke: var(--combo-box-stroke-dark);
+      --combo-dendron: var(--combo-dendron-dark);
+    }
+
     /* ── Hide Layer Names ───────────────────────────────────── */
     text.label { display: none; }
 
+    /* ── Keycap Background Color ───────────────────────────────────── */
+    rect.key { fill: var(--combo-key-fill); }
+
+    /* ── Keycap Border Color ───────────────────────────────────────── */
+    rect.key { stroke: var(--combo-key-border); stroke-width: 1; }
+
     /* ── Keycap Text Color ───────────────────────────────────── */
-    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: #137f8a; font-size: 16px; }
+    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: var(--combo-tap); font-size: 16px; }
 
     /* ── Combo Boxes: fill and border color ───────────────── */
     rect.combo, rect.combo-separate {
       fill: transparent;
-      stroke: #1d4d80;
+      stroke: var(--combo-box-stroke);
       stroke-width: 0;
     }
 
     /* ── Combo connector readability ───────────────────────── */
     /* Round end-caps make dendrons visually enter the trigger keys. */
     path.combo {
+      stroke: var(--combo-dendron);
       stroke-linecap: round;
       stroke-width: 1.6;
     }
 
-    /* ── Keycap Background Color ───────────────────────────────────── */
-    rect.key { fill: #363B3D; }
+    /* ── Per-combo label sizing for adjacent window combos ── */
+    /*
+     * These two combos are next to each other, so keep their text smaller
+     * to avoid overlap while preserving the full labels.
+     *
+     * NOTE: combopos indices are based on current combo order. If you add or
+     * reorder combos in combos.dtsi, update these selectors accordingly.
+     */
+    .combopos-10 text.combo.tap,
+    .combopos-11 text.combo.tap {
+      font-size: 12px;
+    }
 
 parse_config:
   preprocess: true
@@ -74,5 +115,5 @@ parse_config:
     "&mkp RCLK": "Right Click"
     "&bootloader": "BOOT LOADER"
     "&bt BT_CLR": "BT CLEAR"
-    "&ht_combo_all_windows": "ALL WIN COMBO"
-    "&ht_combo_app_windows": "APP WIN COMBO"
+    "&ht_combo_app_windows": "APP-WIN LAST/ALL"
+    "&ht_combo_all_windows": "ALL-WIN LAST/ALL"

@@ -19,3 +19,11 @@ keymap-drawer/stacked/qwerty.yaml
 keymap-drawer/stacked/stacked.yaml
 keymap-drawer/stacked/combos.yaml
 keymap-drawer/stacked/combos-merged.yaml
+
+# keymap-drawer generated intermediates (parse/draw pipeline)
+keymap-drawer/all_layers/qwerty.yaml
+keymap-drawer/stacked/stacked.svg
+keymap-drawer/stacked/combos.svg
+keymap-drawer/stacked/legend.svg
+keymap-drawer/stacked/stacked.png
+keymap-drawer/stacked/stacked-combos.png

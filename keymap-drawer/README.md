@@ -11,11 +11,17 @@
 - `stacked` output look (`stacked.svg`, `stacked.png`, `legend.svg`): edit `keymap-drawer/configs/config-stacked.yaml`.
 - `combos` output look (`combos.svg`): edit `keymap-drawer/configs/config-combo.yaml`.
 - `all_layers` output look (`all_layers.svg`): edit `keymap-drawer/configs/config-all-layers.yaml`.
-- Composite page layout/background (`stacked-combos.png`): edit env values in `.github/workflows/draw_keymaps.yml` and layout CSS in `keymap-drawer/stacked/composite-template.html`.
+- Composite page layout/background (`stacked-combos-dark.png` / `stacked-combos-light.png`): edit env values in `.github/workflows/draw_keymaps.yml` and layout CSS in `keymap-drawer/stacked/composite-template.html`.
 - Legend key text (`Legend / Nav / Num / Xtra / Sym`): edit `keymap-drawer/stacked/legend-1x1.yaml`.
 
 ### Colors & sizing
-- Background gradient is set via `KEYMAP_BG` (top) and `KEYMAP_BG_END` (bottom) in `.github/workflows/draw_keymaps.yml`.
+- Theme ownership:
+  - Key/legend/border theme palettes live in the config files under `draw_config.svg_extra_style` using `--*-dark` and `--*-light` CSS variables.
+  - Each config has active aliases (`--stack-*`, `--combo-*`, `--all-*`) that currently default to dark values. Switch aliases to `*-light` vars to preview light key/legend colors in that SVG.
+  - Composite background gradient is not part of keymap-drawer output and is set in `.github/workflows/draw_keymaps.yml` (`KEYMAP_BG_*`, `KEYMAP_BG_END_*`).
+- Background gradients are set via:
+  - Dark: `KEYMAP_BG_DARK` (top) and `KEYMAP_BG_END_DARK` (bottom)
+  - Light: `KEYMAP_BG_LIGHT` (top) and `KEYMAP_BG_END_LIGHT` (bottom)
 - Keycap fill is set in each config under `draw_config.svg_extra_style` (`rect.key { fill: ... }`).
 - Key size: `key_w`, `key_h`; corner rounding: `key_rx`, `key_ry`.
 - Legend inset: adjust `transform: translate(...)` on `text.tl/tr/bl/br` in the configs.
@@ -25,11 +31,14 @@
 1) `keymap parse` produces stacked and combo YAMLs.
 2) `keymap draw` generates `stacked.svg`, `combos.svg`, `legend.svg`, `all_layers.svg`.
 3) rsvg converts `stacked.svg` to `stacked.png`.
-4) Playwright uses `scripts/render_stacked_composite.js` + `keymap-drawer/stacked/composite-template.html` to compose `stacked.svg` + `legend.svg` + `combos.svg` into `stacked-combos.png`.
+4) Playwright uses `scripts/render_stacked_composite.js` + `keymap-drawer/stacked/composite-template.html` to compose `stacked.svg` + `legend.svg` + `combos.svg` into:
+   - `stacked-combos-dark.png`
+   - `stacked-combos-light.png`
 
 ### Env knobs (workflow)
-- `KEYMAP_BG` — composite background gradient start color (CSS color). Default `#2F4858`.
-- `KEYMAP_BG_END` — composite background gradient end color (CSS color). Default `#272727`.
+- `KEYMAP_BG_DARK` / `KEYMAP_BG_END_DARK` — dark-theme composite gradient start/end colors.
+- `KEYMAP_BG_LIGHT` / `KEYMAP_BG_END_LIGHT` — light-theme composite gradient start/end colors.
+- `KEYMAP_STYLE_THEME` — palette selection applied to stacked/combos/legend SVG aliases before capture (`dark` or `light`).
 - `KEYMAP_ALPHA` — when `1`, Playwright captures with alpha (`omitBackground: true`). Default `1`.
 - `KEYMAP_GAP` — vertical gap between stacked and combos (pixels). Default `0px`. Typical range: `0px` (touching) to `40px` (roomy).
 - `KEYMAP_MARGIN` — padding around the composite (pixels). Default `10px` on all sides.
@@ -44,12 +53,19 @@ Quick presets:
 ### Updating legends
 - Remap labels via `parse_config.raw_binding_map` in the configs.
 - Corner legend positions: tweak the `transform: translate` on `text.tl/tr/bl/br`.
+- Composite-only multiline corner wraps: set `draw_config.composite_corner_legend_wrap_overrides` in `keymap-drawer/configs/config-stacked.yaml`.
+  - `keypos`: key index (`keypos-<n>` in the stacked SVG)
+  - `corner`: one of `tl`, `tr`, `bl`, `br`
+  - `from`: exact current legend text to match (optional but recommended)
+  - `lines`: array of output lines (minimum 2)
+  - `tspan_style` and `line_height_em`: optional visual tuning
+  - `x_offset` / `y_offset`: optional pixel nudge for the wrapped block (positive values move right/down)
 - Legend key content is stored in `keymap-drawer/stacked/legend-1x1.yaml` (rendered with `--ortho-layout '{rows: 1, columns: 1}'`).
 
 ### Quick edit points
-- Background only: change `KEYMAP_BG` in the workflow (applies to rsvg + Playwright).
-- Composite gradient end color: change `KEYMAP_BG_END` in the workflow (Playwright composite only).
-- Alpha output for `stacked-combos.png`: set `KEYMAP_ALPHA=1` and use alpha-capable CSS colors (for example `rgba(13,17,23,0)`).
+- Background only: change the dark/light `KEYMAP_BG_*` env vars in the workflow.
+- Composite gradient end color: change the dark/light `KEYMAP_BG_END_*` env vars in the workflow.
+- Alpha output for composite PNGs: set `KEYMAP_ALPHA=1` and use alpha-capable CSS colors (for example `rgba(13,17,23,0)`).
 - Keycap color: change `rect.key { fill: ... }` in the relevant config under `keymap-drawer/configs/`.
 - Combo box color: change `rect.combo, rect.combo-separate { fill: ... }` in the relevant config under `keymap-drawer/configs/`.
 - Composite spacing: change `KEYMAP_GAP` and `KEYMAP_MARGIN`.
