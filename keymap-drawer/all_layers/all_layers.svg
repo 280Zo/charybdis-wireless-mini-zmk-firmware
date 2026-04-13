@@ -674,7 +674,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font
 <g transform="translate(342, 200)" class="key keypos-28">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em">Mouse</tspan><tspan x="0" dy="1.5em">-></tspan>
+<tspan x="0" dy="-0.75em">Mouse</tspan><tspan x="0" dy="1.5em">→</tspan>
 </text>
 </g>
 <g transform="translate(418, 200)" class="key keypos-29">
