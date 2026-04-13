@@ -227,16 +227,16 @@ build_firmware() {
   echo "=== PUBLISHING ARTIFACT & CLEANING UP ==="
   # Map the entry format to the correct directory name:
   # "bt"                - use charybdis_bt
-  # "standard_dongle"   - use charybdis_dongle
+  # "dongle_standard_nano" - use charybdis_dongle
   # Prospector entries  - use charybdis_dongle_prospector_<board>_<variant>
   # anything else       - just use the original format name
   case "$entry_format" in
     bt)                format_dir="charybdis_bt" ;;
-    standard_dongle)   format_dir="charybdis_dongle" ;;
-    dongle_prospector_no_sensor)
+    dongle_standard_nano)   format_dir="charybdis_dongle" ;;
+    dongle_prospector_no_sensor|dongle_prospector_nano_no_sensor)
       format_dir="charybdis_dongle_prospector_nice_nanov2_no_sensor"
       ;;
-    dongle_prospector_sensor)
+    dongle_prospector_sensor|dongle_prospector_nano_sensor)
       format_dir="charybdis_dongle_prospector_nice_nanov2_sensor"
       ;;
     dongle_prospector_xiao_no_sensor)

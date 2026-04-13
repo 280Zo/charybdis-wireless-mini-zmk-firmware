@@ -25,7 +25,7 @@ include:
       # - graphite
 
 # ── Standard Dongle Firmwares ─────────────────────────────────────────────────
-  - name: standard_dongle
+  - name: dongle_standard_nano
     board: nice_nano//zmk
     shield:
       - charybdis_left_dongle
@@ -58,7 +58,7 @@ include:
 
 
 # ── Prospector Nice Nano v2 Dongle w/o APDS9960 ambient light sensor ──────────────────────────
-  - name: dongle_prospector_no_sensor
+  - name: dongle_prospector_nano_no_sensor
     board: nice_nano//zmk
     keymap:
       - qwerty
@@ -76,7 +76,7 @@ include:
           - dongle_prospector/dongle_prospector_no_sensor.overlay
 
 # ── Prospector Nice Nano v2 Dongle with APDS9960 ambient light sensor ──────────────────────────
-  - name: dongle_prospector_sensor
+  - name: dongle_prospector_nano_sensor
     board: nice_nano//zmk
     keymap:
       - qwerty

@@ -127,7 +127,7 @@ To change which firmware families are built:
 The main build families are:
 
 - `bt`: Bluetooth split builds
-- `standard_dongle`: the default no-screen dongle builds
+- `dongle_standard_nano`: the default no-screen dongle builds
 - `dongle_prospector_*`: screen-enabled dongle builds using the Prospector adapter
 
 For any of the Prospector dongle firmwares, there are additional customization options.
