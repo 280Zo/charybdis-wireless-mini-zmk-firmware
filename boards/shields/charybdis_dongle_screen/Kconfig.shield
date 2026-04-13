@@ -1,2 +1,0 @@
-config SHIELD_CHARYBDIS_DONGLE_SCREEN
-	def_bool $(shields_list_contains,charybdis_dongle_screen)

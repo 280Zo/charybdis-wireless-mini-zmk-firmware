@@ -1,0 +1,384 @@
+draw_config:
+  key_w: 80
+  key_h: 76
+  split_gap: 30.0
+  combo_w: 33
+  combo_h: 31
+  key_rx: 6.0
+  key_ry: 6.0
+  dark_mode: true
+  n_columns: 1
+  separate_combo_diagrams: false
+  combo_diagrams_scale: 2
+  inner_pad_w: 2.0
+  inner_pad_h: 2.0
+  outer_pad_w: 30.0
+  outer_pad_h: 56.0
+  line_spacing: 1.5
+  arc_radius: 6.0
+  append_colon_to_layer_header: true
+  small_pad: 2.0
+  legend_rel_x: 0
+  legend_rel_y: 0
+  # Composite-only corner legend wraps for render_stacked_composite.js.
+  # This does not affect keymap-drawer SVG output directly.
+  composite_corner_legend_wrap_overrides:
+    - keypos: 34
+      corner: tl
+      from: "SCREEN SHOT"
+      lines: ["SCREEN", "SHOT"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: 2
+    - keypos: 30
+      corner: tl
+      from: "NEW DIR"
+      lines: ["NEW", "DIR"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: 2
+    - keypos: 00
+      corner: tl
+      from: "ZMK Studio"
+      lines: ["ZMK", "STUDIO"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: 2
+    - keypos: 04
+      corner: br
+      from: "MV LN \uf0d8"
+      lines: ["Line", "\uf0d8"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: -2
+    - keypos: 28
+      corner: br
+      from: "MV LN \uf0d7"
+      lines: ["Line", "\uf0d7"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: -2
+  draw_key_sides: false
+  key_side_pars:
+    rel_x: 0.0
+    rel_y: 4.0
+    rel_w: 12.0
+    rel_h: 12.0
+    rx: 4.0
+    ry: 4.0
+  svg_extra_style: |
+    /* ── Theme Palette (stacked) ───────────────────────────────────── */
+    :root {
+      /* Dark palette */
+      --stack-key-fill-dark: #1d2021;   /* keycap background */
+      --stack-key-border-dark: #3c3836; /* keycap outline */
+      --stack-tap-dark: #ebdbb2;        /* main center legend text (tap label) */
+      --stack-tl-dark: #458588;         /* top-left corner legend */
+      --stack-tr-dark: #d79921;         /* top-right corner legend */
+      --stack-bl-dark: #d65d0e;         /* bottom-left corner legend */
+      --stack-br-dark: #98971a;         /* bottom-right corner legend */
+
+      /* Light palette */
+      --stack-key-fill-light: #f9f5d7;   /* keycap background */
+      --stack-key-border-light: #ebdbb2; /* keycap outline */
+      --stack-tap-light: #3c3836;        /* main center legend text (tap label) */
+      --stack-tl-light: #076678;         /* top-left corner legend */
+      --stack-tr-light: #b16286;         /* top-right corner legend */
+      --stack-bl-light: #d65d0e;         /* bottom-left corner legend */
+      --stack-br-light: #427b58;         /* bottom-right corner legend */
+
+      /* Active palette aliases used by the actual CSS rules below */
+      --stack-key-fill: var(--stack-key-fill-dark);
+      --stack-key-border: var(--stack-key-border-dark);
+      --stack-tap: var(--stack-tap-dark);
+      --stack-tl: var(--stack-tl-dark);
+      --stack-tr: var(--stack-tr-dark);
+      --stack-bl: var(--stack-bl-dark);
+      --stack-br: var(--stack-br-dark);
+    }
+
+    /* ── Hide Layer Names ───────────────────────────────────── */
+    text.label { display: none; }
+
+    /* ── Keycap Background Color ───────────────────────────────────── */
+    rect.key { fill: var(--stack-key-fill); }
+
+    /* ── Keycap Border Color ───────────────────────────────────────── */
+    rect.key { stroke: var(--stack-key-border); stroke-width: 1; }
+
+    /* ── Stacked layer color palette ───────────────────────────────────── */
+    /* Colors are sourced from the active theme aliases above. */
+
+    /* Base - center */
+    text.tap { font-family: "JetBrainsMono Nerd Font"; fill: var(--stack-tap); font-size: 16px; }
+
+    /* Xtra - top-left */
+    text.tl  { font-family: "JetBrainsMono Nerd Font"; fill: var(--stack-tl); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, 2px); }
+
+    /* Num  - top-right */
+    text.tr  { font-family: "JetBrainsMono Nerd Font"; fill: var(--stack-tr); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, 2px); }
+
+    /* Nav  - bot-left */
+    text.bl  { font-family: "JetBrainsMono Nerd Font"; fill: var(--stack-bl); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(2px, -2px); }
+
+    /* Sym  - bot-right */
+    text.br  { font-family: "JetBrainsMono Nerd Font"; fill: var(--stack-br); font-size: 11px; font-weight: 600; fill-opacity: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transform: translate(-2px, -2px); }
+
+  shrink_wide_legends: 7
+  style_layer_activators: true
+  glyph_tap_size: 14
+  glyph_hold_size: 12
+  glyph_shifted_size: 10
+  glyphs: {}
+parse_config:
+  preprocess: true
+  skip_binding_parsing: false
+  sticky_label: sticky
+  toggle_label: toggle
+  tap_toggle_label: tap-toggle
+  trans_legend:
+    t: ▽
+    type: trans
+  mark_alternate_layer_activators: false
+  modifier_fn_map:
+    left_ctrl: Ctl
+    right_ctrl: Ctl
+    left_shift: Sft
+    right_shift: Sft
+    left_alt: Alt
+    right_alt: AGr
+    left_gui: Gui
+    right_gui: Gui
+    keycode_combiner: "{mods}+ {key}"
+    mod_combiner: "{mod_1}+{mod_2}"
+    special_combinations:
+      left_ctrl+left_alt+left_gui+left_shift: Hyper
+      left_ctrl+left_alt+left_shift: Meh
+  zmk_remove_keycode_prefix: []
+  zmk_keycode_map:
+    EXCLAMATION: "!"
+    EXCL: "!"
+    AT_SIGN: "@"
+    AT: "@"
+    HASH: "#"
+    POUND: "#"
+    DOLLAR: $
+    DLLR: $
+    PERCENT: "%"
+    PRCNT: "%"
+    CARET: ^
+    AMPERSAND: "&"
+    AMPS: "&"
+    ASTERISK: "*"
+    ASTRK: "*"
+    STAR: "*"
+    LEFT_PARENTHESIS: (
+    LPAR: (
+    RIGHT_PARENTHESIS: )
+    RPAR: )
+    EQUAL: "="
+    PLUS: +
+    MINUS: "-"
+    UNDERSCORE: _
+    UNDER: _
+    SLASH: /
+    FSLH: /
+    QUESTION: "?"
+    QMARK: "?"
+    BACKSLASH: \
+    BSLH: \
+    PIPE: "|"
+    NON_US_BACKSLASH: \
+    PIPE2: "|"
+    NON_US_BSLH: "|"
+    SEMICOLON: ;
+    SEMI: ;
+    COLON: ":"
+    SINGLE_QUOTE: "'"
+    SQT: "'"
+    APOSTROPHE: "'"
+    APOS: "'"
+    DOUBLE_QUOTES: '"'
+    DQT: '"'
+    COMMA: ","
+    LESS_THAN: <
+    LT: <
+    PERIOD: .
+    DOT: .
+    GREATER_THAN: ">"
+    GT: ">"
+    LEFT_BRACKET: "["
+    LBKT: "["
+    LEFT_BRACE: "{"
+    LBRC: "{"
+    RIGHT_BRACKET: "]"
+    RBKT: "]"
+    RIGHT_BRACE: "}"
+    RBRC: "}"
+    GRAVE: "`"
+    TILDE: "~"
+    NON_US_HASH: "#"
+    NUHS: "#"
+    TILDE2: "~"
+    LA(LC(T)): "SHELL"
+    C_AC_SEARCH: "SEARCH"
+    LG(E): "WINDOW"
+    LC(F7): "APP WIN"
+    LC(LA(LEFT_SHIFT)): "MEH"
+    LA(LC(LG(LEFT_SHIFT))): "HYPER"
+    LC(F10): "ALL WIN"
+    LS(LC(H)): "PANE ◀"
+    LS(LC(J)): "PANE ▲"
+    LS(LC(K)): "PANE ▼"
+    LS(LC(L)): "PANE ▶"
+    C_AC_UNDO: "\uf0e2"
+    C_AC_CUT: "\uf0c4"
+    C_AC_COPY: "\uf0c5"
+    C_AC_PASTE: "\uf0ea"
+    C_AL_COFFEE: "\uf023"
+    PRINTSCREEN: "SCREEN SHOT"
+    BACKSPACE: "BS"
+    LC(LA(E)): "FIT"
+    LS(DELETE): "SHRED"
+    LA(LC(LS(Z))): "TAG Z"
+    LA(LC(LS(E))): "TAG E"
+    LA(LC(LS(A))): "TAG A"
+    LA(LC(LS(S))): "TAG S"
+    LA(LC(LS(B))): "TAG B"
+    LA(LS(A)): "SHOW TAGS"
+    LA(KP_N1): "REJECT"
+    LA(KP_N2): "PENDING"
+    LA(KP_N3): "ACCEPT"
+    BRIGHTNESS INC: "󰃠 +"
+    C_BRIGHTNESS_INC: "󰃠 +"
+    BRIGHTNESS DEC: "󰃞 -"
+    C_BRIGHTNESS_DEC: "󰃞 -"
+    KP_MINUS: "-"
+    KP_SLASH: "/"
+    K_MUTE: "\uf466"
+    C_VOLUME_UP: "\uf028"
+    C_VOLUME_DOWN: "\uf027"
+    LEFT_ARROW: "\uf0a8"
+    DOWN: "\uf0ab"
+    UP: "\uf0aa"
+    RIGHT_ARROW: "\uf0a9"
+    C_PREVIOUS: "󰼨"
+    C_PLAY_PAUSE: "󰐎"
+    C_STOP: "\ueba5"
+    C_NEXT: "󰼧"
+    SPACE: "󱁐"
+  raw_binding_map:
+    # --- Hold-tap / Home Row Mods (legacy + shared) ---
+    "&ht_left LCMD A":          {t: A,     h: "Gui"}
+    "&ht_left LALT S":          {t: S ,    h: "Alt"}
+    "&ht_left LSHFT D":         {t: D,     h: "Shift"}
+    "&ht_left LCTRL F":         {t: F,     h: "Ctrl"}
+    "&ht_right RCTRL J":        {t: J,     h: "Ctrl"}
+    "&ht_right RSHFT K":        {t: K,     h: "Shift"}
+    "&ht_right LALT L":         {t: L,     h: "Alt"}
+    "&ht_right RCMD SEMICOLON": {t: ";",   h: "Gui"}
+
+    # --- Tap-preferred right-hand variants ---
+    "&ht_right_tp LALT L":      {t: L,     h: "Alt"}
+    "&ht_right_tp RCMD SEMICOLON": {t: ";", h: "Gui"}
+    "&ht_right_tp LALT I":      {t: I,     h: "Alt"}
+    "&ht_right_tp RCMD O":      {t: O,     h: "Gui"}
+    "&ht_left_tp LCMD A":       {t: A,     h: "Gui"}
+
+    # --- Tap Dance ---
+    "&td_clk": {t: "SYM LFT-CLK", type: thumb}
+    "&td_bore": "L_BASE L_EXTRA"
+    "&tdmt": "L1/BS LCLK"
+    "&tdbt": "L2/ESC RCLK"
+    "&td_layers": "L_BASE L_GAME"
+    "&td_cursor": "L_SCRL L_SLOW"
+    "&td_home": "~/"
+    "&td_equals": "="
+    "&td_esc_scrl_slow": {t: "ESC L_SCRL L_SLOW", type: thumb}
+    "&td_space_nav":     {t: "󱁐 L_NAV",     type: thumb}
+    "&td_bs":            {t: "BS L_NUM",    type: thumb}
+
+    # --- Mouse Clicks ---
+    "&mkp LCLK": "L CLK"
+    "&mkp RCLK": "R CLK"
+    "&mkp MCLK": "Mid CLK"
+    "&mkp MB4": "󰮳"
+    "&mkp MB5": "󰮱"
+
+    # --- Mouse Movement ---
+    "&mmv MOVE_UP": "\uf245 ↑"
+    "&mmv MOVE_DOWN": "↓ \uf245"
+    "&mmv MOVE_LEFT": "← \uf245"
+    "&mmv MOVE_RIGHT": "\uf245 →"
+
+    # --- Mouse Scroll (ZMK MOVE_UP = physical scroll down) ---
+    "&msc MOVE_UP": "\uf0d8 \uef0d"
+    "&msc MOVE_DOWN": "\uef0d \uf0d7"
+    "&msc MOVE_LEFT": "\uf0d9 \uef0d"
+    "&msc MOVE_RIGHT": "\uef0d \uf0da"
+
+    # --- Mod-Morph Punctuation ---
+    "&mm_cm_sc": ", ;"
+    "&mm_pr_col": ". :"
+    "&mm_qm_ex": "? !"
+
+    # --- Mod-Morph F-Keys (shift to activate) ---
+    "&mm_f1": "1|F1"
+    "&mm_f2": "2|F2"
+    "&mm_f3": "3|F3"
+    "&mm_f4": "4|F4"
+    "&mm_f5": "5|F5"
+    "&mm_f6": "6|F6"
+    "&mm_f7": "7|F7"
+    "&mm_f8": "8|F8"
+    "&mm_f9": "9|F9"
+    "&mm_f10": "%|F10"
+    "&mm_f11": "*|F11"
+    "&mm_f12": ".|F12"
+
+    # --- ZMK / System ---
+    "&bootloader": "BOOT LDR"
+    "&caps_word": "CAPS WORD"
+    "&studio_unlock": "ZMK Studio"
+
+    # --- SYM Layer Macros ---
+    "&move_line_up": "MV LN \uf0d8"
+    "&move_line_down": "MV LN \uf0d7"
+    "&mc_add_above": "\uf246 \uf0d8"
+    "&mc_add_below": "\uf246 \uf0d7"
+    "&delete_line": "DEL-LN"
+
+    # --- Editor / Shell ---
+    "&h_split": "\ueb57"
+    "&v_split": "\ueb56"
+    "&clip_hist": "CLIP HIST"
+    "&new_dir": "NEW DIR"
+    "&shrug": "SHRUG"
+    "&lgtm": "LGTM"
+    "&gcm": "\ueafc"
+    "&sudo": "󰡗"
+    "&code_blk": "```"
+    "&home_dir": "~/"
+
+    # --- TMUX ---
+    "&detach_session": "TMUX DETCH"
+    "&create_or_attach": "TMUX ATTCH"
+    "&next_pane": "TMUX NEXT"
+    "&show_sessions": "TMUX SESH"
+    "&sync_panes": "TMUX SYNC"
+
+    # --- BLE & USB ---
+    "&out OUT_TOG": "USB|BLE"
+    "&bt BT_SEL 0": "BT0"
+    "&bt BT_SEL 1": "BT1"
+    "&bt BT_SEL 2": "BT2"
+    "&bt BT_SEL 3": "BT3"
+
+  zmk_combos: {}
+  zmk_preamble: "#define KEYMAP_DRAWER"
+  zmk_additional_includes: []

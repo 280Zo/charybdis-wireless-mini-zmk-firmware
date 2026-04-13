@@ -1,0 +1,7 @@
+&i2c1 {
+    status = "disabled";
+};
+
+&apds9960 {
+    status = "disabled";
+};

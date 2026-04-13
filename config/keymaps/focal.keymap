@@ -37,14 +37,14 @@
         BASE {
             display-name = "Base";
             bindings = <
-// ╭───────────────┬────────────────┬────────────────┬─────────────────┬─────────────────┬──────╮  ╭──────┬──────────────────┬──────────────────┬─────────────────┬────────────────────────┬─────────────╮
-    &kp C_AC_SEARCH &kp V            &kp L            &kp H             &kp G             &kp K     &kp Q  &kp F              &kp O              &kp U             &kp J                     &td_layers
-// ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼─────────────┤
-    &kp TAB         &ht_left LCMD S  &ht_left LALT R  &ht_left LSHFT N  &ht_left LCTRL T  &kp B     &kp Y  &ht_right RCTRL C  &ht_right RSHFT A  &ht_right LALT E  &ht_right RCMD I  &kp DEL
-// ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼────────────────────────┼─────────────┤
-    &clip_hist      &kp Z            &kp X            &kp M             &kp D             &kp P     &kp APOS  &kp W              &mm_cm_sc          &mm_pr_col        &mm_qm_ex                 &kp FSLH
-// ╰───────────────┴────────────────┴────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┴─────────────────┴────────────────────────┴─────────────╯
-                                                             &td_esc_scrl_slow   &td_clk  &td_bs     &kp ENTER  &td_space_nav
+// ╭───────────────┬────────────────┬────────────────┬─────────────────┬─────────────────┬──────╮  ╭──────┬──────────────────┬──────────────────┬─────────────────┬─────────────────┬─────────────╮
+    &kp C_AC_SEARCH  &kp V            &kp L            &kp H             &kp G             &kp K    &kp Q   &kp F              &kp O              &kp U             &kp J           &td_layers
+// ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼─────────────────┼─────────────┤
+    &kp TAB          &ht_left LCMD S  &ht_left LALT R  &lt 7 N            &ht_left LCTRL T  &kp B    &kp Y   &ht_right RCTRL C  &lt 6 A              &ht_right_tp LALT E  &ht_right_tp RCMD I   &kp DEL
+// ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼─────────────────┼─────────────┤
+    &clip_hist       &kp Z            &kp X            &kp M             &kp D             &kp P    &kp APOS   &kp W              &mm_cm_sc          &mm_pr_col        &mm_qm_ex          &kp FSLH
+// ╰───────────────┴────────────────┴────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┴─────────────────┴─────────────────┴─────────────╯
+                                                             &kp LSHIFT          &td_clk  &td_bs     &kp ENTER  &td_space_nav
                                                          // ╰──────────────────┴─────────┴──────╯  ╰──────────┴──────────────╯
             >;
         };
@@ -92,8 +92,8 @@
         EXTRAS {
             display-name = "Xtra";
             bindings = <
-&studio_unlock    &shrug          &lgtm           &gcm            &none           &kp C_BRIGHTNESS_INC    &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2       &bt BT_SEL 3  &out OUT_TOG         &bt BT_CLR
-&kp C_SLEEP       &sudo           &none           &none           &none           &kp C_BRIGHTNESS_DEC    &none         &kp C_PREVIOUS  &kp C_PLAY_PAUSE   &kp C_STOP    &kp C_NEXT           &none
+&studio_unlock    &shrug          &lgtm           &gcm            &none           &kp C_BRIGHTNESS_INC    &out OUT_TOG  &bt BT_SEL 0    &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3     &none
+&kp C_SLEEP       &sudo           &none           &none           &none           &kp C_BRIGHTNESS_DEC    &none         &kp C_PREVIOUS  &kp C_PLAY_PAUSE   &kp C_STOP        &kp C_NEXT       &none
 &kp C_AL_COFFEE   &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE  &none                   &new_dir      &kp K_MUTE      &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp PRINTSCREEN  &none
                                                                                    &none  &none  &none    &none         &none
             >;
@@ -102,20 +102,30 @@
         SLOW {
             display-name = "Slow";
             bindings = <
-&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-                              &trans    &trans    &trans    &trans    &trans
+// ╭────────┬────────┬────────┬────────┬────────┬────────╮  ╭────────┬────────┬────────┬────────┬────────┬────────╮
+    &trans    &trans   &trans   &trans   &trans   &trans      &trans   &trans   &trans   &trans   &trans   &trans
+// ├────────┼────────┼────────┼────────┼────────┼────────┤  ├────────┼────────┼────────┼────────┼────────┼────────┤
+    &trans    &trans   &trans   &trans   &trans   &trans      &trans   &trans   &trans   &trans   &trans   &trans
+// ├────────┼────────┼────────┼────────┼────────┼────────┤  ├────────┼────────┼────────┼────────┼────────┼────────┤
+    &trans    &trans   &trans   &trans   &trans   &trans      &trans   &trans   &trans   &trans   &trans   &trans
+// ╰────────┴────────┴────────┼────────┼────────┼────────┤  ├────────┼────────┼────────┴────────┴────────┴────────╯
+                                  &trans   &trans   &trans      &trans   &trans
+                             // ╰────────┴────────┴────────╯  ╰────────┴────────╯
             >;
         };
 
         SCROLL {
             display-name = "Scroll";
             bindings = <
-&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-                              &trans    &trans    &trans    &trans    &trans
+// ╭────────┬────────┬────────┬────────┬────────┬────────╮  ╭────────┬────────┬────────┬────────┬────────┬────────╮
+    &trans    &trans   &trans   &trans   &trans   &trans      &trans   &trans   &trans   &trans   &trans   &trans
+// ├────────┼────────┼────────┼────────┼────────┼────────┤  ├────────┼────────┼────────┼────────┼────────┼────────┤
+    &trans    &trans   &trans   &trans   &trans   &trans      &trans   &trans   &trans   &trans   &trans   &trans
+// ├────────┼────────┼────────┼────────┼────────┼────────┤  ├────────┼────────┼────────┼────────┼────────┼────────┤
+    &trans    &trans   &trans   &trans   &trans   &trans      &trans   &trans   &trans   &trans   &trans   &trans
+// ╰────────┴────────┴────────┼────────┼────────┼────────┤  ├────────┼────────┼────────┴────────┴────────┴────────╯
+                                  &trans   &trans   &trans      &trans   &trans
+                             // ╰────────┴────────┴────────╯  ╰────────┴────────╯
             >;
         };
     };

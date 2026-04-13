@@ -25,33 +25,109 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --upgrade pip
+          python -m pip install --disable-pip-version-check pyyaml
+
       - id: make-groups
         name: Build matrix from build.yaml
         shell: python3 {0}
         run: |
-          import yaml, json, os, itertools
+          import itertools
+          import json
+          import os
+          import yaml
 
           with open("build.yaml") as f:
               config = yaml.safe_load(f)
 
+          def as_list(value, default=None):
+              if value is None:
+                  return [] if default is None else list(default)
+              if isinstance(value, list):
+                  return value
+              return [value]
+
+          def shields_from(item):
+              if "shield" in item:
+                  return as_list(item["shield"])
+              if "shields" in item:
+                  return as_list(item["shields"])
+              return []
+
+          def overlay_target(shield):
+              if shield == "settings_reset":
+                  return "settings_reset"
+              return shield.split(" ", 1)[0]
+
           groups = []
           for entry in config.get("include", []):
-              shields = entry["shield"] if isinstance(entry["shield"], list) else [entry["shield"]]
-              keymaps = entry.get("keymap")
-              if keymaps is None:
-                  keymaps = [None]
-              elif not isinstance(keymaps, list):
-                  keymaps = [keymaps]
+              entry_boards = as_list(entry.get("board"))
+              entry_keymaps = as_list(entry.get("keymap"), [None])
+              entry_extra_conf_files = as_list(entry.get("extra_conf_files"))
+              entry_extra_dtc_overlay_files = as_list(entry.get("extra_dtc_overlay_files"))
+              entry_builds = entry.get("builds") or []
 
-              for shield, keymap in itertools.product(shields, keymaps):
-                  groups.append({
-                      "board":   entry["board"],
-                      "shield":  shield,
-                      "keymap":  keymap,
-                      "snippet": entry.get("snippet"),
-                      "name":    entry.get("name", f"{entry['board']}-{shield}" + (f"-{keymap}" if keymap else "")),
-                      "format":  entry.get("format", "uf2"),
-                  })
+              if entry_builds:
+                  for build in entry_builds:
+                      build_boards = as_list(build.get("board"), entry_boards)
+                      build_shields = shields_from(build)
+                      build_keymaps = as_list(build.get("keymap"), entry_keymaps)
+                      build_extra_conf_files = as_list(
+                          build.get("extra_conf_files"), entry_extra_conf_files
+                      )
+                      build_extra_dtc_overlay_files = as_list(
+                          build.get("extra_dtc_overlay_files"), entry_extra_dtc_overlay_files
+                      )
+
+                      for board, shield, keymap in itertools.product(
+                          build_boards, build_shields, build_keymaps
+                      ):
+                          groups.append({
+                              "board": board,
+                              "shield": shield,
+                              "target": overlay_target(shield),
+                              "keymap": keymap,
+                              "snippet": entry.get("snippet"),
+                              "name": entry.get(
+                                  "name",
+                                  f"{board}-{shield}" + (f"-{keymap}" if keymap else ""),
+                              ),
+                              "format": entry.get("format", "uf2"),
+                              "extra_conf_files": ";".join(build_extra_conf_files),
+                              "extra_dtc_overlay_files": ";".join(
+                                  build_extra_dtc_overlay_files
+                              ),
+                          })
+              else:
+                  entry_shields = shields_from(entry)
+                  for board, shield, keymap in itertools.product(
+                      entry_boards, entry_shields, entry_keymaps
+                  ):
+                      groups.append({
+                          "board": board,
+                          "shield": shield,
+                          "target": overlay_target(shield),
+                          "keymap": keymap,
+                          "snippet": entry.get("snippet"),
+                          "name": entry.get(
+                              "name",
+                              f"{board}-{shield}" + (f"-{keymap}" if keymap else ""),
+                          ),
+                          "format": entry.get("format", "uf2"),
+                          "extra_conf_files": ";".join(entry_extra_conf_files),
+                          "extra_dtc_overlay_files": ";".join(
+                              entry_extra_dtc_overlay_files
+                          ),
+                      })
 
           # Unique (name, keymap) pairs drive the group-artifacts matrix.
           # Pattern: "charybdis-{name}-*-{keymap}" or "charybdis-{name}-*" for no-keymap.
@@ -149,6 +225,9 @@ jobs:
         NM="${{ matrix.group.name }}"
         BD="${{ matrix.group.board }}"
         SH="${{ matrix.group.shield }}"
+        TARGET="${{ matrix.group.target }}"
+        EXTRA_CONF_FILES="${{ matrix.group.extra_conf_files }}"
+        EXTRA_DTC_OVERLAY_FILES="${{ matrix.group.extra_dtc_overlay_files }}"
 
         CONFIG_DIR="$GITHUB_WORKSPACE/config"
         BUILD_DIR=$(mktemp -d)
@@ -157,16 +236,42 @@ jobs:
         # charybdis_right_bt is the central in BT split mode.
         # charybdis_dongle is the central in dongle mode.
         # Peripherals (left_bt, left_dongle, right_dongle) don't need it.
-        if [[ "$SH" == "charybdis_right_bt" || "$SH" == "charybdis_dongle" ]]; then
+        if [[ "$TARGET" == "charybdis_right_bt" || "$TARGET" == "charybdis_dongle" ]]; then
           SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
         else
           SNIPPET_OPTION=""
         fi
 
+        EXTRA_CONF_OPTION=""
+        if [[ -n "${EXTRA_CONF_FILES:-}" ]]; then
+          EXTRA_CONF_PATHS=()
+          IFS=';' read -r -a EXTRA_CONF_ARRAY <<< "$EXTRA_CONF_FILES"
+          for conf_file in "${EXTRA_CONF_ARRAY[@]}"; do
+            [[ -n "$conf_file" ]] && EXTRA_CONF_PATHS+=("$CONFIG_DIR/$conf_file")
+          done
+          if [[ ${#EXTRA_CONF_PATHS[@]} -gt 0 ]]; then
+            EXTRA_CONF_JOINED="$(IFS=';'; echo "${EXTRA_CONF_PATHS[*]}")"
+            EXTRA_CONF_OPTION="-DEXTRA_CONF_FILE=$EXTRA_CONF_JOINED"
+          fi
+        fi
+
+        EXTRA_DTC_OVERLAY_OPTION=""
+        if [[ -n "${EXTRA_DTC_OVERLAY_FILES:-}" ]]; then
+          EXTRA_DTC_OVERLAY_PATHS=()
+          IFS=';' read -r -a EXTRA_DTC_OVERLAY_ARRAY <<< "$EXTRA_DTC_OVERLAY_FILES"
+          for overlay_file in "${EXTRA_DTC_OVERLAY_ARRAY[@]}"; do
+            [[ -n "$overlay_file" ]] && EXTRA_DTC_OVERLAY_PATHS+=("$CONFIG_DIR/$overlay_file")
+          done
+          if [[ ${#EXTRA_DTC_OVERLAY_PATHS[@]} -gt 0 ]]; then
+            EXTRA_DTC_OVERLAY_JOINED="$(IFS=';'; echo "${EXTRA_DTC_OVERLAY_PATHS[*]}")"
+            EXTRA_DTC_OVERLAY_OPTION="-DEXTRA_DTC_OVERLAY_FILE=$EXTRA_DTC_OVERLAY_JOINED"
+          fi
+        fi
+
         # Copy the selected keymap into the config dir named after the shield.
         # ZMK's cmake finds keymaps by searching for ${shield}.keymap in ZMK_CONFIG.
         if [[ -n "${KM:-}" ]]; then
-          cp "$CONFIG_DIR/keymaps/${KM}.keymap" "$CONFIG_DIR/${SH}.keymap"
+          cp "$CONFIG_DIR/keymaps/${KM}.keymap" "$CONFIG_DIR/${TARGET}.keymap"
         fi
 
         echo "Build vars"
@@ -174,8 +279,11 @@ jobs:
         echo "> Name   (NM): $NM"
         echo "> Board  (BD): $BD"
         echo "> Shield (SH): $SH"
+        echo "> Target (TARGET): $TARGET"
         echo "> Dir        : $(pwd)"
         echo "> Snippet    : $SNIPPET_OPTION"
+        echo "> Extra conf : $EXTRA_CONF_OPTION"
+        echo "> Extra dts  : $EXTRA_DTC_OVERLAY_OPTION"
         echo "> Build dir  : $BUILD_DIR"
 
         # ──────────────────────────────────────────────────────────────
@@ -185,8 +293,10 @@ jobs:
           -b "$BD" \
           -- \
           "-DZMK_CONFIG=$CONFIG_DIR" \
-          "-DZMK_EXTRA_MODULES=$GITHUB_WORKSPACE/boards;$GITHUB_WORKSPACE/zmk-pmw3610-driver" \
+          "-DZMK_EXTRA_MODULES=$GITHUB_WORKSPACE/boards;$GITHUB_WORKSPACE/zmk-pmw3610-driver;$GITHUB_WORKSPACE/prospector-zmk-module" \
           "-DSHIELD=$SH" \
+          $EXTRA_CONF_OPTION \
+          $EXTRA_DTC_OVERLAY_OPTION \
           $SNIPPET_OPTION
         # ──────────────────────────────────────────────────────────────
 

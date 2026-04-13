@@ -1,6 +1,23 @@
 name: Draw keymaps
 run-name: Draw keymaps
 
+env:
+  # Shared composite render settings (used for both dark and light outputs).
+  KEYMAP_ALPHA: "1"
+  KEYMAP_GAP: "30"
+  KEYMAP_MARGIN: "10"
+  KEYMAP_SCALE: "2"
+  KEYMAP_HINTING: "medium"
+  KEYMAP_LEGEND: "1"
+  # Theme-specific composite solid backgrounds.
+  KEYMAP_BG_DARK: "#282828"
+  KEYMAP_BG_LIGHT: "#ebdbb2"
+  # Negative trims collapse built-in SVG top/bottom whitespace so KEYMAP_GAP is the real spacing control.
+  KEYMAP_STACKED_TRIM_BOTTOM: "-71"
+  KEYMAP_LEGEND_TRIM_TOP: "-58"
+  KEYMAP_LEGEND_TRIM_BOTTOM: "-58"
+  KEYMAP_COMBOS_TRIM_TOP: "-60"
+
 on:
   push:
     branches:
@@ -8,77 +25,193 @@ on:
   workflow_dispatch:
 
 jobs:
-  draw_base_keymap:
-    name: Draw BASE keymap
-    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
-    permissions:
-      contents: write
-    with:
-      keymap_patterns: "config/keymaps/qwerty.keymap"
-      config_path:    "keymap-drawer/config.yaml"
-      output_folder:  "keymap-drawer/base"
-      json_path:      "config"
-      parse_args:     "-c 12"
-      draw_args:      "qwerty:'-s Base --keys-only'"
-      amend_commit:   false
-      destination:    artifact
-      commit_message: "Add Base-layer keymaps"
-      artifact_name: base-keymap
-      fail_on_error:  true
-      debug_mode:     false
-  draw_full_keymap:
-    name: Draw FULL keymaps
-    needs: draw_base_keymap
-    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
-    permissions:
-      contents: write
-    with:
-      keymap_patterns: "config/keymaps/qwerty.keymap"
-      config_path:    "keymap-drawer/config.yaml"
-      output_folder:  "keymap-drawer"
-      json_path:      "config"
-      parse_args:     "-c 12"
-      draw_args:      ""
-      amend_commit:   false
-      destination:    artifact
-      commit_message: "Add all keymaps"
-      artifact_name: full-keymaps
-      fail_on_error:  true
-      debug_mode:     false
-
-  publish_keymaps:
-    name: Publish all keymaps
-    needs: [draw_base_keymap, draw_full_keymap]
+  draw_keymaps:
+    name: Generate Keymaps
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
-        with:
-          clean: false
+        uses: actions/checkout@v6
 
-      - name: Download base keymap artifact
-        uses: actions/download-artifact@v8
-        with:
-          name: base-keymap
-          path: keymap-drawer/base
-
-      - name: Download full keymap artifact
-        uses: actions/download-artifact@v8
-        with:
-          name: full-keymaps
-          path: keymap-drawer
-
-      - name: List downloaded files
+      - name: Install keymap-drawer
         run: |
-          echo "Downloaded contents:"
-          ls -lR keymap-drawer
-          echo "--- git status ---"
-          git status
+          # Ubuntu has made it difficult to install keymap-drawer globally, so using venv instead
+          python3 -m venv venv
+          ./venv/bin/pip install keymap-drawer pyyaml
+          echo "$(pwd)/venv/bin" >> $GITHUB_PATH
+
+      - name: Install SVG renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsvg2-bin
+
+      - name: Symlink keymap_features for include resolution
+        run: ln -sfn "$(pwd)/config/keymap_features" "$(pwd)/config/keymaps/keymap_features"
+
+      - name: Parse keymap
+        run: |
+          mkdir -p keymap-drawer/all_layers
+          keymap -c keymap-drawer/configs/config-stacked.yaml parse -c 12 -z config/keymaps/qwerty.keymap \
+            > keymap-drawer/stacked/qwerty.yaml
+          keymap -c keymap-drawer/configs/config-all-layers.yaml parse -c 12 -z config/keymaps/qwerty.keymap \
+            > keymap-drawer/all_layers/qwerty.yaml
+          keymap -c keymap-drawer/configs/config-combo.yaml parse -c 12 --virtual-layers "COMBOS" -z config/keymaps/qwerty.keymap \
+            > keymap-drawer/stacked/combos.yaml
+
+      - name: Generate stacked YAML
+        run: python3 scripts/make_stacked.py
+
+      - name: Merge combos into COMBOS virtual layer for diagram
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import yaml
+
+          in_path = Path("keymap-drawer/stacked/combos.yaml")
+          out_path = Path("keymap-drawer/stacked/combos-merged.yaml")
+
+          data = yaml.safe_load(in_path.read_text(encoding="utf-8"))
+          combos = data.get("combos", [])
+          if not isinstance(combos, list):
+              raise ValueError("Input YAML has no valid 'combos' list.")
+
+          for combo in combos:
+              if isinstance(combo, dict):
+                  combo["l"] = ["COMBOS"]
+
+          out_path.write_text(
+              yaml.safe_dump(data, allow_unicode=True, sort_keys=False, default_flow_style=None),
+              encoding="utf-8",
+          )
+          print(f"Assigned {len(combos)} combo(s) to virtual layer 'COMBOS' in {out_path}")
+          PY
+
+      - name: Draw stacked keymap
+        run: |
+          keymap -c keymap-drawer/configs/config-stacked.yaml draw -j config/qwerty.json \
+            keymap-drawer/stacked/stacked.yaml > keymap-drawer/stacked/stacked.svg
+
+      - name: Draw combos
+        run: |
+          keymap -c keymap-drawer/configs/config-combo.yaml draw \
+            -j config/qwerty.json \
+            -s "COMBOS" \
+            --combos-only \
+            keymap-drawer/stacked/combos-merged.yaml > keymap-drawer/stacked/combos.svg
+
+      - name: Draw `legend` key
+        run: |
+          keymap -c keymap-drawer/configs/config-stacked.yaml draw \
+            --ortho-layout '{rows: 1, columns: 1}' \
+            keymap-drawer/stacked/legend-1x1.yaml > keymap-drawer/stacked/legend.svg
+
+      - name: Draw all-layers keymap
+        run: |
+          mkdir -p keymap-drawer/all_layers
+          keymap -c keymap-drawer/configs/config-all-layers.yaml draw -j config/qwerty.json \
+            keymap-drawer/all_layers/qwerty.yaml > keymap-drawer/all_layers/all_layers.svg --keys-only
+
+      - name: Export composite legend-wrap overrides from stacked config
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import yaml
+
+          cfg_path = "keymap-drawer/configs/config-stacked.yaml"
+          cfg = yaml.safe_load(open(cfg_path, encoding="utf-8")) or {}
+          draw_cfg = cfg.get("draw_config", {}) if isinstance(cfg, dict) else {}
+          overrides = draw_cfg.get("composite_corner_legend_wrap_overrides", [])
+          if not isinstance(overrides, list):
+              raise ValueError("draw_config.composite_corner_legend_wrap_overrides must be a list")
+          encoded = json.dumps(overrides, separators=(",", ":"))
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as env:
+              env.write(f"KEYMAP_CORNER_LEGEND_WRAP_OVERRIDES={encoded}\n")
+          print(f"Exported {len(overrides)} composite corner legend wrap override(s)")
+          PY
+
+      - name: Install JetBrainsMono Nerd Font
+        run: |
+          FONT_ARCHIVE="$RUNNER_TEMP/JetBrainsMono.tar.xz"
+          FONT_EXTRACT_DIR="$RUNNER_TEMP/jbfonts"
+          FONT_INSTALL_DIR="$HOME/.local/share/fonts"
+
+          curl -fsSL "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz" \
+            -o "$FONT_ARCHIVE"
+          mkdir -p "$FONT_EXTRACT_DIR" "$FONT_INSTALL_DIR"
+          tar -xJf "$FONT_ARCHIVE" -C "$FONT_EXTRACT_DIR"
+          find "$FONT_EXTRACT_DIR" -type f \( \
+            -name "JetBrainsMonoNerdFont-*.ttf" -o \
+            -name "JetBrainsMonoNerdFontMono-*.ttf" \
+          \) -exec cp {} "$FONT_INSTALL_DIR/" \;
+          fc-cache -f "$FONT_INSTALL_DIR"
+          fc-match "JetBrainsMono Nerd Font"
+
+      - name: Convert stacked SVG to PNG
+        run: |
+          rsvg-convert \
+            --background-color="${KEYMAP_BG_DARK}" \
+            --zoom=2 \
+            --output="keymap-drawer/stacked/stacked.png" \
+            "keymap-drawer/stacked/stacked.svg"
+
+      - name: Install Playwright (Chromium)
+        run: |
+          npm install playwright@latest
+          npx playwright install-deps
+          npx playwright install chromium
+
+      - name: Render composite PNG (dark theme)
+        env:
+          KEYMAP_BG: ${{ env.KEYMAP_BG_DARK }}
+          KEYMAP_STYLE_THEME: dark
+          KEYMAP_ALPHA: ${{ env.KEYMAP_ALPHA }}
+          KEYMAP_GAP: ${{ env.KEYMAP_GAP }}
+          KEYMAP_MARGIN: ${{ env.KEYMAP_MARGIN }}
+          KEYMAP_SCALE: ${{ env.KEYMAP_SCALE }}
+          KEYMAP_HINTING: ${{ env.KEYMAP_HINTING }}
+          KEYMAP_LEGEND: ${{ env.KEYMAP_LEGEND }}
+          KEYMAP_STACKED_TRIM_BOTTOM: ${{ env.KEYMAP_STACKED_TRIM_BOTTOM }}
+          KEYMAP_LEGEND_TRIM_TOP: ${{ env.KEYMAP_LEGEND_TRIM_TOP }}
+          KEYMAP_LEGEND_TRIM_BOTTOM: ${{ env.KEYMAP_LEGEND_TRIM_BOTTOM }}
+          KEYMAP_COMBOS_TRIM_TOP: ${{ env.KEYMAP_COMBOS_TRIM_TOP }}
+          KEYMAP_CORNER_LEGEND_WRAP_OVERRIDES: ${{ env.KEYMAP_CORNER_LEGEND_WRAP_OVERRIDES }}
+          KEYMAP_OUTPUT: keymap-drawer/stacked/stacked-combos-dark.png
+        run: |
+          node scripts/render_stacked_composite.js
+
+      - name: Render composite PNG (light theme)
+        env:
+          KEYMAP_BG: ${{ env.KEYMAP_BG_LIGHT }}
+          KEYMAP_STYLE_THEME: light
+          KEYMAP_ALPHA: ${{ env.KEYMAP_ALPHA }}
+          KEYMAP_GAP: ${{ env.KEYMAP_GAP }}
+          KEYMAP_MARGIN: ${{ env.KEYMAP_MARGIN }}
+          KEYMAP_SCALE: ${{ env.KEYMAP_SCALE }}
+          KEYMAP_HINTING: ${{ env.KEYMAP_HINTING }}
+          KEYMAP_LEGEND: ${{ env.KEYMAP_LEGEND }}
+          KEYMAP_STACKED_TRIM_BOTTOM: ${{ env.KEYMAP_STACKED_TRIM_BOTTOM }}
+          KEYMAP_LEGEND_TRIM_TOP: ${{ env.KEYMAP_LEGEND_TRIM_TOP }}
+          KEYMAP_LEGEND_TRIM_BOTTOM: ${{ env.KEYMAP_LEGEND_TRIM_BOTTOM }}
+          KEYMAP_COMBOS_TRIM_TOP: ${{ env.KEYMAP_COMBOS_TRIM_TOP }}
+          KEYMAP_CORNER_LEGEND_WRAP_OVERRIDES: ${{ env.KEYMAP_CORNER_LEGEND_WRAP_OVERRIDES }}
+          KEYMAP_OUTPUT: keymap-drawer/stacked/stacked-combos-light.png
+        run: |
+          node scripts/render_stacked_composite.js
+
+      - name: Cleanup - Set permissions & Remove Symlink(s)
+        run: |
+          chmod 777 keymap-drawer/stacked/stacked.svg
+          chmod 777 keymap-drawer/stacked/stacked.png
+          chmod 777 keymap-drawer/stacked/legend.svg
+          chmod 777 keymap-drawer/stacked/stacked-combos-dark.png
+          chmod 777 keymap-drawer/stacked/stacked-combos-light.png
+          chmod 777 keymap-drawer/all_layers/all_layers.svg
+          rm -f config/keymaps/keymap_features
 
       - name: Auto-commit keymap drawings
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Update keymap drawings"
           file_pattern: keymap-drawer

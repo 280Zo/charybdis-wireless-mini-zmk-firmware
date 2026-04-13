@@ -1,0 +1,9 @@
+/*
+ * Prospector color theme selection for the Radii layout.
+ */
+
+/ {
+    chosen {
+        zmk,prospector-theme = &prospector_purple_theme;
+    };
+};

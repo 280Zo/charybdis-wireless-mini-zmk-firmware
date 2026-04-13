@@ -4,8 +4,26 @@ zephyr/
 modules/
 optional/
 zmk-pmw3610-driver/
+prospector-zmk-module
 local-build/logs.txt
 scripts/__pycache__
 local-build/jq
 local-build/yq
 notes
+venv/
+.vscode/
+node_modules/
+package.json
+package-lock.json
+keymap-drawer/stacked/qwerty.yaml
+keymap-drawer/stacked/stacked.yaml
+keymap-drawer/stacked/combos.yaml
+keymap-drawer/stacked/combos-merged.yaml
+
+# keymap-drawer generated intermediates (parse/draw pipeline)
+keymap-drawer/all_layers/qwerty.yaml
+keymap-drawer/stacked/stacked.svg
+keymap-drawer/stacked/combos.svg
+keymap-drawer/stacked/legend.svg
+keymap-drawer/stacked/stacked.png
+keymap-drawer/stacked/stacked-combos.png

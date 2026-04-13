@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        margin: 0;
+        background: __KEYMAP_BG__;
+      }
+      #wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: __KEYMAP_GAP__px;
+        padding: __KEYMAP_MARGIN__px;
+        background: __KEYMAP_BG__;
+        width: fit-content;
+        height: fit-content;
+      }
+      .block {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+      img {
+        display: block;
+      }
+      #stacked-svg {
+        margin-bottom: __STACKED_TRIM_BOTTOM__px;
+      }
+      #legend-svg {
+        margin-top: __LEGEND_TRIM_TOP__px;
+        margin-bottom: __LEGEND_TRIM_BOTTOM__px;
+      }
+      #combos-svg {
+        margin-top: __COMBOS_TRIM_TOP__px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <div class="block"><img id="stacked-svg" src="__STACKED_SRC__" alt="stacked keymap" /></div>
+      __LEGEND_BLOCK__
+      <div class="block"><img id="combos-svg" src="__COMBOS_SRC__" alt="combos keymap" /></div>
+    </div>
+  </body>
+</html>

@@ -1,20 +1,9 @@
 // Documentation: https://zmk.dev/docs/development/hardware-integration/dongle
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "../../config/charybdis-layouts.dtsi"
-#include "../charybdis_trackball/charybdis_pmw3610.dtsi"
-#include "../../config/trackball/charybdis_pointer.dtsi"
 
 &charybdis_physical_layout {
     transform = <&default_transform>;
-};
-
-&trackball_split {
-  status = "okay";
-};
-
-/* enable the listener on central */
-&trackball_listener {
-  status = "okay";
 };
 
 / {
@@ -58,4 +47,37 @@
         compatible = "zmk,ble-peripheral";
         local-name = "charybdis_right";
     };
+
+    /* The dongle is the central - it receives trackball data over BLE from the
+       right peripheral via zmk,input-split. No SPI or PMW3610 hardware here. */
+    split_inputs {
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        trackball_split: trackball_split@0 {
+            compatible = "zmk,input-split";
+            reg = <0>;
+        };
+    };
+
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        status = "disabled";
+        device = <&trackball_split>;
+    };
+};
+
+/* Ambient light sensor not installed on dongle - disable I2C1 to prevent
+   nRF52840 TWIM from hanging on probe (no ACK -> WDT reset loop) */
+&i2c1 { status = "disabled"; };
+
+/* charybdis_pointer.dtsi references &trackball_listener - must come after node definition */
+#include "../../config/trackball/charybdis_pointer.dtsi"
+
+&trackball_split {
+    status = "okay";
+};
+
+&trackball_listener {
+    status = "okay";
 };

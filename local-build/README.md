@@ -34,57 +34,7 @@ docker-compose run --rm builder
 
 ### 3. Firmware Output
 
-Firmware files are placed under the `firmwares/` directory at the root of the repo, grouped by format and keymap. For example, with the default build.yaml:
-
-```
-firmwares/
-├── charybdis_bt/
-│   ├── qwerty/
-│   │   ├── charybdis_left_bt.uf2
-│   │   └── charybdis_right_bt.uf2
-│   ├── colemak_dh/
-│   │   ├── charybdis_left_bt.uf2
-│   │   └── charybdis_right_bt.uf2
-│   └── canary/
-│       ├── charybdis_left_bt.uf2
-│       └── charybdis_right_bt.uf2
-├── charybdis_dongle/
-│   ├── qwerty/
-│   │   ├── charybdis_dongle.uf2
-│   │   ├── charybdis_left_dongle.uf2
-│   │   └── charybdis_right_dongle.uf2
-│   ├── colemak_dh/ ...
-│   └── canary/ ...
-└── settings_reset.uf2
-```
-
----
-
-## Choosing What to Build
-
-By default the build runs every keymap and every shield defined in `build.yaml`. To narrow down the build, edit `build.yaml` before running the container and comment out the entries you don't want.
-
-To build only the dongle format with a single keymap, for example:
-
-```yaml
-include:
-  # - name: bt
-  #   ...
-
-  - name: standard_dongle
-    board: nice_nano//zmk
-    shield:
-      - charybdis_left_dongle
-      - charybdis_right_dongle
-      - charybdis_dongle
-    keymap:
-      - qwerty
-
-  # - name: settings_reset
-  #   ...
-```
-
-The same `build.yaml` drives both the local build and GitHub Actions, so these edits apply to both.
+Firmware files are placed under the `firmwares/` directory at the root of the repo.
 
 ---
 
