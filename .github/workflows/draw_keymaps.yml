@@ -11,7 +11,7 @@ env:
   KEYMAP_LEGEND: "1"
   # Theme-specific composite solid backgrounds.
   KEYMAP_BG_DARK: "#282828"
-  KEYMAP_BG_LIGHT: "#ebdbb2"
+  KEYMAP_BG_LIGHT: "transparent"
   # Negative trims collapse built-in SVG top/bottom whitespace so KEYMAP_GAP is the real spacing control.
   KEYMAP_STACKED_TRIM_BOTTOM: "-71"
   KEYMAP_LEGEND_TRIM_TOP: "-58"

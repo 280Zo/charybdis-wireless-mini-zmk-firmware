@@ -26,7 +26,7 @@ draw_config:
       --combo-dendron-dark: #d5c4a1;
 
       /* Light palette */
-      --combo-key-fill-light: #d5c4a1;
+      --combo-key-fill-light: #f9f5d7;
       --combo-key-border-light: #a89984;
       --combo-tap-light: #fb4934;
       --combo-box-stroke-light: #a89984;
