@@ -281,7 +281,13 @@ parse_string_or_array_field() {
 
   jq -r --arg field "$field_name" '
     if has($field) then
-      if (.[$field] | type) == "array" then .[$field][] else .[$field] end
+      if .[$field] == null then
+        empty
+      elif (.[$field] | type) == "array" then
+        .[$field][] | select(. != null and . != "")
+      else
+        .[$field] | select(. != "")
+      end
     else
       empty
     end

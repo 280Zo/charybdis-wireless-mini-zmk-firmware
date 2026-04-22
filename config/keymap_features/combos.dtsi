@@ -69,6 +69,18 @@
             layers = <0>;
         };
 
+        combo_prev_desktop {
+            bindings = <&desktop_prev>;
+            key-positions = <24 25>;
+            layers = <0>;
+        };
+
+        combo_next_desktop {
+            bindings = <&desktop_next>;
+            key-positions = <34 35>;
+            layers = <0>;
+        };
+
         combo_all_windows {
             bindings = <&ht_combo_all_windows 0 0>;
             key-positions = <32 33>;

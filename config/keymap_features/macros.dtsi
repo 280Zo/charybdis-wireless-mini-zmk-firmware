@@ -116,6 +116,17 @@
             >;
         };
 
+        gpush: gpush { // git push
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <20>;
+            bindings = <
+                &macro_tap &kp G &kp I &kp T &kp SPACE
+                &kp P &kp U &kp S &kp H
+            >;
+        };
+
         lgtm: lgtm { // LGTM Approval
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -253,6 +264,26 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LA(GRAVE)>;
+        };
+
+        desktop_prev: desktop_prev {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL &kp LALT>
+                , <&macro_tap &kp LEFT_ARROW>
+                , <&macro_release &kp LALT &kp LCTRL>
+            ;
+        };
+
+        desktop_next: desktop_next {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL &kp LALT>
+                , <&macro_tap &kp RIGHT_ARROW>
+                , <&macro_release &kp LALT &kp LCTRL>
+            ;
         };
     };
 };

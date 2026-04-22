@@ -66,12 +66,12 @@ To see all the layers check out the [full render](keymap-drawer/all_layers/all_l
 - **K38 - Multifunction**
   - Tap: Backspace
   - Hold: Layer 1 (numbers) while the key is held
-  - Double-Tap & Hold: Keeps Backspace held
+  - Quick tap, then hold: Repeats Backspace instead of dropping into Layer 1
 - **Bluetooth profile quick-swap:** Jump to the EXTRAS layer and tap the dedicated BT-select keys to pair or switch among up to four saved hosts (plus BT CLR to forget all).
 - **PMW3610 low power trackball sensor driver:** Provided by [badjeff](https://github.com/badjeff/zmk-pmw3610-driver)
   - Patched to prevent cursor jump on wake
 - **Hold-tap side-aware triggers:** Each HRM key only becomes a modifier if the opposite half is active, preventing accidental holds while one-handed.
-- **Quick-tap / prior-idle:** Tuned for faster mod-vs-tap detection (160 / 120 ms), with tap-preferred variants on A, I, and O (positions 13, 21, and 22) for faster rolls in Colemak-DH.
+- **Timeless HRM with selective exceptions:** Base home-row mods use the timeless-style `balanced + hold-trigger-on-release` setup, while A, I, and O (on a Colemak-DH layout) keep tap-preferred variants to reduce accidental mod triggers during fast rolls.
 - **ZMK Studio:** Supported on Bluetooth and the standard no-screen dongle builds for quick keymap adjustments. Prospector screen builds disable it to preserve RAM.
 
 

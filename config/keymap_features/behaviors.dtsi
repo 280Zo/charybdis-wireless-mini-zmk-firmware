@@ -103,12 +103,12 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <160>;
-            require-prior-idle-ms = <120>;
-            retro-tap;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <150>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
+            hold-trigger-on-release;
         };
 
         // Right-hand HRM
@@ -116,12 +116,12 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <160>;
-            require-prior-idle-ms = <120>;
-            retro-tap;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <125>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
+            hold-trigger-on-release;
         };
 
         // Tap-biased right-hand HRM for fast-roll letters (used on positions 21/22).
@@ -188,20 +188,14 @@
             bindings = <&mo_clk 3 LCLK>, <&mkp LCLK>; // hold, tap, double_tap
         };
 
-        mo_kp: mo_kp {
+        bs_num: bs_num {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            flavor       = "hold-preferred";
-            tapping-term-ms = <40>;
-            hold-while-undecided;
-            bindings = <&mo>, <&kp>;
-        };
-
-        td_bs: td_bs {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <170>;
-            bindings = <&mo_kp 1 BACKSPACE>, <&kp BACKSPACE>; // hold, tap, double_tap
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            require-prior-idle-ms = <150>;
+            bindings = <&mo>, <&kp>; // hold = layer, tap = keycode
         };
 
         httl: ht_two_layers {

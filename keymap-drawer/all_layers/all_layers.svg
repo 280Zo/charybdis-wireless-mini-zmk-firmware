@@ -358,12 +358,12 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font
 <tspan x="0" dy="-0.75em">SYM</tspan><tspan x="0" dy="1.5em">LFT-CLK</tspan>
 </text>
 </g>
-<g transform="translate(462, 324) rotate(30.0)" class="key thumb keypos-38">
-<rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key thumb"/>
-<text x="0" y="0" class="key thumb tap">
-<tspan x="0" dy="-0.75em">BS</tspan><tspan x="0" dy="1.5em">L_NUM</tspan>
-</text>
-</g>
+<g transform="translate(462, 324) rotate(30.0)" class="key keypos-38">
+<rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
+<text x="0" y="0" class="key tap">BS</text>
+<a href="#Num">
+<text x="0" y="34" class="key hold layer-activator">Num</text>
+</a></g>
 <g transform="translate(678, 324) rotate(-30.0)" class="key keypos-39">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">ENTER</text>
@@ -513,9 +513,8 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font
 <g transform="translate(386, 288) rotate(15.0)" class="key keypos-37">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 </g>
-<g transform="translate(462, 324) rotate(30.0)" class="key trans keypos-38">
-<rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(462, 324) rotate(30.0)" class="key held keypos-38">
+<rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key held"/>
 </g>
 <g transform="translate(678, 324) rotate(-30.0)" class="key keypos-39">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
@@ -1077,6 +1076,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font
 </g>
 <g transform="translate(342, 48)" class="key keypos-4">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
+<text x="0" y="0" class="key tap">&amp;gpush</text>
 </g>
 <g transform="translate(418, 48)" class="key keypos-5">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>

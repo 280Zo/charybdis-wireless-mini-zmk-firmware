@@ -63,6 +63,22 @@ draw_config:
       line_height_em: 1.05
       x_offset: 0
       y_offset: -2
+    - keypos: 03
+      corner: tl
+      from: "GIT COMMIT"
+      lines: ["GIT", "COMMIT"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: 2
+    - keypos: 04
+      corner: tl
+      from: "GIT PUSH"
+      lines: ["GIT", "PUSH"]
+      tspan_style: "font-size: 90%"
+      line_height_em: 1.05
+      x_offset: 0
+      y_offset: 2
   draw_key_sides: false
   key_side_pars:
     rel_x: 0.0
@@ -89,7 +105,7 @@ draw_config:
       --stack-tap-light: #3c3836;        /* main center legend text (tap label) */
       --stack-tl-light: #076678;         /* top-left corner legend */
       --stack-tr-light: #b16286;         /* top-right corner legend */
-      --stack-bl-light: #d65d0e;         /* bottom-left corner legend */
+      --stack-bl-light: #fb4934;         /* bottom-left corner legend */
       --stack-br-light: #427b58;         /* bottom-right corner legend */
 
       /* Active palette aliases used by the actual CSS rules below */
@@ -358,9 +374,10 @@ parse_config:
     "&v_split": "\ueb56"
     "&clip_hist": "CLIP HIST"
     "&new_dir": "NEW DIR"
-    "&shrug": "SHRUG"
+    "&shrug": "¯\\_(ツ)_/¯"
     "&lgtm": "LGTM"
-    "&gcm": "\ueafc"
+    "&gcm": "GIT COMMIT"
+    "&gpush": "GIT PUSH"
     "&sudo": "󰡗"
     "&code_blk": "```"
     "&home_dir": "~/"
