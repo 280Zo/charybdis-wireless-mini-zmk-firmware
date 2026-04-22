@@ -133,8 +133,12 @@ jobs:
 
         # Shield lists for each format
         # dongle mode: left+right as peripherals, dongle as central
+        # left_debug:  just the left half, built with USB logging (see
+        #              DEBUG_OPTIONS below). For diagnosing BLE disconnect
+        #              and sleep issues on the left peripheral.
         declare -A LIST=(
           [dongle]="charybdis_left charybdis_right charybdis_dongle"
+          [left_debug]="charybdis_left"
           [reset]="settings_reset"
         )
 
@@ -179,6 +183,22 @@ jobs:
             KEYMAP_OPTION=""
           fi
 
+          # USB logging for the left_debug format. Streams Zephyr logs over
+          # the Nice!Nano's CDC-ACM USB port so we can tail the left half
+          # while it runs and observe sleep/disconnect events.
+          # 5s startup delay gives time to open the serial terminal.
+          DEBUG_OPTIONS=()
+          if [[ "$FM" == "left_debug" ]]; then
+            DEBUG_OPTIONS=(
+              "-DCONFIG_ZMK_USB_LOGGING=y"
+              "-DCONFIG_LOG_PROCESS_THREAD_STARTUP_DELAY_MS=5000"
+              "-DCONFIG_LOG_TIMESTAMP_64BIT=y"
+              "-DCONFIG_ZMK_LOG_LEVEL_INF=y"
+              "-DCONFIG_BT_LOG_LEVEL_INF=y"
+              "-DCONFIG_PM_LOG_LEVEL_INF=y"
+            )
+          fi
+
           # ───────── DEBUG LOGS ─────────
           echo "🪳 Debug Logs"
           echo "Build Variables:"
@@ -202,7 +222,8 @@ jobs:
             "-DZMK_EXTRA_MODULES=$GITHUB_WORKSPACE/zmk-maccel" \
             "-DSHIELD=$SHIELD_STRING" \
             "$KEYMAP_OPTION" \
-            "$SNIPPET_OPTION"
+            "$SNIPPET_OPTION" \
+            "${DEBUG_OPTIONS[@]}"
 
           ART=$(if [[ -f "$BUILD_DIR/zephyr/zmk.uf2" ]]; then echo zmk.uf2; else echo zmk.bin; fi)
           cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"

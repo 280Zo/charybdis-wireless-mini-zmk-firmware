@@ -34,6 +34,17 @@ for keymap in keymaps:
         "board": board,
     })
 
+# Debug build: left half only, with USB logging enabled over CDC-ACM.
+# Used for diagnosing BLE disconnect / sleep / hang issues on the left
+# peripheral by tailing the left half over USB while it runs. See
+# .github/workflows/build.yml for the -DCONFIG_ZMK_USB_LOGGING flags.
+groups.append({
+    "keymap": "qwerty",
+    "format": "left_debug",
+    "name": "qwerty-left-debug",
+    "board": board,
+})
+
 # single reset entry
 groups.append({
     "keymap": "default",
