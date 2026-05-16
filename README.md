@@ -55,6 +55,7 @@ To see all the layers check out the [full render](keymap-drawer/all_layers/all_l
   - Suppoert for the Nice!Nano v2 has been added to the firmware options.
   - The prospector case has been adapted in [OnShape](https://cad.onshape.com/documents/1ab8632c0729c14a80991694/w/0a5575e0aa91142d15642877/e/053f9ce9786904291254a911) to fit the Nice!Nano v2.
   Options are also available for the smaller APDS9960 ambient light sensor variant, and a lower-cost Waveshare non-touch screen option (SKU 24382)
+  - APDS9960 sensor builds use a custom Prospector module ALS-only driver that works with the various APDS9960 sensor types.
 - **Timeless-inspired home row mods:** Based on [urob's](https://github.com/urob/zmk-config#timeless-homerow-mods) work and configured on the BASE layer.
 - **Thumb-scroll mode:** Hold the left-most thumb button (K36) while moving the trackball to turn motion into scroll.
 - **Precision cursor mode:** Double-tap, then hold K36 to drop the pointer speed, release to return to normal speed.
@@ -142,6 +143,15 @@ To change the Radii theme:
 
 1. Select `dongle_prospector_layout_radii.conf` in `extra_conf_files`
 2. Add one theme overlay from [config/dongle_prospector_themes](config/dongle_prospector_themes) to `extra_dtc_overlay_files`
+
+For Prospector builds with the APDS9960 ambient light sensor, [config/dongle_prospector/dongle_prospector_sensor.conf](config/dongle_prospector/dongle_prospector_sensor.conf) intentionally turns off Zephyr's stock APDS9960 driver and enables the Prospector module's replacement driver:
+
+```conf
+CONFIG_APDS9960=n
+CONFIG_PROSPECTOR_APDS9960=y
+```
+
+That keeps the application using the normal Zephyr sensor API while letting the Prospector module provide the APDS9960 behavior needed for variations in the APDS9960 sensors.
 
 ### Modify Keymap Selection
 
