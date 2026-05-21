@@ -6,6 +6,7 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/prospector/brightness.h>
 
 /* local overlays */
 #include "keymap_features/macros.dtsi"
@@ -32,6 +33,19 @@
 // #define SLOW    6
 // #define SCROLL  7
 
+// This shared keymap builds for prospector and non-prospector firmwares. 
+// This stubs the key bindings that are contained in the prospector module
+// so non-prospector firmware can build.
+#ifndef CONFIG_SHIELD_PROSPECTOR_ADAPTER
+    behaviors {
+        /omit-if-no-ref/ pbl: prospector_brightness_stub {
+            compatible = "zmk,behavior-macro-two-param";
+            #binding-cells = <2>;
+            bindings = <&none>;
+        };
+    };
+#endif
+
     keymap {
         compatible = "zmk,keymap";
         BASE {
@@ -40,11 +54,11 @@
 // ╭───────────────┬────────────────┬────────────────┬─────────────────┬─────────────────┬──────╮  ╭──────┬──────────────────┬──────────────────┬─────────────────┬─────────────────┬─────────────╮
     &kp C_AC_SEARCH  &kp W            &kp L            &kp Y             &kp P             &kp B    &kp Z   &kp F              &kp O              &kp U             &kp APOS           &td_layers
 // ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼─────────────────┼─────────────┤
-    &kp TAB          &ht_left LCMD C  &ht_left LALT R  &lt 7 S            &ht_left LCTRL T  &kp G    &kp M   &ht_right RCTRL N  &lt 6 E              &ht_right_tp LALT I  &ht_right_tp RCMD A   &kp DEL
+    &kp TAB          &ht_left_tp LCMD C  &ht_left LALT R  &ht_left LSHFT S  &ht_left LCTRL T  &kp G    &kp M   &ht_right RCTRL N  &ht_right RSHFT E  &ht_right_tp LALT I  &ht_right_tp RCMD A   &kp DEL
 // ├───────────────┼────────────────┼────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┼─────────────────┼─────────────────┼─────────────┤
     &clip_hist       &kp Q            &kp J            &kp V             &kp D             &kp K    &kp X   &kp H              &mm_cm_sc          &mm_pr_col        &mm_qm_ex          &kp FSLH
 // ╰───────────────┴────────────────┴────────────────┼─────────────────┼─────────────────┼──────┤  ├──────┼──────────────────┼──────────────────┴─────────────────┴─────────────────┴─────────────╯
-                                                             &kp LSHIFT          &td_clk  &bs_num 1 BACKSPACE   &kp ENTER  &td_space_nav
+                                                             &td_esc_scrl_slow   &td_clk  &bs_num 1 BACKSPACE   &kp ENTER  &td_space_nav
                                                          // ╰──────────────────┴─────────┴──────╯  ╰──────────┴──────────────╯
             >;
         };
@@ -92,8 +106,8 @@
         EXTRAS {
             display-name = "Xtra";
             bindings = <
-&studio_unlock    &shrug          &lgtm           &gcm            &gpush          &kp C_BRIGHTNESS_INC    &out OUT_TOG  &bt BT_SEL 0    &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3     &none
-&kp C_SLEEP       &sudo           &none           &none           &none           &kp C_BRIGHTNESS_DEC    &none         &kp C_PREVIOUS  &kp C_PLAY_PAUSE   &kp C_STOP        &kp C_NEXT       &none
+&studio_unlock    &shrug          &lgtm           &gcm            &pbl PBL_INC    &kp C_BRIGHTNESS_INC    &out OUT_TOG  &bt BT_SEL 0    &bt BT_SEL 1       &bt BT_SEL 2      &bt BT_SEL 3     &none
+&kp C_SLEEP       &sudo           &none           &pbl PBL_TOG    &pbl PBL_DEC    &kp C_BRIGHTNESS_DEC    &none         &kp C_PREVIOUS  &kp C_PLAY_PAUSE   &kp C_STOP        &kp C_NEXT       &none
 &kp C_AL_COFFEE   &kp C_AC_UNDO   &kp C_AC_CUT    &kp C_AC_COPY   &kp C_AC_PASTE  &none                   &new_dir      &kp K_MUTE      &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp PRINTSCREEN  &none
                                                                                    &none  &none  &none    &none         &none
             >;

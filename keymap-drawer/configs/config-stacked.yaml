@@ -396,6 +396,11 @@ parse_config:
     "&bt BT_SEL 2": "BT2"
     "&bt BT_SEL 3": "BT3"
 
+    # --- Prospector ---
+    "&pbl PBL_INC": "DONG +"
+    "&pbl PBL_DEC": "DONG -"
+    "&pbl PBL_TOG": "DONG TOG"  
+
   zmk_combos: {}
   zmk_preamble: "#define KEYMAP_DRAWER"
   zmk_additional_includes: []

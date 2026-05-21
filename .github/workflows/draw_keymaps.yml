@@ -156,6 +156,11 @@ jobs:
             --output="keymap-drawer/stacked/stacked.png" \
             "keymap-drawer/stacked/stacked.svg"
 
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Install Playwright (Chromium)
         run: |
           npm install playwright@latest
@@ -211,6 +216,7 @@ jobs:
           rm -f config/keymaps/keymap_features
 
       - name: Auto-commit keymap drawings
+        if: ${{ env.ACT != 'true' }}
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Update keymap drawings"
