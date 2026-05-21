@@ -1,0 +1,13 @@
+#define PBL_AUTO_CMD 0
+#define PBL_MANUAL_CMD 1
+#define PBL_TOG_CMD 2
+#define PBL_INC_CMD 3
+#define PBL_DEC_CMD 4
+#define PBL_SET_CMD 5
+
+#define PBL_AUTO PBL_AUTO_CMD 0
+#define PBL_MANUAL PBL_MANUAL_CMD 0
+#define PBL_TOG PBL_TOG_CMD 0
+#define PBL_INC PBL_INC_CMD 0
+#define PBL_DEC PBL_DEC_CMD 0
+#define PBL_SET PBL_SET_CMD

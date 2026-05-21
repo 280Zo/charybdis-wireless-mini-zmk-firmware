@@ -6,9 +6,9 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/ext_power.h>
-#include <dt-bindings/prospector/brightness.h>
 
 /* local overlays */
+#include "keymap_features/prospector_brightness.dtsi"
 #include "keymap_features/macros.dtsi"
 #include "keymap_features/behaviors.dtsi"
 #include "keymap_features/combos.dtsi"
