@@ -68,6 +68,9 @@ jobs:
                   return "settings_reset"
               return shield.split(" ", 1)[0]
 
+          def can_build_without_keymap(shield):
+              return shield == "settings_reset"
+
           groups = []
           for entry in config.get("include", []):
               entry_boards = as_list(entry.get("board"))
@@ -91,6 +94,8 @@ jobs:
                       for board, shield, keymap in itertools.product(
                           build_boards, build_shields, build_keymaps
                       ):
+                          if not keymap and not can_build_without_keymap(shield):
+                              continue
                           groups.append({
                               "board": board,
                               "shield": shield,
@@ -112,6 +117,8 @@ jobs:
                   for board, shield, keymap in itertools.product(
                       entry_boards, entry_shields, entry_keymaps
                   ):
+                      if not keymap and not can_build_without_keymap(shield):
+                          continue
                       groups.append({
                           "board": board,
                           "shield": shield,

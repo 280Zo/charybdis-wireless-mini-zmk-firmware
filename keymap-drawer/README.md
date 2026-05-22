@@ -32,6 +32,15 @@
    - `stacked-combos-dark.png`
    - `stacked-combos-light.png`
 
+Run the GitHub Actions keymap pipeline locally with:
+
+```bash
+act -W .github/workflows/draw_keymaps.yml --bind --reuse
+```
+
+The auto-commit step is skipped under `act`; local runs leave generated files in
+the worktree for review.
+
 ### Env knobs (workflow)
 - `KEYMAP_BG_DARK` - dark-theme composite background color.
 - `KEYMAP_BG_LIGHT` - light-theme composite background color.

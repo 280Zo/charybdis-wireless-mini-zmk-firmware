@@ -55,6 +55,7 @@ To see all the layers check out the [full render](keymap-drawer/all_layers/all_l
   - Suppoert for the Nice!Nano v2 has been added to the firmware options.
   - The prospector case has been adapted in [OnShape](https://cad.onshape.com/documents/1ab8632c0729c14a80991694/w/0a5575e0aa91142d15642877/e/053f9ce9786904291254a911) to fit the Nice!Nano v2.
   Options are also available for the smaller APDS9960 ambient light sensor variant, and a lower-cost Waveshare non-touch screen option (SKU 24382)
+  - APDS9960 sensor builds use a custom Prospector module ALS-only driver that works with the various APDS9960 sensor types.
 - **Timeless-inspired home row mods:** Based on [urob's](https://github.com/urob/zmk-config#timeless-homerow-mods) work and configured on the BASE layer.
 - **Thumb-scroll mode:** Hold the left-most thumb button (K36) while moving the trackball to turn motion into scroll.
 - **Precision cursor mode:** Double-tap, then hold K36 to drop the pointer speed, release to return to normal speed.
@@ -66,12 +67,13 @@ To see all the layers check out the [full render](keymap-drawer/all_layers/all_l
 - **K38 - Multifunction**
   - Tap: Backspace
   - Hold: Layer 1 (numbers) while the key is held
-  - Double-Tap & Hold: Keeps Backspace held
+  - Quick tap, then hold: Repeats Backspace instead of dropping into Layer 1
 - **Bluetooth profile quick-swap:** Jump to the EXTRAS layer and tap the dedicated BT-select keys to pair or switch among up to four saved hosts (plus BT CLR to forget all).
+- **Prospector display brightness controls:** Prospector builds can toggle between ambient-light and manual brightness control from the EXTRAS layer. On Colemak-DH, K04 brightens, K15 toggles auto/manual, and K16 dims.
 - **PMW3610 low power trackball sensor driver:** Provided by [badjeff](https://github.com/badjeff/zmk-pmw3610-driver)
   - Patched to prevent cursor jump on wake
 - **Hold-tap side-aware triggers:** Each HRM key only becomes a modifier if the opposite half is active, preventing accidental holds while one-handed.
-- **Quick-tap / prior-idle:** Tuned for faster mod-vs-tap detection (160 / 120 ms), with tap-preferred variants on A, I, and O (positions 13, 21, and 22) for faster rolls in Colemak-DH.
+- **Timeless HRM with selective exceptions:** Base home-row mods use the timeless-style `balanced + hold-trigger-on-release` setup, while A, I, and O (on a Colemak-DH layout) keep tap-preferred variants to reduce accidental mod triggers during fast rolls.
 - **ZMK Studio:** Supported on Bluetooth and the standard no-screen dongle builds for quick keymap adjustments. Prospector screen builds disable it to preserve RAM.
 
 
@@ -142,6 +144,15 @@ To change the Radii theme:
 
 1. Select `dongle_prospector_layout_radii.conf` in `extra_conf_files`
 2. Add one theme overlay from [config/dongle_prospector_themes](config/dongle_prospector_themes) to `extra_dtc_overlay_files`
+
+For Prospector builds with the APDS9960 ambient light sensor, [config/dongle_prospector/dongle_prospector_sensor.conf](config/dongle_prospector/dongle_prospector_sensor.conf) intentionally turns off Zephyr's stock APDS9960 driver and enables the Prospector module's replacement driver:
+
+```conf
+CONFIG_APDS9960=n
+CONFIG_PROSPECTOR_APDS9960=y
+```
+
+That keeps the application using the normal Zephyr sensor API while letting the Prospector module provide the APDS9960 behavior needed for variations in the APDS9960 sensors.
 
 ### Modify Keymap Selection
 

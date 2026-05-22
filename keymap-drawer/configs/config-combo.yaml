@@ -28,7 +28,7 @@ draw_config:
       /* Light palette */
       --combo-key-fill-light: #f9f5d7;
       --combo-key-border-light: #a89984;
-      --combo-tap-light: #fb4934;
+      --combo-tap-light: #d65d0e;
       --combo-box-stroke-light: #a89984;
       --combo-dendron-light: #a89984;
 
@@ -115,5 +115,7 @@ parse_config:
     "&mkp RCLK": "Right Click"
     "&bootloader": "BOOT LOADER"
     "&bt BT_CLR": "BT CLEAR"
+    "&desktop_prev": "PREV DESK"
+    "&desktop_next": "NEXT DESK"
     "&ht_combo_app_windows": "APP-WIN LAST/ALL"
     "&ht_combo_all_windows": "ALL-WIN LAST/ALL"

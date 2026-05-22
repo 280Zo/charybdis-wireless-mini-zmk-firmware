@@ -11,7 +11,6 @@ This setup provides a fast, containerized build environment for [ZMK Firmware](h
 - ZMK Studio USB-UART support on central shields
 - Artifacts published by format and keymap to a persistent folder for easy access
 
----
 
 ## Quick Start
 
@@ -23,24 +22,21 @@ Make sure you have:
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - This repository cloned on your host machine
 
----
 
 ### 2. Start the Build Container
 
 ```bash
-cd local-build
-docker-compose run --rm builder
+docker-compose -f local-build/docker-compose.yml run --rm builder
 ```
 
-### 3. Firmware Output
+### 3. Flash the Firmware
 
 Firmware files are placed under the `firmwares/` directory at the root of the repo.
 
----
 
-## Tips
+## Troubleshooting
 
-### Drop into a shell for troubleshooting
+### Drop into a shell in the build container
 
 This will give you an interactive bash prompt with all dependencies loaded, so you can run or debug the script manually:
 
@@ -48,31 +44,50 @@ This will give you an interactive bash prompt with all dependencies loaded, so y
 docker-compose run --rm --entrypoint bash builder
 ```
 
-Once inside the shell, you can execute the script manually, or go troubleshooting:
+Once inside the shell, you can manually test/troubleshoot or you can execute the script manually:
 
 ```bash
 bash ./local-build/build_setup.sh
 ```
 
----
+### Runtime USB Logging
 
-## Troubleshooting
+Enable USB logging to troubleshoot the firmware while it's running on the keyboard. This is disabled by default due to the significant negative impact on battery life, but can easily be enabled for testing through an environment variable in the build command:
 
-- Enable USB logging to troubleshoot the firmware while it's running.
-  - This is disabled by default since it has a significant negative impact on battery life.
-  - To turn it on, set `ENABLE_USB_LOGGING="true"` at the top of [build_setup.sh](build_setup.sh), then follow instructions [here](https://zmk.dev/docs/development/usb-logging) to see the log stream on your computer.
-  - Since this is a split keyboard you'll likely have to use `sudo tio /dev/ttyACM1` or `sudo tio /dev/ttyACM2` depending on what side you want to see logs for.
-    - If you don't know what tty devices your system can see, run `ls -l /dev/serial/by-id` to find out.
-    - To enable PMW3610 sensor debug logging, also uncomment `CONFIG_PMW3610_ALT_LOG_LEVEL_DBG=y` in the relevant shield conf:
-      - BT mode: `boards/shields/charybdis_right_bt/charybdis_right_bt.conf`
-      - Dongle mode: `boards/shields/charybdis_dongle/charybdis_dongle.conf`
-- If the firmware is not generated as expected, use the interactive shell method above to inspect `/workspaces/zmk/firmwares` or rerun the script with debugging.
-- Check the script output for any warnings or errors about missing shields, keymaps, or build failures. To save the output to a file:
+```bash
+ENABLE_USB_LOGGING=true docker-compose -f local-build/docker-compose.yml run --rm builder
+```
+
+Follow instructions [here](https://zmk.dev/docs/development/usb-logging) to see the log stream on your computer.
+
+Since this is a split keyboard you'll have to change the tty device depending on what you want log output from (e.g. `ttyACM0` for dongle, `ttyACM1` for right side, and `ttyACM2` for left side.
+
+To enable PMW3610 sensor debug logging, also uncomment `CONFIG_PMW3610_ALT_LOG_LEVEL_DBG=y` in the relevant shield conf.
+
+### Local Module Testing
+
+When you deliberately want to build whatever is already checked out in your local module folders use the `SKIP_WEST_UPDATE=true` environment variable:
+
+```bash
+SKIP_WEST_UPDATE=true docker-compose -f local-build/docker-compose.yml run --rm builder
+```
+
+Normal builds should not use this so `west update` can pull the configured module revisions.
+
+### Patched APDS9960 Zephyr Driver
+
+The Prospector APDS9960 sensor builds expect Zephyr's stock APDS9960 driver to be disabled and the Prospector module replacement driver to be enabled.
+
+The build script prints a resolved APDS9960 config block after each build so this is visible in the terminal output.
+
+### Build Logs
+
+Check the build script output for any warnings or errors. Most of the times it's a simple missing shield/keymaps, but sometimes it'll be a valid build failures. To save the output to a file for parsing and review:
+
   ```bash
   docker-compose run --rm builder > logs.txt 2>&1
   ```
 
----
 
 ## More Resources
 

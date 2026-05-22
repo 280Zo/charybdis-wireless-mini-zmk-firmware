@@ -5,7 +5,8 @@ set -euo pipefail
 START_TIME=$(date +%s)
 
 # --- CONFIGURABLE SETTINGS ---
-ENABLE_USB_LOGGING="false"                         # Set to "true" to enable USB logging in the firmware
+ENABLE_USB_LOGGING="${ENABLE_USB_LOGGING:-false}" # Set to "true" to enable USB logging in the firmware
+SKIP_WEST_UPDATE="${SKIP_WEST_UPDATE:-false}"     # Set to "true" to build with current local module checkouts
 REPO_ROOT="${REPO_ROOT:-$PWD}"                     # path to original repo root
 SHIELD_PATH="${SHIELD_PATH:-boards/shields}"       # where shield folders live relative to repo root
 CONFIG_PATH="${CONFIG_PATH:-config}"               # where configs live
@@ -22,8 +23,12 @@ if [ ! -d ".west" ]; then
 fi
 
 # Update to fetch all modules and dependencies
-echo "Updating west modules..."
-west update
+if [[ "$SKIP_WEST_UPDATE" == "true" ]]; then
+    echo "Skipping west update; using current local module checkouts."
+else
+    echo "Updating west modules..."
+    west update
+fi
 
 # Set environment variables in the current shell
 echo "Preparing Zephyr build environment..."
@@ -281,7 +286,13 @@ parse_string_or_array_field() {
 
   jq -r --arg field "$field_name" '
     if has($field) then
-      if (.[$field] | type) == "array" then .[$field][] else .[$field] end
+      if .[$field] == null then
+        empty
+      elif (.[$field] | type) == "array" then
+        .[$field][] | select(. != null and . != "")
+      else
+        .[$field] | select(. != "")
+      end
     else
       empty
     end
@@ -353,6 +364,23 @@ for entry_json in "${build_entries[@]}"; do
       build_keymaps=("${entry_keymaps[@]}")
     fi
 
+    # Check if a firmware entry in build.yaml has at least 
+    # one active keymap before creating the sandbox
+    if [ ${#build_keymaps[@]} -eq 0 ]; then
+      has_settings_reset=false
+      for shield in "${build_shields[@]}"; do
+        if [[ "$shield" == "settings_reset" ]]; then
+          has_settings_reset=true
+          break
+        fi
+      done
+
+      if [[ "$has_settings_reset" != "true" ]]; then
+        printf '[WARN] No keymap specified for build entry: %s\n' "$entry_format"
+        continue
+      fi
+    fi
+
     entry_extra_conf_files=("${build_extra_conf_files[@]}")
     if [ ${#entry_extra_conf_files[@]} -eq 0 ]; then
       mapfile -t entry_extra_conf_files < <(parse_string_or_array_field "$entry_json" "extra_conf_files")
@@ -391,10 +419,6 @@ for entry_json in "${build_entries[@]}"; do
           # Build once without a keymap for settings_reset shield
           build_firmware "$shield" "$target" "$entry_board"
         else
-          if [ ${#build_keymaps[@]} -eq 0 ]; then
-            printf '[WARN] No keymap specified for build item: %s\n' "$build_json"
-            continue
-          fi
           # Loop over every keymap
           for entry_keymap in "${build_keymaps[@]}"; do
             keymap_path="$NEW_CONFIG_PATH/keymaps/${entry_keymap}.keymap"
