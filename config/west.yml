@@ -8,14 +8,41 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      # Tested main-derived snapshot pending validation of ZMK v0.4.0.
+      revision: 4dd95d7840eb3d5a3f59bb29fbf1ab054715ef85
       import: app/west.yml
+    - name: zephyr
+      remote: zmkfirmware
+      # Zephyr 4.1.0 + ZMK fixes: head of ZMK's supported branch v4.1.0+zmk-fixes.
+      # Approved exception to "latest official release": ZMK does not support
+      # upstream Zephyr 4.4.x yet (see README). Revisit at ZMK v0.4.0.
+      revision: 10ba6d0cb38bc3d258775d27982f707599320085
+      import:
+        # A root override replaces the imported project, including its filters.
+        name-blocklist:
+          - ci-tools
+          - hal_altera
+          - hal_cypress
+          - hal_infineon
+          - hal_microchip
+          - hal_nxp
+          - hal_openisa
+          - hal_xtensa
+          - hal_st
+          - hal_ti
+          - loramac-node
+          - mcuboot
+          - mcumgr
+          - net-tools
+          - openthread
+          - edtt
+          - trusted-firmware-m
     - name: zmk-pmw3610-driver
       remote: 280Zo
-      revision: main
+      revision: f6e234367b22508b5c0a6bcc82437c64f320089b
     - name: prospector-zmk-module
       remote: 280Zo
-      revision: main
+      revision: 6cd6b724ff26d89c898345c856353b90812670e8
 
   self:
     path: config

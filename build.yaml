@@ -6,37 +6,33 @@ board: [ nice_nano//zmk ]
 
 include:
 
-# ── Reset Firmware ────────────────────────────────────────────────────────────
-  - name: settings_reset
-    board: nice_nano//zmk
-    shield: settings_reset
+# # ── Reset Firmware ────────────────────────────────────────────────────────────
+#   - name: settings_reset
+#     board: nice_nano//zmk
+#     shield: settings_reset
 
-# ── Bluetooth (BT) Firmwares ─────────────────────────────────────────────────────────────
-  - name: bt
-    board: nice_nano//zmk
-    shield:
-      - charybdis_left_bt
-      - charybdis_right_bt
-    keymap:
-      - qwerty
-      - colemak_dh
-      # - canary
-      # - focal
-      # - graphite
+# # ── Bluetooth (BT) Firmwares ─────────────────────────────────────────────────────────────
+#   - name: bt
+#     board: nice_nano//zmk
+#     shield:
+#       - charybdis_left_bt
+#       - charybdis_right_bt
+#     keymap:
+#       - qwerty
+#       - colemak_dh
+#       - canary
 
-# ── Standard Dongle Firmwares ─────────────────────────────────────────────────
-  - name: dongle_standard_nano
-    board: nice_nano//zmk
-    shield:
-      - charybdis_left_dongle
-      - charybdis_right_dongle
-      - charybdis_dongle
-    keymap:
-      - qwerty
-      - colemak_dh
-      # - canary
-      # - focal
-      # - graphite
+# # ── Standard Dongle Firmwares ─────────────────────────────────────────────────
+#   - name: dongle_standard_nano
+#     board: nice_nano//zmk
+#     shield:
+#       - charybdis_left_dongle
+#       - charybdis_right_dongle
+#       - charybdis_dongle
+#     keymap:
+#       - qwerty
+#       - colemak_dh
+#       - canary
 
 # ── Prospector Dongle (Display Screen) Firmwares ──────────────────────────
 
@@ -61,7 +57,7 @@ include:
   - name: dongle_prospector_nano_no_sensor
     board: nice_nano//zmk
     keymap:
-      - qwerty
+      # - qwerty
       - colemak_dh
       # - canary
     builds:
@@ -71,60 +67,72 @@ include:
         extra_conf_files:
           - dongle_prospector/dongle_prospector_common.conf
           - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
+          - dongle_prospector_features/dongle_prospector_feature_diagnostics.conf
+          - dongle_prospector_features/dongle_prospector_feature_keyboard_knight.conf
+          - dongle_prospector_features/dongle_prospector_feature_hidden_extra.conf
           - dongle_prospector/dongle_prospector_no_sensor.conf
         extra_dtc_overlay_files:
           - dongle_prospector/dongle_prospector_no_sensor.overlay
 
-# ── Prospector Nice Nano v2 Dongle with APDS9960 ambient light sensor ──────────────────────────
-  - name: dongle_prospector_nano_sensor
-    board: nice_nano//zmk
-    keymap:
-      - qwerty
-      - colemak_dh
-      # - canary
-    builds:
-      - shield: charybdis_left_dongle
-      - shield: charybdis_right_dongle
-      - shield: "charybdis_dongle prospector_adapter"
-        extra_conf_files:
-          - dongle_prospector/dongle_prospector_common.conf
-          - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
-          - dongle_prospector/dongle_prospector_sensor.conf
+# # ── Prospector Nice Nano v2 Dongle with APDS9960 ambient light sensor ──────────────────────────
+#   - name: dongle_prospector_nano_sensor
+#     board: nice_nano//zmk
+#     keymap:
+#       - qwerty
+#       - colemak_dh
+#       - canary
+#     builds:
+#       - shield: charybdis_left_dongle
+#       - shield: charybdis_right_dongle
+#       - shield: "charybdis_dongle prospector_adapter"
+#         extra_conf_files:
+#           - dongle_prospector/dongle_prospector_common.conf
+#           - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
+#           - dongle_prospector_features/dongle_prospector_feature_diagnostics.conf
+#           - dongle_prospector_features/dongle_prospector_feature_keyboard_knight.conf
+#           - dongle_prospector_features/dongle_prospector_feature_hidden_extra.conf
+#           - dongle_prospector/dongle_prospector_sensor.conf
 
-# ── Prospector XIAO BLE w/o APDS9960 ambient light sensor ──────────────
-  - name: dongle_prospector_xiao_no_sensor
-    board: xiao_ble//zmk
-    keymap:
-      - qwerty
-      - colemak_dh
-      # - canary
-    builds:
-      - shield: charybdis_left_dongle
-        board: nice_nano//zmk
-      - shield: charybdis_right_dongle
-        board: nice_nano//zmk
-      - shield: "charybdis_dongle prospector_adapter"
-        extra_conf_files:
-          - dongle_prospector/dongle_prospector_common.conf
-          - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
-          - dongle_prospector/dongle_prospector_no_sensor.conf
-        extra_dtc_overlay_files:
-          - dongle_prospector/dongle_prospector_no_sensor.overlay
+# # ── Prospector XIAO BLE w/o APDS9960 ambient light sensor ──────────────
+#   - name: dongle_prospector_xiao_no_sensor
+#     board: xiao_ble//zmk
+#     keymap:
+#       - qwerty
+#       - colemak_dh
+#       - canary
+#     builds:
+#       - shield: charybdis_left_dongle
+#         board: nice_nano//zmk
+#       - shield: charybdis_right_dongle
+#         board: nice_nano//zmk
+#       - shield: "charybdis_dongle prospector_adapter"
+#         extra_conf_files:
+#           - dongle_prospector/dongle_prospector_common.conf
+#           - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
+#           - dongle_prospector_features/dongle_prospector_feature_diagnostics.conf
+#           - dongle_prospector_features/dongle_prospector_feature_keyboard_knight.conf
+#           - dongle_prospector_features/dongle_prospector_feature_hidden_extra.conf
+#           - dongle_prospector/dongle_prospector_no_sensor.conf
+#         extra_dtc_overlay_files:
+#           - dongle_prospector/dongle_prospector_no_sensor.overlay
 
-# ── Prospector XIAO BLE with APDS9960 ambient light sensor ──────────────
-  - name: dongle_prospector_xiao_sensor
-    board: xiao_ble//zmk
-    keymap:
-      - qwerty
-      - colemak_dh
-      # - canary
-    builds:
-      - shield: charybdis_left_dongle
-        board: nice_nano//zmk
-      - shield: charybdis_right_dongle
-        board: nice_nano//zmk
-      - shield: "charybdis_dongle prospector_adapter"
-        extra_conf_files:
-          - dongle_prospector/dongle_prospector_common.conf
-          - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
-          - dongle_prospector/dongle_prospector_sensor.conf
+# # ── Prospector XIAO BLE with APDS9960 ambient light sensor ──────────────
+#   - name: dongle_prospector_xiao_sensor
+#     board: xiao_ble//zmk
+#     keymap:
+#       - qwerty
+#       - colemak_dh
+#       - canary
+#     builds:
+#       - shield: charybdis_left_dongle
+#         board: nice_nano//zmk
+#       - shield: charybdis_right_dongle
+#         board: nice_nano//zmk
+#       - shield: "charybdis_dongle prospector_adapter"
+#         extra_conf_files:
+#           - dongle_prospector/dongle_prospector_common.conf
+#           - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
+#           - dongle_prospector_features/dongle_prospector_feature_diagnostics.conf
+#           - dongle_prospector_features/dongle_prospector_feature_keyboard_knight.conf
+#           - dongle_prospector_features/dongle_prospector_feature_hidden_extra.conf
+#           - dongle_prospector/dongle_prospector_sensor.conf

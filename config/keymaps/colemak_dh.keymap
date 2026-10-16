@@ -7,6 +7,18 @@
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/ext_power.h>
 
+/* The shield-specific overlay provides this before keymap preprocessing. */
+#ifdef CHARYBDIS_PROSPECTOR_ADAPTER
+#include <dt-bindings/prospector/display_page.h>
+#define NAV_PAGE_PREV &pdp PDP_PREV
+#define NAV_PAGE_STATUS &pdp PDP_STATUS
+#define NAV_PAGE_NEXT &pdp PDP_NEXT
+#else
+#define NAV_PAGE_PREV &none
+#define NAV_PAGE_STATUS &none
+#define NAV_PAGE_NEXT &none
+#endif
+
 /* local overlays */
 #include "keymap_features/prospector_brightness.dtsi"
 #include "keymap_features/macros.dtsi"
@@ -76,9 +88,9 @@
         NAV {
             display-name = "Nav";
             bindings = <
-&none    &msc MOVE_LEFT  &msc MOVE_UP    &none        &msc MOVE_DOWN  &msc MOVE_RIGHT     &detach_session  &create_or_attach  &next_pane   &show_sessions  &sync_panes       &none
-&kp TAB  &mkp MB4        &kp LALT        &kp LSHFT    &kp LCTRL       &mkp MB5            &h_split         &kp LEFT_ARROW     &kp DOWN     &kp UP          &kp RIGHT_ARROW   &none
-&none    &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP &mmv MOVE_RIGHT &none               &v_split         &kp HOME           &kp PG_DN    &kp PG_UP       &kp END           &none
+&none    &msc MOVE_LEFT  &msc MOVE_UP    &none        &msc MOVE_DOWN  &msc MOVE_RIGHT     &detach_session  &create_or_attach  &next_pane   &show_sessions  &sync_panes       NAV_PAGE_PREV
+&kp TAB  &mkp MB4        &kp LALT        &kp LSHFT    &kp LCTRL       &mkp MB5            &h_split         &kp LEFT_ARROW     &kp DOWN     &kp UP          &kp RIGHT_ARROW   NAV_PAGE_STATUS
+&none    &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP &mmv MOVE_RIGHT &none               &v_split         &kp HOME           &kp PG_DN    &kp PG_UP       &kp END           NAV_PAGE_NEXT
                                                       &none   &none   &none               &none   &trans
             >;
         };

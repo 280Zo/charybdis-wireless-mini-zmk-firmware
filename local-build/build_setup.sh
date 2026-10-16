@@ -11,10 +11,19 @@ REPO_ROOT="${REPO_ROOT:-$PWD}"                     # path to original repo root
 SHIELD_PATH="${SHIELD_PATH:-boards/shields}"       # where shield folders live relative to repo root
 CONFIG_PATH="${CONFIG_PATH:-config}"               # where configs live
 FALLBACK_BINARY="${FALLBACK_BINARY:-bin}"          # fallback firmware extension
+# Set to "true" to copy generated zephyr.dts/.config out of Docker /tmp before
+# the --rm container exits. These copies land in the mounted repo under
+# local-build/preserved-artifacts with broad write permissions so users can
+# delete them after troubleshooting.
+PRESERVE_BUILD_ARTIFACTS="${PRESERVE_BUILD_ARTIFACTS:-${PRESERVE_BUILD_DIRS:-false}}"
 
 # --- ZMK WORKSPACE ---
 echo ""
 echo "=== SETUP ZMK WORKSPACE ==="
+printf 'Build options:\n'
+printf '  USB logging                : %s\n' "$ENABLE_USB_LOGGING"
+printf '  Skip west update           : %s\n' "$SKIP_WEST_UPDATE"
+printf '  Preserve build artifacts   : %s\n' "$PRESERVE_BUILD_ARTIFACTS"
 
 # Only init if not already initialized (i.e., .west folder doesn't exist)
 if [ ! -d ".west" ]; then
@@ -26,6 +35,8 @@ fi
 if [[ "$SKIP_WEST_UPDATE" == "true" ]]; then
     echo "Skipping west update; using current local module checkouts."
 else
+    # Ignore file mode changes before updating (chmod -R 777 later would dirty every file otherwise)
+    west forall -c 'git config core.fileMode false' 2>/dev/null || true
     echo "Updating west modules..."
     west update
 fi
@@ -63,7 +74,7 @@ fi
 
 # Set permissions so users can delete them in their own environment
 echo "Setting permissions on ZMK resources..."
-chmod -R 777 .west zmk zephyr modules zmk-pmw3610-driver prospector-zmk-module
+chmod -R a+rwX .west zmk zephyr modules zmk-pmw3610-driver prospector-zmk-module
 
 # # Debug: confirm checkout
 # echo "    West workspace ready. Project structure:"
@@ -278,6 +289,28 @@ build_firmware() {
   printf 'Destination: %s\n' "$dest"
   cp "$artifact_src" "$dest"
   chmod 666 "$dest"
+
+  if [[ "$PRESERVE_BUILD_ARTIFACTS" == "true" ]]; then
+    local debug_dir="/workspaces/zmk/local-build/preserved-artifacts/${format_dir}/${dir_suffix}/${target}"
+
+    printf 'Preserving generated build artifacts for troubleshooting...\n'
+    rm -rf "$debug_dir"
+    mkdir -p "$debug_dir"
+
+    cp "$build_dir/zephyr/zephyr.dts" "$debug_dir/zephyr.dts"
+    cp "$build_dir/zephyr/.config" "$debug_dir/config.txt"
+
+    if [ -f "$build_dir/zephyr/include/generated/zephyr/devicetree_generated.h" ]; then
+      cp "$build_dir/zephyr/include/generated/zephyr/devicetree_generated.h" "$debug_dir/devicetree_generated.h"
+    fi
+
+    if [ -f "$build_dir/zephyr/dts.cmake" ]; then
+      cp "$build_dir/zephyr/dts.cmake" "$debug_dir/dts.cmake"
+    fi
+
+    chmod -R a+rwX "$debug_dir"
+    printf 'Preserved build artifacts: %s\n' "$debug_dir"
+  fi
 }
 
 parse_string_or_array_field() {
@@ -384,6 +417,21 @@ for entry_json in "${build_entries[@]}"; do
     entry_extra_conf_files=("${build_extra_conf_files[@]}")
     if [ ${#entry_extra_conf_files[@]} -eq 0 ]; then
       mapfile -t entry_extra_conf_files < <(parse_string_or_array_field "$entry_json" "extra_conf_files")
+    fi
+
+    if [[ "$ENABLE_USB_LOGGING" == "true" ]]; then
+      filtered_extra_conf_files=()
+      for conf_file in "${entry_extra_conf_files[@]}"; do
+        case "$conf_file" in
+          dongle_prospector_features/*)
+            printf '[INFO] USB logging enabled; skipping Prospector feature config: %s\n' "$conf_file"
+            ;;
+          *)
+            filtered_extra_conf_files+=("$conf_file")
+            ;;
+        esac
+      done
+      entry_extra_conf_files=("${filtered_extra_conf_files[@]}")
     fi
 
     entry_extra_dtc_overlay_files=("${build_extra_dtc_overlay_files[@]}")

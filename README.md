@@ -2,7 +2,40 @@
 
 ## Intro
 
-This repository offers pre-configured ZMK firmware. It's designed for the [Wireless Charybdis keyboards](https://github.com/280Zo/charybdis-wireless-mini-3x6-build-guide?tab=readme-ov-file), but is easily adaptable to other platforms. It supports the latest stable ZMK release (v0.4.1) with full Bluetooth/USB split and dongle build support (including Prospector dongles with displays), and uses the latest input listeners and processors for responsive pointer and scroll behavior.
+This repository offers pre-configured ZMK firmware. It's designed for the [Wireless Charybdis keyboards](https://github.com/280Zo/charybdis-wireless-mini-3x6-build-guide?tab=readme-ov-file), but is easily adaptable to other platforms. It uses a pinned ZMK development revision with Zephyr 4.1.0 + ZMK fixes, pending validation of the ZMK v0.4.0 release. It supports Bluetooth/USB split and dongle builds (including Prospector dongles with displays), with modular input listeners and processors for pointer and scroll behavior.
+
+### Pinned build baseline
+
+The authoritative dependency pins are in [config/west.yml](config/west.yml):
+
+| Component | Selected revision |
+| --- | --- |
+| ZMK development snapshot | [`4dd95d7`](https://github.com/zmkfirmware/zmk/commit/4dd95d7840eb3d5a3f59bb29fbf1ab054715ef85) |
+| Zephyr 4.1.0 + ZMK fixes | [`10ba6d0`](https://github.com/zmkfirmware/zephyr/commit/10ba6d0cb38bc3d258775d27982f707599320085) |
+| Existing PMW3610 driver | [`f6e2343`](https://github.com/280Zo/zmk-pmw3610-driver/commit/f6e234367b22508b5c0a6bcc82437c64f320089b) |
+| Prospector screen module | [`b6f5d2e`](https://github.com/280Zo/prospector-zmk-module/commit/b6f5d2e81516db1c76743838b8a86af2c2a4c0fc) |
+
+Zephyr is explicitly pinned rather than following the branch imported by ZMK.
+
+> **Why not the latest official Zephyr release?** This repo prefers the latest
+> official releases, but ZMK doesn't yet support upstream Zephyr 4.4.x. A test
+> build against Zephyr v4.4.2 failed before compiling: Zephyr 4.4 requires a
+> `full_name` field in every board definition, and ZMK's own boards (including the
+> nice!nano) don't have one yet. ZMK, including its latest `main`, still builds with
+> its maintained Zephyr branch `v4.1.0+zmk-fixes`. The pinned Zephyr above is the
+> head of that branch, which is the version ZMK supports and the version
+> hardware-tested here. This is a deliberate exception, to be revisited when ZMK
+> v0.4.0 is released or ZMK moves to a newer Zephyr.
+
+The local build container is pinned by digest in
+[local-build/docker-compose.yml](local-build/docker-compose.yml). Normal dependency
+updates retrieve these selected revisions; they do not adopt newer upstream code.
+
+The tested hardware configuration is the Colemak layout with both dongle-connected
+halves and the no-sensor Prospector dongle (Operator, diagnostics, Keyboard Knight
+and hidden-extra enabled). The standard dongle was compile-checked; sensor hardware
+validation remains separate. ZMK v0.4.0 will be evaluated before switching to its
+release tag. Pins are updated manually after testing, not automatically.
 
 ## Overview & Usage
 
@@ -88,7 +121,7 @@ Download your choice of firmware from the Releases page. Choose a combination of
 5. Copy the applicable uf2 file into the storage device
 6. It will take a moment, then it will unmount and restart itself.
 7. Repeat these steps for all devices.
-8. If you've flashed one of the prospector dongle builds, you'll need to power on the dongle, then the left side before the right. This will sync the battery widget to the correct side.
+8. If you've flashed one of the prospector dongle builds, the halves can be powered on in any order. Each half tells the dongle whether it's the left or right side, so the battery widget always shows them on the correct side.
 
 > [!NOTE]
 > If you are flashing the firmware for the first time, or if you're switching between the dongle and the Bluetooth/USB configuration, flash the reset firmware to all the devices first
@@ -153,6 +186,21 @@ CONFIG_PROSPECTOR_APDS9960=y
 ```
 
 That keeps the application using the normal Zephyr sensor API while letting the Prospector module provide the APDS9960 behavior needed for variations in the APDS9960 sensors.
+
+To change Prospector display feature selection:
+
+1. Open [build.yaml](build.yaml)
+2. Find the Prospector display build entry you want
+3. Add or remove feature files under `extra_conf_files`
+
+Available Prospector display feature files:
+
+- [config/dongle_prospector_features/dongle_prospector_feature_diagnostics.conf](config/dongle_prospector_features/dongle_prospector_feature_diagnostics.conf): enables the swipe/key-selectable diagnostics page.
+- [config/dongle_prospector_features/dongle_prospector_feature_keyboard_knight.conf](config/dongle_prospector_features/dongle_prospector_feature_keyboard_knight.conf): enables Keyboard Knight, an animated WASD knight avatar that sleeps at rest, guards during normal typing, and charges during fast typing.
+- [config/dongle_prospector_features/dongle_prospector_feature_hidden_extra.conf](config/dongle_prospector_features/dongle_prospector_feature_hidden_extra.conf): enables the optional hidden display extra.
+
+> [!NOTE]
+> Local builds with `ENABLE_USB_LOGGING=true` automatically skip Prospector display feature files under `config/dongle_prospector_features/`. The base Prospector display/layout still builds, but diagnostics, Keyboard Knight, and the hidden extra are omitted so the logging firmware stays flashable on the nice!nano.
 
 ### Modify Keymap Selection
 

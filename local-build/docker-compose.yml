@@ -1,6 +1,6 @@
 services:
   builder:
-    image: zmkfirmware/zmk-dev-arm:stable
+    image: zmkfirmware/zmk-dev-arm@sha256:77b62cbc6c62ca0026ed9eb511dd7fc2a13692d1b9ddbaf92bca510612390db8
     volumes:
       # Bind-mount entire repo
       - ../:/workspaces/zmk:rw
@@ -8,6 +8,7 @@ services:
     environment:
       ENABLE_USB_LOGGING: ${ENABLE_USB_LOGGING:-false}
       SKIP_WEST_UPDATE: ${SKIP_WEST_UPDATE:-false}
+      PRESERVE_BUILD_ARTIFACTS: ${PRESERVE_BUILD_ARTIFACTS:-false}
     entrypoint: []
     command:
       - bash

@@ -58,6 +58,8 @@ Enable USB logging to troubleshoot the firmware while it's running on the keyboa
 ENABLE_USB_LOGGING=true docker-compose -f local-build/docker-compose.yml run --rm builder
 ```
 
+When USB logging is enabled, local Prospector builds automatically skip optional Prospector display feature configs under `config/dongle_prospector_features/`. The base Prospector display/layout still builds, but diagnostics, Keyboard Knight, and the hidden extra are left out to keep the logging firmware flashable on the nice!nano.
+
 Follow instructions [here](https://zmk.dev/docs/development/usb-logging) to see the log stream on your computer.
 
 Since this is a split keyboard you'll have to change the tty device depending on what you want log output from (e.g. `ttyACM0` for dongle, `ttyACM1` for right side, and `ttyACM2` for left side.
@@ -72,7 +74,25 @@ When you deliberately want to build whatever is already checked out in your loca
 SKIP_WEST_UPDATE=true docker-compose -f local-build/docker-compose.yml run --rm builder
 ```
 
-Normal builds should not use this so `west update` can pull the configured module revisions.
+Normal builds should not use this so `west update` can retrieve the pinned module
+revisions from `config/west.yml`. Upstream branch changes do not change those pins.
+
+If you manually copy Prospector development sources into `prospector-zmk-module/`,
+keep `SKIP_WEST_UPDATE=true` until you are ready to replace that copy with the
+manifest-selected revision. This flag skips updates; it does not disable the
+script's permission changes or cleanup of previous firmware output.
+
+### Repeat Builds and File Permissions
+
+Before a normal update, the script sets `core.fileMode=false` in existing
+West-managed repositories so executable-bit-only changes from earlier Docker
+builds do not block checkout. Git still detects source-content changes.
+
+Resource permissions use `a+rwX` instead of `777`: ordinary nonexecutable source
+files stay nonexecutable, but existing execute bits are not removed. This still
+grants all users read/write access to the named resource directories and files;
+use it only in a trusted local build workspace. It does not repair ownership or
+bypass Git's ownership checks.
 
 ### Patched APDS9960 Zephyr Driver
 

@@ -1,0 +1,2 @@
+/* Selected by ZMK only when the Prospector adapter shield is present. */
+#define CHARYBDIS_PROSPECTOR_ADAPTER 1
