@@ -51,6 +51,11 @@ include:
     #   - dongle_prospector_themes/dongle_prospector_theme_green.overlay
     #   - dongle_prospector_themes/dongle_prospector_theme_red.overlay
     #   - dongle_prospector_themes/dongle_prospector_theme_purple.overlay
+    #
+    # Keyboard Knight is optional: remove the keyboard_knight and hidden_extra feature
+    # lines below to build without the avatar page (the hidden extra needs the avatar page).
+    # To keep the hidden extra without the Knight art, keep both lines and add a conf with
+    # CONFIG_PROSPECTOR_AVATAR_SHOW_KEYBOARD_KNIGHT=n.
 
 
 # ── Prospector Nice Nano v2 Dongle w/o APDS9960 ambient light sensor ──────────────────────────
@@ -92,6 +97,9 @@ include:
 #           - dongle_prospector_features/dongle_prospector_feature_keyboard_knight.conf
 #           - dongle_prospector_features/dongle_prospector_feature_hidden_extra.conf
 #           - dongle_prospector/dongle_prospector_sensor.conf
+#         # Keep only if the sensor's SCL wire is on D21 (original wiring); omit for D15.
+#         extra_dtc_overlay_files:
+#           - dongle_prospector/dongle_prospector_sensor_scl_d21.overlay
 
 # # ── Prospector XIAO BLE w/o APDS9960 ambient light sensor ──────────────
 #   - name: dongle_prospector_xiao_no_sensor

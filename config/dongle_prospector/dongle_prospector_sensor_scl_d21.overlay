@@ -1,0 +1,19 @@
+/* nice!nano Prospector dongles wired with the original I2C clock on D21 (P0.31).
+ *
+ * The Prospector module now defaults SCL to D15 (P1.13) for touch-screen builds.
+ * Sensor boards wired to the original layout keep SCL on D21 and SDA on D20, so
+ * restore D21 here. Not for XIAO builds (different pins). */
+
+&prospector_i2c_default {
+    group1 {
+        psels = <NRF_PSEL(TWIM_SCL, 0, 31)>,   /* D21 */
+                <NRF_PSEL(TWIM_SDA, 0, 29)>;   /* D20 */
+    };
+};
+
+&prospector_i2c_sleep {
+    group1 {
+        psels = <NRF_PSEL(TWIM_SCL, 0, 31)>,
+                <NRF_PSEL(TWIM_SDA, 0, 29)>;
+    };
+};
