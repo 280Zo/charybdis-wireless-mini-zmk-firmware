@@ -1077,7 +1077,7 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font
 <g transform="translate(342, 48)" class="key keypos-4">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em">&amp;pbl</tspan><tspan x="0" dy="1.5em">PBL_INC</tspan>
+<tspan x="0" dy="-1.5em">&amp;pbl</tspan><tspan x="0" dy="1.5em">3</tspan><tspan x="0" dy="1.5em">0</tspan>
 </text>
 </g>
 <g transform="translate(418, 48)" class="key keypos-5">
@@ -1131,13 +1131,13 @@ text.br  { font-family: "JetBrainsMono Nerd Font"; fill: var(--all-corner); font
 <g transform="translate(266, 114)" class="key keypos-15">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em">&amp;pbl</tspan><tspan x="0" dy="1.5em">PBL_TOG</tspan>
+<tspan x="0" dy="-1.5em">&amp;pbl</tspan><tspan x="0" dy="1.5em">2</tspan><tspan x="0" dy="1.5em">0</tspan>
 </text>
 </g>
 <g transform="translate(342, 124)" class="key keypos-16">
 <rect rx="6" ry="6" x="-36" y="-36" width="72" height="72" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.75em">&amp;pbl</tspan><tspan x="0" dy="1.5em">PBL_DEC</tspan>
+<tspan x="0" dy="-1.5em">&amp;pbl</tspan><tspan x="0" dy="1.5em">4</tspan><tspan x="0" dy="1.5em">0</tspan>
 </text>
 </g>
 <g transform="translate(418, 124)" class="key keypos-17">
