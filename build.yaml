@@ -60,6 +60,8 @@ include:
     #   - dongle_prospector_operator_themes/dongle_prospector_operator_theme_synthwave.conf
     #   - dongle_prospector_operator_themes/dongle_prospector_operator_theme_sea_shells.conf
     #   - dongle_prospector_operator_themes/dongle_prospector_operator_theme_github.conf
+    #   - dongle_prospector_operator_themes/dongle_prospector_operator_theme_custom.conf
+    #     (fill in its 14 colours first; it also adds "Custom" to the theme keys' cycle)
     #   - dongle_prospector_operator_textures/dongle_prospector_operator_texture_dots.conf
     #   - dongle_prospector_operator_textures/dongle_prospector_operator_texture_fine_grid.conf
     #   - dongle_prospector_operator_textures/dongle_prospector_operator_texture_hatch.conf
