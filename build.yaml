@@ -52,6 +52,18 @@ include:
     #   - dongle_prospector_themes/dongle_prospector_theme_red.overlay
     #   - dongle_prospector_themes/dongle_prospector_theme_purple.overlay
     #
+    # Operator-only colour theme and background texture (one of each, optional; without
+    # them the Operator screen keeps its original colours on a plain background). Remove
+    # these lines when switching to another layout, or the build stops on a Kconfig warning:
+    #   - dongle_prospector_operator_themes/dongle_prospector_operator_theme_ember.conf
+    #   - dongle_prospector_operator_themes/dongle_prospector_operator_theme_glacier.conf
+    #   - dongle_prospector_operator_themes/dongle_prospector_operator_theme_synthwave.conf
+    #   - dongle_prospector_operator_themes/dongle_prospector_operator_theme_sea_shells.conf
+    #   - dongle_prospector_operator_themes/dongle_prospector_operator_theme_github.conf
+    #   - dongle_prospector_operator_textures/dongle_prospector_operator_texture_dots.conf
+    #   - dongle_prospector_operator_textures/dongle_prospector_operator_texture_fine_grid.conf
+    #   - dongle_prospector_operator_textures/dongle_prospector_operator_texture_hatch.conf
+    #
     # Keyboard Knight is optional: remove the keyboard_knight and hidden_extra feature
     # lines below to build without the avatar page (the hidden extra needs the avatar page).
     # To keep the hidden extra without the Knight art, keep both lines and add a conf with
@@ -72,6 +84,7 @@ include:
         extra_conf_files:
           - dongle_prospector/dongle_prospector_common.conf
           - dongle_prospector_layouts/dongle_prospector_layout_operator.conf
+          - dongle_prospector_operator_themes/dongle_prospector_operator_theme_synthwave.conf
           - dongle_prospector_features/dongle_prospector_feature_diagnostics.conf
           - dongle_prospector_features/dongle_prospector_feature_keyboard_knight.conf
           - dongle_prospector_features/dongle_prospector_feature_hidden_extra.conf
