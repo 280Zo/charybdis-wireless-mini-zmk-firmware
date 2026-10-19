@@ -8,6 +8,11 @@ prospector-zmk-module
 local-build/logs.txt
 local-build/preserved-artifacts/
 scripts/__pycache__
+scripts/tests/__pycache__/
+local-build/theme-previews/
+/scripts/theme-previews/
+/scripts/theme_editor/__pycache__/
+config/dongle_prospector_operator_themes/.theme-tweak.lock
 local-build/jq
 local-build/yq
 notes
@@ -28,4 +33,3 @@ keymap-drawer/stacked/combos.svg
 keymap-drawer/stacked/legend.svg
 keymap-drawer/stacked/stacked.png
 keymap-drawer/stacked/stacked-combos.png
-
