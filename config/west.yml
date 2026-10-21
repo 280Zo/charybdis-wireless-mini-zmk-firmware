@@ -42,7 +42,7 @@ manifest:
       revision: f6e234367b22508b5c0a6bcc82437c64f320089b
     - name: prospector-zmk-module
       remote: 280Zo
-      revision: 5a49eb0bd4755284660de83b9617124bad33bf9e
+      revision: 8d73a66daa5e5b689b5988f3dc7e7cc665356664
 
   self:
     path: config
